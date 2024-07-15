@@ -7,7 +7,9 @@
   "scripts": {
     "dev": "plasmo dev",
     "build": "plasmo build",
-    "package": "plasmo package"
+    "build:firefox": "plasmo build --target=firefox-mv2",
+    "package": "plasmo package",
+    "package:firefox": "plasmo package --target=firefox-mv2"
   },
   "dependencies": {
     "@plasmohq/storage": "^1.11.0",
@@ -25,6 +27,11 @@
     "typescript": "5.3.3"
   },
   "manifest": {
+    "browser_specific_settings": {
+      "gecko": {
+        "id": "458813868@qq.com"
+      }
+    },
     "host_permissions": [
       "https://*/*"
     ],

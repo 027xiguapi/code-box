@@ -10,13 +10,14 @@ CSDN博客在未登录状态下无法复制代码，使用这个插件，无需�
 
 ## 安装
 
-### 安装方式一：Chrome商店《推荐》
+### 安装方式一：插件商店《推荐》
 
 直接下载安装：
-1. 进入 [Chrome网上应用商店](https://chrome.google.com/webstore/category/extensions?hl=zh-CN)
-2. 搜索：一键复制csdn代码
-
-![img](https://cdn.jsdelivr.net/gh/openHacking/static-files@main/img/1645522384306copy-csdn-web-store.png)
+1. 进入应用商店
+ - [Chrome网上应用商店](https://chrome.google.com/webstore/category/extensions?hl=zh-CN)
+ - [Firefox网上应用商店](https://addons.mozilla.org/zh-CN/firefox/)
+ - [Edge网上应用商店](https://microsoftedge.microsoft.com/addons/Microsoft-Edge-Extensions-Home?hl=zh-CN)
+2. 搜索：xxxx
 
 ### 安装方式二：源码安装
 
@@ -24,8 +25,14 @@ CSDN博客在未登录状态下无法复制代码，使用这个插件，无需�
    ```sh
    git clone https://github.com/027xiguapi/code-box.git
    ```
-2. 谷歌浏览器，从右上角菜单->更多工具->扩展程序可以进入插件管理页面，也可以直接在地址栏输入 chrome://extensions 访问
-3. 勾选开发者模式，即可以文件夹的形式直接加载插件
+2. 安装和打包
+   ```sh
+   pnpm install
+   pnpm dev
+   pnpm build
+   ```
+3. 谷歌浏览器，从右上角菜单->更多工具->扩展程序可以进入插件管理页面，也可以直接在地址栏输入 chrome://extensions 访问
+4. 勾选开发者模式，即可以文件夹的形式直接加载插件
 
 ## 功能
 ### CSDN
