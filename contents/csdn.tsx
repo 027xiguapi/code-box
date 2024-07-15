@@ -14,10 +14,9 @@ window.addEventListener("load", () => {
 const csdn = () => {
   const [closeAds] = useStorage<boolean>("csdn-closeAds")
   const [copyCode] = useStorage<boolean>("csdn-copyCode")
-  const [closeFollow, setCloseFollow] = useStorage("csdn-closeFollow")
+  const [closeFollow] = useStorage<boolean>("csdn-closeFollow")
   const [autoOpenCode] = useStorage<boolean>("csdn-autoOpenCode")
   const [closeLoginModal] = useStorage<boolean>("csdn-closeLoginModal")
-  const isMount = useRef<boolean>(false)
 
   useEffect(() => {
     console.log("CSDN closeAds", closeAds)

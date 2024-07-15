@@ -1,8 +1,8 @@
 {
   "name": "code-box",
   "displayName": "Code box",
-  "version": "0.0.1",
-  "description": "更方便操作网页代码的插件",
+  "version": "0.0.2",
+  "description": "无需登录一键复制CSDN代码;支持选中代码，或者代码右上角按钮的一键复制；解除关注博主即可阅读全文提示；去除登陆弹窗。",
   "author": "027xiguapi. <458813868@qq.com>",
   "scripts": {
     "dev": "plasmo dev",
@@ -27,6 +27,7 @@
   "manifest": {
     "host_permissions": [
       "https://*/*"
-    ]
+    ],
+    "omnibox": { "keyword": "copy" }
   }
 }
