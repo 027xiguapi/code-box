@@ -25,7 +25,7 @@ function IndexPopup() {
     <div className="App" style={{ width: "160px" }}>
       <div className="App-header">
         <h2 style={{ marginBottom: "0" }}>CodeBox 🎉</h2>
-        <p style={{ margin: "5px 0" }}>让代码更容易</p>
+        <p style={{ margin: "5px 0" }}>更方便操作网页代码</p>
       </div>
       <div className="App-body">
         <fieldset>

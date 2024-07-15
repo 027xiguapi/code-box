@@ -2,8 +2,8 @@
   "name": "code-box",
   "displayName": "Code box",
   "version": "0.0.1",
-  "description": "A basic Plasmo extension.",
-  "author": "Plasmo Corp. <foss@plasmo.com>",
+  "description": "更方便操作网页代码的插件",
+  "author": "027xiguapi. <458813868@qq.com>",
   "scripts": {
     "dev": "plasmo dev",
     "build": "plasmo build",

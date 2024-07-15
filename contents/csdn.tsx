@@ -17,6 +17,7 @@ const csdn = () => {
   const [closeFollow, setCloseFollow] = useStorage("csdn-closeFollow")
   const [autoOpenCode] = useStorage<boolean>("csdn-autoOpenCode")
   const [closeLoginModal] = useStorage<boolean>("csdn-closeLoginModal")
+  const isMount = useRef<boolean>(false)
 
   useEffect(() => {
     console.log("CSDN closeAds", closeAds)
@@ -25,30 +26,22 @@ const csdn = () => {
 
   useEffect(() => {
     console.log("CSDN copyCode", copyCode)
-    if (copyCode) {
-      copyCodeFunc()
-    }
+    copyCode && copyCodeFunc()
   }, [copyCode])
 
   useEffect(() => {
     console.log("CSDN autoOpenCode", autoOpenCode)
-    if (autoOpenCode) {
-      autoOpenCodeFunc()
-    }
+    autoOpenCode && autoOpenCodeFunc()
   }, [autoOpenCode])
 
   useEffect(() => {
     console.log("CSDN closeFollow", closeFollow)
-    if (closeFollow) {
-      followFunc()
-    }
+    closeFollow && followFunc()
   }, [closeFollow])
 
   useEffect(() => {
     console.log("CSDN closeLoginModal", closeLoginModal)
-    if (closeLoginModal) {
-      closeLoginModalFunc()
-    }
+    closeLoginModal && closeLoginModalFunc()
   }, [closeLoginModal])
 
   /* 未登录复制代码 */
@@ -74,7 +67,7 @@ const csdn = () => {
     content_views.replaceWith(content_views.cloneNode(true))
 
     // 功能一： 修改复制按钮，支持一键复制
-    const buttons = document.querySelectorAll(".hljs-button")
+    const buttons = document.querySelectorAll<HTMLElement>(".hljs-button")
 
     buttons.forEach((btn) => {
       // 更改标题
@@ -92,14 +85,15 @@ const csdn = () => {
       // 重新添加点击事件
       elClone.addEventListener("click", (e) => {
         // 实现复制
-        const parentPreBlock = e.target.closest("pre")
+        const target = e.target as HTMLElement
+        const parentPreBlock = target.closest("pre")
         const codeBlock = parentPreBlock.querySelector("code")
-        console.log(parentPreBlock, codeBlock)
+
         navigator.clipboard.writeText(codeBlock.innerText)
 
-        e.target.dataset.title = "复制成功"
+        target.dataset.title = "复制成功"
         setTimeout(() => {
-          e.target.dataset.title = "复制"
+          target.dataset.title = "复制"
         }, 1000)
         e.stopPropagation()
         e.preventDefault()
@@ -149,9 +143,13 @@ const csdn = () => {
   // 自动展开代码块
   function autoOpenCodeFunc() {
     const pres = Array.from(
-      document.querySelectorAll("main div.blog-content-box pre.set-code-hide")
+      document.querySelectorAll<HTMLElement>(
+        "main div.blog-content-box pre.set-code-hide"
+      )
     )
-    const presBox = Array.from(document.querySelectorAll(".hide-preCode-box"))
+    const presBox = Array.from(
+      document.querySelectorAll<HTMLElement>(".hide-preCode-box")
+    )
 
     pres.forEach((pre) => {
       pre.style.height = "unset"
