@@ -1,6 +1,6 @@
 import { useStorage } from "@plasmohq/storage/hook"
 
-function Jb51() {
+export default function Jb51() {
   const [closeAds, setCloseAds] = useStorage("jb51-closeAds", (v) =>
     v === undefined ? true : v
   )
@@ -34,5 +34,3 @@ function Jb51() {
     </fieldset>
   )
 }
-
-export default Jb51

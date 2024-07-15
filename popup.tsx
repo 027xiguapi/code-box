@@ -1,3 +1,4 @@
+import Cnblogs from "./component/cnblogs"
 import Csdn from "./component/csdn"
 import Jb51 from "./component/jb51"
 
@@ -11,6 +12,7 @@ function IndexPopup() {
       <div className="App-body">
         <Csdn />
         <Jb51 />
+        <Cnblogs />
       </div>
       <div className="App-link" style={{ marginTop: "10px" }}>
         <a

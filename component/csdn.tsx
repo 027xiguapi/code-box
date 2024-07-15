@@ -1,6 +1,6 @@
 import { useStorage } from "@plasmohq/storage/hook"
 
-function Csdn() {
+export default function Csdn() {
   const [closeAds, setCloseAds] = useStorage("csdn-closeAds", (v) =>
     v === undefined ? true : v
   )
@@ -75,5 +75,3 @@ function Csdn() {
     </fieldset>
   )
 }
-
-export default Csdn
