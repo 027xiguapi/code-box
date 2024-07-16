@@ -1,8 +1,12 @@
 ## code-box
 
+## 代码
+
+https://github.com/027xiguapi/code-box
+
 ## 介绍
 
-CSDN博客在未登录状态下无法复制代码，使用这个插件，无需登录可以一键复制csdn代码。
+博客网站在未登录状态下无法复制代码，使用这个插件，无需登录可以一键复制代码。
 
 还支持解除`关注博主即可阅读全文`的提示，隐藏登陆弹窗。
 
@@ -14,10 +18,10 @@ CSDN博客在未登录状态下无法复制代码，使用这个插件，无需�
 
 直接下载安装：
 1. 进入应用商店
- - [Chrome网上应用商店](https://chrome.google.com/webstore/category/extensions?hl=zh-CN)
- - [Firefox网上应用商店](https://addons.mozilla.org/zh-CN/firefox/)
- - [Edge网上应用商店](https://microsoftedge.microsoft.com/addons/Microsoft-Edge-Extensions-Home?hl=zh-CN)
-2. 搜索：xxxx
+   - [Chrome网上应用商店](https://chrome.google.com/webstore/category/extensions?hl=zh-CN)
+   - [Firefox网上应用商店](https://addons.mozilla.org/zh-CN/firefox/)
+   - [Edge网上应用商店](https://microsoftedge.microsoft.com/addons/Microsoft-Edge-Extensions-Home?hl=zh-CN)
+2. 搜索：`codebox`
 
 ### 安装方式二：源码安装
 
@@ -34,7 +38,7 @@ CSDN博客在未登录状态下无法复制代码，使用这个插件，无需�
 3. 谷歌浏览器，从右上角菜单->更多工具->扩展程序可以进入插件管理页面，也可以直接在地址栏输入 chrome://extensions 访问
 4. 勾选开发者模式，即可以文件夹的形式直接加载插件
 
-## 功能
+## 已功能
 ### CSDN
 
 1. 打开任意一个`CSDN`博客即可开始复制代码
@@ -59,6 +63,8 @@ CSDN博客在未登录状态下无法复制代码，使用这个插件，无需�
 1. 一键复制代码
 2. 未登录`知乎`状态下，不再提示展开阅读全文，且完整展示文章
 3. 未登录`知乎`状态下，不会再出现强制登陆弹窗
+
+## 计划
 
 ### 51CTO博客
 
