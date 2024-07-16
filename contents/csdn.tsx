@@ -46,7 +46,7 @@ const csdn = () => {
   /* 未登录复制代码 */
   function copyCodeCssFunc() {
     let style = document.createElement("style")
-    style.innerHTML = `
+    const css = document.createTextNode(`
     #content_views pre,
     #content_views pre code {
       -webkit-touch-callout: auto !important;
@@ -55,7 +55,8 @@ const csdn = () => {
       -moz-user-select: auto !important;
       -ms-user-select: auto !important;
       user-select: auto !important;
-    }`
+    }`)
+    style.appendChild(css)
     document.head.appendChild(style)
   }
 
@@ -102,40 +103,42 @@ const csdn = () => {
 
   // 关闭广告
   function closeAdsFunc() {
-    let style = document.createElement("style")
-    style.innerHTML = `
+    const style = document.createElement("style")
+    const css = document.createTextNode(`
     .toolbar-advert,
     #recommendAdBox,
     .adsbygoogle {
       display:none !important;
-    }`
+    }`)
+    style.appendChild(css)
     document.head.appendChild(style)
   }
 
   // 解除 关注博主即可阅读全文的提示
   const followFunc = () => {
-    let readMore = document.querySelector(".btn-readmore")
-    let style = document.createElement("style")
-
-    style.innerHTML = `
+    const readMore = document.querySelector(".btn-readmore")
+    const style = document.createElement("style")
+    const css = document.createTextNode(`
     #article_content{
       height: auto !important;
     }
     .hide-article-box {
       z-index: -1 !important;
-    }`
+    }`)
     if (readMore) {
+      style.appendChild(css)
       document.head.appendChild(style)
     }
   }
 
   // 隐藏登陆弹窗
   function closeLoginModalFunc() {
-    let style = document.createElement("style")
-    style.innerHTML = `
+    const style = document.createElement("style")
+    const css = document.createTextNode(`
     .passport-login-container {
       display:none !important;
-    }`
+    }`)
+    style.appendChild(css)
     document.head.appendChild(style)
   }
 

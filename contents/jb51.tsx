@@ -3,6 +3,8 @@ import { useEffect, useRef } from "react"
 
 import { useStorage } from "@plasmohq/storage/hook"
 
+import { addCss } from "~tools"
+
 export const config: PlasmoCSConfig = {
   matches: ["https://*.jb51.net/*"]
 }
@@ -27,8 +29,7 @@ export default function jb51() {
 
   /* 未登录复制代码 */
   function copyCodeCssFunc() {
-    let style = document.createElement("style")
-    style.innerHTML = `
+    addCss(`
     #article .jb51code,
     #article .code {
       -webkit-touch-callout: auto !important;
@@ -37,8 +38,7 @@ export default function jb51() {
       -moz-user-select: auto !important;
       -ms-user-select: auto !important;
       user-select: auto !important;
-    }`
-    document.head.appendChild(style)
+    }`)
   }
 
   function copyCodeFunc() {
@@ -84,16 +84,14 @@ export default function jb51() {
 
   // 关闭广告
   function closeAdsFunc() {
-    let style = document.createElement("style")
-    style.innerHTML = `
+    addCss(`
     .tipsa_ds,
     #txtlink,
     #r1gg,
     #idctu,
     #rbbd {
       display:none !important;
-    }`
-    document.head.appendChild(style)
+    }`)
   }
 
   return <div style={{ display: "none" }}></div>

@@ -1,6 +1,7 @@
 import Cnblogs from "./component/cnblogs"
 import Csdn from "./component/csdn"
 import Jb51 from "./component/jb51"
+import Zhihu from "./component/zhihu"
 
 function IndexPopup() {
   return (
@@ -11,6 +12,7 @@ function IndexPopup() {
       </div>
       <div className="App-body">
         <Csdn />
+        <Zhihu />
         <Jb51 />
         <Cnblogs />
       </div>

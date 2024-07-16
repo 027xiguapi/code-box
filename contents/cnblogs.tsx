@@ -20,15 +20,15 @@ export default function cnblogs() {
     copyCode && copyCodeFunc()
   }, [copyCode])
 
+  // 功能一： 修改复制按钮，支持一键复制
   function copyCodeFunc() {
-    // 功能一： 修改复制按钮，支持一键复制
     const toolbars = document.querySelectorAll<HTMLElement>(
       ".cnblogs_code_toolbar"
     )
 
     toolbars.forEach((toolbar) => {
       const button = document.createElement("button")
-      button.innerHTML = "复制"
+      button.innerText = "复制"
       button.style.float = "right"
       button.title = "一键复制代码"
       button.classList.add("copy-btn")
