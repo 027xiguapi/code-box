@@ -19,6 +19,11 @@ export default function Csdn() {
     (v) => (v === undefined ? true : v)
   )
 
+  const [closeRedirectModal, setCloseRedirectModal] = useStorage(
+    "csdn-closeLoginModal",
+    (v) => (v === undefined ? true : v)
+  )
+
   return (
     <fieldset>
       <legend>CSDN设置</legend>
@@ -70,7 +75,17 @@ export default function Csdn() {
           checked={closeLoginModal}
           onChange={(e) => setCloseLoginModal(e.target.checked)}
         />
-        <label htmlFor="csdn-closeLoginModal">关闭登陆弹窗</label>
+        <label htmlFor="csdn-closeLoginModal">关闭登录弹窗</label>
+      </div>
+      <div>
+        <input
+          type="checkbox"
+          id="csdn-closeRedirectModal"
+          name="csdn-closeRedirectModal"
+          checked={closeRedirectModal}
+          onChange={(e) => setCloseRedirectModal(e.target.checked)}
+        />
+        <label htmlFor="csdn-closeRedirectModal">关闭跳转APP弹窗</label>
       </div>
     </fieldset>
   )

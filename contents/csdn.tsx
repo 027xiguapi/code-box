@@ -3,6 +3,8 @@ import { useEffect, useRef } from "react"
 
 import { useStorage } from "@plasmohq/storage/hook"
 
+import { addCss } from "~tools"
+
 export const config: PlasmoCSConfig = {
   matches: ["https://*.blog.csdn.net/*"]
 }
@@ -17,36 +19,35 @@ const csdn = () => {
   const [closeFollow] = useStorage<boolean>("csdn-closeFollow")
   const [autoOpenCode] = useStorage<boolean>("csdn-autoOpenCode")
   const [closeLoginModal] = useStorage<boolean>("csdn-closeLoginModal")
+  const [closeRedirectModal] = useStorage<boolean>("csdn-closeLoginModal")
 
   useEffect(() => {
-    console.log("CSDN closeAds", closeAds)
+    console.log("CSDN status", {
+      closeAds,
+      copyCode,
+      autoOpenCode,
+      closeFollow,
+      closeLoginModal,
+      closeRedirectModal
+    })
     closeAds && closeAdsFunc()
-  }, [closeAds])
-
-  useEffect(() => {
-    console.log("CSDN copyCode", copyCode)
     copyCode && copyCodeFunc()
-  }, [copyCode])
-
-  useEffect(() => {
-    console.log("CSDN autoOpenCode", autoOpenCode)
     autoOpenCode && autoOpenCodeFunc()
-  }, [autoOpenCode])
-
-  useEffect(() => {
-    console.log("CSDN closeFollow", closeFollow)
     closeFollow && followFunc()
-  }, [closeFollow])
-
-  useEffect(() => {
-    console.log("CSDN closeLoginModal", closeLoginModal)
     closeLoginModal && closeLoginModalFunc()
-  }, [closeLoginModal])
+    closeRedirectModal && closeRedirectModalFunc()
+  }, [
+    closeAds,
+    copyCode,
+    autoOpenCode,
+    closeFollow,
+    closeLoginModal,
+    closeRedirectModal
+  ])
 
   /* 未登录复制代码 */
   function copyCodeCssFunc() {
-    let style = document.createElement("style")
-    const css = document.createTextNode(`
+    const css = `
     #content_views pre,
     #content_views pre code {
       -webkit-touch-callout: auto !important;
@@ -55,9 +56,8 @@ const csdn = () => {
       -moz-user-select: auto !important;
       -ms-user-select: auto !important;
       user-select: auto !important;
-    }`)
-    style.appendChild(css)
-    document.head.appendChild(style)
+    }`
+    addCss(css)
   }
 
   function copyCodeFunc() {
@@ -103,43 +103,36 @@ const csdn = () => {
 
   // 关闭广告
   function closeAdsFunc() {
-    const style = document.createElement("style")
-    const css = document.createTextNode(`
+    const css = `
     .toolbar-advert,
     #recommendAdBox,
     .adsbygoogle {
       display:none !important;
-    }`)
-    style.appendChild(css)
-    document.head.appendChild(style)
+    }`
   }
 
   // 解除 关注博主即可阅读全文的提示
   const followFunc = () => {
     const readMore = document.querySelector(".btn-readmore")
-    const style = document.createElement("style")
-    const css = document.createTextNode(`
-    #article_content{
-      height: auto !important;
-    }
-    .hide-article-box {
-      z-index: -1 !important;
-    }`)
     if (readMore) {
-      style.appendChild(css)
-      document.head.appendChild(style)
+      const css = `
+        #article_content{
+          height: auto !important;
+        }
+        .hide-article-box {
+          z-index: -1 !important;
+        }`
+      addCss(css)
     }
   }
 
-  // 隐藏登陆弹窗
+  // 隐藏登录弹窗
   function closeLoginModalFunc() {
-    const style = document.createElement("style")
-    const css = document.createTextNode(`
+    const css = `
     .passport-login-container {
       display:none !important;
-    }`)
-    style.appendChild(css)
-    document.head.appendChild(style)
+    }`
+    addCss(css)
   }
 
   // 自动展开代码块
@@ -153,6 +146,8 @@ const csdn = () => {
       document.querySelectorAll<HTMLElement>(".hide-preCode-box")
     )
 
+    const readallBox = document.querySelector<HTMLElement>(".readall_box")
+
     pres.forEach((pre) => {
       pre.style.height = "unset"
       pre.style.maxHeight = "unset"
@@ -160,6 +155,25 @@ const csdn = () => {
     presBox.forEach((box) => {
       box.style.display = "none"
     })
+
+    if (readallBox) {
+      const articleContent =
+        document.querySelector<HTMLElement>(".article_content")
+
+      articleContent.style.height = "unset"
+      readallBox.style.display = "none"
+    }
+  }
+
+  // 隐藏移动端跳转APP弹窗
+  function closeRedirectModalFunc() {
+    const css = `
+    .ios-shadowbox,
+    .feed-Sign-weixin,
+    .weixin-shadowbox {
+      display:none !important;
+    }`
+    addCss(css)
   }
 
   return <div style={{ display: "none" }}></div>

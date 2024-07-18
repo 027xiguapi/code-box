@@ -70,7 +70,7 @@ export default function zhihu() {
     })
   }
 
-  // 隐藏登陆弹窗
+  // 隐藏登录弹窗
   function closeLoginModalFunc() {
     addCss(`
     .Modal-wrapper--transparent,
