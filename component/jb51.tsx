@@ -11,25 +11,29 @@ export default function Jb51() {
   return (
     <fieldset>
       <legend>脚本之家设置</legend>
-      <div>
+      <div className="item">
+        <span>关闭广告</span>
         <input
           type="checkbox"
           id="jb51-closeAds"
           name="jb51-closeAds"
+          className="codebox-offscreen"
           checked={closeAds}
           onChange={(e) => setCloseAds(e.target.checked)}
         />
-        <label htmlFor="jb51-closeAds">关闭广告</label>
+        <label className="codebox-switch" htmlFor="jb51-closeAds"></label>
       </div>
-      <div>
+      <div className="item">
+        <span>一键复制代码</span>
         <input
           type="checkbox"
           id="jb51-copyCode"
           name="jb51-copyCode"
+          className="codebox-offscreen"
           checked={copyCode}
           onChange={(e) => setCopyCode(e.target.checked)}
         />
-        <label htmlFor="jb51-copyCode">一键复制代码</label>
+        <label className="codebox-switch" htmlFor="jb51-copyCode"></label>
       </div>
     </fieldset>
   )

@@ -8,15 +8,17 @@ export default function Cnblogs() {
   return (
     <fieldset>
       <legend>博客园设置</legend>
-      <div>
+      <div className="item">
+        <span>一键复制代码</span>
         <input
           type="checkbox"
           id="cnblogs-copyCode"
           name="cnblogs-copyCode"
+          className="codebox-offscreen"
           checked={copyCode}
           onChange={(e) => setCopyCode(e.target.checked)}
         />
-        <label htmlFor="cnblogs-copyCode">一键复制代码</label>
+        <label className="codebox-switch" htmlFor="cnblogs-copyCode"></label>
       </div>
     </fieldset>
   )

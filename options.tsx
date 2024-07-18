@@ -3,12 +3,14 @@ import Csdn from "./component/csdn"
 import Jb51 from "./component/jb51"
 import Zhihu from "./component/zhihu"
 
+import "./index.css"
+
 function IndexOptions() {
   return (
-    <div className="App" style={{ width: "160px" }}>
+    <div className="App">
       <div className="App-header">
-        <h2 style={{ marginBottom: "0" }}>CodeBox 🎉</h2>
-        <p style={{ margin: "5px 0" }}>更方便操作网页代码</p>
+        <h2 className="title">CodeBox 🎉</h2>
+        <p className="desc">更方便操作网页代码</p>
       </div>
       <div className="App-body">
         <Csdn />
@@ -16,7 +18,7 @@ function IndexOptions() {
         <Jb51 />
         <Cnblogs />
       </div>
-      <div className="App-link" style={{ marginTop: "10px" }}>
+      <div className="App-link">
         <a
           className="btn"
           href="https://github.com/027xiguapi/code-box"

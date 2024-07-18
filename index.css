@@ -1,0 +1,57 @@
+.App {
+    width: 160px;
+}
+
+.App-header .title {
+    margin-bottom: 0
+}
+
+.App-header .desc {
+    margin: 5px 0;
+}
+
+.App-link {
+    margin-top: 10px;
+}
+
+.App-body fieldset .item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+/*开关*/
+.codebox-offscreen{
+    display: none;
+}
+
+.codebox-switch{
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+    background-color: #ccc;
+    border-radius: 20px;
+    transition: all 0.3s;
+}
+
+.codebox-switch::after{
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 18px;
+    background-color: #fff;
+    top: 1px;
+    left: 1px;
+    transition: all 0.3s;
+}
+
+input[type="checkbox"]:checked+.codebox-switch::after{
+    transform: translateX(20px);
+}
+
+input[type="checkbox"]:checked+.codebox-switch{
+    background-color: #7983ff;
+}
