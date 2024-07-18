@@ -3,15 +3,19 @@
 }
 
 .App-header .title {
-    margin-bottom: 0
+    margin-bottom: 0;
+    font-size: 18px;
 }
 
 .App-header .desc {
     margin: 5px 0;
+    font-size: 12px;
 }
 
 .App-link {
     margin-top: 10px;
+    margin-left: 5px;
+    font-size: 14px;
 }
 
 .App-body fieldset .item {
@@ -19,6 +23,7 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 5px;
+    font-size: 12px;
 }
 
 /*开关*/

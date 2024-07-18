@@ -1,6 +1,7 @@
 import Cnblogs from "./component/cnblogs"
 import Csdn from "./component/csdn"
 import Jb51 from "./component/jb51"
+import Jianshu from "./component/jianshu"
 import Zhihu from "./component/zhihu"
 
 import "./index.css"
@@ -15,6 +16,7 @@ function IndexPopup() {
       <div className="App-body">
         <Csdn />
         <Zhihu />
+        <Jianshu />
         <Jb51 />
         <Cnblogs />
       </div>

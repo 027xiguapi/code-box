@@ -19,7 +19,7 @@ https://github.com/027xiguapi/code-box
    - [Edge网上应用商店](https://microsoftedge.microsoft.com/addons/Microsoft-Edge-Extensions-Home?hl=zh-CN)
 2. 搜索：`codebox`
 
-   ![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/img.png)
+![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/img.png)
 
 
 ### 安装方式二：源码安装
@@ -38,6 +38,9 @@ https://github.com/027xiguapi/code-box
 4. 勾选开发者模式，即可以文件夹的形式直接加载插件
 
 ## 完成
+
+![img-1](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/img_1.png)
+
 ### CSDN
 
 1. 打开任意一个`CSDN`博客即可开始复制代码
@@ -47,6 +50,18 @@ https://github.com/027xiguapi/code-box
 5. 未关注博主状态下，不再提示关注博主即可阅读全文，且完整展示文章
 6. 自动展开代码块
 7. 移动端屏蔽跳转APP
+
+### 知乎
+
+1. 一键复制代码
+2. 未登录`知乎`状态下，不再提示展开阅读全文，且完整展示文章
+3. 未登录`知乎`状态下，不会再出现强制登录弹窗
+
+### 简书
+
+1. 一键复制代码
+2. 不再提示展开阅读全文，且完整展示文章
+3. 不会再出现强制登录弹窗
 
 ### 脚本之家
 
@@ -59,11 +74,6 @@ https://github.com/027xiguapi/code-box
 
 1. 一键复制代码
 
-### 知乎
-
-1. 一键复制代码
-2. 未登录`知乎`状态下，不再提示展开阅读全文，且完整展示文章
-3. 未登录`知乎`状态下，不会再出现强制登陆弹窗
 
 ## 计划
 
