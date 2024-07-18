@@ -23,6 +23,9 @@ https://github.com/027xiguapi/code-box
    - [Edge网上应用商店](https://microsoftedge.microsoft.com/addons/Microsoft-Edge-Extensions-Home?hl=zh-CN)
 2. 搜索：`codebox`
 
+   ![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/img.png)
+
+
 ### 安装方式二：源码安装
 
 1. clone源码
@@ -38,7 +41,7 @@ https://github.com/027xiguapi/code-box
 3. 谷歌浏览器，从右上角菜单->更多工具->扩展程序可以进入插件管理页面，也可以直接在地址栏输入 chrome://extensions 访问
 4. 勾选开发者模式，即可以文件夹的形式直接加载插件
 
-## 已功能
+## 完成
 ### CSDN
 
 1. 打开任意一个`CSDN`博客即可开始复制代码
@@ -46,13 +49,15 @@ https://github.com/027xiguapi/code-box
 3. 未登录`CSDN`状态下，代码右上角按钮一键复制
 4. 未登录`CSDN`状态下，不会再出现强制登陆弹窗
 5. 未关注博主状态下，不再提示关注博主即可阅读全文，且完整展示文章
-6. 自动展开代码块，如果不需要自动展开，可以在扩展的`popup`界面中关闭自动展开代码块功能。
+6. 自动展开代码块
+7. 移动端屏蔽跳转APP
 
 ### 脚本之家
 
 1. 打开任意一个`脚本之家`博客即可开始复制代码
 2. 未登录`脚本之家`状态下，支持选中代码
 3. 屏蔽广告
+4. 移动端一键复制
 
 ### 博客园
 
