@@ -18,14 +18,10 @@ export default function jb51() {
   const [copyCode] = useStorage<boolean>("jb51-copyCode")
 
   useEffect(() => {
-    console.log("jb51 closeAds", closeAds)
+    console.log("jb51 status", { closeAds, copyCode })
     closeAds && closeAdsFunc()
-  }, [closeAds])
-
-  useEffect(() => {
-    console.log("jb51 copyCode", copyCode)
     copyCode && copyCodeFunc()
-  }, [copyCode])
+  }, [closeAds, copyCode])
 
   /* 未登录复制代码 */
   function copyCodeCssFunc() {

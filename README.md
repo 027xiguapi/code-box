@@ -22,7 +22,13 @@ https://github.com/027xiguapi/code-box
 ![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/img.png)
 
 
-### 安装方式二：源码安装
+### 安装方式二：安装包
+
+1. 下载地址： https://github.com/027xiguapi/code-box/releases
+2. 谷歌浏览器，从右上角菜单->更多工具->扩展程序可以进入插件管理页面，也可以直接在地址栏输入 chrome://extensions 访问
+3. 勾选开发者模式，即可以文件夹的形式直接加载插件
+
+### 安装方式三：源码安装
 
 1. clone源码
    ```sh
@@ -40,6 +46,10 @@ https://github.com/027xiguapi/code-box
 ## 完成
 
 ![img-1](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/img_1.png)
+
+### 自定义
+
+1. 插入自定义样式(css代码)
 
 ### CSDN
 

@@ -1,12 +1,8 @@
-import Cnblogs from "./component/cnblogs"
-import Csdn from "./component/csdn"
-import Jb51 from "./component/jb51"
-import Jianshu from "./component/jianshu"
-import Zhihu from "./component/zhihu"
+import Content from "./component/content"
 
 import "./index.css"
 
-function IndexPopup() {
+export default function IndexPopup() {
   return (
     <div className="App">
       <div className="App-header">
@@ -14,11 +10,7 @@ function IndexPopup() {
         <p className="desc">更方便操作网页代码</p>
       </div>
       <div className="App-body">
-        <Csdn />
-        <Zhihu />
-        <Jianshu />
-        <Jb51 />
-        <Cnblogs />
+        <Content />
       </div>
       <div className="App-link">
         <a
@@ -32,5 +24,3 @@ function IndexPopup() {
     </div>
   )
 }
-
-export default IndexPopup

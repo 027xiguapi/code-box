@@ -1,5 +1,20 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.hide {
+    display: none !important;
+}
+
+.show {
+    display: block !important;
+}
+
 .App {
-    width: 160px;
+    width: 190px;
+    margin: 0 auto;
+    padding: 5px 8px;
 }
 
 .App-header .title {
@@ -18,6 +33,10 @@
     font-size: 14px;
 }
 
+.App-body fieldset {
+    padding: 5px 8px;
+}
+
 .App-body fieldset .item {
     display: flex;
     justify-content: space-between;
@@ -26,12 +45,16 @@
     font-size: 12px;
 }
 
+.App-body fieldset .item textarea {
+    padding: 5px;
+}
+
 /*开关*/
-.codebox-offscreen{
+.codebox-offscreen {
     display: none;
 }
 
-.codebox-switch{
+.codebox-switch {
     position: relative;
     display: inline-block;
     width: 40px;
@@ -41,7 +64,7 @@
     transition: all 0.3s;
 }
 
-.codebox-switch::after{
+.codebox-switch::after {
     content: "";
     position: absolute;
     width: 18px;
@@ -53,10 +76,10 @@
     transition: all 0.3s;
 }
 
-input[type="checkbox"]:checked+.codebox-switch::after{
+input[type="checkbox"]:checked + .codebox-switch::after {
     transform: translateX(20px);
 }
 
-input[type="checkbox"]:checked+.codebox-switch{
+input[type="checkbox"]:checked + .codebox-switch {
     background-color: #7983ff;
 }
