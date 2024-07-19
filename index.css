@@ -33,6 +33,12 @@
     font-size: 14px;
 }
 
+.popup .App-body {
+    max-height: 450px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
 .App-body fieldset {
     padding: 5px 8px;
 }

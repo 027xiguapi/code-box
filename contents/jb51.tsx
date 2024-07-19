@@ -1,5 +1,5 @@
 import type { PlasmoCSConfig } from "plasmo"
-import { useEffect, useRef } from "react"
+import { useEffect } from "react"
 
 import { useStorage } from "@plasmohq/storage/hook"
 

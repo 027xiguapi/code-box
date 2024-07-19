@@ -4,9 +4,7 @@ export default function Custom() {
   const [runCss, setRunCss] = useStorage("custom-runCss", (v) =>
     v === undefined ? false : v
   )
-  const [cssCode, setCssCode] = useStorage("custom-cssCode", (v) =>
-    v === undefined ? "" : v
-  )
+  const [cssCode, setCssCode] = useStorage("custom-cssCode")
 
   return (
     <fieldset>
@@ -26,7 +24,7 @@ export default function Custom() {
       <div className={`item ${runCss ? "" : "hide"}`}>
         <textarea
           name="custom-cssCode"
-          defaultValue={cssCode}
+          value={cssCode}
           onChange={(e) => setCssCode(e.target.value)}></textarea>
       </div>
     </fieldset>

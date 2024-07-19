@@ -4,7 +4,7 @@ import "./index.css"
 
 export default function IndexOptions() {
   return (
-    <div className="App">
+    <div className="App options">
       <div className="App-header">
         <h2 className="title">CodeBox 🎉</h2>
         <p className="desc">更方便操作网页代码</p>
