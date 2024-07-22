@@ -6,11 +6,11 @@ https://github.com/027xiguapi/code-box
 
 ## 介绍
 
-本插件可以用于CSDN/知乎/脚本之家/博客园等网站,实现无需登录一键复制代码;支持选中代码;或者代码右上角按钮的一键复制;解除关注博主即可阅读全文提示;去除登录弹窗;去除跳转APP弹窗.
+本浏览器插件可以用于CSDN/知乎/脚本之家/博客园等网站,实现无需登录一键复制代码;支持选中代码;或者代码右上角按钮的一键复制;解除关注博主即可阅读全文提示;去除登录弹窗;去除跳转APP弹窗.
 
 ## 安装
 
-### 安装方式一：插件商店《推荐》
+### 安装方式一：插件商店(推荐)
 
 直接下载安装：
 1. 进入应用商店
@@ -22,11 +22,13 @@ https://github.com/027xiguapi/code-box
 ![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/img.png)
 
 
-### 安装方式二：安装包
+### 安装方式二：直接安装
 
-1. 下载地址： https://github.com/027xiguapi/code-box/releases
-2. 谷歌浏览器，从右上角菜单->更多工具->扩展程序可以进入插件管理页面，也可以直接在地址栏输入 chrome://extensions 访问
-3. 勾选开发者模式，即可以文件夹的形式直接加载插件
+1. 安装地址： 
+   - [前往 火狐 扩展商店](https://addons.mozilla.org/zh-CN/firefox/addon/code-box/)
+   - [前往 Edge扩展商店](#)
+   - [前往 Chrome扩展商店](#)
+
 
 ### 安装方式三：源码安装
 
