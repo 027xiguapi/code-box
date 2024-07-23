@@ -7,6 +7,7 @@ import Zhihu from "~component/zhihu"
 import Jianshu from "~component/jianshu"
 import Jb51 from "~component/jb51"
 import Cnblogs from "~component/cnblogs"
+import Cto51 from "~component/51cto"
 import Custom from "~component/custom"
 
 import "./sortableItem.css"
@@ -17,6 +18,7 @@ const itemMap = {
   jianshu: <Jianshu />,
   jb51: <Jb51 />,
   cnblogs: <Cnblogs />,
+  "51cto": <Cto51 />,
   custom: <Custom />
 }
 

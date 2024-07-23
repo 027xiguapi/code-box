@@ -20,7 +20,7 @@ export default function Csdn() {
   )
 
   const [closeRedirectModal, setCloseRedirectModal] = useStorage(
-    "csdn-closeLoginModal",
+    "csdn-closeRedirectModal",
     (v) => (v === undefined ? true : v)
   )
 
