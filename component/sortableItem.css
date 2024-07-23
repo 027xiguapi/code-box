@@ -1,0 +1,50 @@
+.sortableItem {
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 0 0 calc(1px / 1) rgba(63, 63, 68, 0.05), 0 1px calc(3px / 1) 0 rgba(34, 33, 81, 0.15);
+    width: 280px;
+    margin-bottom: 10px;
+    padding: 5px 8px;
+    border-radius: 4px;
+}
+
+.sortableItem fieldset {
+    width: 180px;
+}
+
+.sortableItem .isShow-toggle {
+    display: flex;
+    width: 24px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.sortableItem .draggable-handle {
+    display: flex;
+    width: 12px;
+    padding: 15px;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    touch-action: none;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    appearance: none;
+    background-color: transparent;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.sortableItem .draggable-handle svg {
+    fill: #6f7b88;
+    flex: 0 0 auto;
+    margin: auto;
+    height: 100%;
+    overflow: visible;
+}
+
+.sortableItem .draggable-handle:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}

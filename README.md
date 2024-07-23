@@ -26,8 +26,8 @@ https://github.com/027xiguapi/code-box
 
 1. 安装地址： 
    - [前往 火狐 扩展商店](https://addons.mozilla.org/zh-CN/firefox/addon/code-box/)
-   - [前往 Edge扩展商店](#)
-   - [前往 Chrome扩展商店](#)
+   - [前往 Edge 扩展商店](https://microsoftedge.microsoft.com/addons/detail/code-box/cfpdbfmncaampihkmejogihjkenkonbn)
+   - [前往 Chrome 扩展商店](#)
 
 
 ### 安装方式三：源码安装
@@ -97,3 +97,7 @@ https://github.com/027xiguapi/code-box
 
 1. [copy-csdn](https://github.com/openHacking/copy-csdn)
 2. [plasmo](https://github.com/PlasmoHQ/plasmo)
+
+## 隐私政策
+
+[网面](https://027xiguapi.github.io/code-box/privacy-policy.html)
