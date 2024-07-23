@@ -20,7 +20,7 @@ import SortableItem from "~component/sortableItem"
 import "./index.css"
 
 export default function IndexOptions() {
-  const [items, setItems] = useStorage("app-items", [
+  const itemsInit = [
     {
       id: "1",
       value: "csdn",
@@ -53,11 +53,18 @@ export default function IndexOptions() {
     },
     {
       id: "6",
+      value: "51cto",
+      label: "51CTO",
+      isShow: true,
+    },
+    {
+      id: "7",
       value: "custom",
       label: "自定义",
       isShow: true,
     }
-  ])
+  ]
+  const [items, setItems] = useStorage("app-items", itemsInit)
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -86,6 +93,12 @@ export default function IndexOptions() {
     setItems([...items])
   }
 
+  function handleReset() {
+    if (confirm('确认重置配置？')) {
+      setItems([...itemsInit])
+    }
+  }
+
   return (
     <div className="App options">
       <div className="App-header">
@@ -105,6 +118,9 @@ export default function IndexOptions() {
         </DndContext>
       </div>
       <div className="App-link">
+        <div className="item">
+          <button className="reset" onClick={handleReset}>重置</button>
+        </div>
         <div className="item">
           <a
             className="btn"

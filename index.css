@@ -53,6 +53,7 @@
 
 .App-body fieldset .item textarea {
     padding: 5px;
+    width: 140px;
 }
 
 /*开关*/
