@@ -46,7 +46,7 @@ https://github.com/027xiguapi/code-box
 
 ## 完成
 
-![img-1](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/img_1.png)
+![img-1](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/img_1.jpg)
 
 ### 自定义
 
@@ -98,6 +98,16 @@ https://github.com/027xiguapi/code-box
 2. 未登录`php中文网`状态下，代码右上角按钮一键复制
 3. 未登录`php中文网`状态下，不会再出现强制登录弹窗
 4. 未登录`php中文网`状态下，移动端代码右上角按钮一键复制
+
+
+![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/1.jpg)
+![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/2.png)
+![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/3.jpg)
+![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/4.jpg)
+![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/5.jpg)
+![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/6.jpg)
+![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/7.jpg)
+
 
 ## 参考
 
