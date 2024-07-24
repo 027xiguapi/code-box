@@ -59,6 +59,12 @@ export default function IndexOptions() {
     },
     {
       id: "7",
+      value: "php",
+      label: "php中文网",
+      isShow: true,
+    },
+    {
+      id: "8",
       value: "custom",
       label: "自定义",
       isShow: true,

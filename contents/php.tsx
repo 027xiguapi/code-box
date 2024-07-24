@@ -6,20 +6,20 @@ import { useStorage } from "@plasmohq/storage/hook"
 import { addCss } from "~tools"
 
 export const config: PlasmoCSConfig = {
-  matches: ["https://*.51cto.com/*"]
+  matches: ["https://*.php.cn/*"]
 }
 
 window.addEventListener("load", () => {
-  console.log("51CTO加载完成，执行代码")
+  console.log("php中文网加载完成，执行代码")
 })
 
-export default function Cto51() {
+export default function Php() {
 
-  const [copyCode] = useStorage<boolean>("51cto-copyCode")
-  const [closeLoginModal] = useStorage<boolean>("51cto-closeLoginModal")
+  const [copyCode] = useStorage<boolean>("php-copyCode")
+  const [closeLoginModal] = useStorage<boolean>("php-closeLoginModal")
 
   useEffect(() => {
-    console.log("51CTO status", { closeLoginModal, copyCode })
+    console.log("PHP status", { closeLoginModal, copyCode })
     setTimeout(()=>{
       copyCode && copyCodeFunc()
     }, 500)
@@ -29,8 +29,8 @@ export default function Cto51() {
   /* 未登录复制代码 */
   function copyCodeCssFunc() {
     addCss(`
-    article .hljs-cto,
-    article{
+    .php-article .code,
+    .php-article{
       -webkit-touch-callout: auto !important;
       -webkit-user-select: auto !important;
       -khtml-user-select: auto !important;
@@ -43,11 +43,11 @@ export default function Cto51() {
   function copyCodeFunc() {
     copyCodeCssFunc()
     // 内容区开启复制
-    var content_views = document.querySelector("article")
+    var content_views = document.querySelector(".php-article")
     content_views && content_views.replaceWith(content_views.cloneNode(true))
 
     // 功能一： 修改复制按钮，支持一键复制
-    const buttons = document.querySelectorAll<HTMLElement>(".hljs-cto .operation_box .copy_btn")
+    const buttons = document.querySelectorAll<HTMLElement>(".php-article .code .contentsignin")
 
     if (buttons.length > 0) {
       buttons.forEach((btn) => {
@@ -58,10 +58,8 @@ export default function Cto51() {
         btn.parentNode.replaceChild(elClone, btn)
         elClone.addEventListener("click", (e) => {
           const target = e.target as HTMLElement
-          const parentPreBlock = target.closest(".hljs-cto")
-          const codeBlock = parentPreBlock.querySelector<HTMLElement>("pre")
-          const codeIndex = codeBlock.querySelector<HTMLElement>(".pre-numbering")
-          codeBlock.removeChild(codeIndex)
+          const parentPreBlock = target.closest(".code")
+          const codeBlock = parentPreBlock.querySelector<HTMLElement>(".code")
 
           navigator.clipboard.writeText(codeBlock.innerText)
 
@@ -74,10 +72,10 @@ export default function Cto51() {
         })
       })
     } else {
-      const codes = document.querySelectorAll<HTMLElement>("article .has-pre-numbering")
+      const codes = document.querySelectorAll<HTMLElement>(".nphpQianBox .code")
 
+      console.log(codes)
       codes.forEach((code) => {
-        const codeBlock = code.closest("div")
         const button = document.createElement("button")
 
         button.innerText = "复制"
@@ -87,16 +85,15 @@ export default function Cto51() {
         button.title = "一键复制代码"
         button.classList.add("Button")
         button.classList.add("VoteButton")
-        codeBlock.appendChild(button)
-        codeBlock.style.position = "relative"
 
-        const codeIndex = codeBlock.querySelector<HTMLElement>(".pre-numbering")
-        code.removeChild(codeIndex)
+        code.appendChild(button)
+        code.style.position = "relative"
 
         button.addEventListener("click", (e) => {
           const target = e.target as HTMLElement
+          const codeBlock = code.querySelector<HTMLElement>(".container")
 
-          navigator.clipboard.writeText(code.innerText)
+          navigator.clipboard.writeText(codeBlock.innerText)
           target.innerText = "复制成功"
           setTimeout(() => {
             target.innerText = "复制"
@@ -111,7 +108,8 @@ export default function Cto51() {
   // 关闭登录弹框
   function closeLoginModalFunc() {
     const css = `
-    #login_iframe_mask {
+    .layui-layer-shade,
+    .layui-layer-iframe {
       display:none !important;
     }`
     addCss(css)

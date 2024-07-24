@@ -6,7 +6,7 @@ https://github.com/027xiguapi/code-box
 
 ## 介绍
 
-本浏览器插件可以用于CSDN/知乎/脚本之家/博客园等网站,实现无需登录一键复制代码;支持选中代码;或者代码右上角按钮的一键复制;解除关注博主即可阅读全文提示;去除登录弹窗;去除跳转APP弹窗.
+本浏览器插件可以用于CSDN/知乎/脚本之家/博客园/博客园/51CTO博客/php中文网等网站,实现无需登录一键复制代码;支持选中代码;或者代码右上角按钮的一键复制;解除关注博主即可阅读全文提示;去除登录弹窗;去除跳转APP弹窗.
 
 ## 安装
 
@@ -25,10 +25,9 @@ https://github.com/027xiguapi/code-box
 ### 安装方式二：直接安装
 
 1. 安装地址： 
+   - [前往 Chrome 扩展商店](https://chrome.google.com/webstore/detail/acnnhjllgegbndgknlliobjlekgilbdf)
    - [前往 火狐 扩展商店](https://addons.mozilla.org/zh-CN/firefox/addon/code-box/)
    - [前往 Edge 扩展商店](https://microsoftedge.microsoft.com/addons/detail/code-box/cfpdbfmncaampihkmejogihjkenkonbn)
-   - [前往 Chrome 扩展商店](#)
-
 
 ### 安装方式三：源码安装
 
@@ -80,7 +79,7 @@ https://github.com/027xiguapi/code-box
 1. 打开任意一个`脚本之家`博客即可开始复制代码
 2. 未登录`脚本之家`状态下，支持选中代码
 3. 屏蔽广告
-4. 移动端一键复制
+4. 移动端未登录`脚本之家`状态下，代码右上角按钮一键复制
 
 ### 博客园
 
@@ -91,10 +90,14 @@ https://github.com/027xiguapi/code-box
 1. 未登录`51CTO博客`状态下，支持选中代码
 2. 未登录`51CTO博客`状态下，代码右上角按钮一键复制
 3. 未登录`51CTO博客`状态下，不会再出现强制登录弹窗
-
-## 计划
+4. 移动端未登录`51CTO博客`状态下，代码右上角按钮一键复制
 
 ### php中文网
+
+1. 未登录`php中文网`状态下，支持选中代码
+2. 未登录`php中文网`状态下，代码右上角按钮一键复制
+3. 未登录`php中文网`状态下，不会再出现强制登录弹窗
+4. 未登录`php中文网`状态下，移动端代码右上角按钮一键复制
 
 ## 参考
 
