@@ -62,10 +62,22 @@ export default function Jianshu() {
 
   // 隐藏登录弹窗
   function closeLoginModalFunc() {
-    const modal = document.querySelector(".open-app-modal")
-    const dialog = modal.closest("div[class^='dialog-']") as HTMLElement
-    const className = dialog.className
-    addCss(`.${className} { display:none !important; }`)
+    addCss(`.hide{ display:none !important; }`)
+    let openAppModal = document.querySelector(".open-app-modal")
+    if (openAppModal) {
+      const dialog = openAppModal.closest("div[class^='dialog-']") as HTMLElement
+      const className = dialog.className
+      addCss(`.download-app-guidance,.${className} { display:none !important; }`)
+    } else {
+      setTimeout(() => {
+        openAppModal = document.querySelector("div[class*='-mask']")
+        const dialog = openAppModal.parentNode as HTMLElement
+
+        dialog.classList.add('hide');
+      }, 500)
+    }
+
+
   }
 
   // 自动展开全文
