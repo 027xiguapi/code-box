@@ -44,7 +44,7 @@ https://github.com/027xiguapi/code-box
 3. 谷歌浏览器，从右上角菜单->更多工具->扩展程序可以进入插件管理页面，也可以直接在地址栏输入 chrome://extensions 访问
 4. 勾选开发者模式，即可以文件夹的形式直接加载插件
 
-## 完成
+## 功能
 
 ![img-1](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/img_1.jpg)
 

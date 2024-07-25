@@ -1,6 +1,6 @@
 {
   "name": "code-box",
-  "displayName": "codebox-免登录一键复制代码(CSDN/知乎/脚本之家/博客园/51CTO博客/php中文)",
+  "displayName": "codebox-免登录一键复制代码(CSDN/知乎/脚本之家/博客园/51CTO博客)",
   "version": "0.2.4",
   "description": "本浏览器插件可以用于CSDN/知乎/脚本之家/博客园/51CTO博客/php中文等网站,实现无需登录一键复制代码;支持选中代码;或者代码右上角按钮的一键复制;解除关注博主即可阅读全文提示;去除登录弹窗;去除跳转APP弹窗;页面自定义样式.",
   "author": "027xiguapi. <458813868@qq.com>",
