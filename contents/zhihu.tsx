@@ -19,19 +19,11 @@ export default function zhihu() {
   const [autoOpenCode] = useStorage<boolean>("zhihu-autoOpenCode")
 
   useEffect(() => {
-    console.log("zhihu copyCode", copyCode)
+    console.log("zhihu status", { copyCode, closeLoginModal, autoOpenCode })
     copyCode && copyCodeFunc()
-  }, [copyCode])
-
-  useEffect(() => {
-    console.log("zhihu closeLoginModal", closeLoginModal)
     closeLoginModal && closeLoginModalFunc()
-  }, [closeLoginModal])
-
-  useEffect(() => {
-    console.log("CSDN autoOpenCode", autoOpenCode)
     autoOpenCode && autoOpenCodeFunc()
-  }, [autoOpenCode])
+  }, [copyCode, closeLoginModal, autoOpenCode])
 
   // 功能一： 修改复制按钮，支持一键复制
   function copyCodeFunc() {
@@ -84,26 +76,14 @@ export default function zhihu() {
 
   // 自动展开全文
   function autoOpenCodeFunc(element?) {
-    element || (element = document)
-    const expandButtons = element.querySelectorAll(".ContentItem-expandButton")
-    console.log("expandButtons", expandButtons)
-    if (expandButtons.length) {
-      expandButtons.forEach((button) => {
-        const parent = button.parentElement
-        if (!element.classList) {
-          if (parent.classList.contains("RichContent")) {
-            const collapsed = parent.querySelector(
-              ".RichContent-inner--collapsed"
-            )
-            collapsed.style.maxHeight = "unset"
-            autoOpenCodeFunc(parent)
-          } else {
-            parent.style.display = "none"
-          }
-        }
-        button.style.display = "none"
-      })
+    addCss(`
+    .RichContent--unescapable.is-collapsed .RichContent-inner {
+      max-height: unset !important;
+      mask-image: unset !important;
     }
+    .RichContent--unescapable.is-collapsed .ContentItem-rightButton {
+      display:none !important;
+    }`)
   }
 
   return <div style={{ display: "none" }}></div>

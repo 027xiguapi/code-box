@@ -116,4 +116,4 @@ https://github.com/027xiguapi/code-box
 
 ## 隐私政策
 
-[网面](https://027xiguapi.github.io/code-box/privacy-policy.html)
+[网页](https://027xiguapi.github.io/code-box/privacy-policy.html)
