@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react"
 
 import { useStorage } from "@plasmohq/storage/hook"
 
-import { addCss } from "~tools"
+import { addCss, setIcon } from "~tools"
 
 export const config: PlasmoCSConfig = {
   matches: ["https://*.zhihu.com/*"]
@@ -23,6 +23,7 @@ export default function zhihu() {
     copyCode && copyCodeFunc()
     closeLoginModal && closeLoginModalFunc()
     autoOpenCode && autoOpenCodeFunc()
+    setIcon((closeLoginModal || copyCode || autoOpenCode))
   }, [copyCode, closeLoginModal, autoOpenCode])
 
   // 功能一： 修改复制按钮，支持一键复制

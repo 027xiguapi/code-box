@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react"
 
 import { useStorage } from "@plasmohq/storage/hook"
 
-import { addCss } from "~tools"
+import { addCss, setIcon } from "~tools"
 
 export const config: PlasmoCSConfig = {
   matches: ["https://*.jianshu.com/*"]
@@ -23,6 +23,7 @@ export default function Jianshu() {
     copyCode && copyCodeFunc()
     closeLoginModal && closeLoginModalFunc()
     autoOpenCode && autoOpenCodeFunc()
+    setIcon((closeLoginModal || copyCode || autoOpenCode))
   }, [copyCode, closeLoginModal, autoOpenCode])
 
   // 一键复制

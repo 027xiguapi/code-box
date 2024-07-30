@@ -2,9 +2,8 @@ import type { PlasmoCSConfig } from "plasmo"
 import { useEffect } from "react"
 
 import { useStorage } from "@plasmohq/storage/hook"
-import { sendToBackground } from "@plasmohq/messaging"
 
-import { addCss } from "~tools"
+import { addCss, setIcon } from "~tools"
 
 export const config: PlasmoCSConfig = {
   matches: ["https://*.51cto.com/*"]
@@ -25,19 +24,9 @@ export default function Cto51() {
       copyCode && copyCodeFunc()
     }, 500)
     closeLoginModal && closeLoginModalFunc()
-    if (copyCode || closeLoginModal) {
-      setIconFunc()
-    }
+    console.log(55, (copyCode || closeLoginModal))
+    setIcon((copyCode || closeLoginModal))
   }, [copyCode, closeLoginModal])
-
-  function setIconFunc() {
-    sendToBackground({
-      name: "icon",
-      body: {
-        active: true
-      }
-    })
-  }
 
   /* 未登录复制代码 */
   function copyCodeCssFunc() {

@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react"
 
 import { useStorage } from "@plasmohq/storage/hook"
 
-import { addCss } from "~tools"
+import { addCss, setIcon } from "~tools"
 
 export const config: PlasmoCSConfig = {
   matches: ["https://*.blog.csdn.net/*"]
@@ -36,6 +36,7 @@ const csdn = () => {
     closeFollow && followFunc()
     closeLoginModal && closeLoginModalFunc()
     closeRedirectModal && closeRedirectModalFunc()
+    setIcon((closeAds || copyCode || autoOpenCode || closeFollow || closeLoginModal || closeRedirectModal))
   }, [
     closeAds,
     copyCode,

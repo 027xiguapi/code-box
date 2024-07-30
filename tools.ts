@@ -1,3 +1,5 @@
+import { sendToBackground } from "@plasmohq/messaging"
+
 export function addCss(code) {
   const style = document.createElement("style")
   const css = document.createTextNode(code)
@@ -11,4 +13,13 @@ export function addJs(code) {
   const js = document.createTextNode(code)
   script.appendChild(js)
   document.head.appendChild(script)
+}
+
+export function setIcon(active: boolean) {
+  sendToBackground({
+    name: "icon",
+    body: {
+      active: active
+    }
+  })
 }

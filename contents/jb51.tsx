@@ -3,7 +3,7 @@ import { useEffect } from "react"
 
 import { useStorage } from "@plasmohq/storage/hook"
 
-import { addCss } from "~tools"
+import { addCss, setIcon } from "~tools"
 
 export const config: PlasmoCSConfig = {
   matches: ["https://*.jb51.net/*"]
@@ -21,6 +21,7 @@ export default function jb51() {
     console.log("jb51 status", { closeAds, copyCode })
     closeAds && closeAdsFunc()
     copyCode && copyCodeFunc()
+    setIcon((closeAds || copyCode))
   }, [closeAds, copyCode])
 
   /* 未登录复制代码 */

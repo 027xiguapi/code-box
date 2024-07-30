@@ -2,6 +2,7 @@ import type { PlasmoCSConfig } from "plasmo"
 import { useEffect, useRef } from "react"
 
 import { useStorage } from "@plasmohq/storage/hook"
+import { setIcon } from "~tools"
 
 export const config: PlasmoCSConfig = {
   matches: ["https://*.cnblogs.com/*"],
@@ -18,6 +19,7 @@ export default function cnblogs() {
   useEffect(() => {
     console.log("cnblogs copyCode", copyCode)
     copyCode && copyCodeFunc()
+    setIcon((copyCode))
   }, [copyCode])
 
   // 功能一： 修改复制按钮，支持一键复制

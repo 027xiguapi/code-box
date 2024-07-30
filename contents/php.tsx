@@ -3,7 +3,7 @@ import { useEffect } from "react"
 
 import { useStorage } from "@plasmohq/storage/hook"
 
-import { addCss } from "~tools"
+import { addCss, setIcon } from "~tools"
 
 export const config: PlasmoCSConfig = {
   matches: ["https://*.php.cn/*"]
@@ -24,6 +24,7 @@ export default function Php() {
       copyCode && copyCodeFunc()
     }, 500)
     closeLoginModal && closeLoginModalFunc()
+    setIcon((closeLoginModal || copyCode))
   }, [copyCode, closeLoginModal])
 
   /* 未登录复制代码 */
