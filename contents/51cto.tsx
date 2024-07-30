@@ -2,6 +2,7 @@ import type { PlasmoCSConfig } from "plasmo"
 import { useEffect } from "react"
 
 import { useStorage } from "@plasmohq/storage/hook"
+import { sendToBackground } from "@plasmohq/messaging"
 
 import { addCss } from "~tools"
 
@@ -20,11 +21,23 @@ export default function Cto51() {
 
   useEffect(() => {
     console.log("51CTO status", { closeLoginModal, copyCode })
-    setTimeout(()=>{
+    setTimeout(() => {
       copyCode && copyCodeFunc()
     }, 500)
     closeLoginModal && closeLoginModalFunc()
+    if (copyCode || closeLoginModal) {
+      setIconFunc()
+    }
   }, [copyCode, closeLoginModal])
+
+  function setIconFunc() {
+    sendToBackground({
+      name: "icon",
+      body: {
+        active: true
+      }
+    })
+  }
 
   /* 未登录复制代码 */
   function copyCodeCssFunc() {
@@ -43,7 +56,7 @@ export default function Cto51() {
   function copyCodeFunc() {
     copyCodeCssFunc()
     // 内容区开启复制
-    var content_views = document.querySelector("article")
+    const content_views = document.querySelector("article")
     content_views && content_views.replaceWith(content_views.cloneNode(true))
 
     // 功能一： 修改复制按钮，支持一键复制

@@ -68,7 +68,7 @@ export default function Content() {
   return (
     <>
       {items.map((item, index) => (
-        item.isShow ? itemMap[item.value] : <></>
+        item.isShow ? <span key={index}>{itemMap[item.value]}</span> : <></>
       ))}
     </>
   )
