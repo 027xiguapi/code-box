@@ -49,7 +49,7 @@ export default function Cto51() {
     content_views && content_views.replaceWith(content_views.cloneNode(true))
 
     // 功能一： 修改复制按钮，支持一键复制
-    const buttons = document.querySelectorAll<HTMLElement>(".hljs-cto .operation_box .copy_btn")
+    const buttons = document.querySelectorAll<HTMLElement>(".hljs-cto .copy_btn")
 
     if (buttons.length > 0) {
       buttons.forEach((btn) => {
