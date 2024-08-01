@@ -36,3 +36,4 @@ dist/
 .idea
 .vscode
 pnpm-lock.yaml
+/example.env
