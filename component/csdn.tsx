@@ -10,6 +10,9 @@ export default function Csdn() {
   const [closeFollow, setCloseFollow] = useStorage("csdn-closeFollow", (v) =>
     v === undefined ? true : v
   )
+  const [closeVip, setCloseVip] = useStorage("csdn-closeVip", (v) =>
+    v === undefined ? true : v
+  )
   const [autoOpenCode, setAutoOpenCode] = useStorage(
     "csdn-autoOpenCode",
     (v) => (v === undefined ? true : v)
@@ -62,6 +65,18 @@ export default function Csdn() {
           onChange={(e) => setCloseFollow(e.target.checked)}
         />
         <label htmlFor="csdn-closeFollow" className="codebox-switch"></label>
+      </div>
+      <div className="item">
+        <span>VIP阅读全文</span>
+        <input
+          type="checkbox"
+          id="csdn-closeVip"
+          name="csdn-closeVip"
+          className="codebox-offscreen"
+          checked={closeVip}
+          onChange={(e) => setCloseVip(e.target.checked)}
+        />
+        <label htmlFor="csdn-closeVip" className="codebox-switch"></label>
       </div>
       <div className="item">
         <span>自动展开代码块</span>

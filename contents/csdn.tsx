@@ -17,6 +17,7 @@ const csdn = () => {
   const [closeAds] = useStorage<boolean>("csdn-closeAds")
   const [copyCode] = useStorage<boolean>("csdn-copyCode")
   const [closeFollow] = useStorage<boolean>("csdn-closeFollow")
+  const [closeVip] = useStorage<boolean>("csdn-closeVip")
   const [autoOpenCode] = useStorage<boolean>("csdn-autoOpenCode")
   const [closeLoginModal] = useStorage<boolean>("csdn-closeLoginModal")
   const [closeRedirectModal] = useStorage<boolean>("csdn-closeLoginModal")
@@ -27,6 +28,7 @@ const csdn = () => {
       copyCode,
       autoOpenCode,
       closeFollow,
+      closeVip,
       closeLoginModal,
       closeRedirectModal
     })
@@ -34,6 +36,7 @@ const csdn = () => {
     copyCode && copyCodeFunc()
     autoOpenCode && autoOpenCodeFunc()
     closeFollow && followFunc()
+    closeVip && closeVipFunc()
     closeLoginModal && closeLoginModalFunc()
     closeRedirectModal && closeRedirectModalFunc()
     setIcon((closeAds || copyCode || autoOpenCode || closeFollow || closeLoginModal || closeRedirectModal))
@@ -175,6 +178,13 @@ const csdn = () => {
       display:none !important;
     }`
     addCss(css)
+  }
+
+  function closeVipFunc() {
+    document.querySelectorAll(".vip-mask").forEach((vip) => {
+      const box = vip.closest(".hide-article-box")
+      box.remove()
+    })
   }
 
   return <div style={{ display: "none" }}></div>
