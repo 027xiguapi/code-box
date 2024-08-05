@@ -23,7 +23,7 @@ export default function zhihu() {
     copyCode && copyCodeFunc()
     closeLoginModal && closeLoginModalFunc()
     autoOpenCode && autoOpenCodeFunc()
-    setIcon((closeLoginModal || copyCode || autoOpenCode))
+    setIcon(closeLoginModal || copyCode || autoOpenCode)
   }, [copyCode, closeLoginModal, autoOpenCode])
 
   // 功能一： 修改复制按钮，支持一键复制
@@ -76,7 +76,9 @@ export default function zhihu() {
   }
 
   // 自动展开全文
-  function autoOpenCodeFunc(element?) {
+  function autoOpenCodeFunc() {
+    removeExpandButton()
+    removeRichContentCollapsed()
     addCss(`
     .RichContent--unescapable.is-collapsed .RichContent-inner {
       max-height: unset !important;
@@ -85,6 +87,37 @@ export default function zhihu() {
     .RichContent--unescapable.is-collapsed .ContentItem-rightButton {
       display:none !important;
     }`)
+  }
+
+  function removeExpandButton(element?) {
+    element || (element = document)
+    const expandButtons = element.querySelectorAll(".ContentItem-expandButton")
+    if (expandButtons.length) {
+      expandButtons.forEach((button) => {
+        const parent = button.parentElement
+        if (!element.classList) {
+          if (parent.classList.contains("RichContent")) {
+            const collapsed = parent.querySelector(
+              ".RichContent-inner--collapsed"
+            )
+            collapsed.style.maxHeight = "unset"
+            removeExpandButton(parent)
+          } else {
+            parent.style.display = "none"
+          }
+        }
+        button.style.display = "none"
+      })
+    }
+  }
+
+  function removeRichContentCollapsed() {
+    const isCollapseds = document.querySelectorAll(".RichContent.is-collapsed")
+    if (isCollapseds.length > 0) {
+      isCollapseds.forEach((isCollapsed) => {
+        isCollapsed.classList.remove("is-collapsed")
+      })
+    }
   }
 
   return <div style={{ display: "none" }}></div>
