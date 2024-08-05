@@ -1,5 +1,6 @@
 import type { PlasmoCSConfig } from "plasmo"
 import { useEffect, useRef } from "react"
+import { v4 as uuidv4 } from "uuid"
 
 import { useStorage } from "@plasmohq/storage/hook"
 
@@ -17,13 +18,14 @@ export default function Jianshu() {
   const [closeLoginModal] = useStorage<boolean>("jianshu-closeLoginModal")
   const [copyCode] = useStorage<boolean>("jianshu-copyCode")
   const [autoOpenCode] = useStorage<boolean>("jianshu-autoOpenCode")
+  const [history, setHistory] = useStorage<any[]>("codebox-history")
 
   useEffect(() => {
     console.log("jianshu status", { copyCode, closeLoginModal, autoOpenCode })
     copyCode && copyCodeFunc()
     closeLoginModal && closeLoginModalFunc()
     autoOpenCode && autoOpenCodeFunc()
-    setIcon((closeLoginModal || copyCode || autoOpenCode))
+    setIcon(closeLoginModal || copyCode || autoOpenCode)
   }, [copyCode, closeLoginModal, autoOpenCode])
 
   // 一键复制
@@ -50,6 +52,18 @@ export default function Jianshu() {
         const codeBlock = parentPreBlock.querySelector<HTMLElement>("code")
 
         navigator.clipboard.writeText(codeBlock.innerText)
+        setHistory((prevData) => [
+          {
+            id: uuidv4(),
+            value: codeBlock.innerText,
+            createdAt: new Date(),
+            from: "简书",
+            link: location.href,
+            tags: [],
+            remark: ""
+          },
+          ...prevData
+        ])
 
         target.innerText = "复制成功"
         setTimeout(() => {
@@ -66,19 +80,21 @@ export default function Jianshu() {
     addCss(`.hide{ display:none !important; }`)
     let openAppModal = document.querySelector(".open-app-modal")
     if (openAppModal) {
-      const dialog = openAppModal.closest("div[class^='dialog-']") as HTMLElement
+      const dialog = openAppModal.closest(
+        "div[class^='dialog-']"
+      ) as HTMLElement
       const className = dialog.className
-      addCss(`.download-app-guidance,.${className} { display:none !important; }`)
+      addCss(
+        `.download-app-guidance,.${className} { display:none !important; }`
+      )
     } else {
       setTimeout(() => {
         openAppModal = document.querySelector("div[class*='-mask']")
         const dialog = openAppModal.parentNode as HTMLElement
 
-        dialog.classList.add('hide');
+        dialog.classList.add("hide")
       }, 500)
     }
-
-
   }
 
   // 自动展开全文

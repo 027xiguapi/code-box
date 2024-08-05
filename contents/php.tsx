@@ -1,5 +1,6 @@
 import type { PlasmoCSConfig } from "plasmo"
 import { useEffect } from "react"
+import { v4 as uuidv4 } from "uuid"
 
 import { useStorage } from "@plasmohq/storage/hook"
 
@@ -14,17 +15,17 @@ window.addEventListener("load", () => {
 })
 
 export default function Php() {
-
   const [copyCode] = useStorage<boolean>("php-copyCode")
   const [closeLoginModal] = useStorage<boolean>("php-closeLoginModal")
+  const [history, setHistory] = useStorage<any[]>("codebox-history")
 
   useEffect(() => {
     console.log("PHP status", { closeLoginModal, copyCode })
-    setTimeout(()=>{
+    setTimeout(() => {
       copyCode && copyCodeFunc()
     }, 500)
     closeLoginModal && closeLoginModalFunc()
-    setIcon((closeLoginModal || copyCode))
+    setIcon(closeLoginModal || copyCode)
   }, [copyCode, closeLoginModal])
 
   /* 未登录复制代码 */
@@ -48,7 +49,9 @@ export default function Php() {
     content_views && content_views.replaceWith(content_views.cloneNode(true))
 
     // 功能一： 修改复制按钮，支持一键复制
-    const buttons = document.querySelectorAll<HTMLElement>(".php-article .code .contentsignin")
+    const buttons = document.querySelectorAll<HTMLElement>(
+      ".php-article .code .contentsignin"
+    )
 
     if (buttons.length > 0) {
       buttons.forEach((btn) => {
@@ -63,7 +66,18 @@ export default function Php() {
           const codeBlock = parentPreBlock.querySelector<HTMLElement>(".code")
 
           navigator.clipboard.writeText(codeBlock.innerText)
-
+          setHistory((prevData) => [
+            {
+              id: uuidv4(),
+              value: codeBlock.innerText,
+              createdAt: new Date(),
+              from: "PHP中文网",
+              link: location.href,
+              tags: [],
+              remark: ""
+            },
+            ...prevData
+          ])
           target.innerText = "复制成功"
           setTimeout(() => {
             target.innerText = "复制"
@@ -95,6 +109,18 @@ export default function Php() {
           const codeBlock = code.querySelector<HTMLElement>(".container")
 
           navigator.clipboard.writeText(codeBlock.innerText)
+          setHistory((prevData) => [
+            {
+              id: uuidv4(),
+              value: codeBlock.innerText,
+              createdAt: new Date(),
+              from: "PHP中文网",
+              link: location.href,
+              tags: [],
+              remark: ""
+            },
+            ...prevData
+          ])
           target.innerText = "复制成功"
           setTimeout(() => {
             target.innerText = "复制"

@@ -1,5 +1,6 @@
 import type { PlasmoCSConfig } from "plasmo"
 import { useEffect, useRef } from "react"
+import { v4 as uuidv4 } from "uuid"
 
 import { useStorage } from "@plasmohq/storage/hook"
 
@@ -17,6 +18,7 @@ export default function zhihu() {
   const [closeLoginModal] = useStorage<boolean>("zhihu-closeLoginModal")
   const [copyCode] = useStorage<boolean>("zhihu-copyCode")
   const [autoOpenCode] = useStorage<boolean>("zhihu-autoOpenCode")
+  const [history, setHistory] = useStorage<any[]>("codebox-history")
 
   useEffect(() => {
     console.log("zhihu status", { copyCode, closeLoginModal, autoOpenCode })
@@ -52,6 +54,18 @@ export default function zhihu() {
         const codeBlock = parentPreBlock.querySelector<HTMLElement>("pre")
 
         navigator.clipboard.writeText(codeBlock.innerText)
+        setHistory((prevData) => [
+          {
+            id: uuidv4(),
+            value: codeBlock.innerText,
+            createdAt: new Date(),
+            from: "知乎",
+            link: location.href,
+            tags: [],
+            remark: ""
+          },
+          ...prevData
+        ])
 
         target.innerText = "复制成功"
         setTimeout(() => {

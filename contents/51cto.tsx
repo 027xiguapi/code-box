@@ -1,5 +1,6 @@
 import type { PlasmoCSConfig } from "plasmo"
 import { useEffect } from "react"
+import { v4 as uuidv4 } from "uuid"
 
 import { useStorage } from "@plasmohq/storage/hook"
 
@@ -14,9 +15,9 @@ window.addEventListener("load", () => {
 })
 
 export default function Cto51() {
-
   const [copyCode] = useStorage<boolean>("51cto-copyCode")
   const [closeLoginModal] = useStorage<boolean>("51cto-closeLoginModal")
+  const [history, setHistory] = useStorage<any[]>("codebox-history")
 
   useEffect(() => {
     console.log("51CTO status", { closeLoginModal, copyCode })
@@ -24,8 +25,7 @@ export default function Cto51() {
       copyCode && copyCodeFunc()
     }, 500)
     closeLoginModal && closeLoginModalFunc()
-    console.log(55, (copyCode || closeLoginModal))
-    setIcon((copyCode || closeLoginModal))
+    setIcon(copyCode || closeLoginModal)
   }, [copyCode, closeLoginModal])
 
   /* 未登录复制代码 */
@@ -49,7 +49,9 @@ export default function Cto51() {
     content_views && content_views.replaceWith(content_views.cloneNode(true))
 
     // 功能一： 修改复制按钮，支持一键复制
-    const buttons = document.querySelectorAll<HTMLElement>(".hljs-cto .copy_btn")
+    const buttons = document.querySelectorAll<HTMLElement>(
+      ".hljs-cto .copy_btn"
+    )
 
     if (buttons.length > 0) {
       buttons.forEach((btn) => {
@@ -62,11 +64,23 @@ export default function Cto51() {
           const target = e.target as HTMLElement
           const parentPreBlock = target.closest(".hljs-cto")
           const codeBlock = parentPreBlock.querySelector<HTMLElement>("pre")
-          const codeIndex = codeBlock.querySelector<HTMLElement>(".pre-numbering")
+          const codeIndex =
+            codeBlock.querySelector<HTMLElement>(".pre-numbering")
           codeBlock.removeChild(codeIndex)
 
           navigator.clipboard.writeText(codeBlock.innerText)
-
+          setHistory((prevData) => [
+            {
+              id: uuidv4(),
+              value: codeBlock.innerText,
+              createdAt: new Date(),
+              from: "51CTO",
+              link: location.href,
+              tags: [],
+              remark: ""
+            },
+            ...prevData
+          ])
           target.innerText = "复制成功"
           setTimeout(() => {
             target.innerText = "复制"
@@ -76,7 +90,9 @@ export default function Cto51() {
         })
       })
     } else {
-      const codes = document.querySelectorAll<HTMLElement>("article .has-pre-numbering")
+      const codes = document.querySelectorAll<HTMLElement>(
+        "article .has-pre-numbering"
+      )
 
       codes.forEach((code) => {
         const codeBlock = code.closest("div")
@@ -99,6 +115,18 @@ export default function Cto51() {
           const target = e.target as HTMLElement
 
           navigator.clipboard.writeText(code.innerText)
+          setHistory((prevData) => [
+            {
+              id: uuidv4(),
+              value: codeBlock.innerText,
+              createdAt: new Date(),
+              from: "51CTO",
+              link: location.href,
+              tags: [],
+              remark: ""
+            },
+            ...prevData
+          ])
           target.innerText = "复制成功"
           setTimeout(() => {
             target.innerText = "复制"

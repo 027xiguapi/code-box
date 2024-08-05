@@ -1,5 +1,6 @@
 import type { PlasmoCSConfig } from "plasmo"
 import { useEffect } from "react"
+import { v4 as uuidv4 } from "uuid"
 
 import { useStorage } from "@plasmohq/storage/hook"
 
@@ -16,12 +17,13 @@ window.addEventListener("load", () => {
 export default function jb51() {
   const [closeAds] = useStorage<boolean>("jb51-closeAds")
   const [copyCode] = useStorage<boolean>("jb51-copyCode")
+  const [history, setHistory] = useStorage<any[]>("codebox-history")
 
   useEffect(() => {
     console.log("jb51 status", { closeAds, copyCode })
     closeAds && closeAdsFunc()
     copyCode && copyCodeFunc()
-    setIcon((closeAds || copyCode))
+    setIcon(closeAds || copyCode)
   }, [closeAds, copyCode])
 
   /* 未登录复制代码 */
@@ -69,6 +71,18 @@ export default function jb51() {
           const codeBlock = parentPreBlock.querySelector<HTMLElement>(".code")
 
           navigator.clipboard.writeText(codeBlock.innerText)
+          setHistory((prevData) => [
+            {
+              id: uuidv4(),
+              value: codeBlock.innerText,
+              createdAt: new Date(),
+              from: "脚本之家",
+              link: location.href,
+              tags: [],
+              remark: ""
+            },
+            ...prevData
+          ])
 
           target.innerText = "复制成功"
           setTimeout(() => {
@@ -101,6 +115,18 @@ export default function jb51() {
           const codeBlock = parentPreBlock.querySelector<HTMLElement>("pre")
 
           navigator.clipboard.writeText(codeBlock.innerText)
+          setHistory((prevData) => [
+            {
+              id: uuidv4(),
+              value: codeBlock.innerText,
+              createdAt: new Date(),
+              from: "脚本之家",
+              link: location.href,
+              tags: [],
+              remark: ""
+            },
+            ...prevData
+          ])
 
           target.innerText = "复制成功"
           setTimeout(() => {

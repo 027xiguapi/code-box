@@ -107,8 +107,6 @@ export default function IndexOptions() {
     }
   }
 
-  console.log("version")
-
   return (
     <ThemeProvider>
       <div className="App options">

@@ -1,5 +1,6 @@
 import type { PlasmoCSConfig } from "plasmo"
 import { useEffect, useRef } from "react"
+import { v4 as uuidv4 } from "uuid"
 
 import { useStorage } from "@plasmohq/storage/hook"
 
@@ -21,6 +22,7 @@ const csdn = () => {
   const [autoOpenCode] = useStorage<boolean>("csdn-autoOpenCode")
   const [closeLoginModal] = useStorage<boolean>("csdn-closeLoginModal")
   const [closeRedirectModal] = useStorage<boolean>("csdn-closeLoginModal")
+  const [history, setHistory] = useStorage<any[]>("codebox-history")
 
   useEffect(() => {
     console.log("CSDN status", {
@@ -39,7 +41,14 @@ const csdn = () => {
     closeVip && closeVipFunc()
     closeLoginModal && closeLoginModalFunc()
     closeRedirectModal && closeRedirectModalFunc()
-    setIcon((closeAds || copyCode || autoOpenCode || closeFollow || closeLoginModal || closeRedirectModal))
+    setIcon(
+      closeAds ||
+        copyCode ||
+        autoOpenCode ||
+        closeFollow ||
+        closeLoginModal ||
+        closeRedirectModal
+    )
   }, [
     closeAds,
     copyCode,
@@ -94,6 +103,18 @@ const csdn = () => {
         const codeBlock = parentPreBlock.querySelector("code")
 
         navigator.clipboard.writeText(codeBlock.innerText)
+        setHistory((prevData) => [
+          {
+            id: uuidv4(),
+            value: codeBlock.innerText,
+            createdAt: new Date(),
+            from: "CSDN",
+            link: location.href,
+            tags: [],
+            remark: ""
+          },
+          ...prevData
+        ])
 
         target.dataset.title = "复制成功"
         setTimeout(() => {

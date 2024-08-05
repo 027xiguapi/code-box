@@ -1,7 +1,9 @@
 import type { PlasmoCSConfig } from "plasmo"
 import { useEffect, useRef } from "react"
+import { v4 as uuidv4 } from "uuid"
 
 import { useStorage } from "@plasmohq/storage/hook"
+
 import { setIcon } from "~tools"
 
 export const config: PlasmoCSConfig = {
@@ -15,11 +17,12 @@ window.addEventListener("load", () => {
 
 export default function cnblogs() {
   const [copyCode] = useStorage<boolean>("cnblogs-copyCode")
+  const [history, setHistory] = useStorage<any[]>("codebox-history")
 
   useEffect(() => {
     console.log("cnblogs copyCode", copyCode)
     copyCode && copyCodeFunc()
-    setIcon((copyCode))
+    setIcon(copyCode)
   }, [copyCode])
 
   // 功能一： 修改复制按钮，支持一键复制
@@ -60,7 +63,18 @@ export default function cnblogs() {
         const codeBlock = parentPreBlock.querySelector<HTMLElement>("pre")
 
         navigator.clipboard.writeText(codeBlock.innerText)
-
+        setHistory((prevData) => [
+          {
+            id: uuidv4(),
+            value: codeBlock.innerText,
+            createdAt: new Date(),
+            from: "博客园",
+            link: location.href,
+            tags: [],
+            remark: ""
+          },
+          ...prevData
+        ])
         target.innerText = "复制成功"
         setTimeout(() => {
           target.innerText = "复制"

@@ -1,0 +1,7 @@
+.content {
+    width: 1000px;
+    margin: 0 auto;
+    .keyword-lighten {
+        background-color: gold;
+    }
+}
