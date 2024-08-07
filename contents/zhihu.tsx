@@ -114,7 +114,7 @@ export default function zhihu() {
             const collapsed = parent.querySelector(
               ".RichContent-inner--collapsed"
             )
-            collapsed.style.maxHeight = "unset"
+            collapsed && (collapsed.style.maxHeight = "unset")
             removeExpandButton(parent)
           } else {
             parent.style.display = "none"

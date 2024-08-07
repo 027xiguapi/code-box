@@ -1,4 +1,4 @@
-import { DownOutlined, ExclamationCircleFilled } from "@ant-design/icons"
+import { ExclamationCircleFilled } from "@ant-design/icons"
 import {
   Avatar,
   Button,
@@ -7,10 +7,8 @@ import {
   List,
   message,
   Modal,
-  Skeleton,
-  Space
+  Skeleton
 } from "antd"
-import type { MenuProps } from "antd"
 import dayjs from "dayjs"
 import React, { useEffect, useState } from "react"
 
@@ -75,16 +73,25 @@ export default function HistoryPage() {
       const searchProps = ["value", "createdAt", "link", "remark"]
       const filterRE = new RegExp(filterVal, "gi")
       const rest = data.filter((item: any) =>
-        searchProps.some(
-          (key) => String(item[key]).toLowerCase().indexOf(_filterVal) > -1
-        )
+        searchProps.some((key) => {
+          if (key == "createdAt") {
+            return (
+              dayjs(item[key])
+                .format("YYYY-MM-DD HH:mm:ss")
+                .indexOf(_filterVal) > -1
+            )
+          } else {
+            return String(item[key]).toLowerCase().indexOf(_filterVal) > -1
+          }
+        })
       )
       _list = rest.map((row) => {
-        const item = Object.assign({}, row) as any
+        const item = Object.assign({}, row)
         searchProps.forEach((key) => {
           item[key] = String(item[key]).replace(
             filterRE,
-            (match) => `<span class="keyword-lighten">${match}</span>`
+            // (match) => `<span class="keyword-lighten">${match}</span>`
+            () => ``
           )
         })
         return item
@@ -139,7 +146,7 @@ export default function HistoryPage() {
       okText: "确定",
       okType: "danger",
       cancelText: "取消",
-      async onOk() {
+      onOk() {
         setHistory([])
       },
       onCancel() {
@@ -149,8 +156,9 @@ export default function HistoryPage() {
   }
 
   function handleCopy(item) {
-    navigator.clipboard.writeText(item.value)
-    message.success("复制成功！")
+    navigator.clipboard.writeText(item.value).then(() => {
+      message.success("复制成功！")
+    })
   }
 
   function handleDelete(item) {
@@ -160,7 +168,7 @@ export default function HistoryPage() {
       content: "是否删除当前记录?",
       okText: "确定",
       cancelText: "取消",
-      async onOk() {
+      onOk() {
         setHistory((prevData) =>
           prevData.filter((_item) => _item.id != item.id)
         )
@@ -229,16 +237,22 @@ export default function HistoryPage() {
                       </Avatar>
                     }
                     title={
+                      // <a
+                      //   href={item.link}
+                      //   target="_blank"
+                      //   rel="noopener noreferrer"
+                      //   dangerouslySetInnerHTML={{
+                      //     __html: dayjs(item.createdAt).format(
+                      //       "YYYY-MM-DD HH:mm:ss"
+                      //     )
+                      //   }}
+                      // />
                       <a
                         href={item.link}
                         target="_blank"
-                        rel="noopener noreferrer"
-                        dangerouslySetInnerHTML={{
-                          __html: dayjs(item.createdAt).format(
-                            "YYYY-MM-DD HH:mm:ss"
-                          )
-                        }}
-                      />
+                        rel="noopener noreferrer">
+                        {dayjs(item.createdAt).format("YYYY-MM-DD HH:mm:ss")}
+                      </a>
                     }
                     description={`${item.value.slice(0, 80)}`}
                   />
