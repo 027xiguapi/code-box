@@ -37,32 +37,32 @@ export default function IndexOptions() {
     },
     {
       id: "3",
+      value: "baidu",
+      label: "百度",
+      isShow: true
+    },
+    {
+      id: "4",
       value: "jianshu",
       label: "简书",
       isShow: true
     },
     {
-      id: "4",
+      id: "5",
       value: "jb51",
       label: "脚本之家",
       isShow: true
     },
     {
-      id: "5",
+      id: "6",
       value: "cnblogs",
       label: "博客园",
       isShow: true
     },
     {
-      id: "6",
+      id: "7",
       value: "51cto",
       label: "51CTO",
-      isShow: true
-    },
-    {
-      id: "7",
-      value: "php",
-      label: "php中文网",
       isShow: true
     },
     {

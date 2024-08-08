@@ -10,10 +10,6 @@ export const config: PlasmoCSConfig = {
   matches: ["https://*.blog.csdn.net/*"]
 }
 
-window.addEventListener("load", () => {
-  console.log("CSDN 加载完成，执行代码")
-})
-
 const csdn = () => {
   const [closeAds] = useStorage<boolean>("csdn-closeAds")
   const [copyCode] = useStorage<boolean>("csdn-copyCode")

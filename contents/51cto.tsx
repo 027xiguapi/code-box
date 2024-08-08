@@ -10,10 +10,6 @@ export const config: PlasmoCSConfig = {
   matches: ["https://*.51cto.com/*"]
 }
 
-window.addEventListener("load", () => {
-  console.log("51CTO加载完成，执行代码")
-})
-
 export default function Cto51() {
   const [copyCode] = useStorage<boolean>("51cto-copyCode")
   const [closeLoginModal] = useStorage<boolean>("51cto-closeLoginModal")

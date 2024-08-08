@@ -69,6 +69,10 @@ https://github.com/027xiguapi/code-box
 2. 未登录`知乎`状态下，不再提示展开阅读全文，且完整展示文章
 3. 未登录`知乎`状态下，不会再出现强制登录弹窗
 
+### 百度
+
+1. 关闭AI对话框
+
 ### 简书
 
 1. 移动端，一键复制代码
@@ -108,6 +112,7 @@ https://github.com/027xiguapi/code-box
 ![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/5.jpg)
 ![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/6.jpg)
 ![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/7.jpg)
+![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/1723096379951.jpg)
 
 
 ## 参考

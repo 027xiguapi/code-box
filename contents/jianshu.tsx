@@ -10,10 +10,6 @@ export const config: PlasmoCSConfig = {
   matches: ["https://*.jianshu.com/*"]
 }
 
-window.addEventListener("load", () => {
-  console.log("简书加载完成，执行代码")
-})
-
 export default function Jianshu() {
   const [closeLoginModal] = useStorage<boolean>("jianshu-closeLoginModal")
   const [copyCode] = useStorage<boolean>("jianshu-copyCode")

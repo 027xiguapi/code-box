@@ -10,10 +10,6 @@ export const config: PlasmoCSConfig = {
   matches: ["https://*.zhihu.com/*"]
 }
 
-window.addEventListener("load", () => {
-  console.log("知乎加载完成，执行代码")
-})
-
 export default function zhihu() {
   const [closeLoginModal] = useStorage<boolean>("zhihu-closeLoginModal")
   const [copyCode] = useStorage<boolean>("zhihu-copyCode")

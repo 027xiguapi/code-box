@@ -10,10 +10,6 @@ export const config: PlasmoCSConfig = {
   matches: ["https://*.jb51.net/*"]
 }
 
-window.addEventListener("load", () => {
-  console.log("脚本之家加载完成，执行代码")
-})
-
 export default function jb51() {
   const [closeAds] = useStorage<boolean>("jb51-closeAds")
   const [copyCode] = useStorage<boolean>("jb51-copyCode")

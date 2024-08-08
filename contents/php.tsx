@@ -10,10 +10,6 @@ export const config: PlasmoCSConfig = {
   matches: ["https://*.php.cn/*"]
 }
 
-window.addEventListener("load", () => {
-  console.log("php中文网加载完成，执行代码")
-})
-
 export default function Php() {
   const [copyCode] = useStorage<boolean>("php-copyCode")
   const [closeLoginModal] = useStorage<boolean>("php-closeLoginModal")

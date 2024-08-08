@@ -11,10 +11,6 @@ export const config: PlasmoCSConfig = {
   all_frames: true
 }
 
-window.addEventListener("load", () => {
-  console.log("博客园加载完成，执行代码")
-})
-
 export default function cnblogs() {
   const [copyCode] = useStorage<boolean>("cnblogs-copyCode")
   const [history, setHistory] = useStorage<any[]>("codebox-history")
