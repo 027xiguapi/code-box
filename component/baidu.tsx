@@ -9,7 +9,7 @@ export default function Custom() {
     <fieldset>
       <legend>百度设置</legend>
       <div className="item">
-        <span>关闭AI框</span>
+        <span>关闭AI对话框</span>
         <input
           type="checkbox"
           id="baidu-closeAIBox"

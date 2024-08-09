@@ -17,7 +17,7 @@ export default function Custom() {
     closeAIBox && closeAIBoxFunc()
   }, [closeAIBox])
 
-  /* 插入自定义css代码 */
+  /* 删除百度AI对话框 */
   function closeAIBoxFunc() {
     addCss(`.wd-ai-index-pc{
       display:none !important;

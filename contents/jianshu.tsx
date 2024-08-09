@@ -73,7 +73,16 @@ export default function Jianshu() {
 
   // 隐藏登录弹窗
   function closeLoginModalFunc() {
-    addCss(`.hide{ display:none !important; }`)
+    addCss(
+      `.hide,
+      ._23ISFX-wrap,
+      ._23ISFX-mask{ 
+        display:none !important; 
+      }
+      body {
+        overflow: unset !important;
+      }`
+    )
     let openAppModal = document.querySelector(".open-app-modal")
     if (openAppModal) {
       const dialog = openAppModal.closest(
@@ -83,13 +92,6 @@ export default function Jianshu() {
       addCss(
         `.download-app-guidance,.${className} { display:none !important; }`
       )
-    } else {
-      setTimeout(() => {
-        openAppModal = document.querySelector("div[class*='-mask']")
-        const dialog = openAppModal.parentNode as HTMLElement
-
-        dialog.classList.add("hide")
-      }, 500)
     }
   }
 
