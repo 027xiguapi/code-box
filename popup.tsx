@@ -10,7 +10,7 @@ export default function IndexPopup() {
       <div className="App popup">
         <div className="App-header">
           <h2 className="title">CodeBox 🎉</h2>
-          <p className="desc">更方便操作网页代码</p>
+          <p className="desc">{chrome.i18n.getMessage("popupDescription")}</p>
         </div>
         <div className="App-body">
           <Content />
@@ -22,7 +22,7 @@ export default function IndexPopup() {
               href="/tabs/history.html"
               target="_blank"
               rel="noreferrer">
-              历史记录🕮
+              {chrome.i18n.getMessage("history")}🕮
             </a>
           </div>
           <div className="item">
@@ -31,7 +31,7 @@ export default function IndexPopup() {
               href="/options.html"
               target="_blank"
               rel="noreferrer">
-              更多设置⚙️
+              {chrome.i18n.getMessage("more")}⚙️
             </a>
           </div>
           <div>
@@ -40,7 +40,7 @@ export default function IndexPopup() {
               href="https://github.com/027xiguapi/code-box"
               target="_blank"
               rel="noreferrer">
-              支持作者更新👍
+              {chrome.i18n.getMessage("support")}👍
             </a>
           </div>
         </div>

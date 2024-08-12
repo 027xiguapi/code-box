@@ -15,9 +15,9 @@ export default function Jianshu() {
 
   return (
     <fieldset>
-      <legend>简书设置</legend>
+      <legend>{chrome.i18n.getMessage("jianshuConfig")}</legend>
       <div className="item">
-        <span>一键复制代码</span>
+        <span>{chrome.i18n.getMessage("jianshuCopyCode")}</span>
         <input
           type="checkbox"
           id="jianshu-copyCode"
@@ -29,7 +29,7 @@ export default function Jianshu() {
         <label className="codebox-switch" htmlFor="jianshu-copyCode"></label>
       </div>
       <div className="item">
-        <span>关闭登录弹窗</span>
+        <span>{chrome.i18n.getMessage("jianshuCloseLoginModal")}</span>
         <input
           type="checkbox"
           id="jianshu-closeLoginModal"
@@ -43,7 +43,7 @@ export default function Jianshu() {
           htmlFor="jianshu-closeLoginModal"></label>
       </div>
       <div className="item">
-        <span>自动展开全文</span>
+        <span>{chrome.i18n.getMessage("jianshuAutoOpenCode")}</span>
         <input
           type="checkbox"
           id="jianshu-autoOpenCode"

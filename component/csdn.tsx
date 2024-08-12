@@ -29,9 +29,9 @@ export default function Csdn() {
 
   return (
     <fieldset>
-      <legend>CSDN设置</legend>
+      <legend>{chrome.i18n.getMessage("baiduConfig")}</legend>
       <div className="item">
-        <span>关闭广告</span>
+        <span>{chrome.i18n.getMessage("csdnCloseAds")}</span>
         <input
           type="checkbox"
           id="csdn-closeAds"
@@ -43,7 +43,7 @@ export default function Csdn() {
         <label htmlFor="csdn-closeAds" className="codebox-switch"></label>
       </div>
       <div className="item">
-        <span>一键复制代码</span>
+        <span>{chrome.i18n.getMessage("csdnCopyCode")}</span>
         <input
           type="checkbox"
           id="csdn-copyCode"
@@ -55,7 +55,7 @@ export default function Csdn() {
         <label htmlFor="csdn-copyCode" className="codebox-switch"></label>
       </div>
       <div className="item">
-        <span>关注阅读全文</span>
+        <span>{chrome.i18n.getMessage("csdnCloseFollow")}</span>
         <input
           type="checkbox"
           id="csdn-closeFollow"
@@ -67,7 +67,7 @@ export default function Csdn() {
         <label htmlFor="csdn-closeFollow" className="codebox-switch"></label>
       </div>
       <div className="item">
-        <span>VIP阅读全文</span>
+        <span>{chrome.i18n.getMessage("csdnCloseVip")}</span>
         <input
           type="checkbox"
           id="csdn-closeVip"
@@ -79,7 +79,7 @@ export default function Csdn() {
         <label htmlFor="csdn-closeVip" className="codebox-switch"></label>
       </div>
       <div className="item">
-        <span>自动展开代码块</span>
+        <span>{chrome.i18n.getMessage("csdnAutoOpenCode")}</span>
         <input
           type="checkbox"
           id="csdn-autoOpenCode"
@@ -91,7 +91,7 @@ export default function Csdn() {
         <label htmlFor="csdn-autoOpenCode" className="codebox-switch"></label>
       </div>
       <div className="item">
-        <span>关闭登录弹窗</span>
+        <span>{chrome.i18n.getMessage("csdnCloseLoginModal")}</span>
         <input
           type="checkbox"
           id="csdn-closeLoginModal"
@@ -105,7 +105,7 @@ export default function Csdn() {
           className="codebox-switch"></label>
       </div>
       <div className="item">
-        <span>关闭跳转APP弹窗</span>
+        <span>{chrome.i18n.getMessage("csdnCloseRedirectModal")}</span>
         <input
           type="checkbox"
           id="csdn-closeRedirectModal"

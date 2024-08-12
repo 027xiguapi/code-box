@@ -1,0 +1,122 @@
+{
+  "extensionName": {
+    "message": "codebox-one click code copying without login"
+  },
+  "extensionDescription": {
+    "message": "Implement one click code copying without logging in; Support selecting code; Or the one click copy button in the upper right corner of the code; Allow non following bloggers to read full text prompts; Remove login pop ups; Remove jump app pop ups; Customize page styles."
+  },
+  "popupDescription": {
+    "message": "one click code copying without login"
+  },
+  "history": {
+    "message": "Historical records"
+  },
+  "more": {
+    "message": "More settings"
+  },
+  "support": {
+    "message": "Support author updates"
+  },
+  "privacy": {
+    "message": "Privacy policy"
+  },
+  "version": {
+    "message": "version"
+  },
+  "reset": {
+    "message": "reset"
+  },
+  "51ctoConfig": {
+    "message": "51CTO Config"
+  },
+  "51ctoCopyCode": {
+    "message": "Copy Code"
+  },
+  "51ctoCloseLoginModal": {
+    "message": "Close Login Modal"
+  },
+  "baiduConfig": {
+    "message": "51CTO Config"
+  },
+  "baiduCloseAIBox": {
+    "message": "Close AI Modal"
+  },
+  "cnblogsConfig": {
+    "message": "cnblogs Config"
+  },
+  "cnblogsCopyCode": {
+    "message": "Copy Code"
+  },
+  "csdnConfig": {
+    "message": "CSDN Config"
+  },
+  "csdnCloseAds": {
+    "message": "Close Ads"
+  },
+  "csdnCopyCode": {
+    "message": "Copy Code"
+  },
+  "csdnCloseFollow": {
+    "message": "Close Follow"
+  },
+  "csdnCloseVip": {
+    "message": "Close Vip"
+  },
+  "csdnAutoOpenCode": {
+    "message": "Auto Open Code"
+  },
+  "csdnCloseLoginModal": {
+    "message": "Close Login Modal"
+  },
+  "csdnCloseRedirectModal": {
+    "message": "Close Redirect App Modal"
+  },
+  "customConfig": {
+    "message": "Custom Config"
+  },
+  "customCssCode": {
+    "message": "Custom Css Code"
+  },
+  "jb51Config": {
+    "message": "Jb51 Config"
+  },
+  "jb51CloseAds": {
+    "message": "Close Ads"
+  },
+  "jb51CopyCode": {
+    "message": "Copy Code"
+  },
+  "jianshuConfig": {
+    "message": "Jianshu Config"
+  },
+  "jianshuCopyCode": {
+    "message": "Copy Code"
+  },
+  "jianshuCloseLoginModal": {
+    "message": "Close Login Modal"
+  },
+  "jianshuAutoOpenCode": {
+    "message": "Auto Open Code"
+  },
+  "phpConfig": {
+    "message": "Php Config"
+  },
+  "phpCopyCode": {
+    "message": "Copy Code"
+  },
+  "phpCloseLoginModal": {
+    "message": "Close Login Modal"
+  },
+  "zhihuConfig": {
+    "message": "Zhihu Config"
+  },
+  "zhihuCopyCode": {
+    "message": "Copy Code"
+  },
+  "zhihuCloseLoginModal": {
+    "message": "Close Login Modal"
+  },
+  "zhihuAutoOpenCode": {
+    "message": "Auto Open Code"
+  }
+}

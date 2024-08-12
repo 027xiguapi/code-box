@@ -7,9 +7,9 @@ export default function Custom() {
 
   return (
     <fieldset>
-      <legend>百度设置</legend>
+      <legend>{chrome.i18n.getMessage("baiduConfig")}</legend>
       <div className="item">
-        <span>关闭AI对话框</span>
+        <span>{chrome.i18n.getMessage("baiduCloseAIBox")}</span>
         <input
           type="checkbox"
           id="baidu-closeAIBox"

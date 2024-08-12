@@ -112,7 +112,7 @@ export default function IndexOptions() {
       <div className="App options">
         <div className="App-header">
           <h2 className="title">CodeBox 🎉</h2>
-          <p className="desc">更方便操作网页代码</p>
+          <p className="desc">{chrome.i18n.getMessage("popupDescription")}</p>
         </div>
         <div className="App-body">
           <DndContext
@@ -135,11 +135,12 @@ export default function IndexOptions() {
         </div>
         <div className="App-link">
           <div className="item">
-            版本：{chrome.runtime.getManifest().version}
+            {chrome.i18n.getMessage("version")}：
+            {chrome.runtime.getManifest().version}
           </div>
           <div className="item">
             <button className="reset" onClick={handleReset}>
-              重置
+              {chrome.i18n.getMessage("reset")}
             </button>
           </div>
           <div className="item">
@@ -148,7 +149,7 @@ export default function IndexOptions() {
               href="/tabs/history.html"
               target="_blank"
               rel="noreferrer">
-              历史记录🕮
+              {chrome.i18n.getMessage("history")}🕮
             </a>
           </div>
           <div className="item">
@@ -157,7 +158,7 @@ export default function IndexOptions() {
               href="https://027xiguapi.github.io/code-box/privacy-policy.html"
               target="_blank"
               rel="noreferrer">
-              隐私政策📄
+              {chrome.i18n.getMessage("privacy")}📄
             </a>
           </div>
           <div>
@@ -166,7 +167,7 @@ export default function IndexOptions() {
               href="https://github.com/027xiguapi/code-box"
               target="_blank"
               rel="noreferrer">
-              支持作者更新👍
+              {chrome.i18n.getMessage("support")}👍
             </a>
           </div>
         </div>

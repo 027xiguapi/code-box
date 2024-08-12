@@ -11,9 +11,9 @@ export default function Php() {
 
   return (
     <fieldset>
-      <legend>php中文网设置</legend>
+      <legend>{chrome.i18n.getMessage("phpConfig")}</legend>
       <div className="item">
-        <span>一键复制代码</span>
+        <span>{chrome.i18n.getMessage("phpCopyCode")}</span>
         <input
           type="checkbox"
           id="php-copyCode"
@@ -25,7 +25,7 @@ export default function Php() {
         <label className="codebox-switch" htmlFor="php-copyCode"></label>
       </div>
       <div className="item">
-        <span>关闭登录弹窗</span>
+        <span>{chrome.i18n.getMessage("phpCloseLoginModal")}</span>
         <input
           type="checkbox"
           id="php-closeLoginModal"
@@ -34,9 +34,7 @@ export default function Php() {
           checked={closeLoginModal}
           onChange={(e) => setCloseLoginModal(e.target.checked)}
         />
-        <label
-          htmlFor="php-closeLoginModal"
-          className="codebox-switch"></label>
+        <label htmlFor="php-closeLoginModal" className="codebox-switch"></label>
       </div>
     </fieldset>
   )

@@ -8,9 +8,9 @@ export default function Custom() {
 
   return (
     <fieldset>
-      <legend>自定义设置</legend>
+      <legend>{chrome.i18n.getMessage("customConfig")}</legend>
       <div className="item">
-        <span>页面插入css代码</span>
+        <span>{chrome.i18n.getMessage("customCssCode")}</span>
         <input
           type="checkbox"
           id="custom-runCss"

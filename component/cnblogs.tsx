@@ -7,9 +7,9 @@ export default function Cnblogs() {
 
   return (
     <fieldset>
-      <legend>博客园设置</legend>
+      <legend>{chrome.i18n.getMessage("cnblogsConfig")}</legend>
       <div className="item">
-        <span>一键复制代码</span>
+        <span>{chrome.i18n.getMessage("cnblogsCopyCode")}</span>
         <input
           type="checkbox"
           id="cnblogs-copyCode"

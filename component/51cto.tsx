@@ -11,9 +11,9 @@ export default function Cto51() {
 
   return (
     <fieldset>
-      <legend>51CTO设置</legend>
+      <legend>{chrome.i18n.getMessage("51ctoConfig")}</legend>
       <div className="item">
-        <span>一键复制代码</span>
+        <span>{chrome.i18n.getMessage("51ctoCopyCode")}</span>
         <input
           type="checkbox"
           id="51cto-copyCode"
@@ -25,7 +25,7 @@ export default function Cto51() {
         <label className="codebox-switch" htmlFor="51cto-copyCode"></label>
       </div>
       <div className="item">
-        <span>关闭登录弹窗</span>
+        <span>{chrome.i18n.getMessage("51ctoCloseLoginModal")}</span>
         <input
           type="checkbox"
           id="51cto-closeLoginModal"

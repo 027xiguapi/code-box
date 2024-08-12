@@ -10,9 +10,9 @@ export default function Jb51() {
 
   return (
     <fieldset>
-      <legend>脚本之家设置</legend>
+      <legend>{chrome.i18n.getMessage("jb51Config")}</legend>
       <div className="item">
-        <span>关闭广告</span>
+        <span>{chrome.i18n.getMessage("jb51CloseAds")}</span>
         <input
           type="checkbox"
           id="jb51-closeAds"
@@ -24,7 +24,7 @@ export default function Jb51() {
         <label className="codebox-switch" htmlFor="jb51-closeAds"></label>
       </div>
       <div className="item">
-        <span>一键复制代码</span>
+        <span>{chrome.i18n.getMessage("jb51CopyCode")}</span>
         <input
           type="checkbox"
           id="jb51-copyCode"

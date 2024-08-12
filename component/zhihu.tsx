@@ -15,9 +15,9 @@ export default function Zhihu() {
 
   return (
     <fieldset>
-      <legend>知乎设置</legend>
+      <legend>{chrome.i18n.getMessage("zhihuConfig")}</legend>
       <div className="item">
-        <span>一键复制代码</span>
+        <span>{chrome.i18n.getMessage("zhihuCopyCode")}</span>
         <input
           type="checkbox"
           id="zhihu-copyCode"
@@ -29,7 +29,7 @@ export default function Zhihu() {
         <label className="codebox-switch" htmlFor="zhihu-copyCode"></label>
       </div>
       <div className="item">
-        <span>关闭登录弹窗</span>
+        <span>{chrome.i18n.getMessage("zhihuCloseLoginModal")}</span>
         <input
           type="checkbox"
           id="zhihu-closeLoginModal"
@@ -43,7 +43,7 @@ export default function Zhihu() {
           htmlFor="zhihu-closeLoginModal"></label>
       </div>
       <div className="item">
-        <span>自动展开全文</span>
+        <span>{chrome.i18n.getMessage("zhihuAutoOpenCode")}</span>
         <input
           type="checkbox"
           id="zhihu-autoOpenCode"

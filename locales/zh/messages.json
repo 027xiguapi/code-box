@@ -1,0 +1,122 @@
+{
+  "extensionName": {
+    "message": "codebox-免登录一键复制代码"
+  },
+  "extensionDescription": {
+    "message": "实现无需登录一键复制代码;支持选中代码;或者代码右上角按钮的一键复制;解除关注博主即可阅读全文提示;去除登录弹窗;去除跳转APP弹窗;页面自定义样式."
+  },
+  "popupDescription": {
+    "message": "免登录一键复制代码"
+  },
+  "history": {
+    "message": "历史记录"
+  },
+  "more": {
+    "message": "更多设置"
+  },
+  "support": {
+    "message": "支持作者更新"
+  },
+  "privacy": {
+    "message": "隐私政策"
+  },
+  "version": {
+    "message": "版本"
+  },
+  "reset": {
+    "message": "重置"
+  },
+  "51ctoConfig": {
+    "message": "51CTO设置"
+  },
+  "51ctoCopyCode": {
+    "message": "一键复制代码"
+  },
+  "51ctoCloseLoginModal": {
+    "message": "关闭登录弹窗"
+  },
+  "baiduConfig": {
+    "message": "百度设置"
+  },
+  "baiduCloseAIBox": {
+    "message": "关闭AI对话框"
+  },
+  "cnblogsConfig": {
+    "message": "博客园设置"
+  },
+  "cnblogsCopyCode": {
+    "message": "一键复制代码"
+  },
+  "csdnConfig": {
+    "message": "CSDN设置"
+  },
+  "csdnCloseAds": {
+    "message": "关闭广告"
+  },
+  "csdnCopyCode": {
+    "message": "一键复制代码"
+  },
+  "csdnCloseFollow": {
+    "message": "关注阅读全文"
+  },
+  "csdnCloseVip": {
+    "message": "VIP阅读全文"
+  },
+  "csdnAutoOpenCode": {
+    "message": "自动展开代码块"
+  },
+  "csdnCloseLoginModal": {
+    "message": "关闭登录弹窗"
+  },
+  "csdnCloseRedirectModal": {
+    "message": "关闭跳转APP弹窗"
+  },
+  "customConfig": {
+    "message": "自定义设置"
+  },
+  "customCssCode": {
+    "message": "页面插入css代码"
+  },
+  "jb51Config": {
+    "message": "脚本之家设置"
+  },
+  "jb51CloseAds": {
+    "message": "关闭广告"
+  },
+  "jb51CopyCode": {
+    "message": "一键复制代码"
+  },
+  "jianshuConfig": {
+    "message": "简书设置"
+  },
+  "jianshuCopyCode": {
+    "message": "一键复制代码"
+  },
+  "jianshuCloseLoginModal": {
+    "message": "关闭登录弹窗"
+  },
+  "jianshuAutoOpenCode": {
+    "message": "自动展开全文"
+  },
+  "phpConfig": {
+    "message": "php中文网设置"
+  },
+  "phpCopyCode": {
+    "message": "一键复制代码"
+  },
+  "phpCloseLoginModal": {
+    "message": "关闭登录弹窗"
+  },
+  "zhihuConfig": {
+    "message": "知乎设置"
+  },
+  "zhihuCopyCode": {
+    "message": "一键复制代码"
+  },
+  "zhihuCloseLoginModal": {
+    "message": "关闭登录弹窗"
+  },
+  "zhihuAutoOpenCode": {
+    "message": "自动展开全文"
+  }
+}
