@@ -59,18 +59,32 @@ export default function cnblogs() {
         const codeBlock = parentPreBlock.querySelector<HTMLElement>("pre")
 
         navigator.clipboard.writeText(codeBlock.innerText)
-        setHistory((prevData) => [
-          {
-            id: uuidv4(),
-            value: codeBlock.innerText,
-            createdAt: new Date(),
-            from: "博客园",
-            link: location.href,
-            tags: [],
-            remark: ""
-          },
-          ...prevData
-        ])
+        setHistory((prevData) =>
+          prevData
+            ? [
+                {
+                  id: uuidv4(),
+                  value: codeBlock.innerText,
+                  createdAt: new Date(),
+                  from: "博客园",
+                  link: location.href,
+                  tags: [],
+                  remark: ""
+                },
+                ...prevData
+              ]
+            : [
+                {
+                  id: uuidv4(),
+                  value: codeBlock.innerText,
+                  createdAt: new Date(),
+                  from: "博客园",
+                  link: location.href,
+                  tags: [],
+                  remark: ""
+                }
+              ]
+        )
         target.innerText = "复制成功"
         setTimeout(() => {
           target.innerText = "复制"

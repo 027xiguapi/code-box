@@ -65,18 +65,32 @@ export default function Cto51() {
           codeBlock.removeChild(codeIndex)
 
           navigator.clipboard.writeText(codeBlock.innerText)
-          setHistory((prevData) => [
-            {
-              id: uuidv4(),
-              value: codeBlock.innerText,
-              createdAt: new Date(),
-              from: "51CTO",
-              link: location.href,
-              tags: [],
-              remark: ""
-            },
-            ...prevData
-          ])
+          setHistory((prevData) =>
+            prevData
+              ? [
+                  {
+                    id: uuidv4(),
+                    value: codeBlock.innerText,
+                    createdAt: new Date(),
+                    from: "CSDN",
+                    link: location.href,
+                    tags: [],
+                    remark: ""
+                  },
+                  ...prevData
+                ]
+              : [
+                  {
+                    id: uuidv4(),
+                    value: codeBlock.innerText,
+                    createdAt: new Date(),
+                    from: "CSDN",
+                    link: location.href,
+                    tags: [],
+                    remark: ""
+                  }
+                ]
+          )
           target.innerText = "复制成功"
           setTimeout(() => {
             target.innerText = "复制"
@@ -111,18 +125,32 @@ export default function Cto51() {
           const target = e.target as HTMLElement
 
           navigator.clipboard.writeText(code.innerText)
-          setHistory((prevData) => [
-            {
-              id: uuidv4(),
-              value: codeBlock.innerText,
-              createdAt: new Date(),
-              from: "51CTO",
-              link: location.href,
-              tags: [],
-              remark: ""
-            },
-            ...prevData
-          ])
+          setHistory((prevData) =>
+            prevData
+              ? [
+                  {
+                    id: uuidv4(),
+                    value: codeBlock.innerText,
+                    createdAt: new Date(),
+                    from: "51CTO",
+                    link: location.href,
+                    tags: [],
+                    remark: ""
+                  },
+                  ...prevData
+                ]
+              : [
+                  {
+                    id: uuidv4(),
+                    value: codeBlock.innerText,
+                    createdAt: new Date(),
+                    from: "51CTO",
+                    link: location.href,
+                    tags: [],
+                    remark: ""
+                  }
+                ]
+          )
           target.innerText = "复制成功"
           setTimeout(() => {
             target.innerText = "复制"

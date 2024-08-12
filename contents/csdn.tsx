@@ -99,18 +99,32 @@ const csdn = () => {
         const codeBlock = parentPreBlock.querySelector("code")
 
         navigator.clipboard.writeText(codeBlock.innerText)
-        setHistory((prevData) => [
-          {
-            id: uuidv4(),
-            value: codeBlock.innerText,
-            createdAt: new Date(),
-            from: "CSDN",
-            link: location.href,
-            tags: [],
-            remark: ""
-          },
-          ...prevData
-        ])
+        setHistory((prevData) =>
+          prevData
+            ? [
+                {
+                  id: uuidv4(),
+                  value: codeBlock.innerText,
+                  createdAt: new Date(),
+                  from: "CSDN",
+                  link: location.href,
+                  tags: [],
+                  remark: ""
+                },
+                ...prevData
+              ]
+            : [
+                {
+                  id: uuidv4(),
+                  value: codeBlock.innerText,
+                  createdAt: new Date(),
+                  from: "CSDN",
+                  link: location.href,
+                  tags: [],
+                  remark: ""
+                }
+              ]
+        )
 
         target.dataset.title = "复制成功"
         setTimeout(() => {
@@ -198,8 +212,7 @@ const csdn = () => {
   }
 
   function closeVipFunc() {
-    document.querySelectorAll(".vip-mask").forEach((vip) => {
-      const box = vip.closest(".hide-article-box")
+    document.querySelectorAll(".hide-article-box").forEach((box) => {
       box.remove()
     })
   }

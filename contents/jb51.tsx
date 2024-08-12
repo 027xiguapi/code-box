@@ -67,18 +67,32 @@ export default function jb51() {
           const codeBlock = parentPreBlock.querySelector<HTMLElement>(".code")
 
           navigator.clipboard.writeText(codeBlock.innerText)
-          setHistory((prevData) => [
-            {
-              id: uuidv4(),
-              value: codeBlock.innerText,
-              createdAt: new Date(),
-              from: "脚本之家",
-              link: location.href,
-              tags: [],
-              remark: ""
-            },
-            ...prevData
-          ])
+          setHistory((prevData) =>
+            prevData
+              ? [
+                  {
+                    id: uuidv4(),
+                    value: codeBlock.innerText,
+                    createdAt: new Date(),
+                    from: "脚本之家",
+                    link: location.href,
+                    tags: [],
+                    remark: ""
+                  },
+                  ...prevData
+                ]
+              : [
+                  {
+                    id: uuidv4(),
+                    value: codeBlock.innerText,
+                    createdAt: new Date(),
+                    from: "脚本之家",
+                    link: location.href,
+                    tags: [],
+                    remark: ""
+                  }
+                ]
+          )
 
           target.innerText = "复制成功"
           setTimeout(() => {
@@ -111,18 +125,32 @@ export default function jb51() {
           const codeBlock = parentPreBlock.querySelector<HTMLElement>("pre")
 
           navigator.clipboard.writeText(codeBlock.innerText)
-          setHistory((prevData) => [
-            {
-              id: uuidv4(),
-              value: codeBlock.innerText,
-              createdAt: new Date(),
-              from: "脚本之家",
-              link: location.href,
-              tags: [],
-              remark: ""
-            },
-            ...prevData
-          ])
+          setHistory((prevData) =>
+            prevData
+              ? [
+                  {
+                    id: uuidv4(),
+                    value: codeBlock.innerText,
+                    createdAt: new Date(),
+                    from: "脚本之家",
+                    link: location.href,
+                    tags: [],
+                    remark: ""
+                  },
+                  ...prevData
+                ]
+              : [
+                  {
+                    id: uuidv4(),
+                    value: codeBlock.innerText,
+                    createdAt: new Date(),
+                    from: "脚本之家",
+                    link: location.href,
+                    tags: [],
+                    remark: ""
+                  }
+                ]
+          )
 
           target.innerText = "复制成功"
           setTimeout(() => {

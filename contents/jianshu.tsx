@@ -48,18 +48,32 @@ export default function Jianshu() {
         const codeBlock = parentPreBlock.querySelector<HTMLElement>("code")
 
         navigator.clipboard.writeText(codeBlock.innerText)
-        setHistory((prevData) => [
-          {
-            id: uuidv4(),
-            value: codeBlock.innerText,
-            createdAt: new Date(),
-            from: "简书",
-            link: location.href,
-            tags: [],
-            remark: ""
-          },
-          ...prevData
-        ])
+        setHistory((prevData) =>
+          prevData
+            ? [
+                {
+                  id: uuidv4(),
+                  value: codeBlock.innerText,
+                  createdAt: new Date(),
+                  from: "简书",
+                  link: location.href,
+                  tags: [],
+                  remark: ""
+                },
+                ...prevData
+              ]
+            : [
+                {
+                  id: uuidv4(),
+                  value: codeBlock.innerText,
+                  createdAt: new Date(),
+                  from: "简书",
+                  link: location.href,
+                  tags: [],
+                  remark: ""
+                }
+              ]
+        )
 
         target.innerText = "复制成功"
         setTimeout(() => {
