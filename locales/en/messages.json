@@ -3,7 +3,7 @@
     "message": "codebox-one click code copying without login"
   },
   "extensionDescription": {
-    "message": "Implement one click code copying without logging in; Support selecting code; Or the one click copy button in the upper right corner of the code; Allow non following bloggers to read full text prompts; Remove login pop ups; Remove jump app pop ups; Customize page styles."
+    "message": "Implement one click code copying without logging in; Support selecting code; Allow non following bloggers to read full text prompts;"
   },
   "popupDescription": {
     "message": "one click code copying without login"
