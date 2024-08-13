@@ -38,7 +38,7 @@
   },
   "manifest": {
     "name": "__MSG_extensionName__",
-    "default_locale": "en",
+    "default_locale": "zh_CN",
     "browser_specific_settings": {
       "gecko": {
         "id": "$FIREFOX_EXT_ID"
