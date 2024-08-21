@@ -26,6 +26,12 @@
   "reset": {
     "message": "重置"
   },
+  "AppConfig": {
+    "message": "App设置"
+  },
+  "configCloseLog": {
+    "message": "关闭日志"
+  },
   "51ctoConfig": {
     "message": "51CTO设置"
   },

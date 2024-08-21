@@ -14,9 +14,10 @@ export default function Php() {
   const [copyCode] = useStorage<boolean>("php-copyCode")
   const [closeLoginModal] = useStorage<boolean>("php-closeLoginModal")
   const [history, setHistory] = useStorage<any[]>("codebox-history")
+  const [closeLog] = useStorage("config-closeLog", true)
 
   useEffect(() => {
-    console.log("PHP status", { closeLoginModal, copyCode })
+    closeLog || console.log("PHP status", { closeLoginModal, copyCode })
     setTimeout(() => {
       copyCode && copyCodeFunc()
     }, 500)
@@ -99,7 +100,6 @@ export default function Php() {
     } else {
       const codes = document.querySelectorAll<HTMLElement>(".nphpQianBox .code")
 
-      console.log(codes)
       codes.forEach((code) => {
         const button = document.createElement("button")
 

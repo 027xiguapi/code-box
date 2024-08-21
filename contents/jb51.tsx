@@ -14,9 +14,10 @@ export default function jb51() {
   const [closeAds] = useStorage<boolean>("jb51-closeAds")
   const [copyCode] = useStorage<boolean>("jb51-copyCode")
   const [history, setHistory] = useStorage<any[]>("codebox-history")
+  const [closeLog] = useStorage("config-closeLog", true)
 
   useEffect(() => {
-    console.log("jb51 status", { closeAds, copyCode })
+    closeLog || console.log("jb51 status", { closeAds, copyCode })
     closeAds && closeAdsFunc()
     copyCode && copyCodeFunc()
     setIcon(closeAds || copyCode)

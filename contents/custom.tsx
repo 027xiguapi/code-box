@@ -7,6 +7,7 @@ import { addCss } from "~tools"
 export default function Custom() {
   const [runCss] = useStorage<boolean>("custom-runCss")
   const [cssCode] = useStorage<string>("custom-cssCode")
+  const [closeLog] = useStorage("config-closeLog", true)
 
   useEffect(() => {
     runCss && runCssFunc()
@@ -14,7 +15,7 @@ export default function Custom() {
 
   /* 插入自定义css代码 */
   function runCssFunc() {
-    console.log("插入自定义css代码", cssCode)
+    closeLog || console.log("插入自定义css代码", cssCode)
     addCss(cssCode)
   }
 

@@ -120,6 +120,7 @@ https://github.com/027xiguapi/code-box
 
 1. [copy-csdn](https://github.com/openHacking/copy-csdn)
 2. [plasmo](https://github.com/PlasmoHQ/plasmo)
+3. [Chrome 应用商店一站式支持](https://support.google.com/chrome_webstore/contact/one_stop_support)
 
 ## 隐私政策
 

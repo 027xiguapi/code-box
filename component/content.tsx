@@ -5,6 +5,7 @@ import { useStorage } from "@plasmohq/storage/dist/hook"
 import Cto51 from "~component/51cto"
 import Baidu from "~component/baidu"
 import Cnblogs from "~component/cnblogs"
+import Config from "~component/config"
 import Csdn from "~component/csdn"
 import Custom from "~component/custom"
 import Jb51 from "~component/jb51"
@@ -19,7 +20,8 @@ const itemMap = {
   jb51: <Jb51 />,
   cnblogs: <Cnblogs />,
   "51cto": <Cto51 />,
-  custom: <Custom />
+  custom: <Custom />,
+  app: <Config />
 }
 
 export default function Content() {
@@ -70,6 +72,12 @@ export default function Content() {
       id: "8",
       value: "custom",
       label: "自定义",
+      isShow: true
+    },
+    {
+      id: "9",
+      value: "app",
+      label: "app",
       isShow: true
     }
   ])

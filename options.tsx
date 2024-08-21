@@ -70,6 +70,12 @@ export default function IndexOptions() {
       value: "custom",
       label: "自定义",
       isShow: true
+    },
+    {
+      id: "9",
+      value: "app",
+      label: "app",
+      isShow: true
     }
   ]
   const [items, setItems] = useStorage("app-items", itemsInit)

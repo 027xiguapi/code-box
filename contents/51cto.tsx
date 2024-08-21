@@ -14,9 +14,10 @@ export default function Cto51() {
   const [copyCode] = useStorage<boolean>("51cto-copyCode")
   const [closeLoginModal] = useStorage<boolean>("51cto-closeLoginModal")
   const [history, setHistory] = useStorage<any[]>("codebox-history")
+  const [closeLog] = useStorage("config-closeLog", true)
 
   useEffect(() => {
-    console.log("51CTO status", { closeLoginModal, copyCode })
+    closeLog || console.log("51CTO status", { closeLoginModal, copyCode })
     setTimeout(() => {
       copyCode && copyCodeFunc()
     }, 500)

@@ -26,6 +26,12 @@
   "reset": {
     "message": "reset"
   },
+  "AppConfig": {
+    "message": "App Config"
+  },
+  "configCloseLog": {
+    "message": "Close Log"
+  },
   "51ctoConfig": {
     "message": "51CTO Config"
   },

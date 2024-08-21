@@ -14,9 +14,10 @@ export const config: PlasmoCSConfig = {
 export default function cnblogs() {
   const [copyCode] = useStorage<boolean>("cnblogs-copyCode")
   const [history, setHistory] = useStorage<any[]>("codebox-history")
+  const [closeLog] = useStorage("config-closeLog", true)
 
   useEffect(() => {
-    console.log("cnblogs copyCode", copyCode)
+    closeLog || console.log("cnblogs copyCode", copyCode)
     copyCode && copyCodeFunc()
     setIcon(copyCode)
   }, [copyCode])

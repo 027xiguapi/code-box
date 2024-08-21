@@ -11,9 +11,10 @@ export const config: PlasmoCSConfig = {
 
 export default function Custom() {
   const [closeAIBox] = useStorage<boolean>("baidu-closeAIBox")
+  const [closeLog] = useStorage("config-closeLog", true)
 
   useEffect(() => {
-    console.log("baidu", { closeAIBox })
+    closeLog || console.log("baidu", { closeAIBox })
     closeAIBox && closeAIBoxFunc()
   }, [closeAIBox])
 

@@ -19,17 +19,19 @@ const csdn = () => {
   const [closeLoginModal] = useStorage<boolean>("csdn-closeLoginModal")
   const [closeRedirectModal] = useStorage<boolean>("csdn-closeLoginModal")
   const [history, setHistory] = useStorage<any[]>("codebox-history")
+  const [closeLog] = useStorage("config-closeLog", true)
 
   useEffect(() => {
-    console.log("CSDN status", {
-      closeAds,
-      copyCode,
-      autoOpenCode,
-      closeFollow,
-      closeVip,
-      closeLoginModal,
-      closeRedirectModal
-    })
+    closeLog ||
+      console.log("CSDN status", {
+        closeAds,
+        copyCode,
+        autoOpenCode,
+        closeFollow,
+        closeVip,
+        closeLoginModal,
+        closeRedirectModal
+      })
     closeAds && closeAdsFunc()
     copyCode && copyCodeFunc()
     autoOpenCode && autoOpenCodeFunc()

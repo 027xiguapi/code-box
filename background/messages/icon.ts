@@ -8,13 +8,9 @@ const handler: PlasmoMessaging.MessageHandler = async (req, res) => {
   const { active } = req.body
 
   if (active) {
-    chrome.action.setIcon({ tabId: tab.id, path: activeUrl }, () => {
-      console.log("set icon activeUrl")
-    })
+    chrome.action.setIcon({ tabId: tab.id, path: activeUrl }, () => {})
   } else {
-    chrome.action.setIcon({ tabId: tab.id, path: defaultUrl }, () => {
-      console.log("set icon defaultUrl")
-    })
+    chrome.action.setIcon({ tabId: tab.id, path: defaultUrl }, () => {})
   }
 }
 

@@ -15,9 +15,11 @@ export default function zhihu() {
   const [copyCode] = useStorage<boolean>("zhihu-copyCode")
   const [autoOpenCode] = useStorage<boolean>("zhihu-autoOpenCode")
   const [history, setHistory] = useStorage<any[]>("codebox-history")
+  const [closeLog] = useStorage("config-closeLog", true)
 
   useEffect(() => {
-    console.log("zhihu status", { copyCode, closeLoginModal, autoOpenCode })
+    closeLog ||
+      console.log("zhihu status", { copyCode, closeLoginModal, autoOpenCode })
     copyCode && copyCodeFunc()
     closeLoginModal && closeLoginModalFunc()
     autoOpenCode && autoOpenCodeFunc()

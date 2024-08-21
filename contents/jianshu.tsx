@@ -15,9 +15,11 @@ export default function Jianshu() {
   const [copyCode] = useStorage<boolean>("jianshu-copyCode")
   const [autoOpenCode] = useStorage<boolean>("jianshu-autoOpenCode")
   const [history, setHistory] = useStorage<any[]>("codebox-history")
+  const [closeLog] = useStorage("config-closeLog", true)
 
   useEffect(() => {
-    console.log("jianshu status", { copyCode, closeLoginModal, autoOpenCode })
+    closeLog ||
+      console.log("jianshu status", { copyCode, closeLoginModal, autoOpenCode })
     copyCode && copyCodeFunc()
     closeLoginModal && closeLoginModalFunc()
     autoOpenCode && autoOpenCodeFunc()
