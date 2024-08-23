@@ -124,5 +124,11 @@
   },
   "zhihuAutoOpenCode": {
     "message": "Auto Open Code"
+  },
+  "downloadMarkdown": {
+    "message": "Download Markdown"
+  },
+  "downloadHtml": {
+    "message": "Download HTML"
   }
 }

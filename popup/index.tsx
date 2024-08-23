@@ -1,8 +1,7 @@
+import Content from "~component/content"
 import { ThemeProvider } from "~theme"
 
-import Content from "./component/content"
-
-import "./index.css"
+import "~index.css"
 
 export default function IndexPopup() {
   return (

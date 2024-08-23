@@ -90,3 +90,7 @@ input[type="checkbox"]:checked + .codebox-switch::after {
 input[type="checkbox"]:checked + .codebox-switch {
     background-color: #7983ff;
 }
+
+.item.download {
+    cursor: pointer;
+}

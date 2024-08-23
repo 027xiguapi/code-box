@@ -44,3 +44,10 @@ php中文网
 4. 未登录php中文网状态下，移动端代码右上角按钮一键复制
 
 
+火狐说明：
+1.先 pnpm install
+2.运行 pnpm build:firefox,
+3.然后 运行 pnpm package:firefox，
+4.运行结果在 build 文件夹内.
+
+

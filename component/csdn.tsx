@@ -1,3 +1,4 @@
+import { sendToContentScript } from "@plasmohq/messaging"
 import { useStorage } from "@plasmohq/storage/hook"
 
 export default function Csdn() {
@@ -27,9 +28,21 @@ export default function Csdn() {
     (v) => (v === undefined ? true : v)
   )
 
+  function downloadMarkdown() {
+    sendToContentScript({
+      name: "csdn-downloadMarkdown"
+    })
+  }
+
+  function downloadHtml() {
+    sendToContentScript({
+      name: "csdn-downloadHtml"
+    })
+  }
+
   return (
     <fieldset>
-      <legend>{chrome.i18n.getMessage("baiduConfig")}</legend>
+      <legend>{chrome.i18n.getMessage("csdnConfig")}</legend>
       <div className="item">
         <span>{chrome.i18n.getMessage("csdnCloseAds")}</span>
         <input
@@ -117,6 +130,12 @@ export default function Csdn() {
         <label
           htmlFor="csdn-closeRedirectModal"
           className="codebox-switch"></label>
+      </div>
+      <div className="item download hide" onClick={downloadMarkdown}>
+        {chrome.i18n.getMessage("downloadMarkdown")}
+      </div>
+      <div className="item download hide" onClick={downloadHtml}>
+        {chrome.i18n.getMessage("downloadHtml")}
       </div>
     </fieldset>
   )

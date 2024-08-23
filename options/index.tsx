@@ -19,7 +19,7 @@ import { useStorage } from "@plasmohq/storage/dist/hook"
 import SortableItem from "~component/sortableItem"
 import { ThemeProvider } from "~theme"
 
-import "./index.css"
+import "~index.css"
 
 export default function IndexOptions() {
   const itemsInit = [

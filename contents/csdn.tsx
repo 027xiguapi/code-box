@@ -1,7 +1,9 @@
 import type { PlasmoCSConfig } from "plasmo"
 import { useEffect, useRef } from "react"
+import TurndownService from "turndown"
 import { v4 as uuidv4 } from "uuid"
 
+import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import { addCss, setIcon } from "~tools"
@@ -9,6 +11,8 @@ import { addCss, setIcon } from "~tools"
 export const config: PlasmoCSConfig = {
   matches: ["https://*.blog.csdn.net/*"]
 }
+
+const turndownService = new TurndownService()
 
 const csdn = () => {
   const [closeAds] = useStorage<boolean>("csdn-closeAds")
@@ -55,6 +59,16 @@ const csdn = () => {
     closeLoginModal,
     closeRedirectModal
   ])
+
+  useMessage(async (req, res) => {
+    if (req.name == "csdn-downloadMarkdown") {
+      downloadMarkdown()
+    }
+
+    if (req.name == "csdn-downloadHtml") {
+      downloadHtml()
+    }
+  })
 
   /* 未登录复制代码 */
   function copyCodeCssFunc() {
@@ -217,6 +231,16 @@ const csdn = () => {
     document.querySelectorAll(".hide-article-box").forEach((box) => {
       box.remove()
     })
+  }
+
+  function downloadMarkdown() {
+    const html = document.querySelector(".blog-content-box")
+    const markdown = turndownService.turndown(html)
+  }
+
+  function downloadHtml() {
+    const html = document.querySelector(".blog-content-box")
+    // html
   }
 
   return <div style={{ display: "none" }}></div>

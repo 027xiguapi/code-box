@@ -1,7 +1,7 @@
 {
   "name": "code-box",
   "displayName": "__MSG_extensionName__",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "__MSG_extensionDescription__",
   "author": "027xiguapi. <458813868@qq.com>",
   "scripts": {
@@ -12,6 +12,14 @@
     "package:firefox": "plasmo package --target=firefox-mv2",
     "clean": "rimraf build"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/027xiguapi/code-box.git"
+  },
+  "bugs": {
+    "url": "https://github.com/027xiguapi/code-box/issues"
+  },
+  "homepage": "https://github.com/027xiguapi/code-box#readme",
   "dependencies": {
     "@ant-design/icons": "^5.4.0",
     "@dnd-kit/core": "^6.1.0",
@@ -24,6 +32,7 @@
     "plasmo": "0.88.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "turndown": "^7.2.0",
     "uuid": "^10.0.0"
   },
   "devDependencies": {
