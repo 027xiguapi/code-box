@@ -1,5 +1,6 @@
 import { useEffect } from "react"
 
+import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import { addCss } from "~tools"
@@ -12,6 +13,12 @@ export default function Custom() {
   useEffect(() => {
     runCss && runCssFunc()
   }, [runCss])
+
+  useMessage(async (req, res) => {
+    if (req.name == "custom-isShow") {
+      res.send({ isShow: true })
+    }
+  })
 
   /* 插入自定义css代码 */
   function runCssFunc() {

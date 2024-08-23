@@ -2,6 +2,7 @@ import type { PlasmoCSConfig } from "plasmo"
 import { useEffect } from "react"
 import { v4 as uuidv4 } from "uuid"
 
+import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import { addCss, setIcon } from "~tools"
@@ -24,6 +25,16 @@ export default function Cto51() {
     closeLoginModal && closeLoginModalFunc()
     setIcon(copyCode || closeLoginModal)
   }, [copyCode, closeLoginModal])
+
+  useMessage(async (req, res) => {
+    if (req.name == "51cto-isShow") {
+      res.send({ isShow: true })
+    }
+    if (req.name == "51cto-downloadMarkdown") {
+    }
+    if (req.name == "51cto-downloadHtml") {
+    }
+  })
 
   /* 未登录复制代码 */
   function copyCodeCssFunc() {

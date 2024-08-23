@@ -1,9 +1,10 @@
 import type { PlasmoCSConfig } from "plasmo"
 import { useEffect } from "react"
 
+import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
-import { addCss } from "~tools"
+import { addCss, setIcon } from "~tools"
 
 export const config: PlasmoCSConfig = {
   matches: ["https://*.baidu.com/*"]
@@ -16,7 +17,14 @@ export default function Custom() {
   useEffect(() => {
     closeLog || console.log("baidu", { closeAIBox })
     closeAIBox && closeAIBoxFunc()
+    setIcon(closeAIBox)
   }, [closeAIBox])
+
+  useMessage(async (req, res) => {
+    if (req.name == "baidu-isShow") {
+      res.send({ isShow: true })
+    }
+  })
 
   /* 删除百度AI对话框 */
   function closeAIBoxFunc() {

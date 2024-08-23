@@ -2,6 +2,7 @@ import type { PlasmoCSConfig } from "plasmo"
 import { useEffect, useRef } from "react"
 import { v4 as uuidv4 } from "uuid"
 
+import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import { addCss, setIcon } from "~tools"
@@ -25,6 +26,16 @@ export default function Jianshu() {
     autoOpenCode && autoOpenCodeFunc()
     setIcon(closeLoginModal || copyCode || autoOpenCode)
   }, [copyCode, closeLoginModal, autoOpenCode])
+
+  useMessage(async (req, res) => {
+    if (req.name == "jianshu-isShow") {
+      res.send({ isShow: true })
+    }
+    if (req.name == "jianshu-downloadMarkdown") {
+    }
+    if (req.name == "jianshu-downloadHtml") {
+    }
+  })
 
   // 一键复制
   function copyCodeFunc() {

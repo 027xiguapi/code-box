@@ -1,6 +1,6 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 
-import { useStorage } from "@plasmohq/storage/dist/hook"
+import { sendToContentScript } from "@plasmohq/messaging"
 
 import Cto51 from "~component/51cto"
 import Baidu from "~component/baidu"
@@ -10,83 +10,61 @@ import Csdn from "~component/csdn"
 import Custom from "~component/custom"
 import Jb51 from "~component/jb51"
 import Jianshu from "~component/jianshu"
+import Php from "~component/php"
 import Zhihu from "~component/zhihu"
 
-const itemMap = {
-  csdn: <Csdn />,
-  zhihu: <Zhihu />,
-  baidu: <Baidu />,
-  jianshu: <Jianshu />,
-  jb51: <Jb51 />,
-  cnblogs: <Cnblogs />,
-  "51cto": <Cto51 />,
-  custom: <Custom />,
-  app: <Config />
-}
-
 export default function Content() {
-  const [items] = useStorage("app-items", [
-    {
-      id: "1",
-      value: "csdn",
-      label: "csdn",
-      isShow: true
-    },
-    {
-      id: "2",
-      value: "zhihu",
-      label: "知乎",
-      isShow: true
-    },
-    {
-      id: "3",
-      value: "baidu",
-      label: "百度",
-      isShow: true
-    },
-    {
-      id: "4",
-      value: "jianshu",
-      label: "简书",
-      isShow: true
-    },
-    {
-      id: "5",
-      value: "jb51",
-      label: "脚本之家",
-      isShow: true
-    },
-    {
-      id: "6",
-      value: "cnblogs",
-      label: "博客园",
-      isShow: true
-    },
-    {
-      id: "7",
-      value: "51cto",
-      label: "51CTO",
-      isShow: true
-    },
-    {
-      id: "8",
-      value: "custom",
-      label: "自定义",
-      isShow: true
-    },
-    {
-      id: "9",
-      value: "app",
-      label: "app",
-      isShow: true
-    }
-  ])
+  const [csdnIsShow, setCsdnIsShow] = useState<boolean>(false)
+  const [zhihuIsShow, setZhihuIsShow] = useState<boolean>(false)
+  const [baiduIsShow, setBaiduIsShow] = useState<boolean>(false)
+  const [jianshuIsShow, setJianshuIsShow] = useState<boolean>(false)
+  const [jb51IsShow, setJb51IsShow] = useState<boolean>(false)
+  const [cnblogsIsShow, setCnblogsShow] = useState<boolean>(false)
+  const [ctoIsShow, set51ctoIsShow] = useState<boolean>(false)
+  const [phpIsShow, setPhpIsShow] = useState<boolean>(false)
+  const [customIsShow, setCustomIsShow] = useState<boolean>(false)
+
+  useEffect(() => {
+    getIsShow("csdn")
+    getIsShow("zhihu")
+    getIsShow("baidu")
+    getIsShow("jianshu")
+    getIsShow("jb51")
+    getIsShow("cnblogs")
+    getIsShow("51cto")
+    getIsShow("php")
+    getIsShow("custom")
+  }, [])
+
+  const setIsShowMap = {
+    csdn: setCsdnIsShow,
+    zhihu: setZhihuIsShow,
+    baidu: setBaiduIsShow,
+    jianshu: setJianshuIsShow,
+    jb51: setJb51IsShow,
+    cnblogs: setCnblogsShow,
+    "51cto": set51ctoIsShow,
+    php: setPhpIsShow,
+    custom: setCustomIsShow
+  }
+
+  async function getIsShow(type) {
+    const res = await sendToContentScript({ name: `${type}-isShow` })
+    res?.isShow && setIsShowMap[type] && setIsShowMap[type](res.isShow)
+  }
 
   return (
     <>
-      {items.map((item, index) =>
-        item.isShow ? <span key={index}>{itemMap[item.value]}</span> : <></>
-      )}
+      {csdnIsShow ? <Csdn /> : <></>}
+      {zhihuIsShow ? <Zhihu /> : <></>}
+      {baiduIsShow ? <Baidu /> : <></>}
+      {jianshuIsShow ? <Jianshu /> : <></>}
+      {jb51IsShow ? <Jb51 /> : <></>}
+      {cnblogsIsShow ? <Cnblogs /> : <></>}
+      {ctoIsShow ? <Cto51 /> : <></>}
+      {phpIsShow ? <Php /> : <></>}
+      {customIsShow ? <Custom /> : <></>}
+      <Config />
     </>
   )
 }

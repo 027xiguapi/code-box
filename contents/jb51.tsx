@@ -2,6 +2,7 @@ import type { PlasmoCSConfig } from "plasmo"
 import { useEffect } from "react"
 import { v4 as uuidv4 } from "uuid"
 
+import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import { addCss, setIcon } from "~tools"
@@ -22,6 +23,16 @@ export default function jb51() {
     copyCode && copyCodeFunc()
     setIcon(closeAds || copyCode)
   }, [closeAds, copyCode])
+
+  useMessage(async (req, res) => {
+    if (req.name == "jb51-isShow") {
+      res.send({ isShow: true })
+    }
+    if (req.name == "jb51-downloadMarkdown") {
+    }
+    if (req.name == "jb51-downloadHtml") {
+    }
+  })
 
   /* 未登录复制代码 */
   function copyCodeCssFunc() {

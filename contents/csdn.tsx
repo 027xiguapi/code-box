@@ -61,10 +61,12 @@ const csdn = () => {
   ])
 
   useMessage(async (req, res) => {
+    if (req.name == "csdn-isShow") {
+      res.send({ isShow: true })
+    }
     if (req.name == "csdn-downloadMarkdown") {
       downloadMarkdown()
     }
-
     if (req.name == "csdn-downloadHtml") {
       downloadHtml()
     }

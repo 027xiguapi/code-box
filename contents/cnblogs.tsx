@@ -2,6 +2,7 @@ import type { PlasmoCSConfig } from "plasmo"
 import { useEffect, useRef } from "react"
 import { v4 as uuidv4 } from "uuid"
 
+import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import { setIcon } from "~tools"
@@ -21,6 +22,16 @@ export default function cnblogs() {
     copyCode && copyCodeFunc()
     setIcon(copyCode)
   }, [copyCode])
+
+  useMessage(async (req, res) => {
+    if (req.name == "cnblogs-isShow") {
+      res.send({ isShow: true })
+    }
+    if (req.name == "cnblogs-downloadMarkdown") {
+    }
+    if (req.name == "cnblogs-downloadHtml") {
+    }
+  })
 
   // 功能一： 修改复制按钮，支持一键复制
   function copyCodeFunc() {
