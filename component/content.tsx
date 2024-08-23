@@ -10,6 +10,7 @@ import Csdn from "~component/csdn"
 import Custom from "~component/custom"
 import Jb51 from "~component/jb51"
 import Jianshu from "~component/jianshu"
+import Juejin from "~component/juejin"
 import Php from "~component/php"
 import Zhihu from "~component/zhihu"
 
@@ -21,6 +22,7 @@ export default function Content() {
   const [jb51IsShow, setJb51IsShow] = useState<boolean>(false)
   const [cnblogsIsShow, setCnblogsShow] = useState<boolean>(false)
   const [ctoIsShow, set51ctoIsShow] = useState<boolean>(false)
+  const [juejinIsShow, setJuejinIsShow] = useState<boolean>(false)
   const [phpIsShow, setPhpIsShow] = useState<boolean>(false)
   const [customIsShow, setCustomIsShow] = useState<boolean>(false)
 
@@ -32,6 +34,7 @@ export default function Content() {
     getIsShow("jb51")
     getIsShow("cnblogs")
     getIsShow("51cto")
+    getIsShow("juejin")
     getIsShow("php")
     getIsShow("custom")
   }, [])
@@ -45,6 +48,7 @@ export default function Content() {
     cnblogs: setCnblogsShow,
     "51cto": set51ctoIsShow,
     php: setPhpIsShow,
+    juejin: setJuejinIsShow,
     custom: setCustomIsShow
   }
 
@@ -62,6 +66,7 @@ export default function Content() {
       {jb51IsShow ? <Jb51 /> : <></>}
       {cnblogsIsShow ? <Cnblogs /> : <></>}
       {ctoIsShow ? <Cto51 /> : <></>}
+      {juejinIsShow ? <Juejin /> : <></>}
       {phpIsShow ? <Php /> : <></>}
       {customIsShow ? <Custom /> : <></>}
       <Config />

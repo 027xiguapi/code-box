@@ -5,7 +5,7 @@ import { useStorage } from "@plasmohq/storage/hook"
 
 import { i18n } from "~tools"
 
-export default function Custom() {
+export default function Baidu() {
   const [closeAIBox, setCloseAIBox] = useStorage("baidu-closeAIBox", (v) =>
     v === undefined ? false : v
   )

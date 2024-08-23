@@ -1,7 +1,7 @@
 {
   "name": "code-box",
   "displayName": "__MSG_extensionName__",
-  "version": "0.5.6",
+  "version": "0.5.7",
   "description": "__MSG_extensionDescription__",
   "author": "027xiguapi. <458813868@qq.com>",
   "scripts": {
@@ -11,6 +11,7 @@
     "build:all": "rimraf build && plasmo build && plasmo build --target=firefox-mv2",
     "package": "plasmo package",
     "package:firefox": "plasmo package --target=firefox-mv2",
+    "package:all": "plasmo package && plasmo package --target=firefox-mv2",
     "clean": "rimraf build"
   },
   "repository": {

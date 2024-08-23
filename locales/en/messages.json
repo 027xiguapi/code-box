@@ -130,5 +130,8 @@
   },
   "downloadHtml": {
     "message": "Download HTML"
+  },
+  "juejinConfig": {
+    "message": "Juejin Config"
   }
 }

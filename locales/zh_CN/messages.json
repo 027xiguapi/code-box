@@ -130,5 +130,8 @@
   },
   "downloadHtml": {
     "message": "下载 HTML"
+  },
+  "juejinConfig": {
+    "message": "掘金设置"
   }
 }
