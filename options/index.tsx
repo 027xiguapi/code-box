@@ -170,7 +170,7 @@ export default function IndexOptions() {
           <div>
             <a
               className="btn"
-              href="https://github.com/027xiguapi/code-box"
+              href="/tabs/feed.html"
               target="_blank"
               rel="noreferrer">
               {chrome.i18n.getMessage("support")}👍

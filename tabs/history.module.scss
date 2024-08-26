@@ -1,0 +1,14 @@
+.history {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    :global {
+        .content {
+            width: 1000px;
+            margin: 0 auto;
+            .keyword-lighten {
+                background-color: gold;
+            }
+        }
+    }
+}

@@ -1,0 +1,17 @@
+.feed {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    :global {
+        .item {
+            text-align: center;
+            .item-img {
+                width: 80%;
+            }
+            .desc {
+                font-size: 16px;
+                display: block;
+            }
+        }
+    }
+}

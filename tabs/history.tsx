@@ -12,11 +12,11 @@ import {
 import dayjs from "dayjs"
 import React, { useEffect, useState } from "react"
 
-import "./history.css"
-
 import { useStorage } from "@plasmohq/storage/hook"
 
 import { ThemeProvider } from "~theme"
+
+import styles from "./history.module.scss"
 
 const { Content } = Layout
 
@@ -185,12 +185,7 @@ export default function HistoryPage() {
 
   return (
     <ThemeProvider>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          padding: 16
-        }}>
+      <div className={styles.history}>
         <h2>历史列表</h2>
         {/*<div>*/}
         {/*  <a key="list-delete-all" onClick={handleDeleteAll}>*/}

@@ -19,9 +19,9 @@ https://github.com/027xiguapi/code-box
    - [Edge网上应用商店](https://microsoftedge.microsoft.com/addons/Microsoft-Edge-Extensions-Home?hl=zh-CN)
 2. 搜索：`codebox`
 
-![1723513894421.jpg](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/1723513894421.jpg)
-![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/img.png)
-
+![1723513894421.jpg](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/webstore/1723513894421.jpg)
+![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/webstore/img.png)
+![1724640161752](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/webstore/1724640161752.jpg)
 
 ### 安装方式二：直接安装
 
