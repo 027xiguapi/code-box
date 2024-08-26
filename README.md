@@ -125,3 +125,7 @@ https://github.com/027xiguapi/code-box
 ## 隐私政策
 
 [网页](https://027xiguapi.github.io/code-box/privacy-policy.html)
+
+## 支持
+
+![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/wx/qrcode_wx.jpg)

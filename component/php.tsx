@@ -1,3 +1,4 @@
+import { sendToContentScript } from "@plasmohq/messaging"
 import { useStorage } from "@plasmohq/storage/hook"
 
 export default function Php() {
@@ -8,6 +9,12 @@ export default function Php() {
     "php-closeLoginModal",
     (v) => (v === undefined ? true : v)
   )
+
+  function downloadHtml() {
+    sendToContentScript({
+      name: "php-downloadHtml"
+    })
+  }
 
   return (
     <fieldset>
@@ -35,6 +42,9 @@ export default function Php() {
           onChange={(e) => setCloseLoginModal(e.target.checked)}
         />
         <label htmlFor="php-closeLoginModal" className="codebox-switch"></label>
+      </div>
+      <div className="item download" onClick={downloadHtml}>
+        {chrome.i18n.getMessage("downloadHtml")}
       </div>
     </fieldset>
   )

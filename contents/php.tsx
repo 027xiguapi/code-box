@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid"
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
-import { addCss, setIcon } from "~tools"
+import { addCss, saveHtml, setIcon } from "~tools"
 
 export const config: PlasmoCSConfig = {
   matches: ["https://*.php.cn/*"]
@@ -33,6 +33,7 @@ export default function Php() {
     if (req.name == "php-downloadMarkdown") {
     }
     if (req.name == "php-downloadHtml") {
+      downloadHtml()
     }
   })
 
@@ -175,6 +176,11 @@ export default function Php() {
       display:none !important;
     }`
     addCss(css)
+  }
+
+  function downloadHtml() {
+    const dom = document.querySelector(".phpscMain .php-article")
+    saveHtml(dom)
   }
 
   return <div style={{ display: "none" }}></div>

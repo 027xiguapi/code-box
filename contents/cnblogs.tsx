@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid"
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
-import { setIcon } from "~tools"
+import { saveHtml, setIcon } from "~tools"
 
 export const config: PlasmoCSConfig = {
   matches: ["https://*.cnblogs.com/*"],
@@ -30,6 +30,7 @@ export default function cnblogs() {
     if (req.name == "cnblogs-downloadMarkdown") {
     }
     if (req.name == "cnblogs-downloadHtml") {
+      downloadHtml()
     }
   })
 
@@ -105,6 +106,11 @@ export default function cnblogs() {
         e.preventDefault()
       })
     })
+  }
+
+  function downloadHtml() {
+    const dom = document.querySelector("#post_detail")
+    saveHtml(dom)
   }
 
   return <div style={{ display: "none" }}></div>

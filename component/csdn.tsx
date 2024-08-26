@@ -134,7 +134,7 @@ export default function Csdn() {
       <div className="item download hide" onClick={downloadMarkdown}>
         {chrome.i18n.getMessage("downloadMarkdown")}
       </div>
-      <div className="item download hide" onClick={downloadHtml}>
+      <div className="item download" onClick={downloadHtml}>
         {chrome.i18n.getMessage("downloadHtml")}
       </div>
     </fieldset>

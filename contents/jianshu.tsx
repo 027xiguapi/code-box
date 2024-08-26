@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid"
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
-import { addCss, setIcon } from "~tools"
+import { addCss, saveHtml, setIcon } from "~tools"
 
 export const config: PlasmoCSConfig = {
   matches: ["https://*.jianshu.com/*"]
@@ -34,6 +34,7 @@ export default function Jianshu() {
     if (req.name == "jianshu-downloadMarkdown") {
     }
     if (req.name == "jianshu-downloadHtml") {
+      downloadHtml()
     }
   })
 
@@ -135,6 +136,11 @@ export default function Jianshu() {
         }`
       addCss(css)
     }
+  }
+
+  function downloadHtml() {
+    const dom = document.querySelector("section.ouvJEz")
+    saveHtml(dom)
   }
 
   return <div style={{ display: "none" }}></div>

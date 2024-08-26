@@ -1,3 +1,4 @@
+import { sendToContentScript } from "@plasmohq/messaging"
 import { useStorage } from "@plasmohq/storage/hook"
 
 export default function Jianshu() {
@@ -12,6 +13,12 @@ export default function Jianshu() {
     "jianshu-autoOpenCode",
     (v) => (v === undefined ? true : v)
   )
+
+  function downloadHtml() {
+    sendToContentScript({
+      name: "jianshu-downloadHtml"
+    })
+  }
 
   return (
     <fieldset>
@@ -55,6 +62,9 @@ export default function Jianshu() {
         <label
           className="codebox-switch"
           htmlFor="jianshu-autoOpenCode"></label>
+      </div>
+      <div className="item download" onClick={downloadHtml}>
+        {chrome.i18n.getMessage("downloadHtml")}
       </div>
     </fieldset>
   )

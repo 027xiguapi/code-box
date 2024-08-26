@@ -1,3 +1,4 @@
+import { sendToContentScript } from "@plasmohq/messaging"
 import { useStorage } from "@plasmohq/storage/hook"
 
 export default function Zhihu() {
@@ -12,6 +13,12 @@ export default function Zhihu() {
     "zhihu-autoOpenCode",
     (v) => (v === undefined ? true : v)
   )
+
+  function downloadHtml() {
+    sendToContentScript({
+      name: "zhihu-downloadHtml"
+    })
+  }
 
   return (
     <fieldset>
@@ -53,6 +60,9 @@ export default function Zhihu() {
           onChange={(e) => setAutoOpenCode(e.target.checked)}
         />
         <label className="codebox-switch" htmlFor="zhihu-autoOpenCode"></label>
+      </div>
+      <div className="item download" onClick={downloadHtml}>
+        {chrome.i18n.getMessage("downloadHtml")}
       </div>
     </fieldset>
   )

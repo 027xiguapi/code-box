@@ -1,9 +1,16 @@
+import { sendToContentScript } from "@plasmohq/messaging"
 import { useStorage } from "@plasmohq/storage/hook"
 
 export default function Custom() {
   const [closeAIBox, setCloseAIBox] = useStorage("baidu-closeAIBox", (v) =>
     v === undefined ? false : v
   )
+
+  function downloadHtml() {
+    sendToContentScript({
+      name: "baidu-downloadHtml"
+    })
+  }
 
   return (
     <fieldset>
@@ -19,6 +26,9 @@ export default function Custom() {
           onChange={(e) => setCloseAIBox(e.target.checked)}
         />
         <label className="codebox-switch" htmlFor="baidu-closeAIBox"></label>
+      </div>
+      <div className="item download" onClick={downloadHtml}>
+        {chrome.i18n.getMessage("downloadHtml")}
       </div>
     </fieldset>
   )

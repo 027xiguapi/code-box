@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid"
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
-import { addCss, setIcon } from "~tools"
+import { addCss, saveHtml, setIcon } from "~tools"
 
 export const config: PlasmoCSConfig = {
   matches: ["https://*.51cto.com/*"]
@@ -33,6 +33,7 @@ export default function Cto51() {
     if (req.name == "51cto-downloadMarkdown") {
     }
     if (req.name == "51cto-downloadHtml") {
+      downloadHtml()
     }
   })
 
@@ -181,6 +182,11 @@ export default function Cto51() {
       display:none !important;
     }`
     addCss(css)
+  }
+
+  function downloadHtml() {
+    const dom = document.querySelector("article")
+    saveHtml(dom)
   }
 
   return <div style={{ display: "none" }}></div>

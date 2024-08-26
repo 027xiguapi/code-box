@@ -1,3 +1,4 @@
+import { sendToContentScript } from "@plasmohq/messaging"
 import { useStorage } from "@plasmohq/storage/hook"
 
 export default function Cto51() {
@@ -8,6 +9,12 @@ export default function Cto51() {
     "51cto-closeLoginModal",
     (v) => (v === undefined ? true : v)
   )
+
+  function downloadHtml() {
+    sendToContentScript({
+      name: "51cto-downloadHtml"
+    })
+  }
 
   return (
     <fieldset>
@@ -37,6 +44,9 @@ export default function Cto51() {
         <label
           htmlFor="51cto-closeLoginModal"
           className="codebox-switch"></label>
+      </div>
+      <div className="item download" onClick={downloadHtml}>
+        {chrome.i18n.getMessage("downloadHtml")}
       </div>
     </fieldset>
   )

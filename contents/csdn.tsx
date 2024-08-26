@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid"
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
-import { addCss, setIcon } from "~tools"
+import { addCss, saveHtml, setIcon } from "~tools"
 
 export const config: PlasmoCSConfig = {
   matches: ["https://*.blog.csdn.net/*"]
@@ -241,8 +241,8 @@ const csdn = () => {
   }
 
   function downloadHtml() {
-    const html = document.querySelector(".blog-content-box")
-    // html
+    const dom = document.querySelector(".blog-content-box")
+    saveHtml(dom)
   }
 
   return <div style={{ display: "none" }}></div>

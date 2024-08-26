@@ -1,3 +1,4 @@
+import { sendToContentScript } from "@plasmohq/messaging"
 import { useStorage } from "@plasmohq/storage/hook"
 
 export default function Jb51() {
@@ -7,6 +8,12 @@ export default function Jb51() {
   const [copyCode, setCopyCode] = useStorage("jb51-copyCode", (v) =>
     v === undefined ? true : v
   )
+
+  function downloadHtml() {
+    sendToContentScript({
+      name: "jb51-downloadHtml"
+    })
+  }
 
   return (
     <fieldset>
@@ -34,6 +41,9 @@ export default function Jb51() {
           onChange={(e) => setCopyCode(e.target.checked)}
         />
         <label className="codebox-switch" htmlFor="jb51-copyCode"></label>
+      </div>
+      <div className="item download" onClick={downloadHtml}>
+        {chrome.i18n.getMessage("downloadHtml")}
       </div>
     </fieldset>
   )

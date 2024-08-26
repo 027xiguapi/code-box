@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid"
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
-import { addCss, setIcon } from "~tools"
+import { addCss, saveHtml, setIcon } from "~tools"
 
 export const config: PlasmoCSConfig = {
   matches: ["https://*.zhihu.com/*"]
@@ -34,6 +34,7 @@ export default function zhihu() {
     if (req.name == "zhihu-downloadMarkdown") {
     }
     if (req.name == "zhihu-downloadHtml") {
+      downloadHtml()
     }
   })
 
@@ -155,6 +156,11 @@ export default function zhihu() {
         isCollapsed.classList.remove("is-collapsed")
       })
     }
+  }
+
+  function downloadHtml() {
+    const dom = document.querySelector("article.Post-Main")
+    saveHtml(dom)
   }
 
   return <div style={{ display: "none" }}></div>

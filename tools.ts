@@ -1,3 +1,5 @@
+import { saveAs } from "file-saver"
+
 import { sendToBackground } from "@plasmohq/messaging"
 
 export function addCss(code) {
@@ -22,4 +24,12 @@ export function setIcon(active: boolean) {
       active: active
     }
   })
+}
+
+export function saveHtml(dom: Element) {
+  if (dom) {
+    const htmlContent = dom.outerHTML
+    const blob = new Blob([htmlContent], { type: "text/html;charset=utf-8" })
+    saveAs(blob, "page.html")
+  }
 }
