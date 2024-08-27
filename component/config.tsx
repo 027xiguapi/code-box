@@ -1,5 +1,7 @@
 import { useStorage } from "@plasmohq/storage/hook"
 
+import { i18n } from "~tools"
+
 export default function Config() {
   const [closeLog, setCloseLog] = useStorage("config-closeLog", (v) =>
     v === undefined ? true : v
@@ -7,9 +9,9 @@ export default function Config() {
 
   return (
     <fieldset>
-      <legend>{chrome.i18n.getMessage("AppConfig")}</legend>
+      <legend>{i18n("AppConfig")}</legend>
       <div className="item">
-        <span>{chrome.i18n.getMessage("configCloseLog")}</span>
+        <span>{i18n("configCloseLog")}</span>
         <input
           type="checkbox"
           id="config-closeLog"

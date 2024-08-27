@@ -1,6 +1,8 @@
 import { sendToContentScript } from "@plasmohq/messaging"
 import { useStorage } from "@plasmohq/storage/hook"
 
+import { i18n } from "~tools"
+
 export default function Custom() {
   const [closeAIBox, setCloseAIBox] = useStorage("baidu-closeAIBox", (v) =>
     v === undefined ? false : v
@@ -14,9 +16,9 @@ export default function Custom() {
 
   return (
     <fieldset>
-      <legend>{chrome.i18n.getMessage("baiduConfig")}</legend>
+      <legend>{i18n("baiduConfig")}</legend>
       <div className="item">
-        <span>{chrome.i18n.getMessage("baiduCloseAIBox")}</span>
+        <span>{i18n("baiduCloseAIBox")}</span>
         <input
           type="checkbox"
           id="baidu-closeAIBox"
@@ -28,7 +30,7 @@ export default function Custom() {
         <label className="codebox-switch" htmlFor="baidu-closeAIBox"></label>
       </div>
       <div className="item download" onClick={downloadHtml}>
-        {chrome.i18n.getMessage("downloadHtml")}
+        {i18n("downloadHtml")}
       </div>
     </fieldset>
   )

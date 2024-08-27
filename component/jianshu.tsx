@@ -1,6 +1,8 @@
 import { sendToContentScript } from "@plasmohq/messaging"
 import { useStorage } from "@plasmohq/storage/hook"
 
+import { i18n } from "~tools"
+
 export default function Jianshu() {
   const [copyCode, setCopyCode] = useStorage("jianshu-copyCode", (v) =>
     v === undefined ? true : v
@@ -22,9 +24,9 @@ export default function Jianshu() {
 
   return (
     <fieldset>
-      <legend>{chrome.i18n.getMessage("jianshuConfig")}</legend>
+      <legend>{i18n("jianshuConfig")}</legend>
       <div className="item">
-        <span>{chrome.i18n.getMessage("jianshuCopyCode")}</span>
+        <span>{i18n("jianshuCopyCode")}</span>
         <input
           type="checkbox"
           id="jianshu-copyCode"
@@ -36,7 +38,7 @@ export default function Jianshu() {
         <label className="codebox-switch" htmlFor="jianshu-copyCode"></label>
       </div>
       <div className="item">
-        <span>{chrome.i18n.getMessage("jianshuCloseLoginModal")}</span>
+        <span>{i18n("jianshuCloseLoginModal")}</span>
         <input
           type="checkbox"
           id="jianshu-closeLoginModal"
@@ -50,7 +52,7 @@ export default function Jianshu() {
           htmlFor="jianshu-closeLoginModal"></label>
       </div>
       <div className="item">
-        <span>{chrome.i18n.getMessage("jianshuAutoOpenCode")}</span>
+        <span>{i18n("jianshuAutoOpenCode")}</span>
         <input
           type="checkbox"
           id="jianshu-autoOpenCode"
@@ -64,7 +66,7 @@ export default function Jianshu() {
           htmlFor="jianshu-autoOpenCode"></label>
       </div>
       <div className="item download" onClick={downloadHtml}>
-        {chrome.i18n.getMessage("downloadHtml")}
+        {i18n("downloadHtml")}
       </div>
     </fieldset>
   )

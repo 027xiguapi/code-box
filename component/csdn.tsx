@@ -1,6 +1,8 @@
 import { sendToContentScript } from "@plasmohq/messaging"
 import { useStorage } from "@plasmohq/storage/hook"
 
+import { i18n } from "~tools"
+
 export default function Csdn() {
   const [closeAds, setCloseAds] = useStorage("csdn-closeAds", (v) =>
     v === undefined ? true : v
@@ -42,9 +44,9 @@ export default function Csdn() {
 
   return (
     <fieldset>
-      <legend>{chrome.i18n.getMessage("csdnConfig")}</legend>
+      <legend>{i18n("csdnConfig")}</legend>
       <div className="item">
-        <span>{chrome.i18n.getMessage("csdnCloseAds")}</span>
+        <span>{i18n("csdnCloseAds")}</span>
         <input
           type="checkbox"
           id="csdn-closeAds"
@@ -56,7 +58,7 @@ export default function Csdn() {
         <label htmlFor="csdn-closeAds" className="codebox-switch"></label>
       </div>
       <div className="item">
-        <span>{chrome.i18n.getMessage("csdnCopyCode")}</span>
+        <span>{i18n("csdnCopyCode")}</span>
         <input
           type="checkbox"
           id="csdn-copyCode"
@@ -68,7 +70,7 @@ export default function Csdn() {
         <label htmlFor="csdn-copyCode" className="codebox-switch"></label>
       </div>
       <div className="item">
-        <span>{chrome.i18n.getMessage("csdnCloseFollow")}</span>
+        <span>{i18n("csdnCloseFollow")}</span>
         <input
           type="checkbox"
           id="csdn-closeFollow"
@@ -80,7 +82,7 @@ export default function Csdn() {
         <label htmlFor="csdn-closeFollow" className="codebox-switch"></label>
       </div>
       <div className="item">
-        <span>{chrome.i18n.getMessage("csdnCloseVip")}</span>
+        <span>{i18n("csdnCloseVip")}</span>
         <input
           type="checkbox"
           id="csdn-closeVip"
@@ -92,7 +94,7 @@ export default function Csdn() {
         <label htmlFor="csdn-closeVip" className="codebox-switch"></label>
       </div>
       <div className="item">
-        <span>{chrome.i18n.getMessage("csdnAutoOpenCode")}</span>
+        <span>{i18n("csdnAutoOpenCode")}</span>
         <input
           type="checkbox"
           id="csdn-autoOpenCode"
@@ -104,7 +106,7 @@ export default function Csdn() {
         <label htmlFor="csdn-autoOpenCode" className="codebox-switch"></label>
       </div>
       <div className="item">
-        <span>{chrome.i18n.getMessage("csdnCloseLoginModal")}</span>
+        <span>{i18n("csdnCloseLoginModal")}</span>
         <input
           type="checkbox"
           id="csdn-closeLoginModal"
@@ -118,7 +120,7 @@ export default function Csdn() {
           className="codebox-switch"></label>
       </div>
       <div className="item">
-        <span>{chrome.i18n.getMessage("csdnCloseRedirectModal")}</span>
+        <span>{i18n("csdnCloseRedirectModal")}</span>
         <input
           type="checkbox"
           id="csdn-closeRedirectModal"
@@ -132,10 +134,10 @@ export default function Csdn() {
           className="codebox-switch"></label>
       </div>
       <div className="item download hide" onClick={downloadMarkdown}>
-        {chrome.i18n.getMessage("downloadMarkdown")}
+        {i18n("downloadMarkdown")}
       </div>
       <div className="item download" onClick={downloadHtml}>
-        {chrome.i18n.getMessage("downloadHtml")}
+        {i18n("downloadHtml")}
       </div>
     </fieldset>
   )

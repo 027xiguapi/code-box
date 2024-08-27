@@ -1,5 +1,6 @@
 import Content from "~component/content"
 import { ThemeProvider } from "~theme"
+import { i18n } from "~tools"
 
 import "~index.css"
 
@@ -9,7 +10,7 @@ export default function IndexPopup() {
       <div className="App popup">
         <div className="App-header">
           <h2 className="title">CodeBox 🎉</h2>
-          <p className="desc">{chrome.i18n.getMessage("popupDescription")}</p>
+          <p className="desc">{i18n("popupDescription")}</p>
         </div>
         <div className="App-body">
           <Content />
@@ -21,7 +22,7 @@ export default function IndexPopup() {
               href="/tabs/history.html"
               target="_blank"
               rel="noreferrer">
-              {chrome.i18n.getMessage("history")}🕮
+              {i18n("history")}🕮
             </a>
           </div>
           <div className="item">
@@ -30,7 +31,7 @@ export default function IndexPopup() {
               href="/options.html"
               target="_blank"
               rel="noreferrer">
-              {chrome.i18n.getMessage("more")}⚙️
+              {i18n("more")}⚙️
             </a>
           </div>
           <div>
@@ -39,7 +40,7 @@ export default function IndexPopup() {
               href="/tabs/feed.html"
               target="_blank"
               rel="noreferrer">
-              {chrome.i18n.getMessage("support")}👍
+              {i18n("support")}👍
             </a>
           </div>
         </div>

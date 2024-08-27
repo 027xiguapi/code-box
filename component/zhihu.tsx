@@ -1,6 +1,8 @@
 import { sendToContentScript } from "@plasmohq/messaging"
 import { useStorage } from "@plasmohq/storage/hook"
 
+import { i18n } from "~tools"
+
 export default function Zhihu() {
   const [copyCode, setCopyCode] = useStorage("zhihu-copyCode", (v) =>
     v === undefined ? true : v
@@ -22,9 +24,9 @@ export default function Zhihu() {
 
   return (
     <fieldset>
-      <legend>{chrome.i18n.getMessage("zhihuConfig")}</legend>
+      <legend>{i18n("zhihuConfig")}</legend>
       <div className="item">
-        <span>{chrome.i18n.getMessage("zhihuCopyCode")}</span>
+        <span>{i18n("zhihuCopyCode")}</span>
         <input
           type="checkbox"
           id="zhihu-copyCode"
@@ -36,7 +38,7 @@ export default function Zhihu() {
         <label className="codebox-switch" htmlFor="zhihu-copyCode"></label>
       </div>
       <div className="item">
-        <span>{chrome.i18n.getMessage("zhihuCloseLoginModal")}</span>
+        <span>{i18n("zhihuCloseLoginModal")}</span>
         <input
           type="checkbox"
           id="zhihu-closeLoginModal"
@@ -50,7 +52,7 @@ export default function Zhihu() {
           htmlFor="zhihu-closeLoginModal"></label>
       </div>
       <div className="item">
-        <span>{chrome.i18n.getMessage("zhihuAutoOpenCode")}</span>
+        <span>{i18n("zhihuAutoOpenCode")}</span>
         <input
           type="checkbox"
           id="zhihu-autoOpenCode"
@@ -62,7 +64,7 @@ export default function Zhihu() {
         <label className="codebox-switch" htmlFor="zhihu-autoOpenCode"></label>
       </div>
       <div className="item download" onClick={downloadHtml}>
-        {chrome.i18n.getMessage("downloadHtml")}
+        {i18n("downloadHtml")}
       </div>
     </fieldset>
   )

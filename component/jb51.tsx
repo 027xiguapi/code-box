@@ -1,6 +1,8 @@
 import { sendToContentScript } from "@plasmohq/messaging"
 import { useStorage } from "@plasmohq/storage/hook"
 
+import { i18n } from "~tools"
+
 export default function Jb51() {
   const [closeAds, setCloseAds] = useStorage("jb51-closeAds", (v) =>
     v === undefined ? true : v
@@ -17,9 +19,9 @@ export default function Jb51() {
 
   return (
     <fieldset>
-      <legend>{chrome.i18n.getMessage("jb51Config")}</legend>
+      <legend>{i18n("jb51Config")}</legend>
       <div className="item">
-        <span>{chrome.i18n.getMessage("jb51CloseAds")}</span>
+        <span>{i18n("jb51CloseAds")}</span>
         <input
           type="checkbox"
           id="jb51-closeAds"
@@ -31,7 +33,7 @@ export default function Jb51() {
         <label className="codebox-switch" htmlFor="jb51-closeAds"></label>
       </div>
       <div className="item">
-        <span>{chrome.i18n.getMessage("jb51CopyCode")}</span>
+        <span>{i18n("jb51CopyCode")}</span>
         <input
           type="checkbox"
           id="jb51-copyCode"
@@ -43,7 +45,7 @@ export default function Jb51() {
         <label className="codebox-switch" htmlFor="jb51-copyCode"></label>
       </div>
       <div className="item download" onClick={downloadHtml}>
-        {chrome.i18n.getMessage("downloadHtml")}
+        {i18n("downloadHtml")}
       </div>
     </fieldset>
   )

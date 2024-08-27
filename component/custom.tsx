@@ -1,5 +1,7 @@
 import { useStorage } from "@plasmohq/storage/hook"
 
+import { i18n } from "~tools"
+
 export default function Custom() {
   const [runCss, setRunCss] = useStorage("custom-runCss", (v) =>
     v === undefined ? false : v
@@ -8,9 +10,9 @@ export default function Custom() {
 
   return (
     <fieldset>
-      <legend>{chrome.i18n.getMessage("customConfig")}</legend>
+      <legend>{i18n("customConfig")}</legend>
       <div className="item">
-        <span>{chrome.i18n.getMessage("customCssCode")}</span>
+        <span>{i18n("customCssCode")}</span>
         <input
           type="checkbox"
           id="custom-runCss"

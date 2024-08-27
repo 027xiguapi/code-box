@@ -1,6 +1,8 @@
 import { sendToContentScript } from "@plasmohq/messaging"
 import { useStorage } from "@plasmohq/storage/hook"
 
+import { i18n } from "~tools"
+
 export default function Php() {
   const [copyCode, setCopyCode] = useStorage("php-copyCode", (v) =>
     v === undefined ? true : v
@@ -18,9 +20,9 @@ export default function Php() {
 
   return (
     <fieldset>
-      <legend>{chrome.i18n.getMessage("phpConfig")}</legend>
+      <legend>{i18n("phpConfig")}</legend>
       <div className="item">
-        <span>{chrome.i18n.getMessage("phpCopyCode")}</span>
+        <span>{i18n("phpCopyCode")}</span>
         <input
           type="checkbox"
           id="php-copyCode"
@@ -32,7 +34,7 @@ export default function Php() {
         <label className="codebox-switch" htmlFor="php-copyCode"></label>
       </div>
       <div className="item">
-        <span>{chrome.i18n.getMessage("phpCloseLoginModal")}</span>
+        <span>{i18n("phpCloseLoginModal")}</span>
         <input
           type="checkbox"
           id="php-closeLoginModal"
@@ -44,7 +46,7 @@ export default function Php() {
         <label htmlFor="php-closeLoginModal" className="codebox-switch"></label>
       </div>
       <div className="item download" onClick={downloadHtml}>
-        {chrome.i18n.getMessage("downloadHtml")}
+        {i18n("downloadHtml")}
       </div>
     </fieldset>
   )

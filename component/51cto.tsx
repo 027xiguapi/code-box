@@ -1,6 +1,8 @@
 import { sendToContentScript } from "@plasmohq/messaging"
 import { useStorage } from "@plasmohq/storage/hook"
 
+import { i18n } from "~tools"
+
 export default function Cto51() {
   const [copyCode, setCopyCode] = useStorage("51cto-copyCode", (v) =>
     v === undefined ? true : v
@@ -18,9 +20,9 @@ export default function Cto51() {
 
   return (
     <fieldset>
-      <legend>{chrome.i18n.getMessage("51ctoConfig")}</legend>
+      <legend>{i18n("51ctoConfig")}</legend>
       <div className="item">
-        <span>{chrome.i18n.getMessage("51ctoCopyCode")}</span>
+        <span>{i18n("51ctoCopyCode")}</span>
         <input
           type="checkbox"
           id="51cto-copyCode"
@@ -32,7 +34,7 @@ export default function Cto51() {
         <label className="codebox-switch" htmlFor="51cto-copyCode"></label>
       </div>
       <div className="item">
-        <span>{chrome.i18n.getMessage("51ctoCloseLoginModal")}</span>
+        <span>{i18n("51ctoCloseLoginModal")}</span>
         <input
           type="checkbox"
           id="51cto-closeLoginModal"
@@ -46,7 +48,7 @@ export default function Cto51() {
           className="codebox-switch"></label>
       </div>
       <div className="item download" onClick={downloadHtml}>
-        {chrome.i18n.getMessage("downloadHtml")}
+        {i18n("downloadHtml")}
       </div>
     </fieldset>
   )

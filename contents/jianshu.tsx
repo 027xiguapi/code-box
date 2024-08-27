@@ -5,11 +5,19 @@ import { v4 as uuidv4 } from "uuid"
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
-import { addCss, saveHtml, setIcon } from "~tools"
+import { Readability } from "~node_modules/@mozilla/readability"
+import { addCss, getMetaContentByProperty, saveHtml, setIcon } from "~tools"
 
 export const config: PlasmoCSConfig = {
   matches: ["https://*.jianshu.com/*"]
 }
+
+const documentClone = document.cloneNode(true)
+const article = new Readability(documentClone as Document, {}).parse()
+const articleUrl = window.location.href
+const author = article.byline ?? ""
+const authorLink = getMetaContentByProperty("article:author")
+const domain = window.location.hostname
 
 export default function Jianshu() {
   const [closeLoginModal] = useStorage<boolean>("jianshu-closeLoginModal")
@@ -140,7 +148,7 @@ export default function Jianshu() {
 
   function downloadHtml() {
     const dom = document.querySelector("section.ouvJEz")
-    saveHtml(dom)
+    saveHtml(dom, article.title)
   }
 
   return <div style={{ display: "none" }}></div>

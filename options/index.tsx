@@ -118,7 +118,7 @@ export default function IndexOptions() {
       <div className="App options">
         <div className="App-header">
           <h2 className="title">CodeBox 🎉</h2>
-          <p className="desc">{chrome.i18n.getMessage("popupDescription")}</p>
+          <p className="desc">{i18n("popupDescription")}</p>
         </div>
         <div className="App-body">
           <DndContext
@@ -141,12 +141,11 @@ export default function IndexOptions() {
         </div>
         <div className="App-link">
           <div className="item">
-            {chrome.i18n.getMessage("version")}：
-            {chrome.runtime.getManifest().version}
+            {i18n("version")}：{chrome.runtime.getManifest().version}
           </div>
           <div className="item">
             <button className="reset" onClick={handleReset}>
-              {chrome.i18n.getMessage("reset")}
+              {i18n("reset")}
             </button>
           </div>
           <div className="item">
@@ -155,7 +154,7 @@ export default function IndexOptions() {
               href="/tabs/history.html"
               target="_blank"
               rel="noreferrer">
-              {chrome.i18n.getMessage("history")}🕮
+              {i18n("history")}🕮
             </a>
           </div>
           <div className="item">
@@ -164,7 +163,7 @@ export default function IndexOptions() {
               href="https://027xiguapi.github.io/code-box/privacy-policy.html"
               target="_blank"
               rel="noreferrer">
-              {chrome.i18n.getMessage("privacy")}📄
+              {i18n("privacy")}📄
             </a>
           </div>
           <div>
@@ -173,7 +172,7 @@ export default function IndexOptions() {
               href="/tabs/feed.html"
               target="_blank"
               rel="noreferrer">
-              {chrome.i18n.getMessage("support")}👍
+              {i18n("support")}👍
             </a>
           </div>
         </div>

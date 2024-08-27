@@ -1,6 +1,8 @@
 import { sendToContentScript } from "@plasmohq/messaging"
 import { useStorage } from "@plasmohq/storage/hook"
 
+import { i18n } from "~tools"
+
 export default function Cnblogs() {
   const [copyCode, setCopyCode] = useStorage("cnblogs-copyCode", (v) =>
     v === undefined ? true : v
@@ -14,9 +16,9 @@ export default function Cnblogs() {
 
   return (
     <fieldset>
-      <legend>{chrome.i18n.getMessage("cnblogsConfig")}</legend>
+      <legend>{i18n("cnblogsConfig")}</legend>
       <div className="item">
-        <span>{chrome.i18n.getMessage("cnblogsCopyCode")}</span>
+        <span>{i18n("cnblogsCopyCode")}</span>
         <input
           type="checkbox"
           id="cnblogs-copyCode"
@@ -28,7 +30,7 @@ export default function Cnblogs() {
         <label className="codebox-switch" htmlFor="cnblogs-copyCode"></label>
       </div>
       <div className="item download" onClick={downloadHtml}>
-        {chrome.i18n.getMessage("downloadHtml")}
+        {i18n("downloadHtml")}
       </div>
     </fieldset>
   )

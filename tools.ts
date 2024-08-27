@@ -26,10 +26,35 @@ export function setIcon(active: boolean) {
   })
 }
 
-export function saveHtml(dom: Element) {
+export function saveHtml(dom: Element, filename?: string) {
   if (dom) {
     const htmlContent = dom.outerHTML
     const blob = new Blob([htmlContent], { type: "text/html;charset=utf-8" })
-    saveAs(blob, "page.html")
+    filename = filename || "CodeBox-page"
+    saveAs(blob, `${filename}.html`)
+  }
+}
+
+export function i18n(key: string) {
+  return chrome.i18n.getMessage(key)
+}
+
+export function getMetaContentByProperty(metaProperty: string) {
+  const metas = document.getElementsByTagName("meta")
+
+  for (let i = 0; i < metas.length; i++) {
+    if (metas[i].getAttribute("property") === metaProperty) {
+      return metas[i].getAttribute("content")
+    }
+  }
+
+  return ""
+}
+
+export function isValidUrl(urlString: string) {
+  try {
+    return Boolean(new URL(urlString))
+  } catch (e) {
+    return false
   }
 }

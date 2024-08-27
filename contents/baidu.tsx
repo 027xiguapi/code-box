@@ -4,11 +4,19 @@ import { useEffect } from "react"
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
-import { addCss, saveHtml, setIcon } from "~tools"
+import { Readability } from "~node_modules/@mozilla/readability"
+import { addCss, getMetaContentByProperty, saveHtml, setIcon } from "~tools"
 
 export const config: PlasmoCSConfig = {
   matches: ["https://*.baidu.com/*"]
 }
+
+const documentClone = document.cloneNode(true)
+const article = new Readability(documentClone as Document, {}).parse()
+const articleUrl = window.location.href
+const author = article.byline ?? ""
+const authorLink = getMetaContentByProperty("article:author")
+const domain = window.location.hostname
 
 export default function Custom() {
   const [closeAIBox] = useStorage<boolean>("baidu-closeAIBox")
@@ -40,7 +48,7 @@ export default function Custom() {
 
   function downloadHtml() {
     const dom = document.querySelector(".wd-ai-index-pc")
-    saveHtml(dom)
+    saveHtml(dom, article.title)
   }
 
   return <div style={{ display: "none" }}></div>
