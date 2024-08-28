@@ -14,6 +14,12 @@ export default function Cnblogs() {
     })
   }
 
+  function downloadMarkdown() {
+    sendToContentScript({
+      name: "cnblogs-downloadMarkdown"
+    })
+  }
+
   return (
     <fieldset>
       <legend>{i18n("cnblogsConfig")}</legend>
@@ -28,6 +34,9 @@ export default function Cnblogs() {
           onChange={(e) => setCopyCode(e.target.checked)}
         />
         <label className="codebox-switch" htmlFor="cnblogs-copyCode"></label>
+      </div>
+      <div className="item download" onClick={downloadMarkdown}>
+        {i18n("downloadMarkdown")}
       </div>
       <div className="item download" onClick={downloadHtml}>
         {i18n("downloadHtml")}

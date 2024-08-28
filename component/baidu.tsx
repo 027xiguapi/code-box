@@ -8,6 +8,12 @@ export default function Custom() {
     v === undefined ? false : v
   )
 
+  function downloadMarkdown() {
+    sendToContentScript({
+      name: "baidu-downloadMarkdown"
+    })
+  }
+
   function downloadHtml() {
     sendToContentScript({
       name: "baidu-downloadHtml"
@@ -28,6 +34,9 @@ export default function Custom() {
           onChange={(e) => setCloseAIBox(e.target.checked)}
         />
         <label className="codebox-switch" htmlFor="baidu-closeAIBox"></label>
+      </div>
+      <div className="item download" onClick={downloadMarkdown}>
+        {i18n("downloadMarkdown")}
       </div>
       <div className="item download" onClick={downloadHtml}>
         {i18n("downloadHtml")}

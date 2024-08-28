@@ -16,6 +16,12 @@ export default function Jianshu() {
     (v) => (v === undefined ? true : v)
   )
 
+  function downloadMarkdown() {
+    sendToContentScript({
+      name: "jianshu-downloadMarkdown"
+    })
+  }
+
   function downloadHtml() {
     sendToContentScript({
       name: "jianshu-downloadHtml"
@@ -64,6 +70,9 @@ export default function Jianshu() {
         <label
           className="codebox-switch"
           htmlFor="jianshu-autoOpenCode"></label>
+      </div>
+      <div className="item download" onClick={downloadMarkdown}>
+        {i18n("downloadMarkdown")}
       </div>
       <div className="item download" onClick={downloadHtml}>
         {i18n("downloadHtml")}

@@ -1,17 +1,25 @@
 import type { PlasmoCSConfig } from "plasmo"
 import { useEffect, useRef } from "react"
+import TurndownService from "turndown"
 import { v4 as uuidv4 } from "uuid"
 
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import { Readability } from "~node_modules/@mozilla/readability"
-import { addCss, getMetaContentByProperty, saveHtml, setIcon } from "~tools"
+import {
+  addCss,
+  getMetaContentByProperty,
+  saveHtml,
+  saveMarkdown,
+  setIcon
+} from "~tools"
 
 export const config: PlasmoCSConfig = {
   matches: ["https://*.zhihu.com/*"]
 }
 
+const turndownService = new TurndownService()
 const documentClone = document.cloneNode(true)
 const article = new Readability(documentClone as Document, {}).parse()
 const articleUrl = window.location.href
@@ -40,6 +48,7 @@ export default function zhihu() {
       res.send({ isShow: true })
     }
     if (req.name == "zhihu-downloadMarkdown") {
+      downloadMarkdown()
     }
     if (req.name == "zhihu-downloadHtml") {
       downloadHtml()
@@ -164,6 +173,12 @@ export default function zhihu() {
         isCollapsed.classList.remove("is-collapsed")
       })
     }
+  }
+
+  function downloadMarkdown() {
+    const html = document.querySelector("article.Post-Main")
+    const markdown = turndownService.turndown(html)
+    saveMarkdown(markdown, article.title)
   }
 
   function downloadHtml() {

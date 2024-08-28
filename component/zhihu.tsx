@@ -22,6 +22,12 @@ export default function Zhihu() {
     })
   }
 
+  function downloadMarkdown() {
+    sendToContentScript({
+      name: "zhihu-downloadMarkdown"
+    })
+  }
+
   return (
     <fieldset>
       <legend>{i18n("zhihuConfig")}</legend>
@@ -62,6 +68,9 @@ export default function Zhihu() {
           onChange={(e) => setAutoOpenCode(e.target.checked)}
         />
         <label className="codebox-switch" htmlFor="zhihu-autoOpenCode"></label>
+      </div>
+      <div className="item download" onClick={downloadMarkdown}>
+        {i18n("downloadMarkdown")}
       </div>
       <div className="item download" onClick={downloadHtml}>
         {i18n("downloadHtml")}

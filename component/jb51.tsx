@@ -11,6 +11,12 @@ export default function Jb51() {
     v === undefined ? true : v
   )
 
+  function downloadMarkdown() {
+    sendToContentScript({
+      name: "jb51-downloadMarkdown"
+    })
+  }
+
   function downloadHtml() {
     sendToContentScript({
       name: "jb51-downloadHtml"
@@ -43,6 +49,9 @@ export default function Jb51() {
           onChange={(e) => setCopyCode(e.target.checked)}
         />
         <label className="codebox-switch" htmlFor="jb51-copyCode"></label>
+      </div>
+      <div className="item download" onClick={downloadMarkdown}>
+        {i18n("downloadMarkdown")}
       </div>
       <div className="item download" onClick={downloadHtml}>
         {i18n("downloadHtml")}

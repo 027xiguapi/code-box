@@ -18,6 +18,12 @@ export default function Php() {
     })
   }
 
+  function downloadMarkdown() {
+    sendToContentScript({
+      name: "php-downloadMarkdown"
+    })
+  }
+
   return (
     <fieldset>
       <legend>{i18n("phpConfig")}</legend>
@@ -44,6 +50,9 @@ export default function Php() {
           onChange={(e) => setCloseLoginModal(e.target.checked)}
         />
         <label htmlFor="php-closeLoginModal" className="codebox-switch"></label>
+      </div>
+      <div className="item download" onClick={downloadMarkdown}>
+        {i18n("downloadMarkdown")}
       </div>
       <div className="item download" onClick={downloadHtml}>
         {i18n("downloadHtml")}

@@ -7,7 +7,13 @@ import { v4 as uuidv4 } from "uuid"
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
-import { addCss, getMetaContentByProperty, saveHtml, setIcon } from "~tools"
+import {
+  addCss,
+  getMetaContentByProperty,
+  saveHtml,
+  saveMarkdown,
+  setIcon
+} from "~tools"
 
 export const config: PlasmoCSConfig = {
   matches: ["https://*.blog.csdn.net/*"]
@@ -246,6 +252,7 @@ const csdn = () => {
   function downloadMarkdown() {
     const html = document.querySelector(".blog-content-box")
     const markdown = turndownService.turndown(html)
+    saveMarkdown(markdown, article.title)
   }
 
   function downloadHtml() {

@@ -35,6 +35,14 @@ export function saveHtml(dom: Element, filename?: string) {
   }
 }
 
+export function saveMarkdown(markdown: string, filename?: string) {
+  if (markdown) {
+    const blob = new Blob([markdown], { type: "text/markdown;charset=utf-8" })
+    filename = filename || "CodeBox-page"
+    saveAs(blob, `${filename}.md`)
+  }
+}
+
 export function i18n(key: string) {
   return chrome.i18n.getMessage(key)
 }

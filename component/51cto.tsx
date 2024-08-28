@@ -12,6 +12,12 @@ export default function Cto51() {
     (v) => (v === undefined ? true : v)
   )
 
+  function downloadMarkdown() {
+    sendToContentScript({
+      name: "51cto-downloadMarkdown"
+    })
+  }
+
   function downloadHtml() {
     sendToContentScript({
       name: "51cto-downloadHtml"
@@ -46,6 +52,9 @@ export default function Cto51() {
         <label
           htmlFor="51cto-closeLoginModal"
           className="codebox-switch"></label>
+      </div>
+      <div className="item download" onClick={downloadMarkdown}>
+        {i18n("downloadMarkdown")}
       </div>
       <div className="item download" onClick={downloadHtml}>
         {i18n("downloadHtml")}

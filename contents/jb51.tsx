@@ -1,17 +1,25 @@
 import type { PlasmoCSConfig } from "plasmo"
 import { useEffect } from "react"
+import TurndownService from "turndown"
 import { v4 as uuidv4 } from "uuid"
 
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import { Readability } from "~node_modules/@mozilla/readability"
-import { addCss, getMetaContentByProperty, saveHtml, setIcon } from "~tools"
+import {
+  addCss,
+  getMetaContentByProperty,
+  saveHtml,
+  saveMarkdown,
+  setIcon
+} from "~tools"
 
 export const config: PlasmoCSConfig = {
   matches: ["https://*.jb51.net/*"]
 }
 
+const turndownService = new TurndownService()
 const documentClone = document.cloneNode(true)
 const article = new Readability(documentClone as Document, {}).parse()
 const articleUrl = window.location.href
@@ -37,6 +45,7 @@ export default function jb51() {
       res.send({ isShow: true })
     }
     if (req.name == "jb51-downloadMarkdown") {
+      downloadMarkdown()
     }
     if (req.name == "jb51-downloadHtml") {
       downloadHtml()
@@ -194,6 +203,12 @@ export default function jb51() {
     #rbbd {
       display:none !important;
     }`)
+  }
+
+  function downloadMarkdown() {
+    const html = document.querySelector("#article")
+    const markdown = turndownService.turndown(html)
+    saveMarkdown(markdown, article.title)
   }
 
   function downloadHtml() {

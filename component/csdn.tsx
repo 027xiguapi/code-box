@@ -133,7 +133,7 @@ export default function Csdn() {
           htmlFor="csdn-closeRedirectModal"
           className="codebox-switch"></label>
       </div>
-      <div className="item download hide" onClick={downloadMarkdown}>
+      <div className="item download" onClick={downloadMarkdown}>
         {i18n("downloadMarkdown")}
       </div>
       <div className="item download" onClick={downloadHtml}>

@@ -1,16 +1,23 @@
 import type { PlasmoCSConfig } from "plasmo"
 import { useEffect } from "react"
+import TurndownService from "turndown"
 
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import { Readability } from "~node_modules/@mozilla/readability"
-import { addCss, getMetaContentByProperty, saveHtml, setIcon } from "~tools"
+import {
+  addCss,
+  getMetaContentByProperty,
+  saveHtml,
+  saveMarkdown,
+  setIcon
+} from "~tools"
 
 export const config: PlasmoCSConfig = {
   matches: ["https://*.baidu.com/*"]
 }
-
+const turndownService = new TurndownService()
 const documentClone = document.cloneNode(true)
 const article = new Readability(documentClone as Document, {}).parse()
 const articleUrl = window.location.href
@@ -33,6 +40,7 @@ export default function Custom() {
       res.send({ isShow: true })
     }
     if (req.name == "baidu-downloadMarkdown") {
+      downloadMarkdown()
     }
     if (req.name == "baidu-downloadHtml") {
       downloadHtml()
@@ -44,6 +52,12 @@ export default function Custom() {
     addCss(`.wd-ai-index-pc{
       display:none !important;
     }`)
+  }
+
+  function downloadMarkdown() {
+    const html = document.querySelector(".wd-ai-index-pc")
+    const markdown = turndownService.turndown(html)
+    saveMarkdown(markdown, article.title)
   }
 
   function downloadHtml() {

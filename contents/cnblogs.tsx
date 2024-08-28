@@ -1,18 +1,25 @@
 import type { PlasmoCSConfig } from "plasmo"
 import { useEffect, useRef } from "react"
+import TurndownService from "turndown"
 import { v4 as uuidv4 } from "uuid"
 
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import { Readability } from "~node_modules/@mozilla/readability"
-import { getMetaContentByProperty, saveHtml, setIcon } from "~tools"
+import {
+  getMetaContentByProperty,
+  saveHtml,
+  saveMarkdown,
+  setIcon
+} from "~tools"
 
 export const config: PlasmoCSConfig = {
   matches: ["https://*.cnblogs.com/*"],
   all_frames: true
 }
 
+const turndownService = new TurndownService()
 const documentClone = document.cloneNode(true)
 const article = new Readability(documentClone as Document, {}).parse()
 const articleUrl = window.location.href
@@ -36,6 +43,7 @@ export default function cnblogs() {
       res.send({ isShow: true })
     }
     if (req.name == "cnblogs-downloadMarkdown") {
+      downloadMarkdown()
     }
     if (req.name == "cnblogs-downloadHtml") {
       downloadHtml()
@@ -114,6 +122,12 @@ export default function cnblogs() {
         e.preventDefault()
       })
     })
+  }
+
+  function downloadMarkdown() {
+    const html = document.querySelector("#post_detail")
+    const markdown = turndownService.turndown(html)
+    saveMarkdown(markdown, article.title)
   }
 
   function downloadHtml() {
