@@ -18,6 +18,7 @@ import { useStorage } from "@plasmohq/storage/dist/hook"
 
 import SortableItem from "~component/sortableItem"
 import { ThemeProvider } from "~theme"
+import { i18n } from "~tools"
 
 import "~index.css"
 
