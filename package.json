@@ -1,7 +1,7 @@
 {
   "name": "code-box",
   "displayName": "__MSG_extensionName__",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "description": "__MSG_extensionDescription__",
   "author": "027xiguapi. <458813868@qq.com>",
   "scripts": {
@@ -31,6 +31,7 @@
     "antd": "^5.19.4",
     "dayjs": "^1.11.12",
     "file-saver": "^2.0.5",
+    "jssha": "^3.3.1",
     "plasmo": "0.88.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",

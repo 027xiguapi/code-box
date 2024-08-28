@@ -7,7 +7,6 @@ const handler: PlasmoMessaging.MessageHandler = async (req, res) => {
   const [tab] = await chrome.tabs.query({ currentWindow: true, active: true })
   const { active } = req.body
 
-  console.log(active)
   if (active) {
     chrome.action.setIcon({ tabId: tab.id, path: activeUrl }, () => {})
   } else {
