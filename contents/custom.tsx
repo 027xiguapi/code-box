@@ -3,7 +3,9 @@ import { useEffect } from "react"
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
-import { addCss } from "~tools"
+import { addCss, setIcon } from "~tools"
+
+setIcon(false)
 
 export default function Custom() {
   const [runCss] = useStorage<boolean>("custom-runCss")

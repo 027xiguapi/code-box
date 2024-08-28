@@ -54,7 +54,7 @@ export default function Content() {
   }
 
   return (
-    <>
+    <div className="content">
       {csdnIsShow ? <Csdn /> : <></>}
       {zhihuIsShow ? <Zhihu /> : <></>}
       {baiduIsShow ? <Baidu /> : <></>}
@@ -65,6 +65,6 @@ export default function Content() {
       {phpIsShow ? <Php /> : <></>}
       {customIsShow ? <Custom /> : <></>}
       <Config />
-    </>
+    </div>
   )
 }
