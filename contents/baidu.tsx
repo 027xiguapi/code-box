@@ -1,6 +1,5 @@
 import type { PlasmoCSConfig } from "plasmo"
 import { useEffect } from "react"
-import TurndownService from "turndown"
 
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
@@ -13,11 +12,13 @@ import {
   saveMarkdown,
   setIcon
 } from "~tools"
+import Turndown from "~utils/turndown"
 
 export const config: PlasmoCSConfig = {
   matches: ["https://*.baidu.com/*"]
 }
-const turndownService = new TurndownService()
+
+const turndownService = Turndown()
 const documentClone = document.cloneNode(true)
 const article = new Readability(documentClone as Document, {}).parse()
 const articleUrl = window.location.href

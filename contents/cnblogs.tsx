@@ -1,6 +1,5 @@
 import type { PlasmoCSConfig } from "plasmo"
 import { useEffect, useRef } from "react"
-import TurndownService from "turndown"
 import { v4 as uuidv4 } from "uuid"
 
 import { useMessage } from "@plasmohq/messaging/hook"
@@ -13,13 +12,14 @@ import {
   saveMarkdown,
   setIcon
 } from "~tools"
+import Turndown from "~utils/turndown"
 
 export const config: PlasmoCSConfig = {
   matches: ["https://*.cnblogs.com/*"],
   all_frames: true
 }
 
-const turndownService = new TurndownService()
+const turndownService = Turndown()
 const documentClone = document.cloneNode(true)
 const article = new Readability(documentClone as Document, {}).parse()
 const articleUrl = window.location.href
