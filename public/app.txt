@@ -50,4 +50,9 @@ php中文网
 3.然后 运行 pnpm package:firefox，
 4.运行结果在 build 文件夹内.
 
+1. First run `pnpm install`
+2. Next run `pnpm build:firefox`,
+3. Then run the `pnpm package:firefox`,
+4. The running results are in the `build` folder
+
 

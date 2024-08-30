@@ -6,7 +6,7 @@ https://github.com/027xiguapi/code-box
 
 ## 介绍
 
-本浏览器插件可以用于CSDN/知乎/脚本之家/博客园/博客园/51CTO博客/php中文网等网站,实现无需登录一键复制代码;支持选中代码;或者代码右上角按钮的一键复制;解除关注博主即可阅读全文提示;去除登录弹窗;去除跳转APP弹窗.
+本浏览器插件可以用于CSDN/知乎/脚本之家/博客园/博客园/51CTO博客/php中文网等网站,一键下载文章html或markdown文件;实现无需登录一键复制代码;支持选中代码;或者代码右上角按钮的一键复制;解除关注博主即可阅读全文提示;去除登录弹窗;去除跳转APP弹窗.
 
 ## 安装
 
@@ -30,6 +30,15 @@ https://github.com/027xiguapi/code-box
    - [前往 火狐 扩展商店](https://addons.mozilla.org/zh-CN/firefox/addon/code-box/)
    - [前往 Edge 扩展商店](https://microsoftedge.microsoft.com/addons/detail/code-box/cfpdbfmncaampihkmejogihjkenkonbn)
 
+### 安装方式三：公众号下载
+1. 关注公众号
+
+![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/wx/qrcode_wx.jpg)
+
+2. 点击 `软件下载`
+
+![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/wx/download.jpg)
+
 ### 安装方式三：源码安装
 
 1. clone源码
@@ -45,9 +54,12 @@ https://github.com/027xiguapi/code-box
 3. 谷歌浏览器，从右上角菜单->更多工具->扩展程序可以进入插件管理页面，也可以直接在地址栏输入 chrome://extensions 访问
 4. 勾选开发者模式，即可以文件夹的形式直接加载插件
 
+
+
+
 ## 功能
 
-![img-1](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/img_1.jpg)
+![img-1](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/option.jpg)
 
 ### 自定义
 
@@ -55,55 +67,63 @@ https://github.com/027xiguapi/code-box
 
 ### CSDN
 
-1. 打开任意一个`CSDN`博客即可开始复制代码
-2. 未登录`CSDN`状态下，支持选中代码
-3. 未登录`CSDN`状态下，代码右上角按钮一键复制
-4. 未登录`CSDN`状态下，不会再出现强制登录弹窗
-5. 未关注博主状态下，不再提示关注博主即可阅读全文，且完整展示文章
-6. 自动展开代码块
-7. 移动端屏蔽跳转APP
-8. 非vip用户，不再提示vip观看，且完整展示文章
+- 一键下载文章html或markdown文件
+- 打开任意一个`CSDN`博客即可开始复制代码
+- 未登录`CSDN`状态下，支持选中代码
+- 未登录`CSDN`状态下，代码右上角按钮一键复制
+- 未登录`CSDN`状态下，不会再出现强制登录弹窗
+- 未关注博主状态下，不再提示关注博主即可阅读全文，且完整展示文章
+- 自动展开代码块
+- 移动端屏蔽跳转APP
+- 非vip用户，不再提示vip观看，且完整展示文章
 
 ### 知乎
 
-1. 一键复制代码
-2. 未登录`知乎`状态下，不再提示展开阅读全文，且完整展示文章
-3. 未登录`知乎`状态下，不会再出现强制登录弹窗
+- 一键下载文章html或markdown文件
+- 一键复制代码
+- 未登录`知乎`状态下，不再提示展开阅读全文，且完整展示文章
+- 未登录`知乎`状态下，不会再出现强制登录弹窗
 
 ### 百度
 
-1. 关闭AI对话框
+- 一键下载对话框html或markdown文件
+-  关闭AI对话框
 
 ### 简书
 
-1. 移动端，一键复制代码
-2. 不再提示展开阅读全文，且完整展示文章
-3. 不会再出现强制登录弹窗
+- 一键下载文章html或markdown文件
+- 移动端，一键复制代码
+- 不再提示展开阅读全文，且完整展示文章
+- 不会再出现强制登录弹窗
 
 ### 脚本之家
 
-1. 打开任意一个`脚本之家`博客即可开始复制代码
-2. 未登录`脚本之家`状态下，支持选中代码
-3. 屏蔽广告
-4. 移动端未登录`脚本之家`状态下，代码右上角按钮一键复制
+- 一键下载文章html或markdown文件
+- 打开任意一个`脚本之家`博客即可开始复制代码
+- 未登录`脚本之家`状态下，支持选中代码
+- 屏蔽广告
+- 移动端未登录`脚本之家`状态下，代码右上角按钮一键复制
 
 ### 博客园
 
-1. 一键复制代码
+- 一键下载文章html或markdown文件
+-  一键复制代码
 
 ### 51CTO博客
 
-1. 未登录`51CTO博客`状态下，支持选中代码
-2. 未登录`51CTO博客`状态下，代码右上角按钮一键复制
-3. 未登录`51CTO博客`状态下，不会再出现强制登录弹窗
-4. 移动端未登录`51CTO博客`状态下，代码右上角按钮一键复制
+- 一键下载文章html或markdown文件
+- 未登录`51CTO博客`状态下，支持选中代码
+- 未登录`51CTO博客`状态下，代码右上角按钮一键复制
+- 未登录`51CTO博客`状态下，不会再出现强制登录弹窗
+- 移动端未登录`51CTO博客`状态下，代码右上角按钮一键复制
 
 ### php中文网
 
-1. 未登录`php中文网`状态下，支持选中代码
-2. 未登录`php中文网`状态下，代码右上角按钮一键复制
-3. 未登录`php中文网`状态下，不会再出现强制登录弹窗
-4. 未登录`php中文网`状态下，移动端代码右上角按钮一键复制
+- 一键下载文章html或markdown文件
+- 未登录`php中文网`状态下，支持选中代码
+- 未登录`php中文网`状态下，代码右上角按钮一键复制
+- 未登录`php中文网`状态下，不会再出现强制登录弹窗
+- 未登录`php中文网`状态下，移动端代码右上角按钮一键复制
 
 
 ![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/1.jpg)

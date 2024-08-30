@@ -1,13 +1,14 @@
 {
   "name": "code-box",
   "displayName": "__MSG_extensionName__",
-  "version": "0.5.5",
+  "version": "0.5.6",
   "description": "__MSG_extensionDescription__",
   "author": "027xiguapi. <458813868@qq.com>",
   "scripts": {
     "dev": "plasmo dev",
-    "build": "plasmo build",
-    "build:firefox": "plasmo build --target=firefox-mv2",
+    "build": "rimraf build && plasmo build",
+    "build:firefox": "rimraf build && plasmo build --target=firefox-mv2",
+    "build:all": "rimraf build && plasmo build && plasmo build --target=firefox-mv2",
     "package": "plasmo package",
     "package:firefox": "plasmo package --target=firefox-mv2",
     "clean": "rimraf build"
@@ -56,7 +57,7 @@
     "default_locale": "zh_CN",
     "browser_specific_settings": {
       "gecko": {
-        "id": "$FIREFOX_EXT_ID"
+        "id": "$PLASMO_PUBLIC_FIREFOX_EXT_ID"
       }
     },
     "host_permissions": [
