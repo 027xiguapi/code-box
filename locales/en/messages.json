@@ -136,5 +136,8 @@
   },
   "oschinaConfig": {
     "message": "Oschina Config"
+  },
+  "segmentfaultConfig": {
+    "message": "Segmentfault Config"
   }
 }

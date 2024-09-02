@@ -1,16 +1,20 @@
 .options {
-    width: 300px;
+    width: 1000px;
     margin: 0 auto;
     padding: 5px 8px;
     :global {
+        .App-body {
+            display: flex;
+            flex-wrap: wrap;
+        }
         .sortableItem {
             display: flex;
             justify-content: center;
             box-shadow: 0 0 0 calc(1px / 1) rgba(63, 63, 68, 0.05), 0 1px calc(3px / 1) 0 rgba(34, 33, 81, 0.15);
-            width: 280px;
-            margin-bottom: 10px;
+            width: 230px;
             padding: 5px 8px;
             border-radius: 4px;
+            margin: 0 2px 10px;
         }
 
         .sortableItem fieldset {

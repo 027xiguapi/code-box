@@ -13,6 +13,7 @@ import Jianshu from "~component/jianshu"
 import Juejin from "~component/juejin"
 import Oschina from "~component/oschina"
 import Php from "~component/php"
+import Segmentfault from "~component/segmentfault"
 import Zhihu from "~component/zhihu"
 
 export default function Content() {
@@ -26,6 +27,7 @@ export default function Content() {
   const [juejinIsShow, setJuejinIsShow] = useState<boolean>(false)
   const [phpIsShow, setPhpIsShow] = useState<boolean>(false)
   const [oschinaIsShow, setOschinaIsShow] = useState<boolean>(false)
+  const [segmentfault, setSegmentfaultIsShow] = useState<boolean>(false)
   const [customIsShow, setCustomIsShow] = useState<boolean>(false)
 
   useEffect(() => {
@@ -39,6 +41,7 @@ export default function Content() {
     getIsShow("juejin")
     getIsShow("php")
     getIsShow("oschina")
+    getIsShow("segmentfault")
     getIsShow("custom")
   }, [])
 
@@ -53,6 +56,7 @@ export default function Content() {
     php: setPhpIsShow,
     juejin: setJuejinIsShow,
     oschina: setOschinaIsShow,
+    segmentfault: setSegmentfaultIsShow,
     custom: setCustomIsShow
   }
 
@@ -73,6 +77,7 @@ export default function Content() {
       {juejinIsShow ? <Juejin /> : <></>}
       {phpIsShow ? <Php /> : <></>}
       {oschinaIsShow ? <Oschina /> : <></>}
+      {segmentfault ? <Segmentfault /> : <></>}
       {customIsShow ? <Custom /> : <></>}
       <Config />
     </div>

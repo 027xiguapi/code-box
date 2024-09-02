@@ -66,12 +66,18 @@ export default function IndexOptions() {
     },
     {
       id: "10",
+      value: "segmentfault",
+      label: "思否",
+      isShow: true
+    },
+    {
+      id: "11",
       value: "custom",
       label: "自定义",
       isShow: true
     },
     {
-      id: "11",
+      id: "12",
       value: "app",
       label: "app",
       isShow: true

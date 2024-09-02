@@ -136,5 +136,8 @@
   },
   "oschinaConfig": {
     "message": "oschina设置"
+  },
+  "segmentfaultConfig": {
+    "message": "思否设置"
   }
 }

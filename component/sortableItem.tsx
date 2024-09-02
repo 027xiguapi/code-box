@@ -13,6 +13,7 @@ import Jianshu from "~component/jianshu"
 import Juejin from "~component/juejin"
 import Oschina from "~component/oschina"
 import Php from "~component/php"
+import Segmentfault from "~component/segmentfault"
 import Zhihu from "~component/zhihu"
 
 const itemMap = {
@@ -26,6 +27,7 @@ const itemMap = {
   cnblogs: <Cnblogs />,
   "51cto": <Cto51 />,
   php: <Php />,
+  segmentfault: <Segmentfault />,
   custom: <Custom />,
   app: <Config />
 }
