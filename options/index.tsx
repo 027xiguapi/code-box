@@ -1,20 +1,4 @@
-import {
-  closestCenter,
-  DndContext,
-  KeyboardSensor,
-  PointerSensor,
-  useSensor,
-  useSensors
-} from "@dnd-kit/core"
-import {
-  arrayMove,
-  SortableContext,
-  sortableKeyboardCoordinates,
-  verticalListSortingStrategy
-} from "@dnd-kit/sortable"
 import React, { useState } from "react"
-
-import { useStorage } from "@plasmohq/storage/dist/hook"
 
 import SortableItem from "~component/sortableItem"
 import { ThemeProvider } from "~theme"
@@ -22,8 +6,10 @@ import { i18n } from "~tools"
 
 import "~index.css"
 
+import styles from "./index.module.scss"
+
 export default function IndexOptions() {
-  const itemsInit = [
+  const items = [
     {
       id: "1",
       value: "csdn",
@@ -91,75 +77,22 @@ export default function IndexOptions() {
       isShow: true
     }
   ]
-  const [items, setItems] = useStorage("app-items", itemsInit)
-
-  const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates
-    })
-  )
-
-  function handleDragEnd(event) {
-    const { active, over } = event
-
-    if (active.id !== over.id) {
-      setItems((data) => {
-        const oldIndex = data.findIndex((item) => item.id === active.id)
-        const newIndex = data.findIndex((item) => item.id === over.id)
-
-        return arrayMove(data, oldIndex, newIndex)
-      })
-    }
-  }
-
-  function handleToggleShow(event) {
-    const { isShow, index } = event
-
-    items[index].isShow = !isShow
-    setItems([...items])
-  }
-
-  function handleReset() {
-    if (confirm("确认重置配置？")) {
-      setItems([...itemsInit])
-    }
-  }
 
   return (
     <ThemeProvider>
-      <div className="App options">
+      <div className={`App ${styles.options}`}>
         <div className="App-header">
           <h2 className="title">CodeBox 🎉</h2>
           <p className="desc">{i18n("popupDescription")}</p>
         </div>
         <div className="App-body">
-          <DndContext
-            sensors={sensors}
-            collisionDetection={closestCenter}
-            onDragEnd={handleDragEnd}>
-            <SortableContext
-              items={items}
-              strategy={verticalListSortingStrategy}>
-              {items.map((item, index) => (
-                <SortableItem
-                  key={item.id}
-                  index={index}
-                  item={item}
-                  onToggleShow={handleToggleShow}
-                />
-              ))}
-            </SortableContext>
-          </DndContext>
+          {items.map((item, index) => (
+            <SortableItem key={item.id} index={index} item={item} />
+          ))}
         </div>
         <div className="App-link">
           <div className="item">
             {i18n("version")}：{chrome.runtime.getManifest().version}
-          </div>
-          <div className="item">
-            <button className="reset" onClick={handleReset}>
-              {i18n("reset")}
-            </button>
           </div>
           <div className="item">
             <a
