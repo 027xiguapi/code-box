@@ -133,5 +133,8 @@
   },
   "juejinConfig": {
     "message": "Juejin Config"
+  },
+  "oschinaConfig": {
+    "message": "Oschina Config"
   }
 }

@@ -11,6 +11,7 @@ import Custom from "~component/custom"
 import Jb51 from "~component/jb51"
 import Jianshu from "~component/jianshu"
 import Juejin from "~component/juejin"
+import Oschina from "~component/oschina"
 import Php from "~component/php"
 import Zhihu from "~component/zhihu"
 
@@ -24,6 +25,7 @@ export default function Content() {
   const [ctoIsShow, set51ctoIsShow] = useState<boolean>(false)
   const [juejinIsShow, setJuejinIsShow] = useState<boolean>(false)
   const [phpIsShow, setPhpIsShow] = useState<boolean>(false)
+  const [oschinaIsShow, setOschinaIsShow] = useState<boolean>(false)
   const [customIsShow, setCustomIsShow] = useState<boolean>(false)
 
   useEffect(() => {
@@ -36,6 +38,7 @@ export default function Content() {
     getIsShow("51cto")
     getIsShow("juejin")
     getIsShow("php")
+    getIsShow("oschina")
     getIsShow("custom")
   }, [])
 
@@ -49,6 +52,7 @@ export default function Content() {
     "51cto": set51ctoIsShow,
     php: setPhpIsShow,
     juejin: setJuejinIsShow,
+    oschina: setOschinaIsShow,
     custom: setCustomIsShow
   }
 
@@ -68,6 +72,7 @@ export default function Content() {
       {ctoIsShow ? <Cto51 /> : <></>}
       {juejinIsShow ? <Juejin /> : <></>}
       {phpIsShow ? <Php /> : <></>}
+      {oschinaIsShow ? <Oschina /> : <></>}
       {customIsShow ? <Custom /> : <></>}
       <Config />
     </div>

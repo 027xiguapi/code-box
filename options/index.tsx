@@ -68,12 +68,24 @@ export default function IndexOptions() {
     },
     {
       id: "8",
+      value: "juejin",
+      label: "掘金",
+      isShow: true
+    },
+    {
+      id: "9",
+      value: "oschina",
+      label: "oschina",
+      isShow: true
+    },
+    {
+      id: "10",
       value: "custom",
       label: "自定义",
       isShow: true
     },
     {
-      id: "9",
+      id: "11",
       value: "app",
       label: "app",
       isShow: true

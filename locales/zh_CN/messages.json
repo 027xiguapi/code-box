@@ -1,9 +1,9 @@
 {
   "extensionName": {
-    "message": "codebox-免登录一键复制代码"
+    "message": "codebox-一键复制代码/下载文章"
   },
   "extensionDescription": {
-    "message": "实现无需登录一键复制代码;支持选中代码;或者代码右上角按钮的一键复制;解除关注博主即可阅读全文提示;去除登录弹窗;去除跳转APP弹窗;页面自定义样式."
+    "message": "实现一键下载文章成html或markdown文件;实现无需登录一键复制代码;支持选中代码;或者代码右上角按钮的一键复制;解除关注博主即可阅读全文提示;去除登录弹窗;去除跳转APP弹窗;页面自定义样式."
   },
   "popupDescription": {
     "message": "免登录一键复制代码"
@@ -133,5 +133,8 @@
   },
   "juejinConfig": {
     "message": "掘金设置"
+  },
+  "oschinaConfig": {
+    "message": "oschina设置"
   }
 }

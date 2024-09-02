@@ -24,7 +24,7 @@ const author = article.byline ?? ""
 const authorLink = getMetaContentByProperty("article:author")
 const domain = window.location.hostname
 
-export default function Custom() {
+export default function Juejin() {
   useEffect(() => {
     setIcon(true)
   }, [])

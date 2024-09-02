@@ -1,28 +1,55 @@
 import type { PlasmoCSConfig } from "plasmo"
 import { useEffect } from "react"
 
-import { useStorage } from "@plasmohq/storage/hook"
+import { useMessage } from "@plasmohq/messaging/hook"
 
-import { addCss } from "~tools"
+import { Readability } from "~node_modules/@mozilla/readability"
+import {
+  getMetaContentByProperty,
+  saveHtml,
+  saveMarkdown,
+  setIcon
+} from "~tools"
+import Turndown from "~utils/turndown"
 
 export const config: PlasmoCSConfig = {
-  matches: ["https://*.baidu.com/*"]
+  matches: ["https://*.oschina.net/*"]
 }
 
-export default function Custom() {
-  const [closeAIBox] = useStorage<boolean>("baidu-closeAIBox")
-  const [closeLog] = useStorage("config-closeLog", true)
+const turndownService = Turndown()
+const documentClone = document.cloneNode(true)
+const article = new Readability(documentClone as Document, {}).parse()
+const articleUrl = window.location.href
+const author = article.byline ?? ""
+const authorLink = getMetaContentByProperty("article:author")
+const domain = window.location.hostname
 
+export default function Oschina() {
   useEffect(() => {
-    closeLog || console.log("baidu", { closeAIBox })
-    closeAIBox && closeAIBoxFunc()
-  }, [closeAIBox])
+    setIcon(true)
+  }, [])
 
-  /* 删除百度AI对话框 */
-  function closeAIBoxFunc() {
-    addCss(`.wd-ai-index-pc{
-      display:none !important;
-    }`)
+  useMessage(async (req, res) => {
+    if (req.name == "oschina-isShow") {
+      res.send({ isShow: true })
+    }
+    if (req.name == "oschina-downloadMarkdown") {
+      downloadMarkdown()
+    }
+    if (req.name == "oschina-downloadHtml") {
+      downloadHtml()
+    }
+  })
+
+  function downloadMarkdown() {
+    const html = document.querySelector(".article-box")
+    const markdown = turndownService.turndown(html)
+    saveMarkdown(markdown, article.title)
+  }
+
+  function downloadHtml() {
+    const dom = document.querySelector(".article-box")
+    saveHtml(dom, article.title)
   }
 
   return <div style={{ display: "none" }}></div>
