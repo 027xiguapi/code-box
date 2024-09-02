@@ -14,6 +14,7 @@ import Juejin from "~component/juejin"
 import Oschina from "~component/oschina"
 import Php from "~component/php"
 import Segmentfault from "~component/segmentfault"
+import Weixin from "~component/weixin"
 import Zhihu from "~component/zhihu"
 
 const itemMap = {
@@ -28,12 +29,13 @@ const itemMap = {
   "51cto": <Cto51 />,
   php: <Php />,
   segmentfault: <Segmentfault />,
+  weixin: <Weixin />,
   custom: <Custom />,
   app: <Config />
 }
 
 export default function SortableItem(props) {
-  const { item, index, onToggleShow } = props
+  const { item } = props
 
   return <div className="sortableItem">{itemMap[item.value]}</div>
 }

@@ -72,12 +72,18 @@ export default function IndexOptions() {
     },
     {
       id: "11",
+      value: "weixin",
+      label: "微信",
+      isShow: true
+    },
+    {
+      id: "12",
       value: "custom",
       label: "自定义",
       isShow: true
     },
     {
-      id: "12",
+      id: "13",
       value: "app",
       label: "app",
       isShow: true

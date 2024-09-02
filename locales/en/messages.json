@@ -139,5 +139,8 @@
   },
   "segmentfaultConfig": {
     "message": "Segmentfault Config"
+  },
+  "weixinConfig": {
+    "message": "Wechat Config"
   }
 }

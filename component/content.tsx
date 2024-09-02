@@ -14,6 +14,7 @@ import Juejin from "~component/juejin"
 import Oschina from "~component/oschina"
 import Php from "~component/php"
 import Segmentfault from "~component/segmentfault"
+import Weixin from "~component/weixin"
 import Zhihu from "~component/zhihu"
 
 export default function Content() {
@@ -27,7 +28,8 @@ export default function Content() {
   const [juejinIsShow, setJuejinIsShow] = useState<boolean>(false)
   const [phpIsShow, setPhpIsShow] = useState<boolean>(false)
   const [oschinaIsShow, setOschinaIsShow] = useState<boolean>(false)
-  const [segmentfault, setSegmentfaultIsShow] = useState<boolean>(false)
+  const [segmentfaultIsShow, setSegmentfaultIsShow] = useState<boolean>(false)
+  const [weixinIsShow, setWeixinIsShow] = useState<boolean>(false)
   const [customIsShow, setCustomIsShow] = useState<boolean>(false)
 
   useEffect(() => {
@@ -42,6 +44,7 @@ export default function Content() {
     getIsShow("php")
     getIsShow("oschina")
     getIsShow("segmentfault")
+    getIsShow("weixin")
     getIsShow("custom")
   }, [])
 
@@ -57,6 +60,7 @@ export default function Content() {
     juejin: setJuejinIsShow,
     oschina: setOschinaIsShow,
     segmentfault: setSegmentfaultIsShow,
+    weixin: setWeixinIsShow,
     custom: setCustomIsShow
   }
 
@@ -77,7 +81,8 @@ export default function Content() {
       {juejinIsShow ? <Juejin /> : <></>}
       {phpIsShow ? <Php /> : <></>}
       {oschinaIsShow ? <Oschina /> : <></>}
-      {segmentfault ? <Segmentfault /> : <></>}
+      {segmentfaultIsShow ? <Segmentfault /> : <></>}
+      {weixinIsShow ? <Weixin /> : <></>}
       {customIsShow ? <Custom /> : <></>}
       <Config />
     </div>

@@ -139,5 +139,8 @@
   },
   "segmentfaultConfig": {
     "message": "思否设置"
+  },
+  "weixinConfig": {
+    "message": "微信设置"
   }
 }
