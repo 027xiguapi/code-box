@@ -102,7 +102,7 @@ export default function Cto51() {
                     id: uuidv4(),
                     value: codeBlock.innerText,
                     createdAt: new Date(),
-                    from: "CSDN",
+                    from: "51CTO",
                     link: location.href,
                     tags: [],
                     remark: ""
@@ -114,7 +114,7 @@ export default function Cto51() {
                     id: uuidv4(),
                     value: codeBlock.innerText,
                     createdAt: new Date(),
-                    from: "CSDN",
+                    from: "51CTO",
                     link: location.href,
                     tags: [],
                     remark: ""

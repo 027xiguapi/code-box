@@ -36,44 +36,44 @@ export default function IndexOptions() {
     },
     {
       id: "5",
+      value: "weixin",
+      label: "微信",
+      isShow: true
+    },
+    {
+      id: "6",
       value: "jb51",
       label: "脚本之家",
       isShow: true
     },
     {
-      id: "6",
+      id: "7",
       value: "cnblogs",
       label: "博客园",
       isShow: true
     },
     {
-      id: "7",
+      id: "8",
       value: "51cto",
       label: "51CTO",
       isShow: true
     },
     {
-      id: "8",
+      id: "9",
       value: "juejin",
       label: "掘金",
       isShow: true
     },
     {
-      id: "9",
+      id: "10",
       value: "oschina",
       label: "oschina",
       isShow: true
     },
     {
-      id: "10",
+      id: "11",
       value: "segmentfault",
       label: "思否",
-      isShow: true
-    },
-    {
-      id: "11",
-      value: "weixin",
-      label: "微信",
       isShow: true
     },
     {

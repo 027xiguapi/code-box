@@ -1,4 +1,4 @@
-## code-box
+## codebox-一键复制代码/下载文章
 
 ## 代码
 
@@ -6,7 +6,7 @@ https://github.com/027xiguapi/code-box
 
 ## 介绍
 
-本浏览器插件可以用于CSDN/知乎/脚本之家/博客园/博客园/51CTO博客/php中文网/掘金等网站,一键下载文章成html或markdown文件;实现无需登录一键复制代码;支持选中代码;或者代码右上角按钮的一键复制;解除关注博主即可阅读全文提示;去除登录弹窗;去除跳转APP弹窗.
+本浏览器插件可以用于CSDN/知乎/脚本之家/博客园/博客园/51CTO博客/php中文网/掘金/微信等网站,一键下载文章成html或markdown文件;实现无需登录一键复制代码;支持选中代码;或者代码右上角按钮的一键复制;解除关注博主即可阅读全文提示;去除登录弹窗;去除跳转APP弹窗.
 
 ## 安装
 
@@ -59,11 +59,11 @@ https://github.com/027xiguapi/code-box
 
 ## 功能
 
-![img-1](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/option.jpg)
+![img-1](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/config.jpg)
 
 ### 自定义
 
-1. 插入自定义样式(css代码)
+- 插入自定义样式(css代码)
 
 ### CSDN
 
