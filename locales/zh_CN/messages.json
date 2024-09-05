@@ -134,6 +134,9 @@
   "copyCode": {
     "message": "一键复制代码"
   },
+  "code": {
+    "message": "代码"
+  },
   "juejinConfig": {
     "message": "掘金设置"
   },

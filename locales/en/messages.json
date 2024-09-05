@@ -134,6 +134,9 @@
   "copyCode": {
     "message": "Copy Code"
   },
+  "code": {
+    "message": "Code"
+  },
   "juejinConfig": {
     "message": "Juejin Config"
   },

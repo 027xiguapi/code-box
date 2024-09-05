@@ -94,3 +94,15 @@ input[type="checkbox"]:checked + .codebox-switch {
 .item.download {
     cursor: pointer;
 }
+
+.item.code {
+    cursor: pointer;
+    height: 20px;
+}
+
+.item.code .codeTxt {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 105px;
+}
