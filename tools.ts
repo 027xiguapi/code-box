@@ -26,6 +26,14 @@ export function setIcon(active: boolean) {
   })
 }
 
+export function saveTxt(txt: string, filename?: string) {
+  if (txt) {
+    const blob = new Blob([txt], { type: "text/plain;charset=utf-8" })
+    filename = filename || "CodeBox-page"
+    saveAs(blob, `${filename}.txt`)
+  }
+}
+
 export function saveHtml(dom: Element, filename?: string) {
   if (dom) {
     const htmlContent = dom.outerHTML

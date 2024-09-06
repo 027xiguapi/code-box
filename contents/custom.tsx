@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
-import { addCss, saveHtml, setIcon } from "~tools"
+import { addCss, saveTxt, setIcon } from "~tools"
 
 const documentClone = document.cloneNode(true)
 const article = new Readability(documentClone as Document, {}).parse()
@@ -44,12 +44,16 @@ export default function Custom() {
   function getCodes() {
     let codes = []
     let codesTxt = []
-    const _codes = document.querySelectorAll("code")
+    const _codes = document.querySelectorAll("pre")
     _codes.forEach((code) => {
-      const pre = code.closest("pre")
-      if (pre) {
+      let codeTxt = code.innerText
+      if (code.querySelector("code")) {
+        codeTxt = code.querySelector("code").innerText
+      }
+      codeTxt = codeTxt.replace(/\n/g, "")
+      if (codeTxt.length > 8) {
         codes.push(code)
-        codesTxt.push(code.innerText.replace(/\n/g, ""))
+        codesTxt.push(codeTxt)
       }
     })
     setCodes(codes)
@@ -58,12 +62,15 @@ export default function Custom() {
 
   function scrollIntoViewCode(data) {
     const code = codes[data.index]
-    code.scrollIntoView()
+    code && code.scrollIntoView()
   }
 
   function downloadCode(data) {
-    const code = codes[data.index]
-    saveHtml(code, article.title)
+    let code = codes[data.index]
+    if (code && code.querySelector("code")) {
+      code = code.querySelector("code")
+    }
+    code && saveTxt(code.innerText, article.title)
   }
 
   return <div style={{ display: "none" }}></div>
