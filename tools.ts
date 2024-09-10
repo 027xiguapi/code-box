@@ -1,3 +1,4 @@
+import dayjs from "dayjs"
 import { saveAs } from "file-saver"
 
 import { sendToBackground } from "@plasmohq/messaging"
@@ -30,7 +31,7 @@ export function saveTxt(txt: string, filename?: string) {
   if (txt) {
     const blob = new Blob([txt], { type: "text/plain;charset=utf-8" })
     filename = filename || "CodeBox-page"
-    saveAs(blob, `${filename}.txt`)
+    saveAs(blob, `${filename}-${dayjs().format("YYYY-MM-DD HH:mm:ss")}.txt`)
   }
 }
 
@@ -39,7 +40,7 @@ export function saveHtml(dom: Element, filename?: string) {
     const htmlContent = dom.outerHTML
     const blob = new Blob([htmlContent], { type: "text/html;charset=utf-8" })
     filename = filename || "CodeBox-page"
-    saveAs(blob, `${filename}.html`)
+    saveAs(blob, `${filename}-${dayjs().format("YYYY-MM-DD HH:mm:ss")}.html`)
   }
 }
 
@@ -47,7 +48,7 @@ export function saveMarkdown(markdown: string, filename?: string) {
   if (markdown) {
     const blob = new Blob([markdown], { type: "text/markdown;charset=utf-8" })
     filename = filename || "CodeBox-page"
-    saveAs(blob, `${filename}.md`)
+    saveAs(blob, `${filename}-${dayjs().format("YYYY-MM-DD HH:mm:ss")}.md`)
   }
 }
 
