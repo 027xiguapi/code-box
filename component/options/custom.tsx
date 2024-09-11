@@ -1,4 +1,4 @@
-import { DownloadOutlined } from "@ant-design/icons"
+import { DownloadOutlined, StarTwoTone } from "@ant-design/icons"
 import { useEffect, useState } from "react"
 
 import { sendToContentScript } from "@plasmohq/messaging"
@@ -21,16 +21,28 @@ export default function Custom() {
   }, [])
 
   async function getCodes() {
-    const res = await sendToContentScript({ name: `getCodes` })
+    const res = await sendToContentScript({ name: `custom-getCodes` })
     res?.codes && setCodes(res?.codes)
   }
 
   function downloadCode(index) {
-    sendToContentScript({ name: `downloadCode`, body: { index } })
+    sendToContentScript({ name: `custom-downloadCode`, body: { index } })
   }
 
   function pinCode(index) {
-    sendToContentScript({ name: `scrollIntoViewCode`, body: { index } })
+    sendToContentScript({ name: `custom-scrollIntoViewCode`, body: { index } })
+  }
+
+  function downloadMarkdown() {
+    sendToContentScript({
+      name: "custom-downloadMarkdown"
+    })
+  }
+
+  function downloadHtml() {
+    sendToContentScript({
+      name: "custom-downloadHtml"
+    })
   }
 
   return (
@@ -64,6 +76,20 @@ export default function Custom() {
           name="custom-cssCode"
           value={cssCode}
           onChange={(e) => setCssCode(e.target.value)}></textarea>
+      </div>
+      <div className="item download" onClick={downloadMarkdown}>
+        <span>
+          <StarTwoTone twoToneColor="#eb2f96" style={{ marginRight: "5px" }} />
+          {i18n("downloadMarkdown")}
+        </span>
+        <DownloadOutlined style={{ color: "#52c41a", fontSize: "16px" }} />
+      </div>
+      <div className="item download" onClick={downloadHtml}>
+        <span>
+          <StarTwoTone twoToneColor="#eb2f96" style={{ marginRight: "5px" }} />
+          {i18n("downloadHtml")}
+        </span>
+        <DownloadOutlined style={{ color: "#52c41a", fontSize: "16px" }} />
       </div>
     </fieldset>
   )

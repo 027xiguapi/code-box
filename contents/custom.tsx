@@ -4,11 +4,16 @@ import { useEffect, useState } from "react"
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
-import { addCss, saveTxt, setIcon } from "~tools"
+import { addCss, saveHtml, saveMarkdown, saveTxt, setIcon } from "~tools"
+import Turndown from "~utils/turndown"
 
+const turndownService = Turndown()
 const documentClone = document.cloneNode(true)
 const article = new Readability(documentClone as Document, {}).parse()
 setIcon(false)
+
+let isSelect = false
+let isDownloadType = "markdown"
 
 export default function Custom() {
   const [runCss] = useStorage<boolean>("custom-runCss")
@@ -18,20 +23,29 @@ export default function Custom() {
 
   useEffect(() => {
     runCss && runCssFunc()
+    getSelection("markdown")
   }, [runCss])
 
   useMessage(async (req, res) => {
     if (req.name == "custom-isShow") {
       res.send({ isShow: true })
     }
-    if (req.name == "getCodes") {
+    if (req.name == "custom-getCodes") {
       res.send({ codes: getCodes() })
     }
-    if (req.name == "scrollIntoViewCode") {
+    if (req.name == "custom-scrollIntoViewCode") {
       scrollIntoViewCode(req.body)
     }
-    if (req.name == "downloadCode") {
+    if (req.name == "custom-downloadCode") {
       downloadCode(req.body)
+    }
+    if (req.name == "custom-downloadHtml") {
+      isSelect = true
+      isDownloadType = "html"
+    }
+    if (req.name == "custom-downloadMarkdown") {
+      isSelect = true
+      isDownloadType = "markdown"
     }
   })
 
@@ -71,6 +85,40 @@ export default function Custom() {
       code = code.querySelector("code")
     }
     code && saveTxt(code.innerText, article.title)
+  }
+
+  function getSelection(type) {
+    addCss(`.codebox-current { border: 1px solid #7983ff; }`)
+    document.addEventListener("mousemove", function (event) {
+      const target = event.target as HTMLElement
+
+      const currentList = document.querySelectorAll(".codebox-current")
+      currentList.forEach((el) => {
+        el.classList.remove("codebox-current")
+      })
+
+      isSelect && target.classList.add("codebox-current")
+    })
+    document.addEventListener("click", function (event) {
+      if (isDownloadType == "html") {
+        isSelect && downloadHtml()
+      } else if (isDownloadType == "markdown") {
+        isSelect && downloadMarkdown()
+      }
+    })
+  }
+
+  function downloadHtml() {
+    const currentDom = document.querySelector(".codebox-current")
+    saveHtml(currentDom, article.title)
+    isSelect = false
+  }
+
+  function downloadMarkdown() {
+    const currentDom = document.querySelector(".codebox-current")
+    const markdown = turndownService.turndown(currentDom)
+    saveMarkdown(markdown, article.title)
+    isSelect = false
   }
 
   return <div style={{ display: "none" }}></div>
