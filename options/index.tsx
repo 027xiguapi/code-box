@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 
-import SortableItem from "~component/sortableItem"
+import SortableItem from "~component/options/sortableItem"
 import { ThemeProvider } from "~theme"
 import { i18n } from "~tools"
 

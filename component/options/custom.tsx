@@ -15,7 +15,9 @@ export default function Custom() {
   const [codes, setCodes] = useState([])
 
   useEffect(() => {
-    getCodes()
+    if (window.location.protocol != "chrome-extension:") {
+      getCodes()
+    }
   }, [])
 
   async function getCodes() {

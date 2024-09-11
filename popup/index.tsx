@@ -1,4 +1,4 @@
-import Content from "~component/content"
+import Content from "~component/options/content"
 import { ThemeProvider } from "~theme"
 import { i18n } from "~tools"
 
