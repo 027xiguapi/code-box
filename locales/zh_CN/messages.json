@@ -131,6 +131,9 @@
   "downloadHtml": {
     "message": "下载 HTML"
   },
+  "downloadPdf": {
+    "message": "下载 PDF"
+  },
   "copyCode": {
     "message": "一键复制代码"
   },

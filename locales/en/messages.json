@@ -131,6 +131,9 @@
   "downloadHtml": {
     "message": "Download HTML"
   },
+  "downloadPdf": {
+    "message": "Download PDF"
+  },
   "copyCode": {
     "message": "Copy Code"
   },

@@ -5,6 +5,7 @@ import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import { addCss, saveHtml, saveMarkdown, saveTxt, setIcon } from "~tools"
+import Dom2Pdf from "~utils/html2Pdf"
 import Turndown from "~utils/turndown"
 
 const turndownService = Turndown()
@@ -46,6 +47,10 @@ export default function Custom() {
     if (req.name == "custom-downloadMarkdown") {
       isSelect = true
       isDownloadType = "markdown"
+    }
+    if (req.name == "custom-downloadPdf") {
+      isSelect = true
+      isDownloadType = "pdf"
     }
   })
 
@@ -92,11 +97,7 @@ export default function Custom() {
     document.addEventListener("mousemove", function (event) {
       const target = event.target as HTMLElement
 
-      const currentList = document.querySelectorAll(".codebox-current")
-      currentList.forEach((el) => {
-        el.classList.remove("codebox-current")
-      })
-
+      removeCurrentDom()
       isSelect && target.classList.add("codebox-current")
     })
     document.addEventListener("click", function (event) {
@@ -104,20 +105,39 @@ export default function Custom() {
         isSelect && downloadHtml()
       } else if (isDownloadType == "markdown") {
         isSelect && downloadMarkdown()
+      } else if (isDownloadType == "pdf") {
+        isSelect && downloadPdf()
       }
+    })
+  }
+
+  function removeCurrentDom() {
+    const currentList = document.querySelectorAll(".codebox-current")
+    currentList.forEach((el) => {
+      el.classList.remove("codebox-current")
     })
   }
 
   function downloadHtml() {
     const currentDom = document.querySelector(".codebox-current")
+    removeCurrentDom()
     saveHtml(currentDom, article.title)
     isSelect = false
   }
 
   function downloadMarkdown() {
     const currentDom = document.querySelector(".codebox-current")
+    removeCurrentDom()
     const markdown = turndownService.turndown(currentDom)
     saveMarkdown(markdown, article.title)
+    isSelect = false
+  }
+
+  function downloadPdf() {
+    const currentDom = document.querySelector(".codebox-current")
+    removeCurrentDom()
+    const pdf = new Dom2Pdf(currentDom, article.title)
+    pdf.downloadPdf()
     isSelect = false
   }
 
