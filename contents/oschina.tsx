@@ -3,13 +3,7 @@ import { useEffect } from "react"
 
 import { useMessage } from "@plasmohq/messaging/hook"
 
-import { Readability } from "~node_modules/@mozilla/readability"
-import {
-  getMetaContentByProperty,
-  saveHtml,
-  saveMarkdown,
-  setIcon
-} from "~tools"
+import { saveHtml, saveMarkdown, setIcon } from "~tools"
 import Turndown from "~utils/turndown"
 
 export const config: PlasmoCSConfig = {
@@ -17,12 +11,7 @@ export const config: PlasmoCSConfig = {
 }
 
 const turndownService = Turndown()
-const documentClone = document.cloneNode(true)
-const article = new Readability(documentClone as Document, {}).parse()
-const articleUrl = window.location.href
-const author = article.byline ?? ""
-const authorLink = getMetaContentByProperty("article:author")
-const domain = window.location.hostname
+const articleTitle = document.querySelector<HTMLElement>("head title").innerText
 
 export default function Oschina() {
   useEffect(() => {
@@ -44,12 +33,12 @@ export default function Oschina() {
   function downloadMarkdown() {
     const html = document.querySelector(".article-box")
     const markdown = turndownService.turndown(html)
-    saveMarkdown(markdown, article.title)
+    saveMarkdown(markdown, articleTitle)
   }
 
   function downloadHtml() {
     const dom = document.querySelector(".article-box")
-    saveHtml(dom, article.title)
+    saveHtml(dom, articleTitle)
   }
 
   return <div style={{ display: "none" }}></div>

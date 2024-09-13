@@ -1,4 +1,3 @@
-import { Readability } from "@mozilla/readability"
 import { useEffect, useState } from "react"
 
 import { useMessage } from "@plasmohq/messaging/hook"
@@ -9,8 +8,8 @@ import Dom2Pdf from "~utils/html2Pdf"
 import Turndown from "~utils/turndown"
 
 const turndownService = Turndown()
-const documentClone = document.cloneNode(true)
-const article = new Readability(documentClone as Document, {}).parse()
+const articleTitle = document.querySelector<HTMLElement>("head title").innerText
+
 setIcon(false)
 
 let isSelect = false
@@ -93,7 +92,7 @@ export default function Custom() {
     if (code && code.querySelector("code")) {
       code = code.querySelector("code")
     }
-    code && saveTxt(code.innerText, article.title)
+    code && saveTxt(code.innerText, articleTitle)
   }
 
   function getSelection(type) {
@@ -127,7 +126,7 @@ export default function Custom() {
   function downloadHtml() {
     const currentDom = document.querySelector(".codebox-current")
     removeCurrentDom()
-    saveHtml(currentDom, article.title)
+    saveHtml(currentDom, articleTitle)
     isSelect = false
   }
 
@@ -135,14 +134,14 @@ export default function Custom() {
     const currentDom = document.querySelector(".codebox-current")
     removeCurrentDom()
     const markdown = turndownService.turndown(currentDom)
-    saveMarkdown(markdown, article.title)
+    saveMarkdown(markdown, articleTitle)
     isSelect = false
   }
 
   function downloadPdf() {
     const currentDom = document.querySelector(".codebox-current")
     removeCurrentDom()
-    const pdf = new Dom2Pdf(currentDom, article.title)
+    const pdf = new Dom2Pdf(currentDom, articleTitle)
     pdf.downloadPdf()
     isSelect = false
   }
@@ -150,7 +149,7 @@ export default function Custom() {
   function downloadImg() {
     const currentDom = document.querySelector(".codebox-current")
     removeCurrentDom()
-    const img = new Dom2Pdf(currentDom, article.title)
+    const img = new Dom2Pdf(currentDom, articleTitle)
     img.downloadImg()
     isSelect = false
   }

@@ -128,7 +128,7 @@ https://github.com/027xiguapi/code-box
 - 未登录`php中文网`状态下，不会再出现强制登录弹窗
 - 未登录`php中文网`状态下，移动端代码右上角按钮一键复制
 
-![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/8.jpg)
+![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/8.png)
 ![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/1.jpg)
 ![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/2.png)
 ![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/3.jpg)
