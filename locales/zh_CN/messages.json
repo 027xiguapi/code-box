@@ -134,6 +134,9 @@
   "downloadPdf": {
     "message": "下载 PDF"
   },
+  "downloadImg": {
+    "message": "下载图片"
+  },
   "copyCode": {
     "message": "一键复制代码"
   },

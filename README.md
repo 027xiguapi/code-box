@@ -19,7 +19,7 @@ https://github.com/027xiguapi/code-box
    - [Edge网上应用商店](https://microsoftedge.microsoft.com/addons/Microsoft-Edge-Extensions-Home?hl=zh-CN)
 2. 搜索：`codebox`
 
-![1723513894421.jpg](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/webstore/1723513894421.jpg)
+![0f8137ce6861f2a387095aef446fe60](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/webstore/0f8137ce6861f2a387095aef446fe60.png)
 ![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/webstore/img.png)
 ![1724640161752](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/webstore/1724640161752.jpg)
 
@@ -64,6 +64,9 @@ https://github.com/027xiguapi/code-box
 ### 自定义
 
 - 插入自定义样式(css代码)
+- 自定义选择下载html
+- 自定义选择下载markdown
+- 自定义选择下载pdf
 
 ### CSDN
 
@@ -125,7 +128,7 @@ https://github.com/027xiguapi/code-box
 - 未登录`php中文网`状态下，不会再出现强制登录弹窗
 - 未登录`php中文网`状态下，移动端代码右上角按钮一键复制
 
-
+![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/8.jpg)
 ![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/1.jpg)
 ![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/2.png)
 ![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/3.jpg)
@@ -141,6 +144,7 @@ https://github.com/027xiguapi/code-box
 1. [copy-csdn](https://github.com/openHacking/copy-csdn)
 2. [plasmo](https://github.com/PlasmoHQ/plasmo)
 3. [Chrome 应用商店一站式支持](https://support.google.com/chrome_webstore/contact/one_stop_support)
+4. [开箱即用的web打印和下载](https://juejin.cn/post/7412672713376497727)
 
 ## 隐私政策
 

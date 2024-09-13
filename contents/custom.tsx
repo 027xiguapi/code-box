@@ -52,6 +52,10 @@ export default function Custom() {
       isSelect = true
       isDownloadType = "pdf"
     }
+    if (req.name == "custom-downloadImg") {
+      isSelect = true
+      isDownloadType = "img"
+    }
   })
 
   /* 插入自定义css代码 */
@@ -107,6 +111,8 @@ export default function Custom() {
         isSelect && downloadMarkdown()
       } else if (isDownloadType == "pdf") {
         isSelect && downloadPdf()
+      } else if (isDownloadType == "img") {
+        isSelect && downloadImg()
       }
     })
   }
@@ -138,6 +144,14 @@ export default function Custom() {
     removeCurrentDom()
     const pdf = new Dom2Pdf(currentDom, article.title)
     pdf.downloadPdf()
+    isSelect = false
+  }
+
+  function downloadImg() {
+    const currentDom = document.querySelector(".codebox-current")
+    removeCurrentDom()
+    const img = new Dom2Pdf(currentDom, article.title)
+    img.downloadImg()
     isSelect = false
   }
 

@@ -51,6 +51,12 @@ export default function Custom() {
     })
   }
 
+  function downloadImg() {
+    sendToContentScript({
+      name: "custom-downloadImg"
+    })
+  }
+
   return (
     <fieldset>
       <legend>{i18n("customConfig")}</legend>
@@ -101,6 +107,13 @@ export default function Custom() {
         <span>
           <StarTwoTone twoToneColor="#eb2f96" style={{ marginRight: "5px" }} />
           {i18n("downloadPdf")}
+        </span>
+        <DownloadOutlined style={{ color: "#52c41a", fontSize: "16px" }} />
+      </div>
+      <div className="item download" onClick={downloadImg}>
+        <span>
+          <StarTwoTone twoToneColor="#eb2f96" style={{ marginRight: "5px" }} />
+          {i18n("downloadImg")}
         </span>
         <DownloadOutlined style={{ color: "#52c41a", fontSize: "16px" }} />
       </div>

@@ -1,4 +1,5 @@
 import dayjs from "dayjs"
+import { saveAs } from "file-saver"
 import html2canvas from "html2canvas"
 import jsPDF from "jspdf"
 
@@ -24,12 +25,7 @@ export default class Dom2Pdf {
 
     return new Promise(async (resolve, reject) => {
       try {
-        const canvas = await html2canvas(this._rootDom, {
-          useCORS: true,
-          allowTaint: true,
-          scale: 0.8,
-          backgroundColor: this._pageBackground
-        })
+        const canvas = (await this.getCanvas()) as HTMLCanvasElement
         const pdf = new jsPDF("p", "pt", "a4")
         let index = 1,
           canvas1 = document.createElement("canvas"),
@@ -136,6 +132,17 @@ export default class Dom2Pdf {
     })
   }
 
+  async getCanvas() {
+    const canvas = await html2canvas(this._rootDom, {
+      useCORS: true,
+      allowTaint: true,
+      scale: 1,
+      backgroundColor: this._pageBackground
+    })
+
+    return canvas
+  }
+
   async downloadPdf() {
     const newPdf = (await this.savePdf()) as jsPDF
     const title = `${this._title}-${dayjs().format("YYYY-MM-DD HH:mm:ss")}.pdf`
@@ -147,5 +154,13 @@ export default class Dom2Pdf {
     const pdfBlob = newPdf.output("blob")
     const pdfUrl = URL.createObjectURL(pdfBlob)
     window.open(pdfUrl)
+  }
+
+  async downloadImg() {
+    const canvas = (await this.getCanvas()) as HTMLCanvasElement
+    const title = `${this._title}-${dayjs().format("YYYY-MM-DD HH:mm:ss")}.png`
+    canvas.toBlob(function (blob) {
+      saveAs(blob, title)
+    })
   }
 }

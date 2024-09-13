@@ -134,6 +134,9 @@
   "downloadPdf": {
     "message": "Download PDF"
   },
+  "downloadImg": {
+    "message": "Download Image"
+  },
   "copyCode": {
     "message": "Copy Code"
   },
