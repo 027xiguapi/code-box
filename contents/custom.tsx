@@ -1,3 +1,4 @@
+import { Modal } from "antd"
 import { useEffect, useState } from "react"
 
 import { useMessage } from "@plasmohq/messaging/hook"
@@ -22,8 +23,11 @@ export default function Custom() {
   const [codes, setCodes] = useState([])
 
   useEffect(() => {
-    runCss && runCssFunc()
     getSelection("markdown")
+  }, [])
+
+  useEffect(() => {
+    runCss && runCssFunc()
   }, [runCss])
 
   useMessage(async (req, res) => {
@@ -96,6 +100,7 @@ export default function Custom() {
   }
 
   function getSelection(type) {
+    console.log(999, type)
     addCss(`.codebox-current { border: 1px solid #7983ff; }`)
     document.addEventListener("mousemove", function (event) {
       const target = event.target as HTMLElement
@@ -104,15 +109,30 @@ export default function Custom() {
       isSelect && target.classList.add("codebox-current")
     })
     document.addEventListener("click", function (event) {
-      if (isDownloadType == "html") {
-        isSelect && downloadHtml()
-      } else if (isDownloadType == "markdown") {
-        isSelect && downloadMarkdown()
-      } else if (isDownloadType == "pdf") {
-        isSelect && downloadPdf()
-      } else if (isDownloadType == "img") {
-        isSelect && downloadImg()
-      }
+      console.log(8888, isDownloadType)
+      if (!isSelect) return
+      const currentDom = document.querySelector(".codebox-current")
+      removeCurrentDom()
+      isSelect = false
+      Modal.error({
+        title: "提示",
+        content:
+          "此功能限时免费免登录，预计10月份以后需要注册，后续可能收费...",
+        afterClose: () => {
+          if (isDownloadType == "html") {
+            downloadHtml(currentDom)
+          } else if (isDownloadType == "markdown") {
+            downloadMarkdown(currentDom)
+          } else if (isDownloadType == "pdf") {
+            downloadPdf(currentDom)
+          } else if (isDownloadType == "img") {
+            downloadImg(currentDom)
+          }
+        }
+      })
+
+      event.stopPropagation()
+      event.preventDefault()
     })
   }
 
@@ -123,35 +143,23 @@ export default function Custom() {
     })
   }
 
-  function downloadHtml() {
-    const currentDom = document.querySelector(".codebox-current")
-    removeCurrentDom()
+  function downloadHtml(currentDom) {
     saveHtml(currentDom, articleTitle)
-    isSelect = false
   }
 
-  function downloadMarkdown() {
-    const currentDom = document.querySelector(".codebox-current")
-    removeCurrentDom()
+  function downloadMarkdown(currentDom) {
     const markdown = turndownService.turndown(currentDom)
     saveMarkdown(markdown, articleTitle)
-    isSelect = false
   }
 
-  function downloadPdf() {
-    const currentDom = document.querySelector(".codebox-current")
-    removeCurrentDom()
+  function downloadPdf(currentDom) {
     const pdf = new Dom2Pdf(currentDom, articleTitle)
     pdf.downloadPdf()
-    isSelect = false
   }
 
-  function downloadImg() {
-    const currentDom = document.querySelector(".codebox-current")
-    removeCurrentDom()
+  function downloadImg(currentDom) {
     const img = new Dom2Pdf(currentDom, articleTitle)
     img.downloadImg()
-    isSelect = false
   }
 
   return <div style={{ display: "none" }}></div>
