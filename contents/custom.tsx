@@ -1,4 +1,4 @@
-import { Modal } from "antd"
+import { Modal, message } from "antd"
 import { useEffect, useState } from "react"
 
 import { useMessage } from "@plasmohq/messaging/hook"
@@ -46,18 +46,22 @@ export default function Custom() {
     if (req.name == "custom-downloadHtml") {
       isSelect = true
       isDownloadType = "html"
+      message.info('请在页面选择要下载区域！')
     }
     if (req.name == "custom-downloadMarkdown") {
       isSelect = true
       isDownloadType = "markdown"
+      message.info('请在页面选择要下载区域！')
     }
     if (req.name == "custom-downloadPdf") {
       isSelect = true
       isDownloadType = "pdf"
+      message.info('请在页面选择要下载区域！')
     }
     if (req.name == "custom-downloadImg") {
       isSelect = true
       isDownloadType = "img"
+      message.info('请在页面选择要下载区域！')
     }
   })
 
@@ -100,7 +104,6 @@ export default function Custom() {
   }
 
   function getSelection(type) {
-    console.log(999, type)
     addCss(`.codebox-current { border: 1px solid #7983ff; }`)
     document.addEventListener("mousemove", function (event) {
       const target = event.target as HTMLElement
@@ -109,16 +112,21 @@ export default function Custom() {
       isSelect && target.classList.add("codebox-current")
     })
     document.addEventListener("click", function (event) {
-      console.log(8888, isDownloadType)
       if (!isSelect) return
       const currentDom = document.querySelector(".codebox-current")
       removeCurrentDom()
       isSelect = false
-      Modal.error({
+      Modal.confirm({
         title: "提示",
-        content:
-          "此功能限时免费免登录，预计10月份以后需要注册，后续可能收费...",
-        afterClose: () => {
+        content:(
+            <>
+              <div style={{fontSize: '18px'}}>是否保存？</div>
+              <div style={{fontSize: '14px',color : 'red'}}>此功能限时免费免登录，预计10月份以后需要注册，后续可能收费...</div>
+            </>
+        ),
+        okText: '确认',
+        cancelText: '取消',
+        onOk: () => {
           if (isDownloadType == "html") {
             downloadHtml(currentDom)
           } else if (isDownloadType == "markdown") {
