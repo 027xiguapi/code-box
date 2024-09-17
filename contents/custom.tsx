@@ -1,10 +1,12 @@
-import { Modal, message } from "antd"
+import { message, Modal } from "antd"
 import { useEffect, useState } from "react"
 
+import { sendToBackground } from "@plasmohq/messaging"
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import { addCss, saveHtml, saveMarkdown, saveTxt, setIcon } from "~tools"
+import DrawImages from "~utils/drawImages"
 import Dom2Pdf from "~utils/html2Pdf"
 import Turndown from "~utils/turndown"
 
@@ -46,22 +48,46 @@ export default function Custom() {
     if (req.name == "custom-downloadHtml") {
       isSelect = true
       isDownloadType = "html"
-      message.info('请在页面选择要下载区域！')
+      message.info("请在页面选择要下载区域！")
     }
     if (req.name == "custom-downloadMarkdown") {
       isSelect = true
       isDownloadType = "markdown"
-      message.info('请在页面选择要下载区域！')
+      message.info("请在页面选择要下载区域！")
     }
     if (req.name == "custom-downloadPdf") {
       isSelect = true
       isDownloadType = "pdf"
-      message.info('请在页面选择要下载区域！')
+      message.info("请在页面选择要下载区域！")
     }
     if (req.name == "custom-downloadImg") {
       isSelect = true
       isDownloadType = "img"
-      message.info('请在页面选择要下载区域！')
+      message.info("请在页面选择要下载区域！")
+    }
+    if (req.name == "app-full-page-screenshot") {
+      const { scrollHeight, clientHeight } = document.documentElement
+      const devicePixelRatio = window.devicePixelRatio || 1
+
+      let capturedHeight = 0
+      let capturedImages = []
+
+      const captureAndScroll = async () => {
+        const scrollAmount = clientHeight * devicePixelRatio
+        const res = await sendToBackground({ name: "screenshot" })
+        const dataUrl = res.dataUrl
+
+        capturedHeight += scrollAmount
+        if (capturedHeight < scrollHeight * devicePixelRatio) {
+          capturedImages.push(dataUrl)
+          window.scrollTo(0, capturedHeight)
+          setTimeout(captureAndScroll, 2000) // Adjust the delay as needed
+        } else {
+          DrawImages(capturedImages, articleTitle)
+        }
+      }
+
+      captureAndScroll()
     }
   })
 
@@ -118,14 +144,16 @@ export default function Custom() {
       isSelect = false
       Modal.confirm({
         title: "提示",
-        content:(
-            <>
-              <div style={{fontSize: '18px'}}>是否保存？</div>
-              <div style={{fontSize: '14px',color : 'red'}}>此功能限时免费免登录，预计10月份以后需要注册，后续可能收费...</div>
-            </>
+        content: (
+          <>
+            <div style={{ fontSize: "18px" }}>是否保存？</div>
+            <div style={{ fontSize: "14px", color: "red" }}>
+              此功能限时免费免登录，预计10月份以后需要注册，后续可能收费...
+            </div>
+          </>
         ),
-        okText: '确认',
-        cancelText: '取消',
+        okText: "确认",
+        cancelText: "取消",
         onOk: () => {
           if (isDownloadType == "html") {
             downloadHtml(currentDom)

@@ -1,3 +1,6 @@
+import { DownloadOutlined, StarTwoTone } from "@ant-design/icons"
+
+import { sendToBackground, sendToContentScript } from "@plasmohq/messaging"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import { i18n } from "~tools"
@@ -6,6 +9,12 @@ export default function Config() {
   const [closeLog, setCloseLog] = useStorage("config-closeLog", (v) =>
     v === undefined ? true : v
   )
+
+  async function downloadImg() {
+    sendToContentScript({
+      name: "app-full-page-screenshot"
+    })
+  }
 
   return (
     <fieldset>
@@ -21,6 +30,13 @@ export default function Config() {
           onChange={(e) => setCloseLog(e.target.checked)}
         />
         <label className="codebox-switch" htmlFor="config-closeLog"></label>
+      </div>
+      <div className="item download" onClick={downloadImg}>
+        <span>
+          <StarTwoTone twoToneColor="#eb2f96" style={{ marginRight: "5px" }} />
+          {i18n("fullPageScreenshot")}
+        </span>
+        <DownloadOutlined style={{ color: "#52c41a", fontSize: "16px" }} />
       </div>
     </fieldset>
   )

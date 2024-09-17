@@ -154,5 +154,8 @@
   },
   "weixinConfig": {
     "message": "微信设置"
+  },
+  "fullPageScreenshot": {
+    "message": "全页面截图"
   }
 }

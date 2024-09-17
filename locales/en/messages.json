@@ -154,5 +154,8 @@
   },
   "weixinConfig": {
     "message": "Wechat Config"
+  },
+  "fullPageScreenshot": {
+    "message": "Full Page Screenshot"
   }
 }
