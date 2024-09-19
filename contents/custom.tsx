@@ -1,10 +1,20 @@
-import { message, Modal } from "antd"
-import { useEffect, useState } from "react"
+import { StyleProvider } from "@ant-design/cssinjs"
+import {
+  CheckOutlined,
+  CloseOutlined,
+  DownSquareOutlined,
+  UpSquareOutlined
+} from "@ant-design/icons"
+import { FloatButton, message, Modal } from "antd"
+import antdResetCssText from "data-text:antd/dist/reset.css"
+import type { PlasmoCSConfig, PlasmoGetShadowHostId } from "plasmo"
+import { useEffect, useRef, useState } from "react"
 
 import { sendToBackground } from "@plasmohq/messaging"
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
+import { ThemeProvider } from "~theme"
 import { addCss, saveHtml, saveMarkdown, saveTxt, setIcon } from "~tools"
 import DrawImages from "~utils/drawImages"
 import Dom2Pdf from "~utils/html2Pdf"
@@ -15,17 +25,29 @@ const articleTitle = document.querySelector<HTMLElement>("head title").innerText
 
 setIcon(false)
 
-let isSelect = false
 let isDownloadType = "markdown"
 
-export default function Custom() {
+const HOST_ID = "codebox-csui"
+
+export const getShadowHostId: PlasmoGetShadowHostId = () => HOST_ID
+
+export const getStyle = () => {
+  const style = document.createElement("style")
+  style.textContent = antdResetCssText
+  return style
+}
+
+export default function CustomOverlay() {
   const [runCss] = useStorage<boolean>("custom-runCss")
   const [cssCode] = useStorage<string>("custom-cssCode")
   const [closeLog] = useStorage("config-closeLog", true)
   const [codes, setCodes] = useState([])
+  const [isCurrentDom, setIsCurrentDom] = useState<boolean>(false)
+  const isSelectRef = useRef<boolean>(false)
+  const [messageApi, contextHolder] = message.useMessage()
 
   useEffect(() => {
-    getSelection("markdown")
+    getSelection()
   }, [])
 
   useEffect(() => {
@@ -46,24 +68,24 @@ export default function Custom() {
       downloadCode(req.body)
     }
     if (req.name == "custom-downloadHtml") {
-      isSelect = true
+      isSelectRef.current = true
       isDownloadType = "html"
-      message.info("请在页面选择要下载区域！")
+      messageApi.info("请在页面选择要下载区域！")
     }
     if (req.name == "custom-downloadMarkdown") {
-      isSelect = true
+      isSelectRef.current = true
       isDownloadType = "markdown"
-      message.info("请在页面选择要下载区域！")
+      messageApi.info("请在页面选择要下载区域！")
     }
     if (req.name == "custom-downloadPdf") {
-      isSelect = true
+      isSelectRef.current = true
       isDownloadType = "pdf"
-      message.info("请在页面选择要下载区域！")
+      messageApi.info("请在页面选择要下载区域！")
     }
     if (req.name == "custom-downloadImg") {
-      isSelect = true
+      isSelectRef.current = true
       isDownloadType = "img"
-      message.info("请在页面选择要下载区域！")
+      messageApi.info("请在页面选择要下载区域！")
     }
     if (req.name == "app-full-page-screenshot") {
       const { scrollHeight, clientHeight } = document.documentElement
@@ -129,46 +151,22 @@ export default function Custom() {
     code && saveTxt(code.innerText, articleTitle)
   }
 
-  function getSelection(type) {
+  function getSelection() {
     addCss(`.codebox-current { border: 1px solid #7983ff; }`)
-    document.addEventListener("mousemove", function (event) {
+    document.addEventListener("mousemove", (event) => {
       const target = event.target as HTMLElement
-
-      removeCurrentDom()
-      isSelect && target.classList.add("codebox-current")
+      if (isSelectRef.current && target) {
+        removeCurrentDom()
+        target.classList.add("codebox-current")
+      }
     })
-    document.addEventListener("click", function (event) {
-      if (!isSelect) return
-      const currentDom = document.querySelector(".codebox-current")
-      removeCurrentDom()
-      isSelect = false
-      Modal.confirm({
-        title: "提示",
-        content: (
-          <>
-            <div style={{ fontSize: "18px" }}>是否保存？</div>
-            <div style={{ fontSize: "14px", color: "red" }}>
-              此功能限时免费免登录，预计10月份以后需要注册，后续可能收费...
-            </div>
-          </>
-        ),
-        okText: "确认",
-        cancelText: "取消",
-        onOk: () => {
-          if (isDownloadType == "html") {
-            downloadHtml(currentDom)
-          } else if (isDownloadType == "markdown") {
-            downloadMarkdown(currentDom)
-          } else if (isDownloadType == "pdf") {
-            downloadPdf(currentDom)
-          } else if (isDownloadType == "img") {
-            downloadImg(currentDom)
-          }
-        }
-      })
-
-      event.stopPropagation()
-      event.preventDefault()
+    document.addEventListener("click", (event) => {
+      if (isSelectRef.current) {
+        event.stopPropagation()
+        event.preventDefault()
+        isSelectRef.current = false
+        setIsCurrentDom(true)
+      }
     })
   }
 
@@ -198,5 +196,93 @@ export default function Custom() {
     img.downloadImg()
   }
 
-  return <div style={{ display: "none" }}></div>
+  function handleConfirm() {
+    const currentDom = document.querySelector(".codebox-current")
+    removeCurrentDom()
+    setIsCurrentDom(false)
+    Modal.confirm({
+      title: "提示",
+      content: (
+        <>
+          <div style={{ fontSize: "18px" }}>是否保存？</div>
+          <div style={{ fontSize: "14px", color: "red" }}>
+            此功能限时免费免登录，预计10月份以后需要注册，后续可能收费...
+          </div>
+        </>
+      ),
+      okText: "确认",
+      cancelText: "取消",
+      onOk: () => {
+        if (isDownloadType == "html") {
+          downloadHtml(currentDom)
+        } else if (isDownloadType == "markdown") {
+          downloadMarkdown(currentDom)
+        } else if (isDownloadType == "pdf") {
+          downloadPdf(currentDom)
+        } else if (isDownloadType == "img") {
+          downloadImg(currentDom)
+        }
+      }
+    })
+  }
+
+  function handleCancel() {
+    removeCurrentDom()
+    isSelectRef.current = false
+    setIsCurrentDom(false)
+  }
+
+  function handleSetParent() {
+    const currentDom = document.querySelector(".codebox-current")
+    const parent = currentDom.parentElement
+
+    if (parent) {
+      removeCurrentDom()
+      parent.classList.add("codebox-current")
+    }
+  }
+
+  function handleSetChild() {
+    const currentDom = document.querySelector(".codebox-current")
+    const child = currentDom.firstElementChild
+
+    if (child) {
+      removeCurrentDom()
+      child.classList.add("codebox-current")
+    }
+  }
+
+  return (
+    <ThemeProvider>
+      {contextHolder}
+      <StyleProvider container={document.getElementById(HOST_ID).shadowRoot}>
+        {isCurrentDom ? (
+          <FloatButton.Group shape="square" style={{ insetInlineEnd: 80 }}>
+            <FloatButton
+              icon={<CheckOutlined />}
+              onClick={handleConfirm}
+              tooltip="<div>确定</div>"
+            />
+            <FloatButton
+              icon={<UpSquareOutlined />}
+              onClick={handleSetParent}
+              tooltip="父节点"
+            />
+            <FloatButton
+              icon={<DownSquareOutlined />}
+              onClick={handleSetChild}
+              tooltip="子节点"
+            />
+            <FloatButton
+              icon={<CloseOutlined />}
+              onClick={handleCancel}
+              tooltip="取消"
+            />
+          </FloatButton.Group>
+        ) : (
+          <></>
+        )}
+      </StyleProvider>
+    </ThemeProvider>
+  )
 }
