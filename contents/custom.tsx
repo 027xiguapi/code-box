@@ -25,8 +25,6 @@ const articleTitle = document.querySelector<HTMLElement>("head title").innerText
 
 setIcon(false)
 
-let isDownloadType = "markdown"
-
 const HOST_ID = "codebox-csui"
 
 export const getShadowHostId: PlasmoGetShadowHostId = () => HOST_ID
@@ -37,13 +35,15 @@ export const getStyle = () => {
   return style
 }
 
+let isDownloadType = "markdown"
+let isReady = false
+let isSelect = false
 export default function CustomOverlay() {
   const [runCss] = useStorage<boolean>("custom-runCss")
   const [cssCode] = useStorage<string>("custom-cssCode")
   const [closeLog] = useStorage("config-closeLog", true)
   const [codes, setCodes] = useState([])
   const [isCurrentDom, setIsCurrentDom] = useState<boolean>(false)
-  const isSelectRef = useRef<boolean>(false)
   const [messageApi, contextHolder] = message.useMessage()
 
   useEffect(() => {
@@ -68,22 +68,26 @@ export default function CustomOverlay() {
       downloadCode(req.body)
     }
     if (req.name == "custom-downloadHtml") {
-      isSelectRef.current = true
+      isReady = true
+      isSelect = false
       isDownloadType = "html"
       messageApi.info("请在页面选择要下载区域！")
     }
     if (req.name == "custom-downloadMarkdown") {
-      isSelectRef.current = true
+      isReady = true
+      isSelect = false
       isDownloadType = "markdown"
       messageApi.info("请在页面选择要下载区域！")
     }
     if (req.name == "custom-downloadPdf") {
-      isSelectRef.current = true
+      isReady = true
+      isSelect = false
       isDownloadType = "pdf"
       messageApi.info("请在页面选择要下载区域！")
     }
     if (req.name == "custom-downloadImg") {
-      isSelectRef.current = true
+      isReady = true
+      isSelect = false
       isDownloadType = "img"
       messageApi.info("请在页面选择要下载区域！")
     }
@@ -155,17 +159,23 @@ export default function CustomOverlay() {
     addCss(`.codebox-current { border: 1px solid #7983ff; }`)
     document.addEventListener("mousemove", (event) => {
       const target = event.target as HTMLElement
-      if (isSelectRef.current && target) {
+      if (isReady && target && !isSelect) {
         removeCurrentDom()
         target.classList.add("codebox-current")
       }
     })
     document.addEventListener("click", (event) => {
-      if (isSelectRef.current) {
+      const target = event.target as HTMLElement
+      if (isReady && target) {
+        isSelect = true
+        setIsCurrentDom(true)
+        removeCurrentDom()
+        target.classList.add("codebox-current")
         event.stopPropagation()
         event.preventDefault()
-        isSelectRef.current = false
-        setIsCurrentDom(true)
+        if (confirm("是否下载？")) {
+          handleDownload()
+        }
       }
     })
   }
@@ -196,10 +206,22 @@ export default function CustomOverlay() {
     img.downloadImg()
   }
 
-  function handleConfirm() {
+  function handleDownload() {
     const currentDom = document.querySelector(".codebox-current")
     removeCurrentDom()
     setIsCurrentDom(false)
+    if (isDownloadType == "html") {
+      downloadHtml(currentDom)
+    } else if (isDownloadType == "markdown") {
+      downloadMarkdown(currentDom)
+    } else if (isDownloadType == "pdf") {
+      downloadPdf(currentDom)
+    } else if (isDownloadType == "img") {
+      downloadImg(currentDom)
+    }
+  }
+
+  function handleConfirm() {
     Modal.confirm({
       title: "提示",
       content: (
@@ -213,26 +235,19 @@ export default function CustomOverlay() {
       okText: "确认",
       cancelText: "取消",
       onOk: () => {
-        if (isDownloadType == "html") {
-          downloadHtml(currentDom)
-        } else if (isDownloadType == "markdown") {
-          downloadMarkdown(currentDom)
-        } else if (isDownloadType == "pdf") {
-          downloadPdf(currentDom)
-        } else if (isDownloadType == "img") {
-          downloadImg(currentDom)
-        }
+        handleDownload()
       }
     })
   }
 
   function handleCancel() {
     removeCurrentDom()
-    isSelectRef.current = false
+    isReady = false
+    isSelect = false
     setIsCurrentDom(false)
   }
 
-  function handleSetParent() {
+  function handleSetParent(event) {
     const currentDom = document.querySelector(".codebox-current")
     const parent = currentDom.parentElement
 
@@ -240,16 +255,17 @@ export default function CustomOverlay() {
       removeCurrentDom()
       parent.classList.add("codebox-current")
     }
+    event.stopPropagation()
   }
 
-  function handleSetChild() {
+  function handleSetChild(event) {
     const currentDom = document.querySelector(".codebox-current")
     const child = currentDom.firstElementChild
-
     if (child) {
       removeCurrentDom()
       child.classList.add("codebox-current")
     }
+    event.stopPropagation()
   }
 
   return (
@@ -257,7 +273,9 @@ export default function CustomOverlay() {
       {contextHolder}
       <StyleProvider container={document.getElementById(HOST_ID).shadowRoot}>
         {isCurrentDom ? (
-          <FloatButton.Group shape="square" style={{ insetInlineEnd: 80 }}>
+          <FloatButton.Group
+            shape="square"
+            style={{ insetBlockStart: 80, insetBlockEnd: "auto" }}>
             <FloatButton
               icon={<CheckOutlined />}
               onClick={handleConfirm}

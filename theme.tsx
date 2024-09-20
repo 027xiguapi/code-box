@@ -5,7 +5,7 @@ export const ThemeProvider = ({ children = null as ReactNode }) => (
   <ConfigProvider
     theme={{
       token: {
-        colorPrimary: "#a1701d"
+        colorPrimary: "#52c41a"
       }
     }}>
     {children}
