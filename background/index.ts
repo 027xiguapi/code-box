@@ -24,3 +24,31 @@ chrome.runtime.requestUpdateCheck(function (status, details) {
     console.log("更新检查被限流。")
   }
 })
+
+chrome.tabs.onUpdated.addListener((tabId, _, tab) => {
+  // console.log(tabId, _, tab)
+  // if (!("sidePanel" in chrome)) {
+  //   return
+  // }
+  //
+  // void (async () => {
+  //   if (!tab.url) {
+  //     return
+  //   }
+  //   // const url = new URL(tab.url)
+  //   // if (
+  //   //   url.origin === ""
+  //   // ) {
+  //   //   await chrome.sidePanel.setOptions({
+  //   //     tabId,
+  //   //     // path: "pages/options.html",
+  //   //     enabled: true
+  //   //   })
+  //   // } else {
+  //   // await chrome.sidePanel.setOptions({
+  //   //   tabId,
+  //   //   enabled: false
+  //   // })
+  //   // }
+  // })()
+})

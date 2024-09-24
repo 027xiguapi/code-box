@@ -11,18 +11,22 @@ export default function Custom() {
     v === undefined ? false : v
   )
   const [cssCode, setCssCode] = useStorage("custom-cssCode")
+  const [closeLog] = useStorage("config-closeLog", true)
 
   const [codes, setCodes] = useState([])
 
   useEffect(() => {
-    if (window.location.protocol != "chrome-extension:") {
-      getCodes()
-    }
+    getCodes()
   }, [])
 
   async function getCodes() {
-    const res = await sendToContentScript({ name: `custom-getCodes` })
-    res?.codes && setCodes(res?.codes)
+    sendToContentScript({ name: `custom-getCodes` })
+      .then((res) => {
+        res?.codes && setCodes(res?.codes)
+      })
+      .catch((err) => {
+        closeLog || console.log("getCodes", err)
+      })
   }
 
   function downloadCode(index) {

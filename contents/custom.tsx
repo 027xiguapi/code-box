@@ -173,9 +173,11 @@ export default function CustomOverlay() {
         target.classList.add("codebox-current")
         event.stopPropagation()
         event.preventDefault()
-        if (confirm("是否下载？")) {
-          handleDownload()
-        }
+        setTimeout(() => {
+          if (confirm("是否下载？")) {
+            handleDownload()
+          }
+        }, 1000)
       }
     })
   }
@@ -209,7 +211,6 @@ export default function CustomOverlay() {
   function handleDownload() {
     const currentDom = document.querySelector(".codebox-current")
     removeCurrentDom()
-    setIsCurrentDom(false)
     if (isDownloadType == "html") {
       downloadHtml(currentDom)
     } else if (isDownloadType == "markdown") {
@@ -219,6 +220,9 @@ export default function CustomOverlay() {
     } else if (isDownloadType == "img") {
       downloadImg(currentDom)
     }
+    isReady = false
+    isSelect = false
+    setIsCurrentDom(false)
   }
 
   function handleConfirm() {

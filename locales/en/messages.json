@@ -11,6 +11,9 @@
   "history": {
     "message": "Historical records"
   },
+  "sidePanel": {
+    "message": "Side Panel"
+  },
   "more": {
     "message": "More settings"
   },

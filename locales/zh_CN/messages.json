@@ -11,6 +11,9 @@
   "history": {
     "message": "历史记录"
   },
+  "sidePanel": {
+    "message": "侧边栏"
+  },
   "more": {
     "message": "更多设置"
   },

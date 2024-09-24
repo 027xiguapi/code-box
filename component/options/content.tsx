@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 
 import { sendToContentScript } from "@plasmohq/messaging"
+import { useStorage } from "@plasmohq/storage/dist/hook"
 
 import Cto51 from "~component/options/51cto"
 import Baidu from "~component/options/baidu"
@@ -18,6 +19,7 @@ import Weixin from "~component/options/weixin"
 import Zhihu from "~component/options/zhihu"
 
 export default function Content() {
+  const [closeLog] = useStorage("config-closeLog", true)
   const [csdnIsShow, setCsdnIsShow] = useState<boolean>(false)
   const [zhihuIsShow, setZhihuIsShow] = useState<boolean>(false)
   const [baiduIsShow, setBaiduIsShow] = useState<boolean>(false)
@@ -64,9 +66,14 @@ export default function Content() {
     custom: setCustomIsShow
   }
 
-  async function getIsShow(type) {
-    const res = await sendToContentScript({ name: `${type}-isShow` })
-    res?.isShow && setIsShowMap[type] && setIsShowMap[type](res.isShow)
+  function getIsShow(type) {
+    sendToContentScript({ name: `${type}-isShow` })
+      .then((res) => {
+        res?.isShow && setIsShowMap[type] && setIsShowMap[type](res.isShow)
+      })
+      .catch((err) => {
+        closeLog || console.log("getIsShow", err)
+      })
   }
 
   return (

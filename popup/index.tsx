@@ -4,7 +4,18 @@ import { i18n } from "~tools"
 
 import "~index.css"
 
+import { sendToBackground } from "@plasmohq/messaging"
+
 export default function IndexPopup() {
+  function hanleOpenSidePanel() {
+    sendToBackground({
+      name: "sidepanel",
+      body: {
+        active: true
+      }
+    })
+  }
+
   return (
     <ThemeProvider>
       <div className="App popup">
@@ -16,6 +27,11 @@ export default function IndexPopup() {
           <Content />
         </div>
         <div className="App-link">
+          <div className="item">
+            <a className="btn" href="#" onClick={hanleOpenSidePanel}>
+              {i18n("sidePanel")}😀
+            </a>
+          </div>
           <div className="item">
             <a
               className="btn"
