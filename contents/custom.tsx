@@ -38,16 +38,19 @@ export const getStyle = () => {
 let isDownloadType = "markdown"
 let isReady = false
 let isSelect = false
+
 export default function CustomOverlay() {
   const [runCss] = useStorage<boolean>("custom-runCss")
   const [cssCode] = useStorage<string>("custom-cssCode")
   const [closeLog] = useStorage("config-closeLog", true)
-  const [codes, setCodes] = useState([])
+  const [codesDom, setCodesDom] = useState([])
+  const [codes, setCodes] = useStorage("app-codes", [])
   const [isCurrentDom, setIsCurrentDom] = useState<boolean>(false)
   const [messageApi, contextHolder] = message.useMessage()
 
   useEffect(() => {
     getSelection()
+    getCodes()
   }, [])
 
   useEffect(() => {
@@ -57,9 +60,6 @@ export default function CustomOverlay() {
   useMessage(async (req, res) => {
     if (req.name == "custom-isShow") {
       res.send({ isShow: true })
-    }
-    if (req.name == "custom-getCodes") {
-      res.send({ codes: getCodes() })
     }
     if (req.name == "custom-scrollIntoViewCode") {
       scrollIntoViewCode(req.body)
@@ -138,17 +138,17 @@ export default function CustomOverlay() {
         codesTxt.push(codeTxt)
       }
     })
-    setCodes(codes)
-    return codesTxt
+    setCodesDom(codes)
+    setCodes(codesTxt)
   }
 
   function scrollIntoViewCode(data) {
-    const code = codes[data.index]
+    const code = codesDom[data.index]
     code && code.scrollIntoView()
   }
 
   function downloadCode(data) {
-    let code = codes[data.index]
+    let code = codesDom[data.index]
     if (code && code.querySelector("code")) {
       code = code.querySelector("code")
     }

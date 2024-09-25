@@ -11,23 +11,7 @@ export default function Custom() {
     v === undefined ? false : v
   )
   const [cssCode, setCssCode] = useStorage("custom-cssCode")
-  const [closeLog] = useStorage("config-closeLog", true)
-
-  const [codes, setCodes] = useState([])
-
-  useEffect(() => {
-    getCodes()
-  }, [])
-
-  async function getCodes() {
-    sendToContentScript({ name: `custom-getCodes` })
-      .then((res) => {
-        res?.codes && setCodes(res?.codes)
-      })
-      .catch((err) => {
-        closeLog || console.log("getCodes", err)
-      })
-  }
+  const [codes] = useStorage("app-codes", [])
 
   function downloadCode(index) {
     sendToContentScript({ name: `custom-downloadCode`, body: { index } })

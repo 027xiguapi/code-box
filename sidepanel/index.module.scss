@@ -13,6 +13,12 @@
                 width: 150px;
             }
         }
+        .valid {
+            color: red;
+        }
+        .contentTitle {
+            margin: 15px 0 10px 0;
+        }
         .item {
             display: flex;
             justify-content: space-between;
