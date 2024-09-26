@@ -5,7 +5,7 @@ import {
   DownSquareOutlined,
   UpSquareOutlined
 } from "@ant-design/icons"
-import { FloatButton, message, Modal } from "antd"
+import { Button, Flex, message, Modal } from "antd"
 import antdResetCssText from "data-text:antd/dist/reset.css"
 import type { PlasmoCSConfig, PlasmoGetShadowHostId } from "plasmo"
 import { useEffect, useRef, useState } from "react"
@@ -46,6 +46,9 @@ export default function CustomOverlay() {
   const [codesDom, setCodesDom] = useState([])
   const [codes, setCodes] = useStorage("app-codes", [])
   const [isCurrentDom, setIsCurrentDom] = useState<boolean>(false)
+  const [rect, setRect] = useState<any>(() => {
+    return { top: 0, right: 0 }
+  })
   const [messageApi, contextHolder] = message.useMessage()
 
   useEffect(() => {
@@ -156,7 +159,7 @@ export default function CustomOverlay() {
   }
 
   function getSelection() {
-    addCss(`.codebox-current { border: 1px solid #7983ff; }`)
+    addCss(`.codebox-current { border: 1px solid #7983ff!important; }`)
     document.addEventListener("mousemove", (event) => {
       const target = event.target as HTMLElement
       if (isReady && target && !isSelect) {
@@ -166,20 +169,28 @@ export default function CustomOverlay() {
     })
     document.addEventListener("click", (event) => {
       const target = event.target as HTMLElement
-      if (isReady && target) {
+      const tooltip = target.closest("#codebox-csui")
+      if (isReady && target && !tooltip) {
         isSelect = true
         setIsCurrentDom(true)
         removeCurrentDom()
         target.classList.add("codebox-current")
+        setTooltip()
         event.stopPropagation()
         event.preventDefault()
-        setTimeout(() => {
-          if (confirm("是否下载？")) {
-            handleDownload()
-          }
-        }, 1000)
       }
     })
+  }
+
+  function setTooltip() {
+    const currentDom = document.querySelector<HTMLElement>(".codebox-current")
+    const rect = currentDom.getBoundingClientRect()
+    const distanceTop = rect.top + window.scrollY
+    const distanceLeft = rect.left + window.scrollX
+    const top = distanceTop < 50 ? distanceTop + 10 : distanceTop - 40
+    const left = distanceLeft + 10
+
+    setRect({ top, left })
   }
 
   function removeCurrentDom() {
@@ -240,6 +251,9 @@ export default function CustomOverlay() {
       cancelText: "取消",
       onOk: () => {
         handleDownload()
+      },
+      onCancel: () => {
+        handleCancel()
       }
     })
   }
@@ -258,6 +272,7 @@ export default function CustomOverlay() {
     if (parent) {
       removeCurrentDom()
       parent.classList.add("codebox-current")
+      setTooltip()
     }
     event.stopPropagation()
   }
@@ -268,6 +283,7 @@ export default function CustomOverlay() {
     if (child) {
       removeCurrentDom()
       child.classList.add("codebox-current")
+      setTooltip()
     }
     event.stopPropagation()
   }
@@ -277,30 +293,48 @@ export default function CustomOverlay() {
       {contextHolder}
       <StyleProvider container={document.getElementById(HOST_ID).shadowRoot}>
         {isCurrentDom ? (
-          <FloatButton.Group
-            shape="square"
-            style={{ insetBlockStart: 80, insetBlockEnd: "auto" }}>
-            <FloatButton
-              icon={<CheckOutlined />}
-              onClick={handleConfirm}
-              tooltip="<div>确定</div>"
-            />
-            <FloatButton
-              icon={<UpSquareOutlined />}
-              onClick={handleSetParent}
-              tooltip="父节点"
-            />
-            <FloatButton
-              icon={<DownSquareOutlined />}
-              onClick={handleSetChild}
-              tooltip="子节点"
-            />
-            <FloatButton
-              icon={<CloseOutlined />}
-              onClick={handleCancel}
-              tooltip="取消"
-            />
-          </FloatButton.Group>
+          <div
+            className="codebox-tooltip"
+            style={{
+              position: "absolute",
+              top: `${rect.top}px`,
+              left: `${rect.left}px`,
+              width: "390px",
+              background: "#fff",
+              border: "1px solid #eee",
+              borderRadius: "5px"
+            }}>
+            <Flex wrap gap="small">
+              <Button
+                color="primary"
+                variant="text"
+                icon={<CheckOutlined />}
+                onClick={handleConfirm}>
+                确定
+              </Button>
+              <Button
+                color="default"
+                variant="text"
+                icon={<UpSquareOutlined />}
+                onClick={handleSetParent}>
+                父节点
+              </Button>
+              <Button
+                color="default"
+                variant="text"
+                icon={<DownSquareOutlined />}
+                onClick={handleSetChild}>
+                子节点
+              </Button>
+              <Button
+                color="danger"
+                variant="text"
+                icon={<CloseOutlined />}
+                onClick={handleCancel}>
+                取消
+              </Button>
+            </Flex>
+          </div>
         ) : (
           <></>
         )}
