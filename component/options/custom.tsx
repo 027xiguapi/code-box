@@ -1,4 +1,5 @@
 import { DownloadOutlined, StarTwoTone } from "@ant-design/icons"
+import { Input } from "antd"
 import { useEffect, useState } from "react"
 
 import { sendToContentScript } from "@plasmohq/messaging"
@@ -10,8 +11,11 @@ export default function Custom() {
   const [runCss, setRunCss] = useStorage("custom-runCss", (v) =>
     v === undefined ? false : v
   )
-  const [cssCode, setCssCode] = useStorage("custom-cssCode")
-  const [codes] = useStorage("app-codes", [])
+  const [cssCode, setCssCode, { setRenderValue, setStoreValue, remove }] =
+    useStorage("custom-cssCode")
+  // const [codes] = useStorage("app-codes", [])
+
+  useEffect(() => {}, [cssCode])
 
   function downloadCode(index) {
     sendToContentScript({ name: `custom-downloadCode`, body: { index } })
@@ -45,20 +49,24 @@ export default function Custom() {
     })
   }
 
+  function handleChange(event) {
+    setCssCode(event.target.value)
+  }
+
   return (
     <fieldset>
       <legend>{i18n("customConfig")}</legend>
-      {codes.map((code, index) => (
-        <div className="item code" onClick={() => pinCode(index)} key={index}>
-          <span className="codeTxt">
-            {index + 1}-{JSON.stringify(code)}
-          </span>
-          <DownloadOutlined
-            style={{ color: "#52c41a", fontSize: "16px" }}
-            onClick={() => downloadCode(index)}
-          />
-        </div>
-      ))}
+      {/*{codes.map((code, index) => (*/}
+      {/*  <div className="item code" onClick={() => pinCode(index)} key={index}>*/}
+      {/*    <span className="codeTxt">*/}
+      {/*      {index + 1}-{JSON.stringify(code)}*/}
+      {/*    </span>*/}
+      {/*    <DownloadOutlined*/}
+      {/*      style={{ color: "#52c41a", fontSize: "16px" }}*/}
+      {/*      onClick={() => downloadCode(index)}*/}
+      {/*    />*/}
+      {/*  </div>*/}
+      {/*))}*/}
       <div className="item">
         <span>{i18n("customCssCode")}</span>
         <input
@@ -72,10 +80,11 @@ export default function Custom() {
         <label className="codebox-switch" htmlFor="custom-runCss"></label>
       </div>
       <div className={`item ${runCss ? "" : "hide"}`}>
-        <textarea
+        <Input.TextArea
           name="custom-cssCode"
           value={cssCode}
-          onChange={(e) => setCssCode(e.target.value)}></textarea>
+          onChange={(e) => setRenderValue(e.target.value)}
+          onBlur={(e) => setStoreValue()}></Input.TextArea>
       </div>
       <div className="item download" onClick={downloadMarkdown}>
         <span>
