@@ -17,5 +17,32 @@ export default function Turndown() {
   // turndownService.keep(["h1", "h2"])
   turndownService.remove(["script", "style"])
 
+  turndownService.addRule("fencedCodeBlock", {
+    filter: function (node, options) {
+      return (
+        options.codeBlockStyle === "fenced" &&
+        node.nodeName === "PRE" &&
+        node.querySelector("code")
+      )
+    },
+
+    replacement: function (content, node, options) {
+      const className = node.querySelector("code").getAttribute("class") || ""
+      const language = (className.match(/lang-(\S+)/) ||
+        className.match(/language-(\S+)/) || [null, ""])[1]
+
+      return (
+        "\n\n" +
+        options.fence +
+        language +
+        "\n" +
+        node.querySelector("code").textContent +
+        "\n" +
+        options.fence +
+        "\n\n"
+      )
+    }
+  })
+
   return turndownService
 }
