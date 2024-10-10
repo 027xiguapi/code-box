@@ -1,7 +1,9 @@
 import type { PlasmoCSConfig } from "plasmo"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 import { useMessage } from "@plasmohq/messaging/hook"
+import { Storage } from "@plasmohq/storage"
+import { useStorage } from "@plasmohq/storage/dist/hook"
 
 import { saveHtml, saveMarkdown, setIcon } from "~tools"
 import Turndown from "~utils/turndown"
@@ -14,6 +16,13 @@ const turndownService = Turndown()
 const articleTitle = document.querySelector<HTMLElement>("head title").innerText
 
 export default function Juejin() {
+  const [content, setContent] = useStorage({
+    key: "md-content",
+    instance: new Storage({
+      area: "local"
+    })
+  })
+
   useEffect(() => {
     setIcon(true)
   }, [])
@@ -22,6 +31,9 @@ export default function Juejin() {
     if (req.name == "juejin-isShow") {
       res.send({ isShow: true })
     }
+    if (req.name == "juejin-editMarkdown") {
+      editMarkdown()
+    }
     if (req.name == "juejin-downloadMarkdown") {
       downloadMarkdown()
     }
@@ -29,6 +41,13 @@ export default function Juejin() {
       downloadHtml()
     }
   })
+
+  function editMarkdown() {
+    const html = document.querySelector("article.article")
+    const markdown = turndownService.turndown(html)
+    setContent(markdown)
+    window.open("https://md.randbox.top", "_blank")
+  }
 
   function downloadMarkdown() {
     const html = document.querySelector("article.article")

@@ -1,10 +1,16 @@
-import { DownloadOutlined, StarTwoTone } from "@ant-design/icons"
+import { DownloadOutlined, EditOutlined, StarTwoTone } from "@ant-design/icons"
 
 import { sendToContentScript } from "@plasmohq/messaging"
 
 import { i18n } from "~tools"
 
 export default function Juejin() {
+  function editMarkdown() {
+    sendToContentScript({
+      name: "juejin-editMarkdown"
+    })
+  }
+
   function downloadMarkdown() {
     sendToContentScript({
       name: "juejin-downloadMarkdown"
@@ -20,6 +26,13 @@ export default function Juejin() {
   return (
     <fieldset>
       <legend>{i18n("juejinConfig")}</legend>
+      <div className="item download" onClick={editMarkdown}>
+        <span>
+          <StarTwoTone twoToneColor="#eb2f96" style={{ marginRight: "5px" }} />
+          {i18n("editMarkdown")}
+        </span>
+        <EditOutlined style={{ color: "#52c41a", fontSize: "16px" }} />
+      </div>
       <div className="item download" onClick={downloadMarkdown}>
         <span>
           <StarTwoTone twoToneColor="#eb2f96" style={{ marginRight: "5px" }} />

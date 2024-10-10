@@ -128,6 +128,9 @@
   "zhihuAutoOpenCode": {
     "message": "自动展开全文"
   },
+  "editMarkdown": {
+    "message": "编辑 Markdown"
+  },
   "downloadMarkdown": {
     "message": "下载 Markdown"
   },

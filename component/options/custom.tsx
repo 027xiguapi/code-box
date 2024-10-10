@@ -1,4 +1,4 @@
-import { DownloadOutlined, StarTwoTone } from "@ant-design/icons"
+import { DownloadOutlined, EditOutlined, StarTwoTone } from "@ant-design/icons"
 import { Input } from "antd"
 import { useEffect, useState } from "react"
 
@@ -23,6 +23,12 @@ export default function Custom() {
 
   function pinCode(index) {
     sendToContentScript({ name: `custom-scrollIntoViewCode`, body: { index } })
+  }
+
+  function editMarkdown() {
+    sendToContentScript({
+      name: "custom-editMarkdown"
+    })
   }
 
   function downloadMarkdown() {
@@ -85,6 +91,13 @@ export default function Custom() {
           value={cssCode}
           onChange={(e) => setRenderValue(e.target.value)}
           onBlur={(e) => setStoreValue()}></Input.TextArea>
+      </div>
+      <div className="item download" onClick={editMarkdown}>
+        <span>
+          <StarTwoTone twoToneColor="#eb2f96" style={{ marginRight: "5px" }} />
+          {i18n("editMarkdown")}
+        </span>
+        <EditOutlined style={{ color: "#52c41a", fontSize: "16px" }} />
       </div>
       <div className="item download" onClick={downloadMarkdown}>
         <span>

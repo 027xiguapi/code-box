@@ -12,6 +12,7 @@ import { useEffect, useRef, useState } from "react"
 
 import { sendToBackground } from "@plasmohq/messaging"
 import { useMessage } from "@plasmohq/messaging/hook"
+import { Storage } from "@plasmohq/storage"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import { ThemeProvider } from "~theme"
@@ -45,6 +46,12 @@ export default function CustomOverlay() {
   const [closeLog] = useStorage("config-closeLog", true)
   const [codesDom, setCodesDom] = useState([])
   const [codes, setCodes] = useStorage("app-codes", [])
+  const [content, setContent] = useStorage({
+    key: "md-content",
+    instance: new Storage({
+      area: "local"
+    })
+  })
   const [isCurrentDom, setIsCurrentDom] = useState<boolean>(false)
   const [rect, setRect] = useState<any>(() => {
     return { top: 0, right: 0 }
@@ -79,7 +86,7 @@ export default function CustomOverlay() {
     if (req.name == "custom-downloadMarkdown") {
       isReady = true
       isSelect = false
-      isDownloadType = "markdown"
+      isDownloadType = "downloadMarkdown"
       messageApi.info("请在页面选择要下载区域！")
     }
     if (req.name == "custom-downloadPdf") {
@@ -92,6 +99,12 @@ export default function CustomOverlay() {
       isReady = true
       isSelect = false
       isDownloadType = "img"
+      messageApi.info("请在页面选择要下载区域！")
+    }
+    if (req.name == "custom-editMarkdown") {
+      isReady = true
+      isSelect = false
+      isDownloadType = "editMarkdown"
       messageApi.info("请在页面选择要下载区域！")
     }
     if (req.name == "app-full-page-screenshot") {
@@ -170,7 +183,8 @@ export default function CustomOverlay() {
     document.addEventListener("click", (event) => {
       const target = event.target as HTMLElement
       const tooltip = target.closest("#codebox-csui")
-      if (isReady && target && !tooltip) {
+      const modal = target.closest(".ant-modal")
+      if (isReady && target && !tooltip && !modal) {
         isSelect = true
         setIsCurrentDom(true)
         removeCurrentDom()
@@ -209,6 +223,12 @@ export default function CustomOverlay() {
     saveMarkdown(markdown, articleTitle)
   }
 
+  function editMarkdown(currentDom) {
+    const markdown = turndownService.turndown(currentDom)
+    setContent(markdown)
+    window.open("https://md.randbox.top", "_blank")
+  }
+
   function downloadPdf(currentDom) {
     const pdf = new Dom2Pdf(currentDom, articleTitle)
     pdf.downloadPdf()
@@ -224,8 +244,10 @@ export default function CustomOverlay() {
     removeCurrentDom()
     if (isDownloadType == "html") {
       downloadHtml(currentDom)
-    } else if (isDownloadType == "markdown") {
+    } else if (isDownloadType == "downloadMarkdown") {
       downloadMarkdown(currentDom)
+    } else if (isDownloadType == "editMarkdown") {
+      editMarkdown(currentDom)
     } else if (isDownloadType == "pdf") {
       downloadPdf(currentDom)
     } else if (isDownloadType == "img") {
@@ -243,7 +265,7 @@ export default function CustomOverlay() {
         <>
           <div style={{ fontSize: "18px" }}>是否保存？</div>
           <div style={{ fontSize: "14px", color: "red" }}>
-            此功能限时免费免登录，预计10月份以后需要注册，后续可能收费...
+            此功能限时免费免登录，预计需要注册，后续可能收费...
           </div>
         </>
       ),
