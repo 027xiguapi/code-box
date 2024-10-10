@@ -18,11 +18,13 @@ import { useStorage } from "@plasmohq/storage/hook"
 import { ThemeProvider } from "~theme"
 import { addCss, saveHtml, saveMarkdown, saveTxt, setIcon } from "~tools"
 import DrawImages from "~utils/drawImages"
+import { useContent } from "~utils/editMarkdownHook"
 import Dom2Pdf from "~utils/html2Pdf"
 import Turndown from "~utils/turndown"
 
 const turndownService = Turndown()
-const articleTitle = document.querySelector<HTMLElement>("head title").innerText
+const articleTitle =
+  document.querySelector<HTMLElement>("head title")?.innerText
 
 setIcon(false)
 
@@ -46,12 +48,7 @@ export default function CustomOverlay() {
   const [closeLog] = useStorage("config-closeLog", true)
   const [codesDom, setCodesDom] = useState([])
   const [codes, setCodes] = useStorage("app-codes", [])
-  const [content, setContent] = useStorage({
-    key: "md-content",
-    instance: new Storage({
-      area: "local"
-    })
-  })
+  const [content, setContent] = useContent()
   const [isCurrentDom, setIsCurrentDom] = useState<boolean>(false)
   const [rect, setRect] = useState<any>(() => {
     return { top: 0, right: 0 }
@@ -78,34 +75,19 @@ export default function CustomOverlay() {
       downloadCode(req.body)
     }
     if (req.name == "custom-downloadHtml") {
-      isReady = true
-      isSelect = false
-      isDownloadType = "html"
-      messageApi.info("请在页面选择要下载区域！")
+      setCustom("html")
     }
     if (req.name == "custom-downloadMarkdown") {
-      isReady = true
-      isSelect = false
-      isDownloadType = "downloadMarkdown"
-      messageApi.info("请在页面选择要下载区域！")
+      setCustom("downloadMarkdown")
     }
     if (req.name == "custom-downloadPdf") {
-      isReady = true
-      isSelect = false
-      isDownloadType = "pdf"
-      messageApi.info("请在页面选择要下载区域！")
+      setCustom("pdf")
     }
     if (req.name == "custom-downloadImg") {
-      isReady = true
-      isSelect = false
-      isDownloadType = "img"
-      messageApi.info("请在页面选择要下载区域！")
+      setCustom("img")
     }
     if (req.name == "custom-editMarkdown") {
-      isReady = true
-      isSelect = false
-      isDownloadType = "editMarkdown"
-      messageApi.info("请在页面选择要下载区域！")
+      setCustom("editMarkdown")
     }
     if (req.name == "app-full-page-screenshot") {
       const { scrollHeight, clientHeight } = document.documentElement
@@ -171,6 +153,13 @@ export default function CustomOverlay() {
     code && saveTxt(code.innerText, articleTitle)
   }
 
+  function setCustom(type) {
+    isReady = true
+    isSelect = false
+    isDownloadType = type
+    messageApi.info("请在页面选择要下载区域！")
+  }
+
   function getSelection() {
     addCss(`.codebox-current { border: 1px solid #7983ff!important; }`)
     document.addEventListener("mousemove", (event) => {
@@ -223,12 +212,6 @@ export default function CustomOverlay() {
     saveMarkdown(markdown, articleTitle)
   }
 
-  function editMarkdown(currentDom) {
-    const markdown = turndownService.turndown(currentDom)
-    setContent(markdown)
-    window.open("https://md.randbox.top", "_blank")
-  }
-
   function downloadPdf(currentDom) {
     const pdf = new Dom2Pdf(currentDom, articleTitle)
     pdf.downloadPdf()
@@ -239,7 +222,7 @@ export default function CustomOverlay() {
     img.downloadImg()
   }
 
-  function handleDownload() {
+  function handleOk() {
     const currentDom = document.querySelector(".codebox-current")
     removeCurrentDom()
     if (isDownloadType == "html") {
@@ -247,7 +230,7 @@ export default function CustomOverlay() {
     } else if (isDownloadType == "downloadMarkdown") {
       downloadMarkdown(currentDom)
     } else if (isDownloadType == "editMarkdown") {
-      editMarkdown(currentDom)
+      setContent(".codebox-current")
     } else if (isDownloadType == "pdf") {
       downloadPdf(currentDom)
     } else if (isDownloadType == "img") {
@@ -272,7 +255,7 @@ export default function CustomOverlay() {
       okText: "确认",
       cancelText: "取消",
       onOk: () => {
-        handleDownload()
+        handleOk()
       },
       onCancel: () => {
         handleCancel()

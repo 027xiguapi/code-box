@@ -6,6 +6,7 @@ import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/dist/hook"
 
 import { saveHtml, saveMarkdown, setIcon } from "~tools"
+import { useContent } from "~utils/editMarkdownHook"
 import Turndown from "~utils/turndown"
 
 export const config: PlasmoCSConfig = {
@@ -19,6 +20,7 @@ export default function Weixin() {
   const [copyCode] = useStorage<boolean>("51cto-copyCode")
   const [history, setHistory] = useStorage<any[]>("codebox-history")
   const [closeLog] = useStorage("config-closeLog", true)
+  const [content, setContent] = useContent()
 
   useEffect(() => {
     closeLog || console.log("weixin status", { copyCode })
@@ -29,6 +31,9 @@ export default function Weixin() {
   useMessage(async (req, res) => {
     if (req.name == "weixin-isShow") {
       res.send({ isShow: true })
+    }
+    if (req.name == "weixin-editMarkdown") {
+      setContent("#img-content")
     }
     if (req.name == "weixin-downloadMarkdown") {
       downloadMarkdown()

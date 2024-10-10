@@ -6,6 +6,7 @@ import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import { addCss, saveHtml, saveMarkdown, setIcon } from "~tools"
+import { useContent } from "~utils/editMarkdownHook"
 import Turndown from "~utils/turndown"
 
 export const config: PlasmoCSConfig = {
@@ -25,6 +26,7 @@ const csdn = () => {
   const [closeRedirectModal] = useStorage<boolean>("csdn-closeLoginModal")
   const [history, setHistory] = useStorage<any[]>("codebox-history")
   const [closeLog] = useStorage("config-closeLog", true)
+  const [content, setContent] = useContent()
 
   useEffect(() => {
     closeLog ||
@@ -64,6 +66,9 @@ const csdn = () => {
   useMessage(async (req, res) => {
     if (req.name == "csdn-isShow") {
       res.send({ isShow: true })
+    }
+    if (req.name == "csdn-editMarkdown") {
+      setContent(".blog-content-box")
     }
     if (req.name == "csdn-downloadMarkdown") {
       downloadMarkdown()

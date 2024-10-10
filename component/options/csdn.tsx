@@ -3,6 +3,7 @@ import { DownloadOutlined, StarTwoTone } from "@ant-design/icons"
 import { sendToContentScript } from "@plasmohq/messaging"
 import { useStorage } from "@plasmohq/storage/hook"
 
+import EditMarkdown from "~component/items/editMarkdown"
 import { i18n } from "~tools"
 
 export default function Csdn() {
@@ -135,6 +136,7 @@ export default function Csdn() {
           htmlFor="csdn-closeRedirectModal"
           className="codebox-switch"></label>
       </div>
+      <EditMarkdown name="csdn"></EditMarkdown>
       <div className="item download" onClick={downloadMarkdown}>
         <span>
           <StarTwoTone twoToneColor="#eb2f96" style={{ marginRight: "5px" }} />

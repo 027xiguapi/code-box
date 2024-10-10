@@ -6,6 +6,7 @@ import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import { addCss, saveHtml, saveMarkdown, setIcon } from "~tools"
+import { useContent } from "~utils/editMarkdownHook"
 import Turndown from "~utils/turndown"
 
 export const config: PlasmoCSConfig = {
@@ -21,6 +22,7 @@ export default function Jianshu() {
   const [autoOpenCode] = useStorage<boolean>("jianshu-autoOpenCode")
   const [history, setHistory] = useStorage<any[]>("codebox-history")
   const [closeLog] = useStorage("config-closeLog", true)
+  const [content, setContent] = useContent()
 
   useEffect(() => {
     closeLog ||
@@ -34,6 +36,9 @@ export default function Jianshu() {
   useMessage(async (req, res) => {
     if (req.name == "jianshu-isShow") {
       res.send({ isShow: true })
+    }
+    if (req.name == "jianshu-editMarkdown") {
+      setContent("section.ouvJEz")
     }
     if (req.name == "jianshu-downloadMarkdown") {
       downloadMarkdown()

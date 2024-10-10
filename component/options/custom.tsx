@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 import { sendToContentScript } from "@plasmohq/messaging"
 import { useStorage } from "@plasmohq/storage/hook"
 
+import EditMarkdown from "~component/items/editMarkdown"
 import { i18n } from "~tools"
 
 export default function Custom() {
@@ -23,12 +24,6 @@ export default function Custom() {
 
   function pinCode(index) {
     sendToContentScript({ name: `custom-scrollIntoViewCode`, body: { index } })
-  }
-
-  function editMarkdown() {
-    sendToContentScript({
-      name: "custom-editMarkdown"
-    })
   }
 
   function downloadMarkdown() {
@@ -92,13 +87,7 @@ export default function Custom() {
           onChange={(e) => setRenderValue(e.target.value)}
           onBlur={(e) => setStoreValue()}></Input.TextArea>
       </div>
-      <div className="item download" onClick={editMarkdown}>
-        <span>
-          <StarTwoTone twoToneColor="#eb2f96" style={{ marginRight: "5px" }} />
-          {i18n("editMarkdown")}
-        </span>
-        <EditOutlined style={{ color: "#52c41a", fontSize: "16px" }} />
-      </div>
+      <EditMarkdown name="custom"></EditMarkdown>
       <div className="item download" onClick={downloadMarkdown}>
         <span>
           <StarTwoTone twoToneColor="#eb2f96" style={{ marginRight: "5px" }} />

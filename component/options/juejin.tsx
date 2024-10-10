@@ -2,6 +2,7 @@ import { DownloadOutlined, EditOutlined, StarTwoTone } from "@ant-design/icons"
 
 import { sendToContentScript } from "@plasmohq/messaging"
 
+import EditMarkdown from "~component/items/editMarkdown"
 import { i18n } from "~tools"
 
 export default function Juejin() {
@@ -26,13 +27,7 @@ export default function Juejin() {
   return (
     <fieldset>
       <legend>{i18n("juejinConfig")}</legend>
-      <div className="item download" onClick={editMarkdown}>
-        <span>
-          <StarTwoTone twoToneColor="#eb2f96" style={{ marginRight: "5px" }} />
-          {i18n("editMarkdown")}
-        </span>
-        <EditOutlined style={{ color: "#52c41a", fontSize: "16px" }} />
-      </div>
+      <EditMarkdown name="juejin"></EditMarkdown>
       <div className="item download" onClick={downloadMarkdown}>
         <span>
           <StarTwoTone twoToneColor="#eb2f96" style={{ marginRight: "5px" }} />

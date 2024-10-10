@@ -6,6 +6,7 @@ import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import { addCss, saveHtml, saveMarkdown, setIcon } from "~tools"
+import { useContent } from "~utils/editMarkdownHook"
 import Turndown from "~utils/turndown"
 
 export const config: PlasmoCSConfig = {
@@ -20,6 +21,7 @@ export default function Php() {
   const [closeLoginModal] = useStorage<boolean>("php-closeLoginModal")
   const [history, setHistory] = useStorage<any[]>("codebox-history")
   const [closeLog] = useStorage("config-closeLog", true)
+  const [content, setContent] = useContent()
 
   useEffect(() => {
     closeLog || console.log("PHP status", { closeLoginModal, copyCode })
@@ -33,6 +35,9 @@ export default function Php() {
   useMessage(async (req, res) => {
     if (req.name == "php-isShow") {
       res.send({ isShow: true })
+    }
+    if (req.name == "php-editMarkdown") {
+      setContent(".phpscMain .php-article")
     }
     if (req.name == "php-downloadMarkdown") {
       downloadMarkdown()

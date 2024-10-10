@@ -3,6 +3,7 @@ import { DownloadOutlined, StarTwoTone } from "@ant-design/icons"
 import { sendToContentScript } from "@plasmohq/messaging"
 import { useStorage } from "@plasmohq/storage/dist/hook"
 
+import EditMarkdown from "~component/items/editMarkdown"
 import { i18n } from "~tools"
 
 export default function Weixin() {
@@ -37,6 +38,7 @@ export default function Weixin() {
         />
         <label className="codebox-switch" htmlFor="weixin-copyCode"></label>
       </div>
+      <EditMarkdown name="weixin"></EditMarkdown>
       <div className="item download" onClick={downloadMarkdown}>
         <span>
           <StarTwoTone twoToneColor="#eb2f96" style={{ marginRight: "5px" }} />

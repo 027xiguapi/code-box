@@ -3,6 +3,7 @@ import { DownloadOutlined, StarTwoTone } from "@ant-design/icons"
 import { sendToContentScript } from "@plasmohq/messaging"
 import { useStorage } from "@plasmohq/storage/hook"
 
+import EditMarkdown from "~component/items/editMarkdown"
 import { i18n } from "~tools"
 
 export default function Jianshu() {
@@ -73,6 +74,7 @@ export default function Jianshu() {
           className="codebox-switch"
           htmlFor="jianshu-autoOpenCode"></label>
       </div>
+      <EditMarkdown name="jianshu"></EditMarkdown>
       <div className="item download" onClick={downloadMarkdown}>
         <span>
           <StarTwoTone twoToneColor="#eb2f96" style={{ marginRight: "5px" }} />

@@ -6,6 +6,7 @@ import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import { addCss, saveHtml, saveMarkdown, setIcon } from "~tools"
+import { useContent } from "~utils/editMarkdownHook"
 import Turndown from "~utils/turndown"
 
 export const config: PlasmoCSConfig = {
@@ -20,6 +21,7 @@ export default function jb51() {
   const [copyCode] = useStorage<boolean>("jb51-copyCode")
   const [history, setHistory] = useStorage<any[]>("codebox-history")
   const [closeLog] = useStorage("config-closeLog", true)
+  const [content, setContent] = useContent()
 
   useEffect(() => {
     closeLog || console.log("jb51 status", { closeAds, copyCode })
@@ -31,6 +33,9 @@ export default function jb51() {
   useMessage(async (req, res) => {
     if (req.name == "jb51-isShow") {
       res.send({ isShow: true })
+    }
+    if (req.name == "jb51-editMarkdown") {
+      setContent("#article")
     }
     if (req.name == "jb51-downloadMarkdown") {
       downloadMarkdown()

@@ -6,6 +6,7 @@ import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import { addCss, saveHtml, saveMarkdown, setIcon } from "~tools"
+import { useContent } from "~utils/editMarkdownHook"
 import Turndown from "~utils/turndown"
 
 export const config: PlasmoCSConfig = {
@@ -20,6 +21,7 @@ export default function Cto51() {
   const [closeLoginModal] = useStorage<boolean>("51cto-closeLoginModal")
   const [history, setHistory] = useStorage<any[]>("codebox-history")
   const [closeLog] = useStorage("config-closeLog", true)
+  const [content, setContent] = useContent()
 
   useEffect(() => {
     closeLog || console.log("51CTO status", { closeLoginModal, copyCode })
@@ -33,6 +35,9 @@ export default function Cto51() {
   useMessage(async (req, res) => {
     if (req.name == "51cto-isShow") {
       res.send({ isShow: true })
+    }
+    if (req.name == "51cto-editMarkdown") {
+      setContent("article")
     }
     if (req.name == "51cto-downloadMarkdown") {
       downloadMarkdown()

@@ -6,6 +6,7 @@ import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import { saveHtml, saveMarkdown, setIcon } from "~tools"
+import { useContent } from "~utils/editMarkdownHook"
 import Turndown from "~utils/turndown"
 
 export const config: PlasmoCSConfig = {
@@ -20,6 +21,7 @@ export default function cnblogs() {
   const [copyCode] = useStorage<boolean>("cnblogs-copyCode")
   const [history, setHistory] = useStorage<any[]>("codebox-history")
   const [closeLog] = useStorage("config-closeLog", true)
+  const [content, setContent] = useContent()
 
   useEffect(() => {
     closeLog || console.log("cnblogs copyCode", copyCode)
@@ -30,6 +32,9 @@ export default function cnblogs() {
   useMessage(async (req, res) => {
     if (req.name == "cnblogs-isShow") {
       res.send({ isShow: true })
+    }
+    if (req.name == "cnblogs-editMarkdown") {
+      setContent("article.article")
     }
     if (req.name == "cnblogs-downloadMarkdown") {
       downloadMarkdown()

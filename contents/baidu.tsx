@@ -5,6 +5,7 @@ import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import { addCss, saveHtml, saveMarkdown, setIcon } from "~tools"
+import { useContent } from "~utils/editMarkdownHook"
 import Turndown from "~utils/turndown"
 
 export const config: PlasmoCSConfig = {
@@ -17,6 +18,7 @@ const articleTitle = document.querySelector<HTMLElement>("head title").innerText
 export default function Custom() {
   const [closeAIBox] = useStorage<boolean>("baidu-closeAIBox")
   const [closeLog] = useStorage("config-closeLog", true)
+  const [content, setContent] = useContent()
 
   useEffect(() => {
     closeLog || console.log("baidu", { closeAIBox })
@@ -27,6 +29,9 @@ export default function Custom() {
   useMessage(async (req, res) => {
     if (req.name == "baidu-isShow") {
       res.send({ isShow: true })
+    }
+    if (req.name == "baidu-editMarkdown") {
+      setContent(".wd-ai-index-pc")
     }
     if (req.name == "baidu-downloadMarkdown") {
       downloadMarkdown()
@@ -41,6 +46,13 @@ export default function Custom() {
     addCss(`.wd-ai-index-pc{
       display:none !important;
     }`)
+  }
+
+  function editMarkdown() {
+    const html = document.querySelector("article.article")
+    const markdown = turndownService.turndown(html)
+    setContent(markdown)
+    window.open("https://md.randbox.top", "_blank")
   }
 
   function downloadMarkdown() {

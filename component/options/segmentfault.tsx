@@ -2,6 +2,7 @@ import { DownloadOutlined, StarTwoTone } from "@ant-design/icons"
 
 import { sendToContentScript } from "@plasmohq/messaging"
 
+import EditMarkdown from "~component/items/editMarkdown"
 import { i18n } from "~tools"
 
 export default function Segmentfault() {
@@ -20,6 +21,7 @@ export default function Segmentfault() {
   return (
     <fieldset>
       <legend>{i18n("segmentfaultConfig")}</legend>
+      <EditMarkdown name="segmentfault"></EditMarkdown>
       <div className="item download" onClick={downloadMarkdown}>
         <span>
           <StarTwoTone twoToneColor="#eb2f96" style={{ marginRight: "5px" }} />
