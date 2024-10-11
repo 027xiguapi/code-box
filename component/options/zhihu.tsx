@@ -1,8 +1,7 @@
-import { DownloadOutlined, StarTwoTone } from "@ant-design/icons"
-
-import { sendToContentScript } from "@plasmohq/messaging"
 import { useStorage } from "@plasmohq/storage/hook"
 
+import DownloadHtml from "~component/items/downloadHtml"
+import DownloadMarkdown from "~component/items/downloadMarkdown"
 import EditMarkdown from "~component/items/editMarkdown"
 import { i18n } from "~tools"
 
@@ -18,18 +17,6 @@ export default function Zhihu() {
     "zhihu-autoOpenCode",
     (v) => (v === undefined ? true : v)
   )
-
-  function downloadHtml() {
-    sendToContentScript({
-      name: "zhihu-downloadHtml"
-    })
-  }
-
-  function downloadMarkdown() {
-    sendToContentScript({
-      name: "zhihu-downloadMarkdown"
-    })
-  }
 
   return (
     <fieldset>
@@ -73,20 +60,8 @@ export default function Zhihu() {
         <label className="codebox-switch" htmlFor="zhihu-autoOpenCode"></label>
       </div>
       <EditMarkdown name="zhihu"></EditMarkdown>
-      <div className="item download" onClick={downloadMarkdown}>
-        <span>
-          <StarTwoTone twoToneColor="#eb2f96" style={{ marginRight: "5px" }} />
-          {i18n("downloadMarkdown")}
-        </span>
-        <DownloadOutlined style={{ color: "#52c41a", fontSize: "16px" }} />
-      </div>
-      <div className="item download" onClick={downloadHtml}>
-        <span>
-          <StarTwoTone twoToneColor="#eb2f96" style={{ marginRight: "5px" }} />
-          {i18n("downloadHtml")}
-        </span>
-        <DownloadOutlined style={{ color: "#52c41a", fontSize: "16px" }} />
-      </div>
+      <DownloadMarkdown name="weixin"></DownloadMarkdown>
+      <DownloadHtml name="weixin"></DownloadHtml>
     </fieldset>
   )
 }
