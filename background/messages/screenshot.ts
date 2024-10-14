@@ -9,7 +9,6 @@ const handler: PlasmoMessaging.MessageHandler = async (req, res) => {
       format: "png"
     },
     (dataUrl) => {
-      console.log(dataUrl)
       res.send({
         dataUrl: dataUrl
       })

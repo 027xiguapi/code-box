@@ -7,14 +7,15 @@ import {
 } from "@ant-design/icons"
 import { Button, Flex, message, Modal } from "antd"
 import antdResetCssText from "data-text:antd/dist/reset.css"
+import dayjs from "dayjs"
 import type { PlasmoCSConfig, PlasmoGetShadowHostId } from "plasmo"
 import { useEffect, useRef, useState } from "react"
 
 import { sendToBackground } from "@plasmohq/messaging"
 import { useMessage } from "@plasmohq/messaging/hook"
-import { Storage } from "@plasmohq/storage"
 import { useStorage } from "@plasmohq/storage/hook"
 
+import ValidateContent from "~component/contents/validateContent"
 import { ThemeProvider } from "~theme"
 import { addCss, saveHtml, saveMarkdown, saveTxt, setIcon } from "~tools"
 import DrawImages from "~utils/drawImages"
@@ -49,6 +50,7 @@ export default function CustomOverlay() {
   const [codesDom, setCodesDom] = useState([])
   const [codes, setCodes] = useStorage("app-codes", [])
   const [content, setContent] = useContent()
+  const [validTime, setValidTime] = useStorage("app-validTime", "1730390400")
   const [isCurrentDom, setIsCurrentDom] = useState<boolean>(false)
   const [rect, setRect] = useState<any>(() => {
     return { top: 0, right: 0 }
@@ -247,16 +249,17 @@ export default function CustomOverlay() {
       content: (
         <>
           <div style={{ fontSize: "18px" }}>是否保存？</div>
-          <div style={{ fontSize: "14px", color: "red" }}>
-            此功能限时免费免登录，预计需要注册，后续可能收费...
-          </div>
+          <ValidateContent></ValidateContent>
         </>
       ),
       okText: "确认",
-      cancelText: "取消",
+      okButtonProps: {
+        disabled: Number(validTime) > dayjs().unix()
+      },
       onOk: () => {
         handleOk()
       },
+      cancelText: "取消",
       onCancel: () => {
         handleCancel()
       }
