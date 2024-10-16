@@ -43,29 +43,36 @@ export default function ValidateContent(props) {
 
   return (
     <>
-      <div style={{ fontSize: "14px", color: "red" }}>
-        此功能需要关注公众号【codebox代码助手】获取验证码(
-        <a onClick={help} target="_blank">
-          帮助
-        </a>
-        )
-      </div>
-      <div>
-        <img src={qrcodeUrl} alt="微信公众号" />
-      </div>
       {isValid ? (
-        <p className="valid">已验证</p>
+        <p className="valid" style={{ fontSize: "16px", color: "red" }}>
+          验证成功
+        </p>
       ) : (
-        <Space.Compact style={{ width: "100%" }}>
-          <Input
-            placeholder="输入激活码"
-            ref={inputRef}
-            prefix={<KeyOutlined />}
-          />
-          <Button type="primary" onClick={handleSubmit}>
-            提交
-          </Button>
-        </Space.Compact>
+        <>
+          <div style={{ fontSize: "14px", color: "red" }}>
+            此功能需要关注公众号【codebox代码助手】获取验证码(
+            <a onClick={help} target="_blank">
+              帮助
+            </a>
+            )
+          </div>
+          <div>
+            <img src={qrcodeUrl} alt="微信公众号" />
+          </div>
+          <Space.Compact style={{ width: "100%" }}>
+            <Input
+              placeholder="输入激活码"
+              ref={inputRef}
+              prefix={<KeyOutlined />}
+            />
+            <Button
+              type="primary"
+              className="valid-submit"
+              onClick={handleSubmit}>
+              提交
+            </Button>
+          </Space.Compact>
+        </>
       )}
     </>
   )

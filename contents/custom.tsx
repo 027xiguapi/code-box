@@ -175,7 +175,9 @@ export default function CustomOverlay() {
       const target = event.target as HTMLElement
       const tooltip = target.closest("#codebox-csui")
       const modal = target.closest(".ant-modal")
-      if (isReady && target && !tooltip && !modal) {
+      const submit = target.closest(".valid-submit")
+
+      if (isReady && target && !tooltip && !modal && !submit) {
         isSelect = true
         setIsCurrentDom(true)
         removeCurrentDom()
@@ -249,12 +251,16 @@ export default function CustomOverlay() {
       content: (
         <>
           <div style={{ fontSize: "18px" }}>是否保存？</div>
-          <ValidateContent></ValidateContent>
+          {Number(validTime) > dayjs().unix() ? (
+            <></>
+          ) : (
+            <ValidateContent></ValidateContent>
+          )}
         </>
       ),
       okText: "确认",
       okButtonProps: {
-        disabled: Number(validTime) > dayjs().unix()
+        // disabled: Number(validTime) <= dayjs().unix()
       },
       onOk: () => {
         handleOk()
