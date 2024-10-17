@@ -228,16 +228,21 @@ export default function CustomOverlay() {
 
   function handleOk() {
     const currentDom = document.querySelector(".codebox-current")
-    removeCurrentDom()
+
     if (isDownloadType == "html") {
+      removeCurrentDom()
       downloadHtml(currentDom)
     } else if (isDownloadType == "downloadMarkdown") {
+      removeCurrentDom()
       downloadMarkdown(currentDom)
     } else if (isDownloadType == "editMarkdown") {
       setContent(".codebox-current")
+      removeCurrentDom()
     } else if (isDownloadType == "pdf") {
+      removeCurrentDom()
       downloadPdf(currentDom)
     } else if (isDownloadType == "img") {
+      removeCurrentDom()
       downloadImg(currentDom)
     }
     isReady = false
