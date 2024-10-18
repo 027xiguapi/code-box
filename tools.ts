@@ -3,11 +3,17 @@ import { saveAs } from "file-saver"
 
 import { sendToBackground } from "@plasmohq/messaging"
 
-export function addCss(code) {
+export function addCss(code, id?) {
   const style = document.createElement("style")
   const css = document.createTextNode(code)
+  style.setAttribute("data-id", id || "codebox-css")
   style.appendChild(css)
   document.head.appendChild(style)
+}
+
+export function removeCss(id) {
+  var style = document.querySelector(`[data-id="${id}"]`)
+  style && style.remove()
 }
 
 export function addJs(code) {

@@ -1,5 +1,6 @@
 import { useStorage } from "@plasmohq/storage/hook"
 
+import CssCode from "~component/items/cssCode"
 import DownloadHtml from "~component/items/downloadHtml"
 import DownloadMarkdown from "~component/items/downloadMarkdown"
 import EditMarkdown from "~component/items/editMarkdown"
@@ -46,6 +47,7 @@ export default function Cto51() {
       <EditMarkdown name="51cto"></EditMarkdown>
       <DownloadMarkdown name="51cto"></DownloadMarkdown>
       <DownloadHtml name="51cto"></DownloadHtml>
+      <CssCode name="51cto"></CssCode>
     </fieldset>
   )
 }

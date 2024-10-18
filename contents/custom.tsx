@@ -8,7 +8,11 @@ import {
 import { Button, Flex, message, Modal } from "antd"
 import antdResetCssText from "data-text:antd/dist/reset.css"
 import dayjs from "dayjs"
-import type { PlasmoCSConfig, PlasmoGetShadowHostId } from "plasmo"
+import type {
+  PlasmoCSConfig,
+  PlasmoGetShadowHostId,
+  PlasmoGetStyle
+} from "plasmo"
 import { useEffect, useRef, useState } from "react"
 
 import { sendToBackground } from "@plasmohq/messaging"
@@ -17,7 +21,15 @@ import { useStorage } from "@plasmohq/storage/hook"
 
 import ValidateContent from "~component/contents/validateContent"
 import { ThemeProvider } from "~theme"
-import { addCss, saveHtml, saveMarkdown, saveTxt, setIcon } from "~tools"
+import {
+  addCss,
+  removeCss,
+  saveHtml,
+  saveMarkdown,
+  saveTxt,
+  setIcon
+} from "~tools"
+import useCssCodeHook from "~utils/cssCodeHook"
 import DrawImages from "~utils/drawImages"
 import { useContent } from "~utils/editMarkdownHook"
 import Dom2Pdf from "~utils/html2Pdf"
@@ -33,7 +45,7 @@ const HOST_ID = "codebox-csui"
 
 export const getShadowHostId: PlasmoGetShadowHostId = () => HOST_ID
 
-export const getStyle = () => {
+export const getStyle: PlasmoGetStyle = () => {
   const style = document.createElement("style")
   style.textContent = antdResetCssText
   return style
@@ -44,8 +56,7 @@ let isReady = false
 let isSelect = false
 
 export default function CustomOverlay() {
-  const [runCss] = useStorage<boolean>("custom-runCss")
-  const [cssCode] = useStorage<string>("custom-cssCode")
+  const [cssCode, runCss] = useCssCodeHook("custom")
   const [closeLog] = useStorage("config-closeLog", true)
   const [codesDom, setCodesDom] = useState([])
   const [codes, setCodes] = useStorage("app-codes", [])
@@ -61,10 +72,6 @@ export default function CustomOverlay() {
     getSelection()
     getCodes()
   }, [])
-
-  useEffect(() => {
-    runCss && runCssFunc()
-  }, [runCss])
 
   useMessage(async (req, res) => {
     if (req.name == "custom-isShow") {
@@ -116,12 +123,6 @@ export default function CustomOverlay() {
       captureAndScroll()
     }
   })
-
-  /* 插入自定义css代码 */
-  function runCssFunc() {
-    closeLog || console.log("插入自定义css代码", cssCode)
-    addCss(cssCode)
-  }
 
   function getCodes() {
     let codes = []

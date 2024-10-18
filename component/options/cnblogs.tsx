@@ -1,5 +1,6 @@
 import { useStorage } from "@plasmohq/storage/hook"
 
+import CssCode from "~component/items/cssCode"
 import DownloadHtml from "~component/items/downloadHtml"
 import DownloadMarkdown from "~component/items/downloadMarkdown"
 import EditMarkdown from "~component/items/editMarkdown"
@@ -28,6 +29,7 @@ export default function Cnblogs() {
       <EditMarkdown name="cnblogs"></EditMarkdown>
       <DownloadMarkdown name="cnblogs"></DownloadMarkdown>
       <DownloadHtml name="cnblogs"></DownloadHtml>
+      <CssCode name="cnblogs"></CssCode>
     </fieldset>
   )
 }

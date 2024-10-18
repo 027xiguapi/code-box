@@ -6,6 +6,7 @@ import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import { addCss, saveHtml, saveMarkdown, setIcon } from "~tools"
+import useCssCodeHook from "~utils/cssCodeHook"
 import { useContent } from "~utils/editMarkdownHook"
 import Turndown from "~utils/turndown"
 
@@ -17,6 +18,7 @@ const turndownService = Turndown()
 const articleTitle = document.querySelector<HTMLElement>("head title").innerText
 
 export default function jb51() {
+  const [cssCode, runCss] = useCssCodeHook("jb51")
   const [closeAds] = useStorage<boolean>("jb51-closeAds")
   const [copyCode] = useStorage<boolean>("jb51-copyCode")
   const [history, setHistory] = useStorage<any[]>("codebox-history")

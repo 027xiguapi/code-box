@@ -6,6 +6,7 @@ import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import { saveHtml, saveMarkdown, setIcon } from "~tools"
+import useCssCodeHook from "~utils/cssCodeHook"
 import { useContent } from "~utils/editMarkdownHook"
 import Turndown from "~utils/turndown"
 
@@ -18,6 +19,7 @@ const turndownService = Turndown()
 const articleTitle = document.querySelector<HTMLElement>("head title").innerText
 
 export default function cnblogs() {
+  const [cssCode, runCss] = useCssCodeHook("cnblogs")
   const [copyCode] = useStorage<boolean>("cnblogs-copyCode")
   const [history, setHistory] = useStorage<any[]>("codebox-history")
   const [closeLog] = useStorage("config-closeLog", true)

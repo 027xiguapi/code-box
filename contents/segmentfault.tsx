@@ -4,6 +4,7 @@ import { useEffect } from "react"
 import { useMessage } from "@plasmohq/messaging/hook"
 
 import { saveHtml, saveMarkdown, setIcon } from "~tools"
+import useCssCodeHook from "~utils/cssCodeHook"
 import { useContent } from "~utils/editMarkdownHook"
 import Turndown from "~utils/turndown"
 
@@ -15,6 +16,7 @@ const turndownService = Turndown()
 const articleTitle = document.querySelector<HTMLElement>("head title").innerText
 
 export default function Segmentfault() {
+  const [cssCode, runCss] = useCssCodeHook("segmentfault")
   const [content, setContent] = useContent()
 
   useEffect(() => {

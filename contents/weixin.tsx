@@ -6,6 +6,7 @@ import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/dist/hook"
 
 import { saveHtml, saveMarkdown, setIcon } from "~tools"
+import useCssCodeHook from "~utils/cssCodeHook"
 import { useContent } from "~utils/editMarkdownHook"
 import Turndown from "~utils/turndown"
 
@@ -17,7 +18,8 @@ const turndownService = Turndown()
 const articleTitle = document.querySelector<HTMLElement>("head title").innerText
 
 export default function Weixin() {
-  const [copyCode] = useStorage<boolean>("51cto-copyCode")
+  const [cssCode, runCss] = useCssCodeHook("weixin")
+  const [copyCode] = useStorage<boolean>("weixin-copyCode")
   const [history, setHistory] = useStorage<any[]>("codebox-history")
   const [closeLog] = useStorage("config-closeLog", true)
   const [content, setContent] = useContent()

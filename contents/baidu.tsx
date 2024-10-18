@@ -5,6 +5,7 @@ import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import { addCss, saveHtml, saveMarkdown, setIcon } from "~tools"
+import useCssCodeHook from "~utils/cssCodeHook"
 import { useContent } from "~utils/editMarkdownHook"
 import Turndown from "~utils/turndown"
 
@@ -16,6 +17,7 @@ const turndownService = Turndown()
 const articleTitle = document.querySelector<HTMLElement>("head title").innerText
 
 export default function Custom() {
+  const [cssCode, runCss] = useCssCodeHook("baidu")
   const [closeAIBox] = useStorage<boolean>("baidu-closeAIBox")
   const [closeLog] = useStorage("config-closeLog", true)
   const [content, setContent] = useContent()

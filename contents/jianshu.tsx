@@ -6,6 +6,7 @@ import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import { addCss, saveHtml, saveMarkdown, setIcon } from "~tools"
+import useCssCodeHook from "~utils/cssCodeHook"
 import { useContent } from "~utils/editMarkdownHook"
 import Turndown from "~utils/turndown"
 
@@ -17,6 +18,7 @@ const turndownService = Turndown()
 const articleTitle = document.querySelector<HTMLElement>("head title").innerText
 
 export default function Jianshu() {
+  const [cssCode, runCss] = useCssCodeHook("jianshu")
   const [closeLoginModal] = useStorage<boolean>("jianshu-closeLoginModal")
   const [copyCode] = useStorage<boolean>("jianshu-copyCode")
   const [autoOpenCode] = useStorage<boolean>("jianshu-autoOpenCode")
