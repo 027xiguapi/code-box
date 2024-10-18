@@ -9,9 +9,6 @@ export default function Jb51() {
   const [closeAds, setCloseAds] = useStorage("jb51-closeAds", (v) =>
     v === undefined ? true : v
   )
-  const [copyCode, setCopyCode] = useStorage("jb51-copyCode", (v) =>
-    v === undefined ? true : v
-  )
 
   return (
     <fieldset>
@@ -27,18 +24,6 @@ export default function Jb51() {
           onChange={(e) => setCloseAds(e.target.checked)}
         />
         <label className="codebox-switch" htmlFor="jb51-closeAds"></label>
-      </div>
-      <div className="item">
-        <span>{i18n("jb51CopyCode")}</span>
-        <input
-          type="checkbox"
-          id="jb51-copyCode"
-          name="jb51-copyCode"
-          className="codebox-offscreen"
-          checked={copyCode}
-          onChange={(e) => setCopyCode(e.target.checked)}
-        />
-        <label className="codebox-switch" htmlFor="jb51-copyCode"></label>
       </div>
       <EditMarkdown name="jb51"></EditMarkdown>
       <DownloadMarkdown name="jb51"></DownloadMarkdown>

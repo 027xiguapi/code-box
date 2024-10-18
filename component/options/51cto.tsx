@@ -7,9 +7,6 @@ import EditMarkdown from "~component/items/editMarkdown"
 import { i18n } from "~tools"
 
 export default function Cto51() {
-  const [copyCode, setCopyCode] = useStorage("51cto-copyCode", (v) =>
-    v === undefined ? true : v
-  )
   const [closeLoginModal, setCloseLoginModal] = useStorage(
     "51cto-closeLoginModal",
     (v) => (v === undefined ? true : v)
@@ -18,18 +15,6 @@ export default function Cto51() {
   return (
     <fieldset>
       <legend>{i18n("51ctoConfig")}</legend>
-      <div className="item">
-        <span>{i18n("51ctoCopyCode")}</span>
-        <input
-          type="checkbox"
-          id="51cto-copyCode"
-          name="51cto-copyCode"
-          className="codebox-offscreen"
-          checked={copyCode}
-          onChange={(e) => setCopyCode(e.target.checked)}
-        />
-        <label className="codebox-switch" htmlFor="51cto-copyCode"></label>
-      </div>
       <div className="item">
         <span>{i18n("51ctoCloseLoginModal")}</span>
         <input

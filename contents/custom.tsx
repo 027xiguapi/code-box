@@ -127,15 +127,27 @@ export default function CustomOverlay() {
   function getCodes() {
     let codes = []
     let codesTxt = []
-    const _codes = document.querySelectorAll("pre")
-    _codes.forEach((code) => {
-      let codeTxt = code.innerText
-      if (code.querySelector("code")) {
-        codeTxt = code.querySelector("code").innerText
+    const pres = document.querySelectorAll("pre")
+    pres.forEach((pre) => {
+      const code = pre.querySelector("code")
+      let codeTxt = ""
+
+      if (code) {
+        const className = code.getAttribute("class") || ""
+        const language = (className.match(/lang-(\S+)/) ||
+          className.match(/language-(\S+)/) || [null, ""])[1]
+
+        codeTxt = code.textContent
+      } else {
+        codeTxt = pre.textContent
       }
+
+      // if (code.querySelector("code")) {
+      //   codeTxt = code.querySelector("code").innerText
+      // }
       codeTxt = codeTxt.replace(/\n/g, "")
       if (codeTxt.length > 8) {
-        codes.push(code)
+        codes.push(pre)
         codesTxt.push(codeTxt)
       }
     })

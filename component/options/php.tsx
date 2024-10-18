@@ -6,9 +6,6 @@ import EditMarkdown from "~component/items/editMarkdown"
 import { i18n } from "~tools"
 
 export default function Php() {
-  const [copyCode, setCopyCode] = useStorage("php-copyCode", (v) =>
-    v === undefined ? true : v
-  )
   const [closeLoginModal, setCloseLoginModal] = useStorage(
     "php-closeLoginModal",
     (v) => (v === undefined ? true : v)
@@ -17,18 +14,6 @@ export default function Php() {
   return (
     <fieldset>
       <legend>{i18n("phpConfig")}</legend>
-      <div className="item">
-        <span>{i18n("phpCopyCode")}</span>
-        <input
-          type="checkbox"
-          id="php-copyCode"
-          name="php-copyCode"
-          className="codebox-offscreen"
-          checked={copyCode}
-          onChange={(e) => setCopyCode(e.target.checked)}
-        />
-        <label className="codebox-switch" htmlFor="php-copyCode"></label>
-      </div>
       <div className="item">
         <span>{i18n("phpCloseLoginModal")}</span>
         <input

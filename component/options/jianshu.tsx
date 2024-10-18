@@ -6,9 +6,6 @@ import EditMarkdown from "~component/items/editMarkdown"
 import { i18n } from "~tools"
 
 export default function Jianshu() {
-  const [copyCode, setCopyCode] = useStorage("jianshu-copyCode", (v) =>
-    v === undefined ? true : v
-  )
   const [closeLoginModal, setCloseLoginModal] = useStorage(
     "jianshu-closeLoginModal",
     (v) => (v === undefined ? true : v)
@@ -21,18 +18,6 @@ export default function Jianshu() {
   return (
     <fieldset>
       <legend>{i18n("jianshuConfig")}</legend>
-      <div className="item">
-        <span>{i18n("jianshuCopyCode")}</span>
-        <input
-          type="checkbox"
-          id="jianshu-copyCode"
-          name="jianshu-copyCode"
-          className="codebox-offscreen"
-          checked={copyCode}
-          onChange={(e) => setCopyCode(e.target.checked)}
-        />
-        <label className="codebox-switch" htmlFor="jianshu-copyCode"></label>
-      </div>
       <div className="item">
         <span>{i18n("jianshuCloseLoginModal")}</span>
         <input

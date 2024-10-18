@@ -6,9 +6,8 @@ import { useStorage } from "@plasmohq/storage/hook"
 import { i18n } from "~tools"
 
 export default function Config() {
-  const [closeLog, setCloseLog] = useStorage("config-closeLog", (v) =>
-    v === undefined ? true : v
-  )
+  const [closeLog, setCloseLog] = useStorage("config-closeLog", true)
+  const [copyCode, setCopyCode] = useStorage("config-copyCode", true)
 
   async function downloadImg() {
     sendToContentScript({
@@ -19,6 +18,18 @@ export default function Config() {
   return (
     <fieldset>
       <legend>{i18n("AppConfig")}</legend>
+      <div className="item">
+        <span>{i18n("copyCode")}</span>
+        <input
+          type="checkbox"
+          id="config-copyCode"
+          name="config-copyCode"
+          className="codebox-offscreen"
+          checked={copyCode}
+          onChange={(e) => setCopyCode(e.target.checked)}
+        />
+        <label className="codebox-switch" htmlFor="config-copyCode"></label>
+      </div>
       <div className="item">
         <span>{i18n("configCloseLog")}</span>
         <input
