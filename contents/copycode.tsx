@@ -4,10 +4,13 @@ import type {
   PlasmoGetOverlayAnchorList,
   PlasmoGetStyle
 } from "plasmo"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import type { FC } from "react"
+import { v4 as uuidv4 } from "uuid"
 
 import { useStorage } from "@plasmohq/storage/dist/hook"
+
+import { addCss, removeCss } from "~tools"
 
 export const getStyle: PlasmoGetStyle = () => {
   const style = document.createElement("style")
@@ -35,14 +38,54 @@ export const getOverlayAnchorList: PlasmoGetOverlayAnchorList = async () =>
 
 const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   const [copyCode] = useStorage("config-copyCode", true)
+  const [history, setHistory] = useStorage<any[]>("codebox-history")
   const [isCopy, setIsCopy] = useState(false)
+
+  useEffect(() => {
+    copyCodeCssFunc(copyCode)
+  }, [copyCode])
 
   const onCopy = async () => {
     try {
       const target = anchor.element as HTMLElement
       const preBlock = target.closest("pre")
+      const codeBlock = target.querySelector("code")
+      let textContent = ""
 
-      preBlock && navigator.clipboard.writeText(preBlock.textContent)
+      if (codeBlock) {
+        textContent = codeBlock.textContent
+      } else {
+        textContent = preBlock && preBlock.textContent
+      }
+
+      navigator.clipboard.writeText(textContent)
+
+      setHistory((prevData) =>
+        prevData
+          ? [
+              {
+                id: uuidv4(),
+                value: codeBlock.innerText,
+                createdAt: new Date(),
+                from: "CSDN",
+                link: location.href,
+                tags: [],
+                remark: ""
+              },
+              ...prevData
+            ]
+          : [
+              {
+                id: uuidv4(),
+                value: codeBlock.innerText,
+                createdAt: new Date(),
+                from: "CSDN",
+                link: location.href,
+                tags: [],
+                remark: ""
+              }
+            ]
+      )
 
       setIsCopy(true)
       setTimeout(() => {
@@ -51,6 +94,34 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  function copyCodeCssFunc(copyCode) {
+    copyCode
+      ? addCss(
+          `
+      #article .jb51code,
+      #article .code {
+        -webkit-touch-callout: auto !important;
+        -webkit-user-select: auto !important;
+        -khtml-user-select: auto !important;
+        -moz-user-select: auto !important;
+        -ms-user-select: auto !important;
+        user-select: auto !important;
+      }
+      .php-article .code,
+      .php-article{
+        -webkit-touch-callout: auto !important;
+        -webkit-user-select: auto !important;
+        -khtml-user-select: auto !important;
+        -moz-user-select: auto !important;
+        -ms-user-select: auto !important;
+        user-select: auto !important;
+      }
+      `,
+          "codebox-copyCodeCss"
+        )
+      : removeCss("codebox-copyCodeCss")
   }
 
   return (

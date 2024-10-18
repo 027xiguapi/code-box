@@ -25,7 +25,7 @@ export default function Custom() {
   useEffect(() => {
     closeLog || console.log("baidu", { closeAIBox })
     closeAIBox && closeAIBoxFunc()
-    setIcon(closeAIBox)
+    setIcon(true)
   }, [closeAIBox])
 
   useMessage(async (req, res) => {

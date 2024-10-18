@@ -19,16 +19,12 @@ const articleTitle = document.querySelector<HTMLElement>("head title").innerText
 
 export default function Weixin() {
   const [cssCode, runCss] = useCssCodeHook("weixin")
-  const [copyCode] = useStorage<boolean>("weixin-copyCode")
   const [history, setHistory] = useStorage<any[]>("codebox-history")
-  const [closeLog] = useStorage("config-closeLog", true)
   const [content, setContent] = useContent()
 
   useEffect(() => {
-    closeLog || console.log("weixin status", { copyCode })
-    copyCode && copyCodeFunc()
-    setIcon(copyCode)
-  }, [copyCode])
+    setIcon(true)
+  }, [])
 
   useMessage(async (req, res) => {
     if (req.name == "weixin-isShow") {
@@ -44,73 +40,6 @@ export default function Weixin() {
       downloadHtml()
     }
   })
-
-  function copyCodeFunc() {
-    const content_views = document.querySelector("#js_content")
-
-    // 功能一： 修改复制按钮，支持一键复制
-    const codes = content_views.querySelectorAll<HTMLElement>("code")
-
-    if (codes.length > 0) {
-      codes.forEach((code) => {
-        const pre = code.closest("pre")
-        if (pre) {
-          const button = document.createElement("button")
-          button.innerText = "复制"
-          button.style.position = "absolute"
-          button.style.top = "0"
-          button.style.right = "0"
-          button.title = "一键复制代码"
-          button.classList.add("Button")
-          button.classList.add("VoteButton")
-
-          pre.appendChild(button)
-          pre.style.position = "relative"
-
-          button.addEventListener("click", (e) => {
-            const target = e.target as HTMLElement
-            const parentPreBlock = target.closest("pre")
-            const codeBlock = parentPreBlock.querySelector<HTMLElement>("code")
-
-            navigator.clipboard.writeText(codeBlock.innerText)
-            setHistory((prevData) =>
-              prevData
-                ? [
-                    {
-                      id: uuidv4(),
-                      value: codeBlock.innerText,
-                      createdAt: new Date(),
-                      from: "微信",
-                      link: location.href,
-                      tags: [],
-                      remark: ""
-                    },
-                    ...prevData
-                  ]
-                : [
-                    {
-                      id: uuidv4(),
-                      value: codeBlock.innerText,
-                      createdAt: new Date(),
-                      from: "微信",
-                      link: location.href,
-                      tags: [],
-                      remark: ""
-                    }
-                  ]
-            )
-
-            target.innerText = "复制成功"
-            setTimeout(() => {
-              target.innerText = "复制"
-            }, 1000)
-            e.stopPropagation()
-            e.preventDefault()
-          })
-        }
-      })
-    }
-  }
 
   function downloadMarkdown() {
     const html = document.querySelector("#img-content")
