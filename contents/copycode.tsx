@@ -1,49 +1,58 @@
-import { CheckOutlined, CopyOutlined } from "@ant-design/icons"
+import { Button } from "antd"
 import type {
   PlasmoCSUIProps,
+  PlasmoGetInlineAnchor,
+  PlasmoGetInlineAnchorList,
   PlasmoGetOverlayAnchorList,
+  PlasmoGetShadowHostId,
   PlasmoGetStyle
 } from "plasmo"
 import { useEffect, useState } from "react"
 import type { FC } from "react"
-import { v4 as uuidv4 } from "uuid"
 
 import { useStorage } from "@plasmohq/storage/dist/hook"
-
-import { addCss, removeCss } from "~tools"
 
 export const getStyle: PlasmoGetStyle = () => {
   const style = document.createElement("style")
   style.textContent = `
+  .codebox-copyCodeHeader {
+    height: 28px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    background: #ebf5fd;
+  }
   .codebox-copyCodeBtn {
-    display: inline-block;
-    border-radius: 4;
-    background-color: rgba(242, 247, 252, .5);
-    padding: 4;
+    margin-right: 3px;
     border: 0;
-    position: relative;
-    top: 1px;
-    left: 1px;
-  }
-  .codebox-copyCodeBtn:hover {
-    background-color: rgba(242, 247, 252, 1);
     cursor: pointer;
-  }
-  `
+  }`
   return style
 }
 
-export const getOverlayAnchorList: PlasmoGetOverlayAnchorList = async () =>
-  document.querySelectorAll("pre")
+const HOST_ID = "codebox-copycode"
+export const getShadowHostId: PlasmoGetShadowHostId = () => HOST_ID
+
+// export const getOverlayAnchorList: PlasmoGetOverlayAnchorList = async () =>
+//   document.querySelectorAll("pre")
+
+export const getInlineAnchorList: PlasmoGetInlineAnchorList = async () => {
+  const isShow = !location.host.includes("baidu.com")
+  const anchors = isShow ? document.querySelectorAll("pre") : null
+  return Array.from(anchors).map((element) => ({
+    element,
+    // insertPosition: "afterbegin"
+    insertPosition: "beforebegin"
+  }))
+}
 
 const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   const [copyCode] = useStorage("config-copyCode", true)
-  const [history, setHistory] = useStorage<any[]>("codebox-history")
   const [isCopy, setIsCopy] = useState(false)
 
-  useEffect(() => {
-    copyCodeCssFunc(copyCode)
-  }, [copyCode])
+  const element = anchor.element
+  const style = window.getComputedStyle(element)
+  const marginTop = style.getPropertyValue("margin-top")
 
   const onCopy = async () => {
     try {
@@ -60,33 +69,6 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
 
       navigator.clipboard.writeText(textContent)
 
-      setHistory((prevData) =>
-        prevData
-          ? [
-              {
-                id: uuidv4(),
-                value: codeBlock.innerText,
-                createdAt: new Date(),
-                from: "CSDN",
-                link: location.href,
-                tags: [],
-                remark: ""
-              },
-              ...prevData
-            ]
-          : [
-              {
-                id: uuidv4(),
-                value: codeBlock.innerText,
-                createdAt: new Date(),
-                from: "CSDN",
-                link: location.href,
-                tags: [],
-                remark: ""
-              }
-            ]
-      )
-
       setIsCopy(true)
       setTimeout(() => {
         setIsCopy(false)
@@ -96,52 +78,21 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     }
   }
 
-  function copyCodeCssFunc(copyCode) {
-    copyCode
-      ? addCss(
-          `
-      #article .jb51code,
-      #article .code {
-        -webkit-touch-callout: auto !important;
-        -webkit-user-select: auto !important;
-        -khtml-user-select: auto !important;
-        -moz-user-select: auto !important;
-        -ms-user-select: auto !important;
-        user-select: auto !important;
-      }
-      .php-article .code,
-      .php-article{
-        -webkit-touch-callout: auto !important;
-        -webkit-user-select: auto !important;
-        -khtml-user-select: auto !important;
-        -moz-user-select: auto !important;
-        -ms-user-select: auto !important;
-        user-select: auto !important;
-      }
-      `,
-          "codebox-copyCodeCss"
-        )
-      : removeCss("codebox-copyCodeCss")
-  }
-
   return (
     <>
       {copyCode ? (
-        <button onClick={onCopy} className="codebox-copyCodeBtn" style={{}}>
-          {isCopy ? (
-            <CheckOutlined
-              style={{
-                fontSize: 16
-              }}
-            />
-          ) : (
-            <CopyOutlined
-              style={{
-                fontSize: 16
-              }}
-            />
-          )}
-        </button>
+        <div
+          className="codebox-copyCodeHeader"
+          style={{ marginBottom: "-" + marginTop }}>
+          <span className="codebox-copyCodeLogo"></span>
+          <Button
+            color="primary"
+            variant="filled"
+            onClick={onCopy}
+            className="codebox-copyCodeBtn">
+            {isCopy ? "复制成功" : "复制"}
+          </Button>
+        </div>
       ) : (
         <></>
       )}

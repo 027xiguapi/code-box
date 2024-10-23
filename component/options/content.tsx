@@ -32,7 +32,6 @@ export default function Content() {
   const [oschinaIsShow, setOschinaIsShow] = useState<boolean>(false)
   const [segmentfaultIsShow, setSegmentfaultIsShow] = useState<boolean>(false)
   const [weixinIsShow, setWeixinIsShow] = useState<boolean>(false)
-  const [customIsShow, setCustomIsShow] = useState<boolean>(false)
 
   useEffect(() => {
     getIsShow("csdn")
@@ -47,7 +46,6 @@ export default function Content() {
     getIsShow("oschina")
     getIsShow("segmentfault")
     getIsShow("weixin")
-    getIsShow("custom")
   }, [])
 
   const setIsShowMap = {
@@ -62,8 +60,7 @@ export default function Content() {
     juejin: setJuejinIsShow,
     oschina: setOschinaIsShow,
     segmentfault: setSegmentfaultIsShow,
-    weixin: setWeixinIsShow,
-    custom: setCustomIsShow
+    weixin: setWeixinIsShow
   }
 
   function getIsShow(type) {
@@ -90,7 +87,7 @@ export default function Content() {
       {oschinaIsShow ? <Oschina /> : <></>}
       {segmentfaultIsShow ? <Segmentfault /> : <></>}
       {weixinIsShow ? <Weixin /> : <></>}
-      {customIsShow ? <Custom /> : <></>}
+      <Custom />
       <Config />
     </div>
   )
