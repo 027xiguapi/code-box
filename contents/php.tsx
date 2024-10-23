@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid"
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
-import { addCss, saveHtml, saveMarkdown, setIcon } from "~tools"
+import { addCss, removeCss, saveHtml, saveMarkdown, setIcon } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
 import { useContent } from "~utils/editMarkdownHook"
 import Turndown from "~utils/turndown"
@@ -26,13 +26,11 @@ export default function Php() {
   const [content, setContent] = useContent()
 
   useEffect(() => {
-    closeLog || console.log("PHP status", { closeLoginModal, copyCode })
-    setTimeout(() => {
-      copyCode && copyCodeFunc()
-    }, 500)
+    closeLog || console.log("PHP status", { closeLoginModal })
+    copyCodeFunc(copyCode)
     closeLoginModal && closeLoginModalFunc()
     setIcon(true)
-  }, [copyCode, closeLoginModal])
+  }, [closeLoginModal])
 
   useMessage(async (req, res) => {
     if (req.name == "php-isShow") {
@@ -50,8 +48,10 @@ export default function Php() {
   })
 
   /* 未登录复制代码 */
-  function copyCodeCssFunc() {
-    addCss(`
+  function copyCodeCssFunc(copyCode) {
+    copyCode
+      ? addCss(
+          `
     .php-article .code,
     .php-article{
       -webkit-touch-callout: auto !important;
@@ -60,124 +60,20 @@ export default function Php() {
       -moz-user-select: auto !important;
       -ms-user-select: auto !important;
       user-select: auto !important;
-    }`)
+    }`,
+          `php-copyCode-css`
+        )
+      : removeCss(`php-copyCode-css`)
   }
 
-  function copyCodeFunc() {
-    copyCodeCssFunc()
-    // 内容区开启复制
-    var content_views = document.querySelector(".php-article")
-    content_views && content_views.replaceWith(content_views.cloneNode(true))
-
-    // 功能一： 修改复制按钮，支持一键复制
-    const buttons = document.querySelectorAll<HTMLElement>(
-      ".php-article .code .contentsignin"
-    )
-
-    if (buttons.length > 0) {
-      buttons.forEach((btn) => {
-        btn.innerText = "复制"
-        btn.setAttribute("onclick", "")
-        const elClone = btn.cloneNode(true)
-
-        btn.parentNode.replaceChild(elClone, btn)
-        elClone.addEventListener("click", (e) => {
-          const target = e.target as HTMLElement
-          const parentPreBlock = target.closest(".code")
-          const codeBlock = parentPreBlock.querySelector<HTMLElement>(".code")
-
-          navigator.clipboard.writeText(codeBlock.innerText)
-          setHistory((prevData) =>
-            prevData
-              ? [
-                  {
-                    id: uuidv4(),
-                    value: codeBlock.innerText,
-                    createdAt: new Date(),
-                    from: "PHP中文网",
-                    link: location.href,
-                    tags: [],
-                    remark: ""
-                  },
-                  ...prevData
-                ]
-              : [
-                  {
-                    id: uuidv4(),
-                    value: codeBlock.innerText,
-                    createdAt: new Date(),
-                    from: "PHP中文网",
-                    link: location.href,
-                    tags: [],
-                    remark: ""
-                  }
-                ]
-          )
-          target.innerText = "复制成功"
-          setTimeout(() => {
-            target.innerText = "复制"
-          }, 1000)
-          e.stopPropagation()
-          e.preventDefault()
-        })
+  function copyCodeFunc(copyCode) {
+    copyCode &&
+      document.addEventListener("copy", function (event) {
+        const selectedText = window.getSelection().toString()
+        event.clipboardData.setData("text/plain", selectedText)
+        event.preventDefault()
       })
-    } else {
-      const codes = document.querySelectorAll<HTMLElement>(".nphpQianBox .code")
-
-      codes.forEach((code) => {
-        const button = document.createElement("button")
-
-        button.innerText = "复制"
-        button.style.position = "absolute"
-        button.style.top = "0"
-        button.style.right = "0"
-        button.title = "一键复制代码"
-        button.classList.add("Button")
-        button.classList.add("VoteButton")
-
-        code.appendChild(button)
-        code.style.position = "relative"
-
-        button.addEventListener("click", (e) => {
-          const target = e.target as HTMLElement
-          const codeBlock = code.querySelector<HTMLElement>(".container")
-
-          navigator.clipboard.writeText(codeBlock.innerText)
-          setHistory((prevData) =>
-            prevData
-              ? [
-                  {
-                    id: uuidv4(),
-                    value: codeBlock.innerText,
-                    createdAt: new Date(),
-                    from: "PHP中文网",
-                    link: location.href,
-                    tags: [],
-                    remark: ""
-                  },
-                  ...prevData
-                ]
-              : [
-                  {
-                    id: uuidv4(),
-                    value: codeBlock.innerText,
-                    createdAt: new Date(),
-                    from: "PHP中文网",
-                    link: location.href,
-                    tags: [],
-                    remark: ""
-                  }
-                ]
-          )
-          target.innerText = "复制成功"
-          setTimeout(() => {
-            target.innerText = "复制"
-          }, 1000)
-          e.stopPropagation()
-          e.preventDefault()
-        })
-      })
-    }
+    copyCodeCssFunc(copyCode)
   }
 
   // 关闭登录弹框
