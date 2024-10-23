@@ -20,17 +20,20 @@ const articleTitle = document.querySelector<HTMLElement>("head title").innerText
 export default function zhihu() {
   const [cssCode, runCss] = useCssCodeHook("zhihu")
   const [closeLoginModal] = useStorage<boolean>("zhihu-closeLoginModal")
+  const [copyCode] = useStorage<boolean>("zhihu-copyCode")
   const [autoOpenCode] = useStorage<boolean>("zhihu-autoOpenCode")
   const [history, setHistory] = useStorage<any[]>("codebox-history")
   const [closeLog] = useStorage("config-closeLog", true)
   const [content, setContent] = useContent()
 
   useEffect(() => {
-    closeLog || console.log("zhihu status", { closeLoginModal, autoOpenCode })
+    closeLog ||
+      console.log("zhihu status", { copyCode, closeLoginModal, autoOpenCode })
+    copyCode && copyCodeFunc()
     closeLoginModal && closeLoginModalFunc()
     autoOpenCode && autoOpenCodeFunc()
     setIcon(true)
-  }, [closeLoginModal, autoOpenCode])
+  }, [copyCode, closeLoginModal, autoOpenCode])
 
   useMessage(async (req, res) => {
     if (req.name == "zhihu-isShow") {
@@ -46,6 +49,69 @@ export default function zhihu() {
       downloadHtml()
     }
   })
+
+  // 功能一： 修改复制按钮，支持一键复制
+  function copyCodeFunc() {
+    const codes = document.querySelectorAll<HTMLElement>(
+      ".RichContent .highlight"
+    )
+
+    codes.forEach((code) => {
+      const button = document.createElement("button")
+      button.innerText = "复制"
+      button.style.position = "absolute"
+      button.style.top = "0"
+      button.style.right = "0"
+      button.title = "一键复制代码"
+      button.classList.add("Button")
+      button.classList.add("VoteButton")
+
+      code.appendChild(button)
+      code.style.position = "relative"
+
+      button.addEventListener("click", (e) => {
+        // 实现复制
+        const target = e.target as HTMLElement
+        const parentPreBlock = target.closest(".highlight")
+        const codeBlock = parentPreBlock.querySelector<HTMLElement>("pre")
+
+        navigator.clipboard.writeText(codeBlock.innerText)
+        setHistory((prevData) =>
+          prevData
+            ? [
+                {
+                  id: uuidv4(),
+                  value: codeBlock.innerText,
+                  createdAt: new Date(),
+                  from: "知乎",
+                  link: location.href,
+                  tags: [],
+                  remark: ""
+                },
+                ...prevData
+              ]
+            : [
+                {
+                  id: uuidv4(),
+                  value: codeBlock.innerText,
+                  createdAt: new Date(),
+                  from: "知乎",
+                  link: location.href,
+                  tags: [],
+                  remark: ""
+                }
+              ]
+        )
+
+        target.innerText = "复制成功"
+        setTimeout(() => {
+          target.innerText = "复制"
+        }, 1000)
+        e.stopPropagation()
+        e.preventDefault()
+      })
+    })
+  }
 
   // 隐藏登录弹窗
   function closeLoginModalFunc() {

@@ -58,8 +58,6 @@ let isSelect = false
 export default function CustomOverlay() {
   const [cssCode, runCss] = useCssCodeHook("custom")
   const [closeLog] = useStorage("config-closeLog", true)
-  const [codesDom, setCodesDom] = useState([])
-  const [codes, setCodes] = useStorage("app-codes", [])
   const [content, setContent] = useContent()
   const [validTime, setValidTime] = useStorage("app-validTime", "1730390400")
   const [isCurrentDom, setIsCurrentDom] = useState<boolean>(false)
@@ -70,18 +68,11 @@ export default function CustomOverlay() {
 
   useEffect(() => {
     getSelection()
-    getCodes()
   }, [])
 
   useMessage(async (req, res) => {
     if (req.name == "custom-isShow") {
       res.send({ isShow: true })
-    }
-    if (req.name == "custom-scrollIntoViewCode") {
-      scrollIntoViewCode(req.body)
-    }
-    if (req.name == "custom-downloadCode") {
-      downloadCode(req.body)
     }
     if (req.name == "custom-downloadHtml") {
       setCustom("html")
@@ -123,50 +114,6 @@ export default function CustomOverlay() {
       captureAndScroll()
     }
   })
-
-  function getCodes() {
-    let codes = []
-    let codesTxt = []
-    const pres = document.querySelectorAll("pre")
-    pres.forEach((pre) => {
-      const code = pre.querySelector("code")
-      let codeTxt = ""
-
-      if (code) {
-        const className = code.getAttribute("class") || ""
-        const language = (className.match(/lang-(\S+)/) ||
-          className.match(/language-(\S+)/) || [null, ""])[1]
-
-        codeTxt = code.textContent
-      } else {
-        codeTxt = pre.textContent
-      }
-
-      // if (code.querySelector("code")) {
-      //   codeTxt = code.querySelector("code").innerText
-      // }
-      codeTxt = codeTxt.replace(/\n/g, "")
-      if (codeTxt.length > 8) {
-        codes.push(pre)
-        codesTxt.push(codeTxt)
-      }
-    })
-    setCodesDom(codes)
-    setCodes(codesTxt)
-  }
-
-  function scrollIntoViewCode(data) {
-    const code = codesDom[data.index]
-    code && code.scrollIntoView()
-  }
-
-  function downloadCode(data) {
-    let code = codesDom[data.index]
-    if (code && code.querySelector("code")) {
-      code = code.querySelector("code")
-    }
-    code && saveTxt(code.innerText, articleTitle)
-  }
 
   function setCustom(type) {
     isReady = true

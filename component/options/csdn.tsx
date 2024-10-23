@@ -9,6 +9,9 @@ export default function Csdn() {
   const [closeAds, setCloseAds] = useStorage("csdn-closeAds", (v) =>
     v === undefined ? true : v
   )
+  const [copyCode, setCopyCode] = useStorage("csdn-copyCode", (v) =>
+    v === undefined ? true : v
+  )
   const [closeFollow, setCloseFollow] = useStorage("csdn-closeFollow", (v) =>
     v === undefined ? true : v
   )
@@ -43,6 +46,18 @@ export default function Csdn() {
           onChange={(e) => setCloseAds(e.target.checked)}
         />
         <label htmlFor="csdn-closeAds" className="codebox-switch"></label>
+      </div>
+      <div className="item">
+        <span>{i18n("csdnCopyCode")}</span>
+        <input
+          type="checkbox"
+          id="csdn-copyCode"
+          name="csdn-copyCode"
+          className="codebox-offscreen"
+          checked={copyCode}
+          onChange={(e) => setCopyCode(e.target.checked)}
+        />
+        <label htmlFor="csdn-copyCode" className="codebox-switch"></label>
       </div>
       <div className="item">
         <span>{i18n("csdnCloseFollow")}</span>
