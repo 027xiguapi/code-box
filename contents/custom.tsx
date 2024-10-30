@@ -26,7 +26,7 @@ import {
   removeCss,
   saveHtml,
   saveMarkdown,
-  saveTxt,
+  scrollToTop,
   setIcon
 } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
@@ -47,6 +47,7 @@ export const getShadowHostId: PlasmoGetShadowHostId = () => HOST_ID
 
 export const getStyle: PlasmoGetStyle = () => {
   const style = document.createElement("style")
+
   style.textContent = antdResetCssText
   return style
 }
@@ -158,6 +159,7 @@ export default function CustomOverlay() {
     const left = distanceLeft + 10
 
     setRect({ top, left })
+    scrollToTop(currentDom)
   }
 
   function removeCurrentDom() {

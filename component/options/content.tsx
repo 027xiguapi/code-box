@@ -19,7 +19,6 @@ import Weixin from "~component/options/weixin"
 import Zhihu from "~component/options/zhihu"
 
 export default function Content() {
-  const [closeLog] = useStorage("config-closeLog", true)
   const [csdnIsShow, setCsdnIsShow] = useState<boolean>(false)
   const [zhihuIsShow, setZhihuIsShow] = useState<boolean>(false)
   const [baiduIsShow, setBaiduIsShow] = useState<boolean>(false)
@@ -34,44 +33,27 @@ export default function Content() {
   const [weixinIsShow, setWeixinIsShow] = useState<boolean>(false)
 
   useEffect(() => {
-    getIsShow("csdn")
-    getIsShow("zhihu")
-    getIsShow("baidu")
-    getIsShow("jianshu")
-    getIsShow("jb51")
-    getIsShow("cnblogs")
-    getIsShow("51cto")
-    getIsShow("juejin")
-    getIsShow("php")
-    getIsShow("oschina")
-    getIsShow("segmentfault")
-    getIsShow("weixin")
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      const currentTab = tabs[0]
+      if (currentTab) {
+        const url = new URL(currentTab.url)
+        const hostname = url.hostname
+
+        hostname.includes("csdn") && setCsdnIsShow(true)
+        hostname.includes("zhihu") && setZhihuIsShow(true)
+        hostname.includes("baidu") && setBaiduIsShow(true)
+        hostname.includes("jianshu") && setJianshuIsShow(true)
+        hostname.includes("jb51") && setJb51IsShow(true)
+        hostname.includes("cnblogs") && setCnblogsShow(true)
+        hostname.includes("51cto") && set51ctoIsShow(true)
+        hostname.includes("juejin") && setJuejinIsShow(true)
+        hostname.includes("php") && setPhpIsShow(true)
+        hostname.includes("oschina") && setOschinaIsShow(true)
+        hostname.includes("segmentfault") && setSegmentfaultIsShow(true)
+        hostname.includes("weixin") && setWeixinIsShow(true)
+      }
+    })
   }, [])
-
-  const setIsShowMap = {
-    csdn: setCsdnIsShow,
-    zhihu: setZhihuIsShow,
-    baidu: setBaiduIsShow,
-    jianshu: setJianshuIsShow,
-    jb51: setJb51IsShow,
-    cnblogs: setCnblogsShow,
-    "51cto": set51ctoIsShow,
-    php: setPhpIsShow,
-    juejin: setJuejinIsShow,
-    oschina: setOschinaIsShow,
-    segmentfault: setSegmentfaultIsShow,
-    weixin: setWeixinIsShow
-  }
-
-  function getIsShow(type) {
-    sendToContentScript({ name: `${type}-isShow` })
-      .then((res) => {
-        res?.isShow && setIsShowMap[type] && setIsShowMap[type](res.isShow)
-      })
-      .catch((err) => {
-        closeLog || console.log("getIsShow", err)
-      })
-  }
 
   return (
     <div className="content">

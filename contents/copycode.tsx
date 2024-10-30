@@ -37,12 +37,22 @@ export const getShadowHostId: PlasmoGetShadowHostId = () => HOST_ID
 //   document.querySelectorAll("pre")
 
 export const getInlineAnchorList: PlasmoGetInlineAnchorList = async () => {
-  const isShow = !location.host.includes("baidu.com")
-  const anchors = isShow ? document.querySelectorAll("pre") : null
-  return Array.from(anchors).map((element) => ({
+  const isShow = !(
+    location.host.includes("baidu.com") || location.host.includes("juejin.cn")
+  )
+  const preList = isShow ? document.querySelectorAll("pre") : []
+
+  const anchors = []
+  Array.from(preList).map((pre) => {
+    const classList = pre.classList
+    if (pre.textContent && !classList.contains("CodeMirror-line"))
+      anchors.push(pre)
+  })
+
+  return anchors.map((element) => ({
     element,
-    // insertPosition: "afterbegin"
-    insertPosition: "beforebegin"
+    insertPosition: "afterbegin"
+    // insertPosition: "beforebegin"
   }))
 }
 

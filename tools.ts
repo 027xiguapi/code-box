@@ -3,6 +3,13 @@ import { saveAs } from "file-saver"
 
 import { sendToBackground } from "@plasmohq/messaging"
 
+export function scrollToTop(element) {
+  window.scrollTo({
+    top: element.offsetTop,
+    behavior: "smooth" // 可选，平滑滚动
+  })
+}
+
 export function addCss(code, id?) {
   const style = document.createElement("style")
   const css = document.createTextNode(code)
