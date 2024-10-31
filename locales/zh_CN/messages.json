@@ -146,6 +146,9 @@
   "copyCode": {
     "message": "一键复制代码"
   },
+  "showTag": {
+    "message": "显示标签"
+  },
   "code": {
     "message": "代码"
   },

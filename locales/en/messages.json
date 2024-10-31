@@ -146,6 +146,9 @@
   "copyCode": {
     "message": "Copy Code"
   },
+  "showTag": {
+    "message": "Show Tag"
+  },
   "code": {
     "message": "Code"
   },

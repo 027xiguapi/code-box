@@ -1,5 +1,10 @@
-import type { PlasmoCSConfig } from "plasmo"
-import { useEffect } from "react"
+import { Button } from "antd"
+import type {
+  PlasmoCSConfig,
+  PlasmoCSUIProps,
+  PlasmoGetInlineAnchorList
+} from "plasmo"
+import { useEffect, useState, type FC } from "react"
 import { v4 as uuidv4 } from "uuid"
 
 import { useMessage } from "@plasmohq/messaging/hook"
@@ -17,13 +22,59 @@ export const config: PlasmoCSConfig = {
 const turndownService = Turndown()
 const articleTitle = document.querySelector<HTMLElement>("head title").innerText
 
-export default function Php() {
+export const getInlineAnchorList: PlasmoGetInlineAnchorList = async () => {
+  const preList = document.querySelectorAll("pre")
+
+  const anchors = []
+  Array.from(preList).map((pre) => {
+    const classList = pre.classList
+    if (pre.textContent && !classList.contains("CodeMirror-line"))
+      anchors.push(pre)
+  })
+
+  return anchors.map((element) => ({
+    element,
+    insertPosition: "afterbegin"
+    // insertPosition: "beforebegin"
+  }))
+}
+
+const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   const [cssCode, runCss] = useCssCodeHook("php")
-  const [copyCode] = useStorage<boolean>("php-copyCode")
+  const [copyCode] = useStorage("config-copyCode", true)
   const [closeLoginModal] = useStorage<boolean>("php-closeLoginModal")
   const [history, setHistory] = useStorage<any[]>("codebox-history")
   const [closeLog] = useStorage("config-closeLog", true)
   const [content, setContent] = useContent()
+  const [isCopy, setIsCopy] = useState(false)
+
+  const element = anchor.element
+  const style = window.getComputedStyle(element)
+  const marginTop = style.getPropertyValue("margin-top")
+
+  const onCopy = async () => {
+    try {
+      const target = anchor.element as HTMLElement
+      const preBlock = target.closest("pre")
+      const codeBlock = target.querySelector("code")
+      let textContent = ""
+
+      if (codeBlock) {
+        textContent = codeBlock.textContent
+      } else {
+        textContent = preBlock && preBlock.textContent
+      }
+
+      navigator.clipboard.writeText(textContent)
+
+      setIsCopy(true)
+      setTimeout(() => {
+        setIsCopy(false)
+      }, 1000)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   useEffect(() => {
     closeLog || console.log("PHP status", { closeLoginModal })
@@ -97,5 +148,26 @@ export default function Php() {
     saveHtml(dom, articleTitle)
   }
 
-  return <div style={{ display: "none" }}></div>
+  return (
+    <>
+      {copyCode ? (
+        <div
+          className="codebox-copyCodeHeader"
+          style={{ marginBottom: "-" + marginTop }}>
+          <span className="codebox-copyCodeLogo"></span>
+          <Button
+            color="primary"
+            variant="filled"
+            onClick={onCopy}
+            className="codebox-copyCodeBtn">
+            {isCopy ? "复制成功" : "复制"}
+          </Button>
+        </div>
+      ) : (
+        <></>
+      )}
+    </>
+  )
 }
+
+export default PlasmoOverlay

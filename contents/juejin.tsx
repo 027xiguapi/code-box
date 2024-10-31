@@ -1,7 +1,15 @@
-import type { PlasmoCSConfig } from "plasmo"
+import type {
+  PlasmoCSConfig,
+  PlasmoCSUIProps,
+  PlasmoGetOverlayAnchor,
+  PlasmoGetShadowHostId,
+  PlasmoGetStyle
+} from "plasmo"
 import { useEffect, useState } from "react"
+import type { FC } from "react"
 
 import { useMessage } from "@plasmohq/messaging/hook"
+import { useStorage } from "@plasmohq/storage/dist/hook"
 
 import { saveHtml, saveMarkdown, setIcon } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
@@ -15,7 +23,34 @@ export const config: PlasmoCSConfig = {
 const turndownService = Turndown()
 const articleTitle = document.querySelector<HTMLElement>("head title").innerText
 
-export default function Juejin() {
+const HOST_ID = "codebox-juejin"
+export const getShadowHostId: PlasmoGetShadowHostId = () => HOST_ID
+
+export const getOverlayAnchor: PlasmoGetOverlayAnchor = async () =>
+  document.querySelector("article.article .article-title")
+
+export const getStyle: PlasmoGetStyle = () => {
+  const style = document.createElement("style")
+  style.textContent = `
+  .codebox-tagBtn {
+    height: 28px;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    color: #1e80ff;
+    width: 60px;
+    background: #fff;
+    border-radius: 5px;
+    justify-content: space-between;
+    padding: 0 8px;
+    margin-top: -30px;
+  }
+  `
+  return style
+}
+
+const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
+  const [showTag, setShowTag] = useStorage<boolean>("juejin-showTag")
   const [cssCode, runCss] = useCssCodeHook("juejin")
   const [content, setContent] = useContent()
 
@@ -49,5 +84,27 @@ export default function Juejin() {
     saveHtml(dom, articleTitle)
   }
 
-  return <div style={{ display: "none" }}></div>
+  function handleEdit() {
+    setContent("article.article")
+  }
+
+  function handleDownload() {
+    const dom = document.querySelector("article.article")
+    saveHtml(dom, articleTitle)
+  }
+
+  function closeTag() {
+    setShowTag(false)
+  }
+
+  return showTag ? (
+    <div className="codebox-tagBtn">
+      <div onClick={handleEdit}>编辑</div>
+      <div onClick={handleDownload}>下载</div>
+    </div>
+  ) : (
+    <></>
+  )
 }
+
+export default PlasmoOverlay
