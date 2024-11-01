@@ -146,6 +146,12 @@
   "copyCode": {
     "message": "一键复制代码"
   },
+  "copy": {
+    "message": "复制"
+  },
+  "copied": {
+    "message": "复制成功"
+  },
   "showTag": {
     "message": "显示标签"
   },

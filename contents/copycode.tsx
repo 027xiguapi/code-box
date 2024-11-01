@@ -13,11 +13,15 @@ import type { FC } from "react"
 
 import { useStorage } from "@plasmohq/storage/dist/hook"
 
+import { i18n } from "~tools"
+
 export const config: PlasmoCSConfig = {
   matches: [
     "https://*.npmjs.com/*",
     "https://*.medium.com/*",
-    "https://mp.weixin.qq.com/*"
+    "https://mp.weixin.qq.com/*",
+    "https://day.js.org/*",
+    "https://stackoverflow.com/*"
   ]
 }
 
@@ -101,7 +105,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
             variant="filled"
             onClick={onCopy}
             className="codebox-copyCodeBtn">
-            {isCopy ? "复制成功" : "复制"}
+            {isCopy ? i18n("copied") : i18n("copy")}
           </Button>
         </div>
       ) : (

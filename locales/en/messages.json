@@ -146,6 +146,12 @@
   "copyCode": {
     "message": "Copy Code"
   },
+  "copy": {
+    "message": "copy"
+  },
+  "copied": {
+    "message": "copied"
+  },
   "showTag": {
     "message": "Show Tag"
   },
