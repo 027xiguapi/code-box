@@ -44,6 +44,7 @@ export const getStyle: PlasmoGetStyle = () => {
     justify-content: space-between;
     padding: 0 8px;
     margin-top: -30px;
+    font-size: 14px;
   }
   `
   return style

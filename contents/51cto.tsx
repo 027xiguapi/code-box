@@ -1,5 +1,11 @@
-import type { PlasmoCSConfig } from "plasmo"
-import { useEffect } from "react"
+import type {
+  PlasmoCSConfig,
+  PlasmoCSUIProps,
+  PlasmoGetOverlayAnchor,
+  PlasmoGetShadowHostId,
+  PlasmoGetStyle
+} from "plasmo"
+import { useEffect, type FC } from "react"
 import { v4 as uuidv4 } from "uuid"
 
 import { useMessage } from "@plasmohq/messaging/hook"
@@ -17,7 +23,35 @@ export const config: PlasmoCSConfig = {
 const turndownService = Turndown()
 const articleTitle = document.querySelector<HTMLElement>("head title").innerText
 
-export default function Cto51() {
+const HOST_ID = "codebox-juejin"
+export const getShadowHostId: PlasmoGetShadowHostId = () => HOST_ID
+
+export const getOverlayAnchor: PlasmoGetOverlayAnchor = async () =>
+  document.querySelector("article .title")
+
+export const getStyle: PlasmoGetStyle = () => {
+  const style = document.createElement("style")
+  style.textContent = `
+  .codebox-tagBtn {
+    height: 28px;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    color: #1e80ff;
+    width: 60px;
+    background: #fff;
+    border-radius: 5px;
+    justify-content: space-between;
+    padding: 0 8px;
+    margin-top: -20px;
+    font-size: 14px;
+  }
+  `
+  return style
+}
+
+const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
+  const [showTag, setShowTag] = useStorage<boolean>("51cto-showTag")
   const [cssCode, runCss] = useCssCodeHook("51cto")
   const [copyCode] = useStorage<boolean>("51cto-copyCode")
   const [closeLoginModal] = useStorage<boolean>("51cto-closeLoginModal")
@@ -207,5 +241,27 @@ export default function Cto51() {
     saveHtml(dom, articleTitle)
   }
 
-  return <div style={{ display: "none" }}></div>
+  function handleEdit() {
+    setContent("article")
+  }
+
+  function handleDownload() {
+    const dom = document.querySelector("article")
+    saveHtml(dom, articleTitle)
+  }
+
+  function closeTag() {
+    setShowTag(false)
+  }
+
+  return showTag ? (
+    <div className="codebox-tagBtn">
+      <div onClick={handleEdit}>编辑</div>
+      <div onClick={handleDownload}>下载</div>
+    </div>
+  ) : (
+    <></>
+  )
 }
+
+export default PlasmoOverlay

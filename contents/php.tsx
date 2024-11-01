@@ -41,7 +41,7 @@ export const getInlineAnchorList: PlasmoGetInlineAnchorList = async () => {
 
 const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   const [cssCode, runCss] = useCssCodeHook("php")
-  const [copyCode] = useStorage("config-copyCode", true)
+  const [copyCode] = useStorage("php-copyCode", true)
   const [closeLoginModal] = useStorage<boolean>("php-closeLoginModal")
   const [history, setHistory] = useStorage<any[]>("codebox-history")
   const [closeLog] = useStorage("config-closeLog", true)

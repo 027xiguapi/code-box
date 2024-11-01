@@ -4,6 +4,7 @@ import CssCode from "~component/items/cssCode"
 import DownloadHtml from "~component/items/downloadHtml"
 import DownloadMarkdown from "~component/items/downloadMarkdown"
 import EditMarkdown from "~component/items/editMarkdown"
+import ShowTag from "~component/items/showTag"
 import { i18n } from "~tools"
 
 export default function Cto51() {
@@ -44,6 +45,7 @@ export default function Cto51() {
           htmlFor="51cto-closeLoginModal"
           className="codebox-switch"></label>
       </div>
+      <ShowTag name="51cto"></ShowTag>
       <EditMarkdown name="51cto"></EditMarkdown>
       <DownloadMarkdown name="51cto"></DownloadMarkdown>
       <DownloadHtml name="51cto"></DownloadHtml>
