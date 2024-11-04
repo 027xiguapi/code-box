@@ -1,5 +1,11 @@
-import type { PlasmoCSConfig } from "plasmo"
-import { useEffect, useRef } from "react"
+import type {
+  PlasmoCSConfig,
+  PlasmoCSUIProps,
+  PlasmoGetOverlayAnchor,
+  PlasmoGetShadowHostId,
+  PlasmoGetStyle
+} from "plasmo"
+import { useEffect, useRef, type FC } from "react"
 import { v4 as uuidv4 } from "uuid"
 
 import { useMessage } from "@plasmohq/messaging/hook"
@@ -11,13 +17,42 @@ import { useContent } from "~utils/editMarkdownHook"
 import Turndown from "~utils/turndown"
 
 export const config: PlasmoCSConfig = {
-  matches: ["https://*.blog.csdn.net/*"]
+  matches: ["https://*.blog.csdn.net/*", "https://devpress.csdn.net/*"]
 }
 
 const turndownService = Turndown()
 const articleTitle = document.querySelector<HTMLElement>("head title").innerText
 
-const csdn = () => {
+const HOST_ID = "codebox-csdn"
+export const getShadowHostId: PlasmoGetShadowHostId = () => HOST_ID
+
+export const getOverlayAnchor: PlasmoGetOverlayAnchor = async () =>
+  document.querySelector(".blog-content-box .title-article") ||
+  document.querySelector(".article-detail .title")
+
+export const getStyle: PlasmoGetStyle = () => {
+  const style = document.createElement("style")
+  style.textContent = `
+  .codebox-tagBtn {
+    height: 28px;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    color: #1e80ff;
+    width: 60px;
+    background: #fff;
+    border-radius: 5px;
+    justify-content: space-between;
+    padding: 0 8px;
+    margin-top: -20px;
+    font-size: 14px;
+  }
+  `
+  return style
+}
+
+const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
+  const [showTag, setShowTag] = useStorage<boolean>("csdn-showTag")
   const [cssCode, runCss] = useCssCodeHook("csdn")
   const [closeAds] = useStorage<boolean>("csdn-closeAds")
   const [copyCode] = useStorage<boolean>("csdn-copyCode")
@@ -92,7 +127,7 @@ const csdn = () => {
     copyCodeCssFunc()
     // 内容区开启复制
     var content_views = document.querySelector("#content_views")
-    content_views.replaceWith(content_views.cloneNode(true))
+    content_views?.replaceWith(content_views.cloneNode(true))
 
     // 功能一： 修改复制按钮，支持一键复制
     const buttons = document.querySelectorAll<HTMLElement>(".hljs-button")
@@ -167,7 +202,11 @@ const csdn = () => {
 
   // 解除 关注博主即可阅读全文的提示
   const followFunc = () => {
-    const readMore = document.querySelector(".btn-readmore")
+    const readMore =
+      document.querySelector(".btn-readmore") ||
+      document.querySelector(".article-show-more")
+
+    console.log(readMore)
     if (readMore) {
       const css = `
         #article_content{
@@ -175,6 +214,12 @@ const csdn = () => {
         }
         .hide-article-box {
           z-index: -1 !important;
+        }
+        .article-detail .main-content .user-article-hide{
+          height: auto !important;
+        }
+        .article-show-more {
+          display: none !important;
         }`
       addCss(css)
     }
@@ -247,7 +292,28 @@ const csdn = () => {
     saveHtml(dom, articleTitle)
   }
 
-  return <div style={{ display: "none" }}></div>
+  function handleEdit() {
+    setContent(".blog-content-box")
+  }
+
+  function handleDownload() {
+    const html = document.querySelector(".blog-content-box")
+    const markdown = turndownService.turndown(html)
+    saveMarkdown(markdown, articleTitle)
+  }
+
+  function closeTag() {
+    setShowTag(false)
+  }
+
+  return showTag ? (
+    <div className="codebox-tagBtn">
+      <div onClick={handleEdit}>编辑</div>
+      <div onClick={handleDownload}>下载</div>
+    </div>
+  ) : (
+    <></>
+  )
 }
 
-export default csdn
+export default PlasmoOverlay

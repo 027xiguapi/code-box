@@ -3,6 +3,7 @@ import { useStorage } from "@plasmohq/storage/hook"
 import DownloadHtml from "~component/items/downloadHtml"
 import DownloadMarkdown from "~component/items/downloadMarkdown"
 import EditMarkdown from "~component/items/editMarkdown"
+import ShowTag from "~component/items/showTag"
 import { i18n } from "~tools"
 
 export default function Csdn() {
@@ -123,6 +124,7 @@ export default function Csdn() {
           htmlFor="csdn-closeRedirectModal"
           className="codebox-switch"></label>
       </div>
+      <ShowTag name="csdn"></ShowTag>
       <EditMarkdown name="csdn"></EditMarkdown>
       <DownloadMarkdown name="csdn"></DownloadMarkdown>
       <DownloadHtml name="csdn"></DownloadHtml>

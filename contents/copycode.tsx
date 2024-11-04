@@ -21,7 +21,8 @@ export const config: PlasmoCSConfig = {
     "https://*.medium.com/*",
     "https://mp.weixin.qq.com/*",
     "https://day.js.org/*",
-    "https://stackoverflow.com/*"
+    "https://stackoverflow.com/*",
+    "https://dev.to/*"
   ]
 }
 

@@ -5,8 +5,7 @@ import type {
   PlasmoGetShadowHostId,
   PlasmoGetStyle
 } from "plasmo"
-import { useEffect, useState } from "react"
-import type { FC } from "react"
+import { useEffect, useRef, type FC } from "react"
 
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/dist/hook"
@@ -90,8 +89,9 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   }
 
   function handleDownload() {
-    const dom = document.querySelector("article.article")
-    saveHtml(dom, articleTitle)
+    const html = document.querySelector("article.article")
+    const markdown = turndownService.turndown(html)
+    saveMarkdown(markdown, articleTitle)
   }
 
   function closeTag() {

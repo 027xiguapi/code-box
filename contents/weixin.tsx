@@ -91,8 +91,9 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   }
 
   function handleDownload() {
-    const dom = document.querySelector("#img-content")
-    saveHtml(dom, articleTitle)
+    const html = document.querySelector("#img-content")
+    const markdown = turndownService.turndown(html)
+    saveMarkdown(markdown, articleTitle)
   }
 
   function closeTag() {

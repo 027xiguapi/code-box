@@ -23,7 +23,7 @@ export const config: PlasmoCSConfig = {
 const turndownService = Turndown()
 const articleTitle = document.querySelector<HTMLElement>("head title").innerText
 
-const HOST_ID = "codebox-juejin"
+const HOST_ID = "codebox-51cto"
 export const getShadowHostId: PlasmoGetShadowHostId = () => HOST_ID
 
 export const getOverlayAnchor: PlasmoGetOverlayAnchor = async () =>
@@ -246,8 +246,9 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   }
 
   function handleDownload() {
-    const dom = document.querySelector("article")
-    saveHtml(dom, articleTitle)
+    const html = document.querySelector("article")
+    const markdown = turndownService.turndown(html)
+    saveMarkdown(markdown, articleTitle)
   }
 
   function closeTag() {
