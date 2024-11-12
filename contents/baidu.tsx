@@ -4,7 +4,7 @@ import { useEffect } from "react"
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
-import { addCss, saveHtml, saveMarkdown, setIcon } from "~tools"
+import { addCss, saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
 import { useContent } from "~utils/editMarkdownHook"
 import Turndown from "~utils/turndown"
@@ -25,7 +25,6 @@ export default function Custom() {
   useEffect(() => {
     closeLog || console.log("baidu", { closeAIBox })
     closeAIBox && closeAIBoxFunc()
-    setIcon(true)
   }, [closeAIBox])
 
   useMessage(async (req, res) => {

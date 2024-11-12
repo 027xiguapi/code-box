@@ -119,6 +119,9 @@
   "zhihuConfig": {
     "message": "Zhihu Config"
   },
+  "mediumConfig": {
+    "message": "medium Config"
+  },
   "zhihuCopyCode": {
     "message": "Copy Code"
   },
@@ -127,6 +130,12 @@
   },
   "zhihuAutoOpenCode": {
     "message": "Auto Open Code"
+  },
+  "edit": {
+    "message": "Edit"
+  },
+  "download": {
+    "message": "Download"
   },
   "editMarkdown": {
     "message": "Edit Markdown"

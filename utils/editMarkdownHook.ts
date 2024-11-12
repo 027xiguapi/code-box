@@ -3,9 +3,9 @@ import { useStorage } from "@plasmohq/storage/dist/hook"
 
 import Turndown from "~utils/turndown"
 
-const turndownService = Turndown()
+export function useContent(option?) {
+  const turndownService = Turndown(option)
 
-export function useContent() {
   const [content, setContent] = useStorage({
     key: "md-content",
     instance: new Storage({

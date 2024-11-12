@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid"
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
-import { saveHtml, saveMarkdown, setIcon } from "~tools"
+import { saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
 import { useContent } from "~utils/editMarkdownHook"
 import Turndown from "~utils/turndown"
@@ -28,7 +28,6 @@ export default function cnblogs() {
   useEffect(() => {
     closeLog || console.log("cnblogs copyCode", copyCode)
     copyCode && copyCodeFunc()
-    setIcon(true)
   }, [copyCode])
 
   useMessage(async (req, res) => {

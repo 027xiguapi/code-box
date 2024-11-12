@@ -116,6 +116,9 @@
   "phpCloseLoginModal": {
     "message": "关闭登录弹窗"
   },
+  "mediumConfig": {
+    "message": "medium设置"
+  },
   "zhihuConfig": {
     "message": "知乎设置"
   },
@@ -127,6 +130,12 @@
   },
   "zhihuAutoOpenCode": {
     "message": "自动展开全文"
+  },
+  "edit": {
+    "message": "编辑"
+  },
+  "download": {
+    "message": "下载"
   },
   "editMarkdown": {
     "message": "编辑 Markdown"

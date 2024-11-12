@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from "uuid"
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
-import { addCss, removeCss, saveHtml, saveMarkdown, setIcon } from "~tools"
+import { addCss, removeCss, saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
 import { useContent } from "~utils/editMarkdownHook"
 import Turndown from "~utils/turndown"
@@ -80,7 +80,6 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     closeLog || console.log("PHP status", { closeLoginModal })
     copyCodeFunc(copyCode)
     closeLoginModal && closeLoginModalFunc()
-    setIcon(true)
   }, [closeLoginModal])
 
   useMessage(async (req, res) => {

@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react"
 
-import { sendToContentScript } from "@plasmohq/messaging"
-import { useStorage } from "@plasmohq/storage/dist/hook"
-
 import Cto51 from "~component/options/51cto"
 import Baidu from "~component/options/baidu"
 import Cnblogs from "~component/options/cnblogs"
@@ -12,11 +9,13 @@ import Custom from "~component/options/custom"
 import Jb51 from "~component/options/jb51"
 import Jianshu from "~component/options/jianshu"
 import Juejin from "~component/options/juejin"
+import Medium from "~component/options/medium"
 import Oschina from "~component/options/oschina"
 import Php from "~component/options/php"
 import Segmentfault from "~component/options/segmentfault"
 import Weixin from "~component/options/weixin"
 import Zhihu from "~component/options/zhihu"
+import { setIcon } from "~tools"
 
 export default function Content() {
   const [csdnIsShow, setCsdnIsShow] = useState<boolean>(false)
@@ -31,6 +30,7 @@ export default function Content() {
   const [oschinaIsShow, setOschinaIsShow] = useState<boolean>(false)
   const [segmentfaultIsShow, setSegmentfaultIsShow] = useState<boolean>(false)
   const [weixinIsShow, setWeixinIsShow] = useState<boolean>(false)
+  const [mediumIsShow, setMediumIsShow] = useState<boolean>(false)
 
   useEffect(() => {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
@@ -51,6 +51,7 @@ export default function Content() {
         hostname.includes("oschina") && setOschinaIsShow(true)
         hostname.includes("segmentfault") && setSegmentfaultIsShow(true)
         hostname.includes("weixin") && setWeixinIsShow(true)
+        hostname.includes("medium") && setMediumIsShow(true)
       }
     })
   }, [])
@@ -69,6 +70,7 @@ export default function Content() {
       {oschinaIsShow ? <Oschina /> : <></>}
       {segmentfaultIsShow ? <Segmentfault /> : <></>}
       {weixinIsShow ? <Weixin /> : <></>}
+      {mediumIsShow ? <Medium /> : <></>}
       <Custom />
       <Config />
     </div>

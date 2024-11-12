@@ -2,7 +2,7 @@ import TurndownService from "@joplin/turndown"
 
 var turndownPluginGfm = require("@joplin/turndown-plugin-gfm")
 
-export default function Turndown() {
+export default function Turndown(options?) {
   const gfm = turndownPluginGfm.gfm
   const tables = turndownPluginGfm.tables
   const strikethrough = turndownPluginGfm.strikethrough
@@ -17,32 +17,13 @@ export default function Turndown() {
   // turndownService.keep(["h1", "h2"])
   turndownService.remove(["script", "style"])
 
-  turndownService.addRule("fencedCodeBlock", {
-    filter: function (node, options) {
-      return (
-        options.codeBlockStyle === "fenced" &&
-        node.nodeName === "PRE" &&
-        node.querySelector("code")
-      )
-    },
-
-    replacement: function (content, node, options) {
-      const className = node.querySelector("code").getAttribute("class") || ""
-      const language = (className.match(/lang-(\S+)/) ||
-        className.match(/language-(\S+)/) || [null, ""])[1]
-
-      return (
-        "\n\n" +
-        options.fence +
-        language +
-        "\n" +
-        node.querySelector("code").textContent +
-        "\n" +
-        options.fence +
-        "\n\n"
-      )
+  const addRules = options?.addRules
+  for (let key in addRules) {
+    const rule = addRules[key]
+    if (rule) {
+      turndownService.addRule(key, rule)
     }
-  })
+  }
 
   return turndownService
 }

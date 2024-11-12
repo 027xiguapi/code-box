@@ -16,31 +16,45 @@ import { useContent } from "~utils/editMarkdownHook"
 import Turndown from "~utils/turndown"
 
 export const config: PlasmoCSConfig = {
-  matches: ["https://*.juejin.cn/*"]
+  matches: ["https://*.medium.com/*"]
 }
 
-const turndownService = Turndown({
+function repeat(character, count) {
+  return Array(count + 1).join(character)
+}
+
+const turndownOption = {
   addRules: {
+    heading: {
+      filter: ["h1", "h2", "h3", "h4", "h5", "h6"],
+
+      replacement: function (content, node, options) {
+        var hLevel = Number(node.nodeName.charAt(1))
+
+        if (options.headingStyle === "setext" && hLevel < 3) {
+          var underline = repeat(hLevel === 1 ? "=" : "-", content.length)
+          return "\n\n" + content + "\n" + underline + "\n\n"
+        } else {
+          return "\n\n" + repeat("#", hLevel) + " " + content.trim() + "\n\n"
+        }
+      }
+    },
     fencedCodeBlock: {
       filter: function (node, options) {
-        return (
-          options.codeBlockStyle === "fenced" &&
-          node.nodeName === "PRE" &&
-          node.querySelector("code")
-        )
+        return options.codeBlockStyle === "fenced" && node.nodeName === "PRE"
       },
 
       replacement: function (content, node, options) {
-        const className = node.querySelector("code").getAttribute("class") || ""
-        const language = (className.match(/lang-(\S+)/) ||
-          className.match(/language-(\S+)/) || [null, ""])[1]
+        content = content.replace(/<br\s*\/?>/gi, "\n")
+        content = content.replace(/\\=/gi, "=")
+        content = content.replace(/\\#/gi, "#")
+        content = content.replace(/\\-/gi, "-")
 
         return (
           "\n\n" +
           options.fence +
-          language +
           "\n" +
-          node.querySelector("code").textContent +
+          content +
           "\n" +
           options.fence +
           "\n\n"
@@ -48,14 +62,16 @@ const turndownService = Turndown({
       }
     }
   }
-})
+}
+
+const turndownService = Turndown(turndownOption)
 const articleTitle = document.querySelector<HTMLElement>("head title").innerText
 
-const HOST_ID = "codebox-juejin"
+const HOST_ID = "codebox-medium"
 export const getShadowHostId: PlasmoGetShadowHostId = () => HOST_ID
 
 export const getOverlayAnchor: PlasmoGetOverlayAnchor = async () =>
-  document.querySelector("article.article .article-title")
+  document.querySelector("article .pw-post-title")
 
 export const getStyle: PlasmoGetStyle = () => {
   const style = document.createElement("style")
@@ -79,42 +95,42 @@ export const getStyle: PlasmoGetStyle = () => {
 }
 
 const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
-  const [showTag, setShowTag] = useStorage<boolean>("juejin-showTag")
-  const [cssCode, runCss] = useCssCodeHook("juejin")
-  const [content, setContent] = useContent()
+  const [showTag, setShowTag] = useStorage<boolean>("medium-showTag")
+  const [cssCode, runCss] = useCssCodeHook("medium")
+  const [content, setContent] = useContent(turndownOption)
 
   useMessage(async (req, res) => {
-    if (req.name == "juejin-isShow") {
+    if (req.name == "medium-isShow") {
       res.send({ isShow: true })
     }
-    if (req.name == "juejin-editMarkdown") {
+    if (req.name == "medium-editMarkdown") {
       setContent("article.article")
     }
-    if (req.name == "juejin-downloadMarkdown") {
+    if (req.name == "medium-downloadMarkdown") {
       downloadMarkdown()
     }
-    if (req.name == "juejin-downloadHtml") {
+    if (req.name == "medium-downloadHtml") {
       downloadHtml()
     }
   })
 
   function downloadMarkdown() {
-    const html = document.querySelector("article.article")
+    const html = document.querySelector("article")
     const markdown = turndownService.turndown(html)
     saveMarkdown(markdown, articleTitle)
   }
 
   function downloadHtml() {
-    const dom = document.querySelector("article.article")
+    const dom = document.querySelector("article")
     saveHtml(dom, articleTitle)
   }
 
   function handleEdit() {
-    setContent("article.article")
+    setContent("article")
   }
 
   function handleDownload() {
-    const html = document.querySelector("article.article")
+    const html = document.querySelector("article")
     const markdown = turndownService.turndown(html)
     saveMarkdown(markdown, articleTitle)
   }

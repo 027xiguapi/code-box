@@ -1,9 +1,8 @@
 import type { PlasmoCSConfig } from "plasmo"
-import { useEffect } from "react"
 
 import { useMessage } from "@plasmohq/messaging/hook"
 
-import { saveHtml, saveMarkdown, setIcon } from "~tools"
+import { saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
 import { useContent } from "~utils/editMarkdownHook"
 import Turndown from "~utils/turndown"
@@ -18,10 +17,6 @@ const articleTitle = document.querySelector<HTMLElement>("head title").innerText
 export default function Segmentfault() {
   const [cssCode, runCss] = useCssCodeHook("segmentfault")
   const [content, setContent] = useContent()
-
-  useEffect(() => {
-    setIcon(true)
-  }, [])
 
   useMessage(async (req, res) => {
     if (req.name == "segmentfault-isShow") {

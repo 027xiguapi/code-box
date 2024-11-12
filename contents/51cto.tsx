@@ -11,7 +11,7 @@ import { v4 as uuidv4 } from "uuid"
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
-import { addCss, saveHtml, saveMarkdown, setIcon } from "~tools"
+import { addCss, i18n, saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
 import { useContent } from "~utils/editMarkdownHook"
 import Turndown from "~utils/turndown"
@@ -65,7 +65,6 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
       copyCode && copyCodeFunc()
     }, 500)
     closeLoginModal && closeLoginModalFunc()
-    setIcon(true)
   }, [copyCode, closeLoginModal])
 
   useMessage(async (req, res) => {
@@ -257,8 +256,8 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
 
   return showTag ? (
     <div className="codebox-tagBtn">
-      <div onClick={handleEdit}>编辑</div>
-      <div onClick={handleDownload}>下载</div>
+      <div onClick={handleEdit}>{i18n("edit")}</div>
+      <div onClick={handleDownload}>{i18n("download")}</div>
     </div>
   ) : (
     <></>

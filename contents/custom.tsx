@@ -21,14 +21,7 @@ import { useStorage } from "@plasmohq/storage/hook"
 
 import ValidateContent from "~component/contents/validateContent"
 import { ThemeProvider } from "~theme"
-import {
-  addCss,
-  removeCss,
-  saveHtml,
-  saveMarkdown,
-  scrollToTop,
-  setIcon
-} from "~tools"
+import { addCss, saveHtml, saveMarkdown, scrollToTop, setIcon } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
 import DrawImages from "~utils/drawImages"
 import { useContent } from "~utils/editMarkdownHook"
@@ -38,8 +31,6 @@ import Turndown from "~utils/turndown"
 const turndownService = Turndown()
 const articleTitle =
   document.querySelector<HTMLElement>("head title")?.innerText
-
-setIcon(false)
 
 const HOST_ID = "codebox-csui"
 
@@ -69,6 +60,23 @@ export default function CustomOverlay() {
 
   useEffect(() => {
     getSelection()
+
+    const hostname = location.hostname
+    setIcon(
+      hostname.includes("csdn") ||
+        hostname.includes("zhihu") ||
+        hostname.includes("baidu") ||
+        hostname.includes("jianshu") ||
+        hostname.includes("jb51") ||
+        hostname.includes("cnblogs") ||
+        hostname.includes("51cto") ||
+        hostname.includes("juejin") ||
+        hostname.includes("php") ||
+        hostname.includes("oschina") ||
+        hostname.includes("segmentfault") ||
+        hostname.includes("weixin") ||
+        hostname.includes("medium")
+    )
   }, [])
 
   useMessage(async (req, res) => {
