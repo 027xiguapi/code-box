@@ -1,7 +1,3 @@
-import { DownloadOutlined, StarTwoTone } from "@ant-design/icons"
-
-import { sendToContentScript } from "@plasmohq/messaging"
-
 import DownloadHtml from "~component/items/downloadHtml"
 import DownloadMarkdown from "~component/items/downloadMarkdown"
 import EditMarkdown from "~component/items/editMarkdown"

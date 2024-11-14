@@ -7,10 +7,12 @@ import EditMarkdown from "~component/items/editMarkdown"
 import { i18n } from "~tools"
 
 export default function Php() {
-  const [copyCode, setCopyCode] = useStorage("php-copyCode", true)
+  const [copyCode, setCopyCode] = useStorage("php-copyCode", (v) =>
+    v === undefined ? true : v
+  )
   const [closeLoginModal, setCloseLoginModal] = useStorage(
     "php-closeLoginModal",
-    true
+    (v) => (v === undefined ? true : v)
   )
 
   return (

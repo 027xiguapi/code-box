@@ -68,6 +68,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   useEffect(() => {
     closeLog ||
       console.log("CSDN status", {
+        showTag,
         closeAds,
         copyCode,
         autoOpenCode,
@@ -205,7 +206,6 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
       document.querySelector(".btn-readmore") ||
       document.querySelector(".article-show-more")
 
-    console.log(readMore)
     if (readMore) {
       const css = `
         #article_content{

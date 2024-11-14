@@ -7,7 +7,9 @@ import { i18n } from "~tools"
 export default function ShowTag(props) {
   let { name } = props
 
-  const [showTag, setShowTag] = useStorage(`${name}-showTag`, true)
+  const [showTag, setShowTag] = useStorage(`${name}-showTag`, (v) =>
+    v === undefined ? true : v
+  )
 
   return (
     <div className="item">

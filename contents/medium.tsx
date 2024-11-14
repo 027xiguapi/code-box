@@ -33,10 +33,33 @@ const turndownOption = {
 
         if (options.headingStyle === "setext" && hLevel < 3) {
           var underline = repeat(hLevel === 1 ? "=" : "-", content.length)
-          return "\n\n" + content + "\n" + underline + "\n\n"
+          return "\n\n" + content.trim() + "\n" + underline + "\n\n"
         } else {
           return "\n\n" + repeat("#", hLevel) + " " + content.trim() + "\n\n"
         }
+      }
+    },
+    listItem: {
+      filter: "li",
+
+      replacement: function (content, node, options) {
+        content = content
+          .replace(/^\n+/, "") // remove leading newlines
+          .replace(/\n+$/, "\n") // replace trailing newlines with just a single one
+          .replace(/\n/gm, "\n    ")
+          .trim() // indent
+        var prefix = options.bulletListMarker + "   "
+        var parent = node.parentNode
+        if (parent.nodeName === "OL") {
+          var start = parent.getAttribute("start")
+          var index = Array.prototype.indexOf.call(parent.children, node)
+          prefix = (start ? Number(start) + index : index + 1) + ".  "
+        }
+        return (
+          prefix +
+          content +
+          (node.nextSibling && !/\n$/.test(content) ? "\n" : "")
+        )
       }
     },
     fencedCodeBlock: {
@@ -45,10 +68,12 @@ const turndownOption = {
       },
 
       replacement: function (content, node, options) {
-        content = content.replace(/<br\s*\/?>/gi, "\n")
-        content = content.replace(/\\=/gi, "=")
-        content = content.replace(/\\#/gi, "#")
-        content = content.replace(/\\-/gi, "-")
+        content = content
+          .replace(/<br\s*\/?>/gi, "\n")
+          .replace(/\\=/gi, "=")
+          .replace(/\\#/gi, "#")
+          .replace(/\\-/gi, "-")
+          .replace(/\\\*/gi, "*")
 
         return (
           "\n\n" +

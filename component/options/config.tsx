@@ -6,8 +6,12 @@ import { useStorage } from "@plasmohq/storage/hook"
 import { i18n } from "~tools"
 
 export default function Config() {
-  const [copyCode, setCopyCode] = useStorage("config-copyCode", true)
-  const [closeLog, setCloseLog] = useStorage("config-closeLog", true)
+  const [copyCode, setCopyCode] = useStorage("config-copyCode", (v) =>
+    v === undefined ? true : v
+  )
+  const [closeLog, setCloseLog] = useStorage("config-closeLog", (v) =>
+    v === undefined ? true : v
+  )
 
   async function downloadImg() {
     sendToContentScript({

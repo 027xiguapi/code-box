@@ -15,7 +15,6 @@ import Php from "~component/options/php"
 import Segmentfault from "~component/options/segmentfault"
 import Weixin from "~component/options/weixin"
 import Zhihu from "~component/options/zhihu"
-import { setIcon } from "~tools"
 
 export default function Content() {
   const [csdnIsShow, setCsdnIsShow] = useState<boolean>(false)

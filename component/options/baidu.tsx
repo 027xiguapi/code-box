@@ -1,4 +1,3 @@
-import { sendToContentScript } from "@plasmohq/messaging"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import DownloadHtml from "~component/items/downloadHtml"
