@@ -1,17 +1,29 @@
+import { useImperativeHandle } from "react"
+
 import { useStorage } from "@plasmohq/storage/hook"
 
+import CssCode from "~component/items/cssCode"
 import DownloadHtml from "~component/items/downloadHtml"
 import DownloadMarkdown from "~component/items/downloadMarkdown"
 import EditMarkdown from "~component/items/editMarkdown"
 import { i18n } from "~tools"
 
-export default function Jb51() {
+export default function Jb51({ forwardRef }) {
   const [closeAds, setCloseAds] = useStorage("jb51-closeAds", (v) =>
     v === undefined ? true : v
   )
   const [copyCode, setCopyCode] = useStorage("jb51-copyCode", (v) =>
     v === undefined ? true : v
   )
+
+  function handleReset() {
+    setCopyCode(true)
+    setCloseAds(true)
+  }
+
+  useImperativeHandle(forwardRef, () => ({
+    handleReset
+  }))
 
   return (
     <fieldset>
@@ -40,6 +52,7 @@ export default function Jb51() {
         />
         <label className="codebox-switch" htmlFor="jb51-copyCode"></label>
       </div>
+      <CssCode name="jb51"></CssCode>
       <EditMarkdown name="jb51"></EditMarkdown>
       <DownloadMarkdown name="jb51"></DownloadMarkdown>
       <DownloadHtml name="jb51"></DownloadHtml>

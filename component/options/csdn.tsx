@@ -1,12 +1,15 @@
+import { useImperativeHandle } from "react"
+
 import { useStorage } from "@plasmohq/storage/hook"
 
+import CssCode from "~component/items/cssCode"
 import DownloadHtml from "~component/items/downloadHtml"
 import DownloadMarkdown from "~component/items/downloadMarkdown"
 import EditMarkdown from "~component/items/editMarkdown"
 import ShowTag from "~component/items/showTag"
 import { i18n } from "~tools"
 
-export default function Csdn() {
+export default function Csdn({ forwardRef }) {
   const [closeAds, setCloseAds] = useStorage("csdn-closeAds", (v) =>
     v === undefined ? true : v
   )
@@ -32,6 +35,20 @@ export default function Csdn() {
     "csdn-closeRedirectModal",
     (v) => (v === undefined ? true : v)
   )
+
+  function handleReset() {
+    setCloseAds(true)
+    setCopyCode(true)
+    setCloseFollow(true)
+    setCloseVip(true)
+    setAutoOpenCode(true)
+    setCloseLoginModal(true)
+    setCloseRedirectModal(true)
+  }
+
+  useImperativeHandle(forwardRef, () => ({
+    handleReset
+  }))
 
   return (
     <fieldset>
@@ -124,6 +141,7 @@ export default function Csdn() {
           htmlFor="csdn-closeRedirectModal"
           className="codebox-switch"></label>
       </div>
+      <CssCode name="csdn"></CssCode>
       <ShowTag name="csdn"></ShowTag>
       <EditMarkdown name="csdn"></EditMarkdown>
       <DownloadMarkdown name="csdn"></DownloadMarkdown>

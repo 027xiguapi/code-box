@@ -1,11 +1,14 @@
+import { useImperativeHandle } from "react"
+
 import { useStorage } from "@plasmohq/storage/hook"
 
+import CssCode from "~component/items/cssCode"
 import DownloadHtml from "~component/items/downloadHtml"
 import DownloadMarkdown from "~component/items/downloadMarkdown"
 import EditMarkdown from "~component/items/editMarkdown"
 import { i18n } from "~tools"
 
-export default function Jianshu() {
+export default function Jianshu({ forwardRef }) {
   const [copyCode, setCopyCode] = useStorage("jianshu-copyCode", (v) =>
     v === undefined ? true : v
   )
@@ -17,6 +20,16 @@ export default function Jianshu() {
     "jianshu-autoOpenCode",
     (v) => (v === undefined ? true : v)
   )
+
+  function handleReset() {
+    setCopyCode(true)
+    setCloseLoginModal(true)
+    setAutoOpenCode(true)
+  }
+
+  useImperativeHandle(forwardRef, () => ({
+    handleReset
+  }))
 
   return (
     <fieldset>
@@ -61,6 +74,7 @@ export default function Jianshu() {
           className="codebox-switch"
           htmlFor="jianshu-autoOpenCode"></label>
       </div>
+      <CssCode name="jianshu"></CssCode>
       <EditMarkdown name="jianshu"></EditMarkdown>
       <DownloadMarkdown name="jianshu"></DownloadMarkdown>
       <DownloadHtml name="jianshu"></DownloadHtml>

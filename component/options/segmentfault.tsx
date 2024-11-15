@@ -1,3 +1,4 @@
+import CssCode from "~component/items/cssCode"
 import DownloadHtml from "~component/items/downloadHtml"
 import DownloadMarkdown from "~component/items/downloadMarkdown"
 import EditMarkdown from "~component/items/editMarkdown"
@@ -7,6 +8,7 @@ export default function Segmentfault() {
   return (
     <fieldset>
       <legend>{i18n("segmentfaultConfig")}</legend>
+      <CssCode name="segmentfault"></CssCode>
       <EditMarkdown name="segmentfault"></EditMarkdown>
       <DownloadMarkdown name="segmentfault"></DownloadMarkdown>
       <DownloadHtml name="segmentfault"></DownloadHtml>

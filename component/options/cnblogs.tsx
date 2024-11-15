@@ -1,3 +1,5 @@
+import { useImperativeHandle } from "react"
+
 import { useStorage } from "@plasmohq/storage/hook"
 
 import CssCode from "~component/items/cssCode"
@@ -6,10 +8,18 @@ import DownloadMarkdown from "~component/items/downloadMarkdown"
 import EditMarkdown from "~component/items/editMarkdown"
 import { i18n } from "~tools"
 
-export default function Cnblogs() {
+export default function Cnblogs({ forwardRef }) {
   const [copyCode, setCopyCode] = useStorage("cnblogs-copyCode", (v) =>
     v === undefined ? true : v
   )
+
+  function handleReset() {
+    setCopyCode(true)
+  }
+
+  useImperativeHandle(forwardRef, () => ({
+    handleReset
+  }))
 
   return (
     <fieldset>
@@ -26,6 +36,7 @@ export default function Cnblogs() {
         />
         <label className="codebox-switch" htmlFor="cnblogs-copyCode"></label>
       </div>
+      <CssCode name="cnblogs"></CssCode>
       <EditMarkdown name="cnblogs"></EditMarkdown>
       <DownloadMarkdown name="cnblogs"></DownloadMarkdown>
       <DownloadHtml name="cnblogs"></DownloadHtml>

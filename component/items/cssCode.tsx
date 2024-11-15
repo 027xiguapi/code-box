@@ -7,7 +7,9 @@ import { i18n } from "~tools"
 export default function CssCode(props) {
   let { name } = props
 
-  const [runCss, setRunCss] = useStorage(`${name}-runCss`, false)
+  const [runCss, setRunCss] = useStorage(`${name}-runCss`, (v) =>
+    v === undefined ? false : v
+  )
   const [cssCode, setCssCode, { setRenderValue, setStoreValue, remove }] =
     useStorage(`${name}-cssCode`)
 

@@ -1,3 +1,4 @@
+import CssCode from "~component/items/cssCode"
 import DownloadHtml from "~component/items/downloadHtml"
 import DownloadMarkdown from "~component/items/downloadMarkdown"
 import EditMarkdown from "~component/items/editMarkdown"
@@ -8,6 +9,7 @@ export default function Weixin() {
   return (
     <fieldset>
       <legend>{i18n("weixinConfig")}</legend>
+      <CssCode name="weixin"></CssCode>
       <ShowTag name="weixin"></ShowTag>
       <EditMarkdown name="weixin"></EditMarkdown>
       <DownloadMarkdown name="weixin"></DownloadMarkdown>

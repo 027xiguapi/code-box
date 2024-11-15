@@ -1,11 +1,14 @@
+import React, { useImperativeHandle } from "react"
+
 import { useStorage } from "@plasmohq/storage/hook"
 
+import CssCode from "~component/items/cssCode"
 import DownloadHtml from "~component/items/downloadHtml"
 import DownloadMarkdown from "~component/items/downloadMarkdown"
 import EditMarkdown from "~component/items/editMarkdown"
 import { i18n } from "~tools"
 
-export default function Zhihu() {
+export default function Zhihu({ forwardRef }) {
   const [copyCode, setCopyCode] = useStorage("zhihu-copyCode", (v) =>
     v === undefined ? true : v
   )
@@ -17,6 +20,16 @@ export default function Zhihu() {
     "zhihu-autoOpenCode",
     (v) => (v === undefined ? true : v)
   )
+
+  function handleReset() {
+    setCopyCode(true)
+    setCloseLoginModal(true)
+    setAutoOpenCode(true)
+  }
+
+  useImperativeHandle(forwardRef, () => ({
+    handleReset
+  }))
 
   return (
     <fieldset>
@@ -59,6 +72,7 @@ export default function Zhihu() {
         />
         <label className="codebox-switch" htmlFor="zhihu-autoOpenCode"></label>
       </div>
+      <CssCode name="zhihu"></CssCode>
       <EditMarkdown name="zhihu"></EditMarkdown>
       <DownloadMarkdown name="weixin"></DownloadMarkdown>
       <DownloadHtml name="weixin"></DownloadHtml>

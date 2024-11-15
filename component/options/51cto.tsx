@@ -1,3 +1,5 @@
+import { useImperativeHandle } from "react"
+
 import { useStorage } from "@plasmohq/storage/hook"
 
 import CssCode from "~component/items/cssCode"
@@ -7,7 +9,7 @@ import EditMarkdown from "~component/items/editMarkdown"
 import ShowTag from "~component/items/showTag"
 import { i18n } from "~tools"
 
-export default function Cto51() {
+export default function Cto51({ forwardRef }) {
   const [copyCode, setCopyCode] = useStorage("51cto-copyCode", (v) =>
     v === undefined ? true : v
   )
@@ -15,6 +17,15 @@ export default function Cto51() {
     "51cto-closeLoginModal",
     (v) => (v === undefined ? true : v)
   )
+
+  function handleReset() {
+    setCopyCode(true)
+    setCloseLoginModal(true)
+  }
+
+  useImperativeHandle(forwardRef, () => ({
+    handleReset
+  }))
 
   return (
     <fieldset>
@@ -45,11 +56,11 @@ export default function Cto51() {
           htmlFor="51cto-closeLoginModal"
           className="codebox-switch"></label>
       </div>
+      <CssCode name="51cto"></CssCode>
       <ShowTag name="51cto"></ShowTag>
       <EditMarkdown name="51cto"></EditMarkdown>
       <DownloadMarkdown name="51cto"></DownloadMarkdown>
       <DownloadHtml name="51cto"></DownloadHtml>
-      <CssCode name="51cto"></CssCode>
     </fieldset>
   )
 }

@@ -1,11 +1,12 @@
 import { DownloadOutlined, StarTwoTone } from "@ant-design/icons"
+import { useImperativeHandle } from "react"
 
 import { sendToBackground, sendToContentScript } from "@plasmohq/messaging"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import { i18n } from "~tools"
 
-export default function Config() {
+export default function Config({ forwardRef }) {
   const [copyCode, setCopyCode] = useStorage("config-copyCode", (v) =>
     v === undefined ? true : v
   )
@@ -18,6 +19,15 @@ export default function Config() {
       name: "app-full-page-screenshot"
     })
   }
+
+  function handleReset() {
+    setCopyCode(true)
+    setCloseLog(true)
+  }
+
+  useImperativeHandle(forwardRef, () => ({
+    handleReset
+  }))
 
   return (
     <fieldset>

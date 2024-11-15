@@ -1,3 +1,5 @@
+import { useImperativeHandle } from "react"
+
 import { useStorage } from "@plasmohq/storage/hook"
 
 import CssCode from "~component/items/cssCode"
@@ -6,7 +8,7 @@ import DownloadMarkdown from "~component/items/downloadMarkdown"
 import EditMarkdown from "~component/items/editMarkdown"
 import { i18n } from "~tools"
 
-export default function Php() {
+export default function Php({ forwardRef }) {
   const [copyCode, setCopyCode] = useStorage("php-copyCode", (v) =>
     v === undefined ? true : v
   )
@@ -14,6 +16,15 @@ export default function Php() {
     "php-closeLoginModal",
     (v) => (v === undefined ? true : v)
   )
+
+  function handleReset() {
+    setCopyCode(true)
+    setCloseLoginModal(true)
+  }
+
+  useImperativeHandle(forwardRef, () => ({
+    handleReset
+  }))
 
   return (
     <fieldset>
@@ -42,6 +53,7 @@ export default function Php() {
         />
         <label htmlFor="php-closeLoginModal" className="codebox-switch"></label>
       </div>
+      <CssCode name="php"></CssCode>
       <EditMarkdown name="php"></EditMarkdown>
       <DownloadMarkdown name="php"></DownloadMarkdown>
       <DownloadHtml name="php"></DownloadHtml>
