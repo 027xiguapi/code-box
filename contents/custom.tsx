@@ -3,6 +3,8 @@ import {
   CheckOutlined,
   CloseOutlined,
   DownSquareOutlined,
+  LeftSquareOutlined,
+  RightSquareOutlined,
   UpSquareOutlined
 } from "@ant-design/icons"
 import { Button, Flex, message, Modal } from "antd"
@@ -49,7 +51,6 @@ let isSelect = false
 
 export default function CustomOverlay() {
   const [cssCode, runCss] = useCssCodeHook("custom")
-  const [closeLog] = useStorage("config-closeLog", true)
   const [content, setContent] = useContent()
   const [validTime, setValidTime] = useStorage("app-validTime", "1730390400")
   const [isCurrentDom, setIsCurrentDom] = useState<boolean>(false)
@@ -163,8 +164,8 @@ export default function CustomOverlay() {
     const rect = currentDom.getBoundingClientRect()
     const distanceTop = rect.top + window.scrollY
     const distanceLeft = rect.left + window.scrollX
-    const top = distanceTop < 50 ? distanceTop + 10 : distanceTop - 40
-    const left = distanceLeft + 10
+    const top = distanceTop < 50 ? distanceTop + 15 : distanceTop - 40
+    const left = distanceLeft + 5
 
     setRect({ top, left })
     scrollToTop(currentDom)
@@ -277,6 +278,28 @@ export default function CustomOverlay() {
     event.stopPropagation()
   }
 
+  function handleSetPrev(event) {
+    const currentDom = document.querySelector(".codebox-current")
+    const previousSibling = currentDom.previousElementSibling
+    if (previousSibling) {
+      removeCurrentDom()
+      previousSibling.classList.add("codebox-current")
+      setTooltip()
+    }
+    event.stopPropagation()
+  }
+
+  function handleSetNext(event) {
+    const currentDom = document.querySelector(".codebox-current")
+    const nextSibling = currentDom.nextElementSibling
+    if (nextSibling) {
+      removeCurrentDom()
+      nextSibling.classList.add("codebox-current")
+      setTooltip()
+    }
+    event.stopPropagation()
+  }
+
   return (
     <ThemeProvider>
       {contextHolder}
@@ -288,7 +311,7 @@ export default function CustomOverlay() {
               position: "absolute",
               top: `${rect.top}px`,
               left: `${rect.left}px`,
-              width: "390px",
+              width: "520px",
               background: "#fff",
               border: "1px solid #eee",
               borderRadius: "5px"
@@ -297,6 +320,7 @@ export default function CustomOverlay() {
               <Button
                 color="primary"
                 variant="text"
+                size="small"
                 icon={<CheckOutlined />}
                 onClick={handleConfirm}>
                 确定
@@ -304,6 +328,7 @@ export default function CustomOverlay() {
               <Button
                 color="default"
                 variant="text"
+                size="small"
                 icon={<UpSquareOutlined />}
                 onClick={handleSetParent}>
                 父节点
@@ -311,13 +336,31 @@ export default function CustomOverlay() {
               <Button
                 color="default"
                 variant="text"
+                size="small"
                 icon={<DownSquareOutlined />}
                 onClick={handleSetChild}>
                 子节点
               </Button>
               <Button
+                color="default"
+                variant="text"
+                size="small"
+                icon={<LeftSquareOutlined />}
+                onClick={handleSetPrev}>
+                上一个
+              </Button>
+              <Button
+                color="default"
+                variant="text"
+                size="small"
+                icon={<RightSquareOutlined />}
+                onClick={handleSetNext}>
+                下一个
+              </Button>
+              <Button
                 color="danger"
                 variant="text"
+                size="small"
                 icon={<CloseOutlined />}
                 onClick={handleCancel}>
                 取消
