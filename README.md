@@ -148,6 +148,7 @@ https://github.com/027xiguapi/code-box
 2. [plasmo](https://github.com/PlasmoHQ/plasmo)
 3. [Chrome 应用商店一站式支持](https://support.google.com/chrome_webstore/contact/one_stop_support)
 4. [开箱即用的web打印和下载](https://juejin.cn/post/7412672713376497727)
+5. [导出微信公众号文章为PDF](https://greasyfork.org/en/scripts/510683-%E5%AF%BC%E5%87%BA%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E6%96%87%E7%AB%A0%E4%B8%BApdf/code)
 
 ## 隐私政策
 
