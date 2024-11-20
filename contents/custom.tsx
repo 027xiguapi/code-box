@@ -27,7 +27,6 @@ import { addCss, saveHtml, saveMarkdown, scrollToTop, setIcon } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
 import DrawImages from "~utils/drawImages"
 import { useContent } from "~utils/editMarkdownHook"
-import Dom2Pdf from "~utils/html2Pdf"
 import Turndown from "~utils/turndown"
 
 const turndownService = Turndown()
@@ -187,16 +186,6 @@ export default function CustomOverlay() {
     saveMarkdown(markdown, articleTitle)
   }
 
-  function downloadPdf(currentDom) {
-    const pdf = new Dom2Pdf(currentDom, articleTitle)
-    pdf.downloadPdf()
-  }
-
-  function downloadImg(currentDom) {
-    const img = new Dom2Pdf(currentDom, articleTitle)
-    img.downloadImg()
-  }
-
   function handleOk() {
     const currentDom = document.querySelector(".codebox-current")
 
@@ -209,12 +198,6 @@ export default function CustomOverlay() {
     } else if (isDownloadType == "editMarkdown") {
       setContent(".codebox-current")
       removeCurrentDom()
-    } else if (isDownloadType == "pdf") {
-      removeCurrentDom()
-      downloadPdf(currentDom)
-    } else if (isDownloadType == "img") {
-      removeCurrentDom()
-      downloadImg(currentDom)
     }
     isReady = false
     isSelect = false
