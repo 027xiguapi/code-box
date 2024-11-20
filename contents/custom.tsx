@@ -25,14 +25,15 @@ import ValidateContent from "~component/contents/validateContent"
 import { ThemeProvider } from "~theme"
 import { addCss, saveHtml, saveMarkdown, scrollToTop, setIcon } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
+import { savePdf } from "~utils/downloadPdf"
 import DrawImages from "~utils/drawImages"
 import { useContent } from "~utils/editMarkdownHook"
-import Dom2Pdf from "~utils/html2Pdf"
 import Turndown from "~utils/turndown"
 
 const turndownService = Turndown()
-const articleTitle =
-  document.querySelector<HTMLElement>("head title")?.innerText
+const articleTitle = document
+  .querySelector<HTMLElement>("head title")
+  ?.innerText.trim()
 
 const HOST_ID = "codebox-csui"
 
@@ -187,16 +188,6 @@ export default function CustomOverlay() {
     saveMarkdown(markdown, articleTitle)
   }
 
-  function downloadPdf(currentDom) {
-    const pdf = new Dom2Pdf(currentDom, articleTitle)
-    pdf.downloadPdf()
-  }
-
-  function downloadImg(currentDom) {
-    const img = new Dom2Pdf(currentDom, articleTitle)
-    img.downloadImg()
-  }
-
   function handleOk() {
     const currentDom = document.querySelector(".codebox-current")
 
@@ -211,10 +202,7 @@ export default function CustomOverlay() {
       removeCurrentDom()
     } else if (isDownloadType == "pdf") {
       removeCurrentDom()
-      downloadPdf(currentDom)
-    } else if (isDownloadType == "img") {
-      removeCurrentDom()
-      downloadImg(currentDom)
+      savePdf(currentDom, articleTitle)
     }
     isReady = false
     isSelect = false
@@ -236,7 +224,7 @@ export default function CustomOverlay() {
       ),
       okText: "确认",
       okButtonProps: {
-        // disabled: Number(validTime) <= dayjs().unix()
+        disabled: Number(validTime) <= dayjs().unix()
       },
       onOk: () => {
         handleOk()

@@ -5,6 +5,7 @@ import { useStorage } from "@plasmohq/storage/hook"
 import CssCode from "~component/items/cssCode"
 import DownloadHtml from "~component/items/downloadHtml"
 import DownloadMarkdown from "~component/items/downloadMarkdown"
+import DownloadPdf from "~component/items/downloadPdf"
 import EditMarkdown from "~component/items/editMarkdown"
 import { i18n } from "~tools"
 
@@ -56,6 +57,7 @@ export default function Jb51({ forwardRef }) {
       <EditMarkdown name="jb51"></EditMarkdown>
       <DownloadMarkdown name="jb51"></DownloadMarkdown>
       <DownloadHtml name="jb51"></DownloadHtml>
+      <DownloadPdf name="jb51"></DownloadPdf>
     </fieldset>
   )
 }

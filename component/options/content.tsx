@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 
 import Cto51 from "~component/options/51cto"
 import Baidu from "~component/options/baidu"
@@ -31,6 +31,21 @@ export default function Content() {
   const [weixinIsShow, setWeixinIsShow] = useState<boolean>(false)
   const [mediumIsShow, setMediumIsShow] = useState<boolean>(false)
 
+  const csdnRef = useRef<any>()
+  const zhihuRef = useRef<any>()
+  const baiduRef = useRef<any>()
+  const juejinRef = useRef<any>()
+  const oschinaRef = useRef<any>()
+  const jianshuRef = useRef<any>()
+  const jb51Ref = useRef<any>()
+  const cnblogsRef = useRef<any>()
+  const cto51Ref = useRef<any>()
+  const phpRef = useRef<any>()
+  const segmentfaultRef = useRef<any>()
+  const weixinRef = useRef<any>()
+  const customRef = useRef<any>()
+  const appRef = useRef<any>()
+
   useEffect(() => {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       const currentTab = tabs[0]
@@ -57,21 +72,21 @@ export default function Content() {
 
   return (
     <div className="content">
-      {csdnIsShow ? <Csdn /> : <></>}
-      {zhihuIsShow ? <Zhihu /> : <></>}
-      {baiduIsShow ? <Baidu /> : <></>}
-      {jianshuIsShow ? <Jianshu /> : <></>}
-      {jb51IsShow ? <Jb51 /> : <></>}
-      {cnblogsIsShow ? <Cnblogs /> : <></>}
-      {ctoIsShow ? <Cto51 /> : <></>}
+      {csdnIsShow ? <Csdn forwardRef={csdnRef} /> : <></>}
+      {zhihuIsShow ? <Zhihu forwardRef={zhihuRef} /> : <></>}
+      {baiduIsShow ? <Baidu forwardRef={baiduRef} /> : <></>}
+      {jianshuIsShow ? <Jianshu forwardRef={juejinRef} /> : <></>}
+      {jb51IsShow ? <Jb51 forwardRef={jb51Ref} /> : <></>}
+      {cnblogsIsShow ? <Cnblogs forwardRef={cnblogsRef} /> : <></>}
+      {ctoIsShow ? <Cto51 forwardRef={cto51Ref} /> : <></>}
       {juejinIsShow ? <Juejin /> : <></>}
-      {phpIsShow ? <Php /> : <></>}
+      {phpIsShow ? <Php forwardRef={phpRef} /> : <></>}
       {oschinaIsShow ? <Oschina /> : <></>}
       {segmentfaultIsShow ? <Segmentfault /> : <></>}
       {weixinIsShow ? <Weixin /> : <></>}
       {mediumIsShow ? <Medium /> : <></>}
       <Custom />
-      <Config />
+      <Config forwardRef={customRef} />
     </div>
   )
 }

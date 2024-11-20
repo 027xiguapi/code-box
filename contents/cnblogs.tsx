@@ -7,6 +7,7 @@ import { useStorage } from "@plasmohq/storage/hook"
 
 import { saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
+import { savePdf } from "~utils/downloadPdf"
 import { useContent } from "~utils/editMarkdownHook"
 import Turndown from "~utils/turndown"
 
@@ -16,7 +17,9 @@ export const config: PlasmoCSConfig = {
 }
 
 const turndownService = Turndown()
-const articleTitle = document.querySelector<HTMLElement>("head title").innerText
+const articleTitle = document
+  .querySelector<HTMLElement>("head title")
+  .innerText.trim()
 
 export default function cnblogs() {
   const [cssCode, runCss] = useCssCodeHook("cnblogs")
@@ -42,6 +45,10 @@ export default function cnblogs() {
     }
     if (req.name == "cnblogs-downloadHtml") {
       downloadHtml()
+    }
+    if (req.name == "cnblogs-downloadPdf") {
+      var article = document.querySelector<HTMLElement>("article")
+      savePdf(article, articleTitle)
     }
   })
 

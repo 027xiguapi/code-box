@@ -12,6 +12,7 @@ import { useStorage } from "@plasmohq/storage/hook"
 
 import { addCss, removeCss, saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
+import { savePdf } from "~utils/downloadPdf"
 import { useContent } from "~utils/editMarkdownHook"
 import Turndown from "~utils/turndown"
 
@@ -20,7 +21,9 @@ export const config: PlasmoCSConfig = {
 }
 
 const turndownService = Turndown()
-const articleTitle = document.querySelector<HTMLElement>("head title").innerText
+const articleTitle = document
+  .querySelector<HTMLElement>("head title")
+  .innerText.trim()
 
 export const getInlineAnchorList: PlasmoGetInlineAnchorList = async () => {
   const preList = document.querySelectorAll("pre")
@@ -94,6 +97,12 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     }
     if (req.name == "php-downloadHtml") {
       downloadHtml()
+    }
+    if (req.name == "php-downloadPdf") {
+      var article = document.querySelector<HTMLElement>(
+        ".phpscMain .php-article"
+      )
+      savePdf(article, articleTitle)
     }
   })
 

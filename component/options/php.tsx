@@ -5,6 +5,7 @@ import { useStorage } from "@plasmohq/storage/hook"
 import CssCode from "~component/items/cssCode"
 import DownloadHtml from "~component/items/downloadHtml"
 import DownloadMarkdown from "~component/items/downloadMarkdown"
+import DownloadPdf from "~component/items/downloadPdf"
 import EditMarkdown from "~component/items/editMarkdown"
 import { i18n } from "~tools"
 
@@ -57,7 +58,7 @@ export default function Php({ forwardRef }) {
       <EditMarkdown name="php"></EditMarkdown>
       <DownloadMarkdown name="php"></DownloadMarkdown>
       <DownloadHtml name="php"></DownloadHtml>
-      <CssCode name="php"></CssCode>
+      <DownloadPdf name="php"></DownloadPdf>
     </fieldset>
   )
 }

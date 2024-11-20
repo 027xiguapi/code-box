@@ -13,6 +13,7 @@ import { useStorage } from "@plasmohq/storage/hook"
 
 import { addCss, i18n, saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
+import { savePdf } from "~utils/downloadPdf"
 import { useContent } from "~utils/editMarkdownHook"
 import Turndown from "~utils/turndown"
 
@@ -21,7 +22,9 @@ export const config: PlasmoCSConfig = {
 }
 
 const turndownService = Turndown()
-const articleTitle = document.querySelector<HTMLElement>("head title").innerText
+const articleTitle = document
+  .querySelector<HTMLElement>("head title")
+  .innerText.trim()
 
 const HOST_ID = "codebox-51cto"
 export const getShadowHostId: PlasmoGetShadowHostId = () => HOST_ID
@@ -79,6 +82,10 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     }
     if (req.name == "51cto-downloadHtml") {
       downloadHtml()
+    }
+    if (req.name == "51cto-downloadPdf") {
+      var article = document.querySelector<HTMLElement>("article")
+      savePdf(article, articleTitle)
     }
   })
 

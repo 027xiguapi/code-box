@@ -4,6 +4,7 @@ import { useMessage } from "@plasmohq/messaging/hook"
 
 import { saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
+import { savePdf } from "~utils/downloadPdf"
 import { useContent } from "~utils/editMarkdownHook"
 import Turndown from "~utils/turndown"
 
@@ -12,7 +13,9 @@ export const config: PlasmoCSConfig = {
 }
 
 const turndownService = Turndown()
-const articleTitle = document.querySelector<HTMLElement>("head title").innerText
+const articleTitle = document
+  .querySelector<HTMLElement>("head title")
+  .innerText.trim()
 
 export default function Segmentfault() {
   const [cssCode, runCss] = useCssCodeHook("segmentfault")
@@ -30,6 +33,10 @@ export default function Segmentfault() {
     }
     if (req.name == "segmentfault-downloadHtml") {
       downloadHtml()
+    }
+    if (req.name == "segmentfault-downloadPdf") {
+      var article = document.querySelector<HTMLElement>("article.article")
+      savePdf(article, articleTitle)
     }
   })
 

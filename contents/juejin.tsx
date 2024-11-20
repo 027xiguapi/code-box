@@ -12,6 +12,7 @@ import { useStorage } from "@plasmohq/storage/dist/hook"
 
 import { i18n, saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
+import { savePdf } from "~utils/downloadPdf"
 import { useContent } from "~utils/editMarkdownHook"
 import Turndown from "~utils/turndown"
 
@@ -49,7 +50,9 @@ const turndownService = Turndown({
     }
   }
 })
-const articleTitle = document.querySelector<HTMLElement>("head title").innerText
+const articleTitle = document
+  .querySelector<HTMLElement>("head title")
+  .innerText.trim()
 
 const HOST_ID = "codebox-juejin"
 export const getShadowHostId: PlasmoGetShadowHostId = () => HOST_ID
@@ -95,6 +98,10 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     }
     if (req.name == "juejin-downloadHtml") {
       downloadHtml()
+    }
+    if (req.name == "juejin-downloadPdf") {
+      var article = document.querySelector<HTMLElement>(".blog-content-box")
+      savePdf(article, articleTitle)
     }
   })
 

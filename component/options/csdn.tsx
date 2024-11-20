@@ -5,6 +5,7 @@ import { useStorage } from "@plasmohq/storage/hook"
 import CssCode from "~component/items/cssCode"
 import DownloadHtml from "~component/items/downloadHtml"
 import DownloadMarkdown from "~component/items/downloadMarkdown"
+import DownloadPdf from "~component/items/downloadPdf"
 import EditMarkdown from "~component/items/editMarkdown"
 import ShowTag from "~component/items/showTag"
 import { i18n } from "~tools"
@@ -146,6 +147,7 @@ export default function Csdn({ forwardRef }) {
       <EditMarkdown name="csdn"></EditMarkdown>
       <DownloadMarkdown name="csdn"></DownloadMarkdown>
       <DownloadHtml name="csdn"></DownloadHtml>
+      <DownloadPdf name="csdn"></DownloadPdf>
     </fieldset>
   )
 }

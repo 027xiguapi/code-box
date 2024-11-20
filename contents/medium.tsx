@@ -12,6 +12,7 @@ import { useStorage } from "@plasmohq/storage/dist/hook"
 
 import { i18n, saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
+import { savePdf } from "~utils/downloadPdf"
 import { useContent } from "~utils/editMarkdownHook"
 import Turndown from "~utils/turndown"
 
@@ -90,7 +91,9 @@ const turndownOption = {
 }
 
 const turndownService = Turndown(turndownOption)
-const articleTitle = document.querySelector<HTMLElement>("head title").innerText
+const articleTitle = document
+  .querySelector<HTMLElement>("head title")
+  .innerText.trim()
 
 const HOST_ID = "codebox-medium"
 export const getShadowHostId: PlasmoGetShadowHostId = () => HOST_ID
@@ -136,6 +139,10 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     }
     if (req.name == "medium-downloadHtml") {
       downloadHtml()
+    }
+    if (req.name == "medium-downloadPdf") {
+      var article = document.querySelector<HTMLElement>("article.article")
+      savePdf(article, articleTitle)
     }
   })
 

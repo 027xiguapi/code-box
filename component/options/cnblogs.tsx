@@ -5,6 +5,7 @@ import { useStorage } from "@plasmohq/storage/hook"
 import CssCode from "~component/items/cssCode"
 import DownloadHtml from "~component/items/downloadHtml"
 import DownloadMarkdown from "~component/items/downloadMarkdown"
+import DownloadPdf from "~component/items/downloadPdf"
 import EditMarkdown from "~component/items/editMarkdown"
 import { i18n } from "~tools"
 
@@ -41,6 +42,7 @@ export default function Cnblogs({ forwardRef }) {
       <DownloadMarkdown name="cnblogs"></DownloadMarkdown>
       <DownloadHtml name="cnblogs"></DownloadHtml>
       <CssCode name="cnblogs"></CssCode>
+      <DownloadPdf name="cnblogs"></DownloadPdf>
     </fieldset>
   )
 }

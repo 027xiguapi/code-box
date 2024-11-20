@@ -7,6 +7,7 @@ import { useStorage } from "@plasmohq/storage/hook"
 
 import { addCss, saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
+import { savePdf } from "~utils/downloadPdf"
 import { useContent } from "~utils/editMarkdownHook"
 import Turndown from "~utils/turndown"
 
@@ -15,7 +16,9 @@ export const config: PlasmoCSConfig = {
 }
 
 const turndownService = Turndown()
-const articleTitle = document.querySelector<HTMLElement>("head title").innerText
+const articleTitle = document
+  .querySelector<HTMLElement>("head title")
+  .innerText.trim()
 
 export default function jb51() {
   const [cssCode, runCss] = useCssCodeHook("jb51")
@@ -43,6 +46,10 @@ export default function jb51() {
     }
     if (req.name == "jb51-downloadHtml") {
       downloadHtml()
+    }
+    if (req.name == "jb51-downloadPdf") {
+      var article = document.querySelector<HTMLElement>(".blog-content-box")
+      savePdf(article, articleTitle)
     }
   })
 

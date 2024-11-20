@@ -7,6 +7,7 @@ import { useStorage } from "@plasmohq/storage/hook"
 
 import { addCss, saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
+import { savePdf } from "~utils/downloadPdf"
 import { useContent } from "~utils/editMarkdownHook"
 import Turndown from "~utils/turndown"
 
@@ -15,7 +16,9 @@ export const config: PlasmoCSConfig = {
 }
 
 const turndownService = Turndown()
-const articleTitle = document.querySelector<HTMLElement>("head title").innerText
+const articleTitle = document
+  .querySelector<HTMLElement>("head title")
+  .innerText.trim()
 
 export default function zhihu() {
   const [cssCode, runCss] = useCssCodeHook("zhihu")
@@ -46,6 +49,10 @@ export default function zhihu() {
     }
     if (req.name == "zhihu-downloadHtml") {
       downloadHtml()
+    }
+    if (req.name == "segmentfault-downloadPdf") {
+      var article = document.querySelector<HTMLElement>("article.Post-Main")
+      savePdf(article, articleTitle)
     }
   })
 
