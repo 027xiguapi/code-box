@@ -67,13 +67,27 @@ https://github.com/027xiguapi/code-box
 ### 自定义
 
 - 插入自定义样式(css代码)
+- 下载所有图片
 - 自定义选择下载html
 - 自定义选择下载markdown
 - 自定义选择下载pdf
 
+
+### 微信
+- 插入自定义样式(css代码)
+- 一键下载文章html
+- 一键下载文章markdown
+- 一键下载文章pdf
+
+### 掘金
+- 插入自定义样式(css代码)
+- 一键下载文章html
+- 一键下载文章markdown
+- 一键下载文章pdf
+
 ### CSDN
 
-- 一键下载文章html或markdown文件
+- 一键下载文章html、pdf或markdown文件
 - 打开任意一个`CSDN`博客即可开始复制代码
 - 未登录`CSDN`状态下，支持选中代码
 - 未登录`CSDN`状态下，代码右上角按钮一键复制
@@ -82,54 +96,61 @@ https://github.com/027xiguapi/code-box
 - 自动展开代码块
 - 移动端屏蔽跳转APP
 - 非vip用户，不再提示vip观看，且完整展示文章
+- 插入自定义样式(css代码)
 
 ### 知乎
 
-- 一键下载文章html或markdown文件
+- 一键下载文章html、pdf或markdown文件
 - 一键复制代码
 - 未登录`知乎`状态下，不再提示展开阅读全文，且完整展示文章
 - 未登录`知乎`状态下，不会再出现强制登录弹窗
+- 插入自定义样式(css代码)
 
 ### 百度
 
-- 一键下载对话框html或markdown文件
+- 一键下载对话框html、pdf或markdown文件
 -  关闭AI对话框
 
 ### 简书
 
-- 一键下载文章html或markdown文件
+- 一键下载文章html、pdf或markdown文件
 - 移动端，一键复制代码
 - 不再提示展开阅读全文，且完整展示文章
 - 不会再出现强制登录弹窗
+- 插入自定义样式(css代码)
 
 ### 脚本之家
 
-- 一键下载文章html或markdown文件
+- 一键下载文章html、pdf或markdown文件
 - 打开任意一个`脚本之家`博客即可开始复制代码
 - 未登录`脚本之家`状态下，支持选中代码
 - 屏蔽广告
 - 移动端未登录`脚本之家`状态下，代码右上角按钮一键复制
+- 插入自定义样式(css代码)
 
 ### 博客园
 
-- 一键下载文章html或markdown文件
+- 一键下载文章html、pdf或markdown文件
 -  一键复制代码
+- 插入自定义样式(css代码)
 
 ### 51CTO博客
 
-- 一键下载文章html或markdown文件
+- 一键下载文章html、pdf或markdown文件
 - 未登录`51CTO博客`状态下，支持选中代码
 - 未登录`51CTO博客`状态下，代码右上角按钮一键复制
 - 未登录`51CTO博客`状态下，不会再出现强制登录弹窗
 - 移动端未登录`51CTO博客`状态下，代码右上角按钮一键复制
+- 插入自定义样式(css代码)
 
 ### php中文网
 
-- 一键下载文章html或markdown文件
+- 一键下载文章html、pdf或markdown文件
 - 未登录`php中文网`状态下，支持选中代码
 - 未登录`php中文网`状态下，代码右上角按钮一键复制
 - 未登录`php中文网`状态下，不会再出现强制登录弹窗
 - 未登录`php中文网`状态下，移动端代码右上角按钮一键复制
+- 插入自定义样式(css代码)
 
 ![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/8.png)
 ![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/1.jpg)

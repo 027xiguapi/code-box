@@ -152,6 +152,9 @@
   "downloadImg": {
     "message": "Download Image"
   },
+  "downloadAllImg": {
+    "message": "Download All Image"
+  },
   "copyCode": {
     "message": "Copy Code"
   },

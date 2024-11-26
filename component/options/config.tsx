@@ -1,7 +1,7 @@
 import { DownloadOutlined, StarTwoTone } from "@ant-design/icons"
 import { useImperativeHandle } from "react"
 
-import { sendToBackground, sendToContentScript } from "@plasmohq/messaging"
+import { sendToContentScript } from "@plasmohq/messaging"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import { i18n } from "~tools"
@@ -15,6 +15,12 @@ export default function Config({ forwardRef }) {
   )
 
   async function downloadImg() {
+    sendToContentScript({
+      name: "app-downloadAllImg"
+    })
+  }
+
+  function downloadFullImg() {
     sendToContentScript({
       name: "app-full-page-screenshot"
     })
@@ -57,6 +63,13 @@ export default function Config({ forwardRef }) {
         <label className="codebox-switch" htmlFor="config-closeLog"></label>
       </div>
       <div className="item download" onClick={downloadImg}>
+        <span>
+          <StarTwoTone twoToneColor="#eb2f96" style={{ marginRight: "5px" }} />
+          {i18n("downloadAllImg")}
+        </span>
+        <DownloadOutlined style={{ color: "#52c41a", fontSize: "16px" }} />
+      </div>
+      <div className="item download" onClick={downloadFullImg}>
         <span>
           <StarTwoTone twoToneColor="#eb2f96" style={{ marginRight: "5px" }} />
           {i18n("fullPageScreenshot")}

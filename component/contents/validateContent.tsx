@@ -21,14 +21,17 @@ export default function ValidateContent(props) {
       let time = dayjs().add(20, "day").unix()
       setValidTime(String(time))
       setIsValid(true)
+      props.handleOk()
     } else if (verifyTOTP(process.env.PLASMO_PUBLIC_CODEBOX_SECRET2, code)) {
       let time = dayjs().add(65, "day").unix()
       setValidTime(String(time))
       setIsValid(true)
+      props.handleOk()
     } else if (process.env.PLASMO_PUBLIC_CODEBOX_SECRET3 == code) {
       let time = dayjs().add(7, "day").unix()
       setValidTime(String(time))
       setIsValid(true)
+      props.handleOk()
     }
   }
 

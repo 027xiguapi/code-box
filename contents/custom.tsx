@@ -25,6 +25,7 @@ import ValidateContent from "~component/contents/validateContent"
 import { ThemeProvider } from "~theme"
 import { addCss, saveHtml, saveMarkdown, scrollToTop, setIcon } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
+import { downloadAllImagesAsZip } from "~utils/downloadAllImg"
 import { savePdf } from "~utils/downloadPdf"
 import DrawImages from "~utils/drawImages"
 import { useContent } from "~utils/editMarkdownHook"
@@ -49,6 +50,7 @@ export const getStyle: PlasmoGetStyle = () => {
 let isDownloadType = "markdown"
 let isReady = false
 let isSelect = false
+let instance = null
 
 export default function CustomOverlay() {
   const [cssCode, runCss] = useCssCodeHook("custom")
@@ -99,6 +101,9 @@ export default function CustomOverlay() {
     }
     if (req.name == "custom-editMarkdown") {
       setCustom("editMarkdown")
+    }
+    if (req.name == "app-downloadAllImg") {
+      downloadAllImagesAsZip(articleTitle)
     }
     if (req.name == "app-full-page-screenshot") {
       const { scrollHeight, clientHeight } = document.documentElement
@@ -207,10 +212,11 @@ export default function CustomOverlay() {
     isReady = false
     isSelect = false
     setIsCurrentDom(false)
+    instance.destroy()
   }
 
   function handleConfirm() {
-    Modal.confirm({
+    instance = Modal.confirm({
       title: "提示",
       content: (
         <>
@@ -218,7 +224,7 @@ export default function CustomOverlay() {
           {Number(validTime) > dayjs().unix() ? (
             <></>
           ) : (
-            <ValidateContent></ValidateContent>
+            <ValidateContent handleOk={handleOk}></ValidateContent>
           )}
         </>
       ),
@@ -241,6 +247,7 @@ export default function CustomOverlay() {
     isReady = false
     isSelect = false
     setIsCurrentDom(false)
+    instance.destroy()
   }
 
   function handleSetParent(event) {
