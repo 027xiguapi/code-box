@@ -64,23 +64,7 @@ export default function CustomOverlay() {
 
   useEffect(() => {
     getSelection()
-
-    const hostname = location.hostname
-    setIcon(
-      hostname.includes("csdn") ||
-        hostname.includes("zhihu") ||
-        hostname.includes("baidu") ||
-        hostname.includes("jianshu") ||
-        hostname.includes("jb51") ||
-        hostname.includes("cnblogs") ||
-        hostname.includes("51cto") ||
-        hostname.includes("juejin") ||
-        hostname.includes("php") ||
-        hostname.includes("oschina") ||
-        hostname.includes("segmentfault") ||
-        hostname.includes("weixin") ||
-        hostname.includes("medium")
-    )
+    setIcon(true)
   }, [])
 
   useMessage(async (req, res) => {
@@ -103,31 +87,46 @@ export default function CustomOverlay() {
       setCustom("editMarkdown")
     }
     if (req.name == "app-downloadAllImg") {
-      downloadAllImagesAsZip(articleTitle)
+      const imageUrls = Array.from(document.images).map((img) => img.src)
+
+      // res.send({ imageUrls, title: articleTitle })
+      const res = await sendToBackground({
+        name: "download",
+        body: {
+          action: "downloadAllImage",
+          imageUrls: imageUrls,
+          title: articleTitle
+        }
+      })
+      if (res.code == 0) {
+        alert("下载失败")
+      }
     }
     if (req.name == "app-full-page-screenshot") {
-      const { scrollHeight, clientHeight } = document.documentElement
-      const devicePixelRatio = window.devicePixelRatio || 1
+      if (confirm("确认下载？")) {
+        const { scrollHeight, clientHeight } = document.documentElement
+        const devicePixelRatio = window.devicePixelRatio || 1
 
-      let capturedHeight = 0
-      let capturedImages = []
+        let capturedHeight = 0
+        let capturedImages = []
 
-      const captureAndScroll = async () => {
-        const scrollAmount = clientHeight * devicePixelRatio
-        const res = await sendToBackground({ name: "screenshot" })
-        const dataUrl = res.dataUrl
+        const captureAndScroll = async () => {
+          const scrollAmount = clientHeight * devicePixelRatio
+          const res = await sendToBackground({ name: "screenshot" })
+          const dataUrl = res.dataUrl
 
-        capturedHeight += scrollAmount
-        if (capturedHeight < scrollHeight * devicePixelRatio) {
-          capturedImages.push(dataUrl)
-          window.scrollTo(0, capturedHeight)
-          setTimeout(captureAndScroll, 2000) // Adjust the delay as needed
-        } else {
-          DrawImages(capturedImages, articleTitle)
+          capturedHeight += scrollAmount
+          if (capturedHeight < scrollHeight * devicePixelRatio) {
+            capturedImages.push(dataUrl)
+            window.scrollTo(0, capturedHeight)
+            setTimeout(captureAndScroll, 2000) // Adjust the delay as needed
+          } else {
+            DrawImages(capturedImages, articleTitle)
+          }
         }
-      }
 
-      captureAndScroll()
+        captureAndScroll()
+      }
     }
   })
 

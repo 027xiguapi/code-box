@@ -9,18 +9,29 @@ export async function downloadAllImagesAsZip(filename?: string) {
   const fetchPromises = []
 
   images.forEach((img, index) => {
-    const imgUrl = img.src // 获取图片 URL
     fetchPromises.push(
-      fetch(imgUrl)
-        .then((response) => {
-          if (!response.ok) throw new Error(`Failed to fetch ${imgUrl}`)
-          return response.blob() // 转为 Blob 数据
-        })
-        .then((blob) => {
-          const ext = imgUrl.split(".").pop().split("?")[0] || "jpg" // 推断图片扩展名
-          imgFolder.file(`image_${index + 1}.${ext}`, blob) // 添加图片到 ZIP
-        })
-        .catch((err) => console.error(`Error fetching image: ${err}`))
+      new Promise((resolve) => {
+        console.log(img.src)
+        fetch(img.src)
+          .then((response) => response.blob())
+          .then((blob) => {
+            const imgElement = new Image()
+            imgElement.crossOrigin = "Anonymous"
+            imgElement.src = URL.createObjectURL(blob)
+            imgElement.onload = function () {
+              const canvas = document.createElement("canvas")
+              canvas.width = imgElement.naturalWidth
+              canvas.height = imgElement.naturalHeight
+              const context = canvas.getContext("2d")
+              context.drawImage(imgElement, 0, 0) // 将图片绘制到 Canvas
+              canvas.toBlob((blob) => {
+                const ext = "png" // 使用 PNG 格式
+                imgFolder.file(`image_${index + 1}.${ext}`, blob)
+              })
+            }
+            imgElement.onerror = resolve
+          })
+      })
     )
   })
 

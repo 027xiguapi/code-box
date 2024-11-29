@@ -1,7 +1,7 @@
 import { DownloadOutlined, StarTwoTone } from "@ant-design/icons"
 import { useImperativeHandle } from "react"
 
-import { sendToContentScript } from "@plasmohq/messaging"
+import { sendToBackground, sendToContentScript } from "@plasmohq/messaging"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import { i18n } from "~tools"
@@ -15,9 +15,17 @@ export default function Config({ forwardRef }) {
   )
 
   async function downloadImg() {
-    sendToContentScript({
+    const res = await sendToContentScript({
       name: "app-downloadAllImg"
     })
+    // const result = await sendToBackground({
+    //   name: "download",
+    //   body: {
+    //     action: "downloadAllImage",
+    //     imageUrls: res.imageUrls,
+    //     title: res.title
+    //   }
+    // })
   }
 
   function downloadFullImg() {

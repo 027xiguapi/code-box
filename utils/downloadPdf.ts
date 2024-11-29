@@ -31,7 +31,7 @@ export function savePdf(article: Element, filename?: string) {
       // 通过跨域获取图片，并将图片转换为 base64 格式
       imagePromises.push(
         new Promise(function (resolve) {
-          var imgElement = new Image()
+          const imgElement = new Image()
           imgElement.crossOrigin = "Anonymous"
           imgElement.src = img.src
           imgElement.onload = function () {

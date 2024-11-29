@@ -1,7 +1,7 @@
 {
   "name": "code-box",
   "displayName": "__MSG_extensionName__",
-  "version": "0.9.17",
+  "version": "0.9.18",
   "description": "__MSG_extensionDescription__",
   "author": "027xiguapi. <458813868@qq.com>",
   "scripts": {
@@ -64,7 +64,8 @@
       }
     },
     "permissions": [
-      "activeTab"
+      "activeTab",
+      "downloads"
     ],
     "host_permissions": [
       "https://*/*"
