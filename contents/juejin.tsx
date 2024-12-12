@@ -100,7 +100,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
       downloadHtml()
     }
     if (req.name == "juejin-downloadPdf") {
-      var article = document.querySelector<HTMLElement>(".blog-content-box")
+      var article = document.querySelector<HTMLElement>("article.article")
       savePdf(article, articleTitle)
     }
   })

@@ -51,7 +51,7 @@ export default function Jianshu() {
       downloadHtml()
     }
     if (req.name == "jianshu-downloadPdf") {
-      var article = document.querySelector<HTMLElement>(".blog-content-box")
+      var article = document.querySelector<HTMLElement>("section.ouvJEz")
       savePdf(article, articleTitle)
     }
   })

@@ -48,7 +48,7 @@ export default function jb51() {
       downloadHtml()
     }
     if (req.name == "jb51-downloadPdf") {
-      var article = document.querySelector<HTMLElement>(".blog-content-box")
+      var article = document.querySelector<HTMLElement>("#article")
       savePdf(article, articleTitle)
     }
   })
