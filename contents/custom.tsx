@@ -67,7 +67,7 @@ export default function CustomOverlay() {
     setIcon(true)
   }, [])
 
-  useMessage(async (req, res) => {
+  useMessage(async (req: any, res: any) => {
     if (req.name == "custom-isShow") {
       res.send({ isShow: true })
     }
@@ -86,21 +86,8 @@ export default function CustomOverlay() {
     if (req.name == "custom-editMarkdown") {
       setCustom("editMarkdown")
     }
-    if (req.name == "app-downloadAllImg") {
-      const imageUrls = Array.from(document.images).map((img) => img.src)
-
-      // res.send({ imageUrls, title: articleTitle })
-      const res = await sendToBackground({
-        name: "download",
-        body: {
-          action: "downloadAllImage",
-          imageUrls: imageUrls,
-          title: articleTitle
-        }
-      })
-      if (res.code == 0) {
-        alert("下载失败")
-      }
+    if (req.name == "app-downloadImages") {
+      await downloadImages(req.body?.onProgress)
     }
     if (req.name == "app-full-page-screenshot") {
       if (confirm("确认下载？")) {
@@ -129,6 +116,28 @@ export default function CustomOverlay() {
       }
     }
   })
+
+  async function downloadImages(
+    onProgress?: (current: number, total: number) => void
+  ) {
+    const imageUrls = Array.from(document.images).map((img) => img.src)
+    try {
+      const res = await sendToBackground({
+        name: "download",
+        body: {
+          action: "downloadAllImages",
+          imageUrls: imageUrls,
+          title: articleTitle,
+          onProgress: onProgress
+        }
+      })
+      if (res.code == 0) {
+        alert("下载失败")
+      }
+    } catch (error) {
+      console.error(`Failed to download images:`, error)
+    }
+  }
 
   function setCustom(type) {
     isReady = true

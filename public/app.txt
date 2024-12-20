@@ -8,23 +8,25 @@
 github地址：https://github.com/027xiguapi/code-box
 
 自定义
-
-- 插入自定义样式(css代码)
-- 自定义选择下载html
-- 自定义选择下载markdown
-- 自定义选择下载pdf
+1. 插入自定义样式(css代码)
+2. 自定义选择下载html
+3. 自定义选择下载markdown
+4. 自定义选择下载pdf
+5. 一键下载所有图片
+6. 在线编辑markdown
 
 微信
 1. 插入自定义样式(css代码)
-2. 自定义选择下载html
-3. 自定义选择下载markdown
-4. 自定义选择下载pdf
+2. 一键下载html
+3. 一键下载markdown
+4. 一键下载pdf
+5. 一键下载所有图片
 
 掘金
 1. 插入自定义样式(css代码)
-2. 自定义选择下载html
-3. 自定义选择下载markdown
-4. 自定义选择下载pdf
+2. 一键选择下载html
+3. 一键选择下载markdown
+4. 一键选择下载pdf
 
 CSDN
 1. 一键下载文章html、pdf或markdown文件

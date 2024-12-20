@@ -16,7 +16,7 @@ export default function DownloadImages({ name }) {
       setIsDownloading(true)
       setProgress(0)
 
-      const response = await sendToContentScript({
+      const res = await sendToContentScript({
         name: `${name}-downloadImages`,
         body: {
           onProgress: (current, total) => {

@@ -3,8 +3,8 @@ import JSZip from "jszip"
 import type { PlasmoMessaging } from "@plasmohq/messaging"
 
 const handler: PlasmoMessaging.MessageHandler = async (req, res) => {
-  if (req.body.action === "downloadAllImage") {
-    const { imageUrls, title } = req.body
+  const { imageUrls, title, action, onProgress } = req.body
+  if (action === "downloadAllImages") {
     const zip = new JSZip()
 
     const fetchImage = (url) => {
@@ -19,6 +19,7 @@ const handler: PlasmoMessaging.MessageHandler = async (req, res) => {
     Promise.all(imageUrls.map(fetchImage))
       .then((results) => {
         results.forEach(({ blob, fileName }, index) => {
+          onProgress && onProgress(index + 1, imageUrls.length)
           zip.file(fileName || `image-${index}.jpg`, blob)
         })
 

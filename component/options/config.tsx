@@ -1,9 +1,10 @@
 import { DownloadOutlined, StarTwoTone } from "@ant-design/icons"
 import { useImperativeHandle } from "react"
 
-import { sendToBackground, sendToContentScript } from "@plasmohq/messaging"
+import { sendToContentScript } from "@plasmohq/messaging"
 import { useStorage } from "@plasmohq/storage/hook"
 
+import DownloadImages from "~component/items/downloadImages"
 import { i18n } from "~tools"
 
 export default function Config({ forwardRef }) {
@@ -13,20 +14,6 @@ export default function Config({ forwardRef }) {
   const [closeLog, setCloseLog] = useStorage("config-closeLog", (v) =>
     v === undefined ? true : v
   )
-
-  async function downloadImg() {
-    const res = await sendToContentScript({
-      name: "app-downloadAllImg"
-    })
-    // const result = await sendToBackground({
-    //   name: "download",
-    //   body: {
-    //     action: "downloadAllImage",
-    //     imageUrls: res.imageUrls,
-    //     title: res.title
-    //   }
-    // })
-  }
 
   function downloadFullImg() {
     sendToContentScript({
@@ -70,13 +57,7 @@ export default function Config({ forwardRef }) {
         />
         <label className="codebox-switch" htmlFor="config-closeLog"></label>
       </div>
-      <div className="item download" onClick={downloadImg}>
-        <span>
-          <StarTwoTone twoToneColor="#eb2f96" style={{ marginRight: "5px" }} />
-          {i18n("downloadAllImg")}
-        </span>
-        <DownloadOutlined style={{ color: "#52c41a", fontSize: "16px" }} />
-      </div>
+      <DownloadImages name="app"></DownloadImages>
       <div className="item download" onClick={downloadFullImg}>
         <span>
           <StarTwoTone twoToneColor="#eb2f96" style={{ marginRight: "5px" }} />
