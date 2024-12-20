@@ -155,6 +155,9 @@
   "downloadAllImg": {
     "message": "下载所有图片"
   },
+  "downloading": {
+    "message": "正在下载"
+  },
   "copyCode": {
     "message": "一键复制代码"
   },

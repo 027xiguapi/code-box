@@ -78,6 +78,7 @@ https://github.com/027xiguapi/code-box
 - 一键下载文章html
 - 一键下载文章markdown
 - 一键下载文章pdf
+- 一键下载所有图片
 
 ### 掘金
 - 插入自定义样式(css代码)

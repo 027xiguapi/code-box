@@ -1,5 +1,6 @@
 import CssCode from "~component/items/cssCode"
 import DownloadHtml from "~component/items/downloadHtml"
+import DownloadImages from "~component/items/downloadImages"
 import DownloadMarkdown from "~component/items/downloadMarkdown"
 import DownloadPdf from "~component/items/downloadPdf"
 import EditMarkdown from "~component/items/editMarkdown"
@@ -16,6 +17,7 @@ export default function Weixin() {
       <DownloadMarkdown name="weixin"></DownloadMarkdown>
       <DownloadHtml name="weixin"></DownloadHtml>
       <DownloadPdf name="weixin"></DownloadPdf>
+      <DownloadImages name="weixin"></DownloadImages>
     </fieldset>
   )
 }

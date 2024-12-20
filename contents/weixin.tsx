@@ -1,3 +1,5 @@
+import { saveAs } from "file-saver"
+import JSZip from "jszip"
 import type {
   PlasmoCSConfig,
   PlasmoCSUIProps,
@@ -58,7 +60,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   const [history, setHistory] = useStorage<any[]>("codebox-history")
   const [content, setContent] = useContent()
 
-  useMessage(async (req, res) => {
+  useMessage(async (req: any, res: any) => {
     if (req.name == "weixin-isShow") {
       res.send({ isShow: true })
     }
@@ -75,7 +77,68 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
       var article = document.querySelector<HTMLElement>("#img-content")
       savePdf(article, articleTitle)
     }
+    if (req.name == "weixin-downloadImages") {
+      await downloadImages(req.body?.onProgress)
+    }
   })
+
+  async function downloadImages(
+    onProgress?: (current: number, total: number) => void
+  ) {
+    const article = document.querySelector("#js_content")
+    if (!article) return
+
+    const images = Array.from(article.getElementsByTagName("img"))
+    const imageUrls = images
+      .map((img) => img.dataset.src || img.src)
+      .filter((url) => url)
+      .map((url) =>
+        url.replace(
+          "//res.wx.qq.com/mmbizwap",
+          "https://res.wx.qq.com/mmbizwap"
+        )
+      )
+
+    const zip = new JSZip()
+    const title = document.title.trim()
+    const total = imageUrls.length
+
+    for (let i = 0; i < imageUrls.length; i++) {
+      try {
+        const response = await fetch(imageUrls[i])
+        const blob = await response.blob()
+
+        let ext = ".jpg"
+        if (
+          imageUrls[i].includes("wx_fmt=gif") ||
+          imageUrls[i].includes("mmbiz_gif")
+        ) {
+          ext = ".gif"
+        } else if (
+          imageUrls[i].includes("wx_fmt=png") ||
+          imageUrls[i].includes("mmbiz_png")
+        ) {
+          ext = ".png"
+        } else if (
+          imageUrls[i].includes("wx_fmt=bmp") ||
+          imageUrls[i].includes("mmbiz_bmp")
+        ) {
+          ext = ".bmp"
+        }
+
+        zip.file(`${title}-${i}${ext}`, blob)
+
+        if (onProgress) {
+          onProgress(i + 1, total)
+        }
+      } catch (error) {
+        console.error(`Failed to download image ${i}:`, error)
+      }
+    }
+
+    const content = await zip.generateAsync({ type: "blob" })
+    saveAs(content, `${title}-images.zip`)
+  }
 
   function downloadMarkdown() {
     const html = document.querySelector("#img-content")
