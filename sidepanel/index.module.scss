@@ -16,6 +16,15 @@
         .valid {
             color: red;
         }
+        .summary {
+            .title {
+                font-size: 16px;
+                margin: 10px 0;
+            }
+            .content {
+                font-size: 14px;
+            }
+        }
         .contentTitle {
             margin: 15px 0 10px 0;
         }

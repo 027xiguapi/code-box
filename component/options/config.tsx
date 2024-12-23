@@ -1,11 +1,12 @@
-import { DownloadOutlined, StarTwoTone } from "@ant-design/icons"
+import { BookOutlined, DownloadOutlined, StarTwoTone } from "@ant-design/icons"
 import { useImperativeHandle } from "react"
 
-import { sendToContentScript } from "@plasmohq/messaging"
+import { sendToBackground, sendToContentScript } from "@plasmohq/messaging"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import DownloadImages from "~component/items/downloadImages"
 import { i18n } from "~tools"
+import { getSummary } from "~utils/coze"
 
 export default function Config({ forwardRef }) {
   const [copyCode, setCopyCode] = useStorage("config-copyCode", (v) =>
@@ -18,6 +19,18 @@ export default function Config({ forwardRef }) {
   function downloadFullImg() {
     sendToContentScript({
       name: "app-full-page-screenshot"
+    })
+  }
+
+  function getSummary() {
+    sendToContentScript({
+      name: "app-get-summary"
+    })
+    sendToBackground({
+      name: "sidepanel",
+      body: {
+        active: true
+      }
     })
   }
 
@@ -64,6 +77,13 @@ export default function Config({ forwardRef }) {
           {i18n("fullPageScreenshot")}
         </span>
         <DownloadOutlined style={{ color: "#52c41a", fontSize: "16px" }} />
+      </div>
+      <div className="item download" onClick={getSummary}>
+        <span>
+          <StarTwoTone twoToneColor="#eb2f96" style={{ marginRight: "5px" }} />
+          总结文章
+        </span>
+        <BookOutlined style={{ color: "#52c41a", fontSize: "16px" }} />
       </div>
     </fieldset>
   )

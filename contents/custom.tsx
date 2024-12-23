@@ -24,6 +24,7 @@ import { useStorage } from "@plasmohq/storage/hook"
 import ValidateContent from "~component/contents/validateContent"
 import { ThemeProvider } from "~theme"
 import { addCss, saveHtml, saveMarkdown, scrollToTop, setIcon } from "~tools"
+import { getSummary } from "~utils/coze"
 import useCssCodeHook from "~utils/cssCodeHook"
 import { downloadAllImagesAsZip } from "~utils/downloadAllImg"
 import { savePdf } from "~utils/downloadPdf"
@@ -55,6 +56,7 @@ let instance = null
 export default function CustomOverlay() {
   const [cssCode, runCss] = useCssCodeHook("custom")
   const [content, setContent] = useContent()
+  const [summary, setSummary] = useStorage("app-summary", "")
   const [validTime, setValidTime] = useStorage("app-validTime", "1730390400")
   const [isCurrentDom, setIsCurrentDom] = useState<boolean>(false)
   const [rect, setRect] = useState<any>(() => {
@@ -88,6 +90,14 @@ export default function CustomOverlay() {
     }
     if (req.name == "app-downloadImages") {
       await downloadImages(req.body?.onProgress)
+    }
+    if (req.name == "app-get-summary") {
+      setSummary("")
+      const res = await getSummary(location.href)
+      if (res.code == 0) {
+        const result = JSON.parse(res.data)
+        setSummary(result)
+      }
     }
     if (req.name == "app-full-page-screenshot") {
       if (confirm("确认下载？")) {

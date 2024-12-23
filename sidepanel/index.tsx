@@ -2,24 +2,22 @@ import { ThemeProvider } from "~theme"
 
 import "~index.css"
 
-import {
-  DownloadOutlined,
-  KeyOutlined,
-  PushpinOutlined
-} from "@ant-design/icons"
-import dayjs from "dayjs"
-import { useRef, useState } from "react"
+import { DownloadOutlined, PushpinOutlined } from "@ant-design/icons"
 
 import { sendToContentScript } from "@plasmohq/messaging"
 import { useStorage } from "@plasmohq/storage/dist/hook"
 
 import ValidateContent from "~component/contents/validateContent"
-import { verifyTOTP } from "~utils/2FA"
 
 import styles from "./index.module.scss"
 
 function IndexSidePanel() {
   const [codes] = useStorage("app-codes", [])
+  const [summary, setSummary] = useStorage("app-summary", {
+    title: "",
+    score: "",
+    content: ""
+  })
 
   function pinCode(index) {
     sendToContentScript({ name: `custom-scrollIntoViewCode`, body: { index } })
@@ -37,6 +35,16 @@ function IndexSidePanel() {
           <ValidateContent></ValidateContent>
         </div>
         <div className="content">
+          {summary.content ? (
+            <div className="summary">
+              <div className="title">
+                {summary.title}(评分：{summary.score})
+              </div>
+              <div className="content">{summary.content}</div>
+            </div>
+          ) : (
+            <></>
+          )}
           <h1 className="contentTitle">导航</h1>
           {codes.map((code, index) => (
             <div
