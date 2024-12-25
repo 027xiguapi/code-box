@@ -51,7 +51,7 @@ const turndownService = Turndown({
   }
 })
 const articleTitle = document
-  .querySelector<HTMLElement>("head title")
+  .querySelector<HTMLElement>("head title")!
   .innerText.trim()
 
 const HOST_ID = "codebox-juejin"

@@ -50,7 +50,7 @@ export default function zhihu() {
     if (req.name == "zhihu-downloadHtml") {
       downloadHtml()
     }
-    if (req.name == "segmentfault-downloadPdf") {
+    if (req.name == "zhihu-downloadPdf") {
       var article = document.querySelector<HTMLElement>("article.Post-Main")
       savePdf(article, articleTitle)
     }
