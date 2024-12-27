@@ -22,7 +22,8 @@ export const config: PlasmoCSConfig = {
     "https://mp.weixin.qq.com/*",
     "https://day.js.org/*",
     "https://stackoverflow.com/*",
-    "https://dev.to/*"
+    "https://dev.to/*",
+    "https://greasyfork.org/*"
   ]
 }
 
@@ -70,7 +71,12 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
 
   const element = anchor.element
   const style = window.getComputedStyle(element)
-  const width = style.getPropertyValue("width")
+  let width = style.getPropertyValue("width")
+
+  if (location.host.includes("greasyfork")) {
+    const codeContainer = element.closest(".code-container")
+    width = window.getComputedStyle(codeContainer).getPropertyValue("width")
+  }
 
   const onCopy = async () => {
     try {
@@ -80,9 +86,9 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
       let textContent = ""
 
       if (codeBlock) {
-        textContent = codeBlock.textContent
+        textContent = codeBlock.innerText
       } else {
-        textContent = preBlock && preBlock.textContent
+        textContent = preBlock && preBlock.innerText
       }
 
       navigator.clipboard.writeText(textContent)

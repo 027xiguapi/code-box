@@ -1,11 +1,13 @@
 import { Modal } from "antd"
+import dayjs from "dayjs"
 import React, { useEffect, useRef, useState } from "react"
 import { createRoot } from "react-dom/client"
 
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
-import { addCss, saveHtml, saveMarkdown, scrollToTop, setIcon } from "~tools"
+import ValidateContent from "~component/contents/validateContent"
+import { addCss, saveHtml, saveMarkdown } from "~tools"
 import { savePdf } from "~utils/downloadPdf"
 import { useContent } from "~utils/editMarkdownHook"
 import Turndown from "~utils/turndown"
@@ -20,10 +22,10 @@ export default function CustomDomSelector() {
   const downloadType = useRef("")
   const [content, setContent] = useContent()
   const [validTime] = useStorage("app-validTime", "1730390400")
-  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const selectorRef = useRef<HTMLElement | null>(null)
   const tooltipRef = useRef<HTMLElement | null>(null)
+  const modalRef = useRef<HTMLElement | null>(null)
 
   const articleTitle = document
     .querySelector<HTMLElement>("head title")
@@ -31,30 +33,13 @@ export default function CustomDomSelector() {
 
   useEffect(() => {
     addEventListeners()
-    setIcon(true)
     addCss(`.codebox-current { outline: 2px solid #42b88350 !important; }`)
     return () => {
       removeEventListeners()
-      // removeSelector()
       removeTooltip()
       removeHighlight()
     }
   }, [])
-
-  const createSelector = () => {
-    const selector = document.createElement("div")
-    selector.classList.add("codebox-selector")
-    selector.style.position = "absolute"
-    selector.style.pointerEvents = "none"
-    selector.style.zIndex = "2147483640"
-    selector.style.backgroundColor = "#42b88325"
-    selector.style.border = "2px solid #42b88350"
-    selector.style.borderRadius = "2px"
-    selector.style.transition = "all 0.1s ease-in"
-    selector.style.display = "none"
-    document.body.appendChild(selector)
-    selectorRef.current = selector
-  }
 
   const createTooltip = () => {
     const tooltip = document.createElement("div")
@@ -66,7 +51,6 @@ export default function CustomDomSelector() {
     tooltip.style.borderRadius = "5px"
     tooltip.style.padding = "8px"
     tooltip.style.boxShadow = "0 2px 8px rgba(0, 0, 0, 0.15)"
-    // tooltip.style.display = "none"
     document.body.appendChild(tooltip)
     const root = createRoot(tooltip)
     root.render(
@@ -77,12 +61,6 @@ export default function CustomDomSelector() {
       />
     )
     tooltipRef.current = tooltip
-  }
-
-  const removeSelector = () => {
-    if (selectorRef.current) {
-      document.body.removeChild(selectorRef.current)
-    }
   }
 
   const removeTooltip = () => {
@@ -106,7 +84,6 @@ export default function CustomDomSelector() {
     if (isReady.current && !isSelect.current) {
       const target = event.target as HTMLElement
       highlightElement(target)
-      // updateSelectorPosition(target)
     }
   }
 
@@ -122,7 +99,6 @@ export default function CustomDomSelector() {
         createTooltip()
         isSelect.current = true
         highlightElement(target)
-        // updateSelectorPosition(target)
         updateTooltipPosition(target)
         event.stopPropagation()
         event.preventDefault()
@@ -142,17 +118,6 @@ export default function CustomDomSelector() {
     selectorRef.current = null
   }
 
-  const updateSelectorPosition = (element: HTMLElement) => {
-    if (selectorRef.current) {
-      const rect = element.getBoundingClientRect()
-      selectorRef.current.style.top = `${rect.top + window.scrollY}px`
-      selectorRef.current.style.left = `${rect.left + window.scrollX}px`
-      selectorRef.current.style.width = `${rect.width}px`
-      selectorRef.current.style.height = `${rect.height}px`
-      selectorRef.current.style.display = "block"
-    }
-  }
-
   const updateTooltipPosition = (element: HTMLElement) => {
     const rect = element.getBoundingClientRect()
     const distanceTop = rect.top + window.scrollY
@@ -161,7 +126,7 @@ export default function CustomDomSelector() {
       distanceTop < 50 ? distanceTop + rect.height + 5 : distanceTop - 40
     tooltipRef.current.style.top = `${top}px`
     tooltipRef.current.style.left = `${distanceLeft + 5}px`
-    scrollToTop(tooltipRef.current)
+    window.scrollTo({ top: top - 150, behavior: "smooth" })
   }
 
   useMessage(async (req: any, res: any) => {
@@ -188,8 +153,9 @@ export default function CustomDomSelector() {
     isSelect.current = false
   }
 
-  const handleConfirm = () => {
+  const handleOkModal = () => {
     if (!selectorRef.current || !downloadType.current) return
+
     switch (downloadType.current) {
       case "html":
         saveHtml(selectorRef.current, articleTitle)
@@ -207,6 +173,31 @@ export default function CustomDomSelector() {
     }
 
     resetState()
+    setTimeout(() => {
+      document.body.removeChild(modalRef.current)
+      modalRef.current = null
+    }, 1000)
+  }
+
+  const handleConfirm = () => {
+    const modal = document.createElement("div")
+    modal.classList.add("codebox-modal")
+    modal.style.position = "fixed"
+    modal.style.zIndex = "2147483642"
+    modal.style.backgroundColor = "rgba(0, 0, 0, 0.7)"
+    modal.style.width = "100vw"
+    modal.style.height = "100vh"
+    modal.style.top = "0"
+    modal.style.left = "0"
+    document.body.appendChild(modal)
+    const root = createRoot(modal)
+    root.render(
+      <ValidateContent
+        handleOk={handleOkModal}
+        handleCancel={handleCancelModal}
+      />
+    )
+    modalRef.current = modal
   }
 
   const handleCancel = () => {
@@ -215,7 +206,6 @@ export default function CustomDomSelector() {
 
   const resetState = () => {
     removeHighlight()
-    // removeSelector()
     removeTooltip()
     isReady.current = false
     isSelect.current = false
@@ -247,26 +237,10 @@ export default function CustomDomSelector() {
     }
   }
 
-  const handleOkModal = () => {
-    setIsModalOpen(false)
-  }
-
   const handleCancelModal = () => {
-    setIsModalOpen(false)
+    document.body.removeChild(modalRef.current)
+    modalRef.current = null
   }
 
-  return (
-    <>
-      <Modal
-        title="Basic Modal"
-        className="codebox-modal"
-        open={isModalOpen}
-        onOk={handleOkModal}
-        onCancel={handleCancelModal}>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-      </Modal>
-    </>
-  )
+  return <div style={{ display: "none" }}></div>
 }

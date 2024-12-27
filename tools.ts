@@ -5,7 +5,7 @@ import { sendToBackground } from "@plasmohq/messaging"
 
 export function scrollToTop(element) {
   window.scrollTo({
-    top: element.offsetTop + 50,
+    top: element.offsetTop - 50,
     behavior: "smooth" // 可选，平滑滚动
   })
 }

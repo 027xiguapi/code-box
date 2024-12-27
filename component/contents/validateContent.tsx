@@ -35,6 +35,10 @@ export default function ValidateContent(props) {
     }
   }
 
+  function handleCancel() {
+    props.handleCancel()
+  }
+
   function help() {
     sendToBackground({
       name: "tab",
@@ -45,10 +49,21 @@ export default function ValidateContent(props) {
   }
 
   return (
-    <>
+    <div
+      style={{
+        width: "350px",
+        padding: "10px",
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        backgroundColor: "white",
+        borderRadius: "5px",
+        textAlign: "center"
+      }}>
       {isValid ? (
         <p className="valid" style={{ fontSize: "16px", color: "red" }}>
-          验证成功
+          验证成功, 以激活
         </p>
       ) : (
         <>
@@ -60,23 +75,33 @@ export default function ValidateContent(props) {
             )
           </div>
           <div>
-            <img src={qrcodeUrl} alt="微信公众号" />
+            <img style={{ margin: "auto" }} src={qrcodeUrl} alt="微信公众号" />
           </div>
-          <Space.Compact style={{ width: "100%" }}>
+          <div style={{ marginTop: "10px" }}>
             <Input
               placeholder="输入激活码"
               ref={inputRef}
               prefix={<KeyOutlined />}
             />
+          </div>
+          <div
+            style={{
+              marginTop: "10px",
+              display: "flex",
+              justifyContent: "space-between"
+            }}>
             <Button
               type="primary"
               className="valid-submit"
               onClick={handleSubmit}>
               提交
             </Button>
-          </Space.Compact>
+            <Button type="primary" onClick={handleCancel}>
+              取消
+            </Button>
+          </div>
         </>
       )}
-    </>
+    </div>
   )
 }
