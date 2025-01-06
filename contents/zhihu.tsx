@@ -42,7 +42,7 @@ export default function zhihu() {
       res.send({ isShow: true })
     }
     if (req.name == "zhihu-editMarkdown") {
-      setContent("article.Post-Main")
+      editMarkdown()
     }
     if (req.name == "zhihu-downloadMarkdown") {
       downloadMarkdown()
@@ -174,6 +174,11 @@ export default function zhihu() {
         isCollapsed.classList.remove("is-collapsed")
       })
     }
+  }
+
+  function editMarkdown() {
+    const dom = document.querySelector("article.Post-Main")
+    setContent(dom)
   }
 
   function downloadMarkdown() {

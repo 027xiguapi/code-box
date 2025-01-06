@@ -1,5 +1,3 @@
-import { Modal } from "antd"
-import dayjs from "dayjs"
 import React, { useEffect, useRef, useState } from "react"
 import { createRoot } from "react-dom/client"
 
@@ -8,8 +6,8 @@ import { useStorage } from "@plasmohq/storage/hook"
 
 import ValidateContent from "~component/contents/validateContent"
 import { addCss, saveHtml, saveMarkdown } from "~tools"
-import { savePdf } from "~utils/downloadPdf"
 import { useContent } from "~utils/editMarkdownHook"
+import { Print } from "~utils/print"
 import Turndown from "~utils/turndown"
 
 import Tooltip from "./Tooltip"
@@ -156,6 +154,9 @@ export default function CustomDomSelector() {
   const handleOkModal = () => {
     if (!selectorRef.current || !downloadType.current) return
 
+    const current = document.querySelector(".codebox-current")
+    current.classList.remove("codebox-current")
+
     switch (downloadType.current) {
       case "html":
         saveHtml(selectorRef.current, articleTitle)
@@ -165,10 +166,15 @@ export default function CustomDomSelector() {
         saveMarkdown(markdown, articleTitle)
         break
       case "editMarkdown":
-        setContent(".codebox-current")
+        setContent(selectorRef.current)
         break
       case "pdf":
-        savePdf(selectorRef.current, articleTitle)
+        const elementToPrint = selectorRef.current
+        if (elementToPrint) {
+          Print.print(elementToPrint, { title: articleTitle })
+            .then(() => console.log("Printing complete"))
+            .catch((error) => console.error("Printing failed:", error))
+        }
         break
     }
 
@@ -183,7 +189,7 @@ export default function CustomDomSelector() {
     const modal = document.createElement("div")
     modal.classList.add("codebox-modal")
     modal.style.position = "fixed"
-    modal.style.zIndex = "2147483642"
+    modal.style.zIndex = "2147483648"
     modal.style.backgroundColor = "rgba(0, 0, 0, 0.7)"
     modal.style.width = "100vw"
     modal.style.height = "100vh"

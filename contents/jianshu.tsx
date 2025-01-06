@@ -42,7 +42,7 @@ export default function Jianshu() {
       res.send({ isShow: true })
     }
     if (req.name == "jianshu-editMarkdown") {
-      setContent("section.ouvJEz")
+      editMarkdown()
     }
     if (req.name == "jianshu-downloadMarkdown") {
       downloadMarkdown()
@@ -154,6 +154,11 @@ export default function Jianshu() {
         }`
       addCss(css)
     }
+  }
+
+  function editMarkdown() {
+    const dom = document.querySelector("section.ouvJEz")
+    setContent(dom)
   }
 
   function downloadMarkdown() {

@@ -99,7 +99,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
       res.send({ isShow: true })
     }
     if (req.name == "csdn-editMarkdown") {
-      setContent(".blog-content-box")
+      editMarkdown()
     }
     if (req.name == "csdn-downloadMarkdown") {
       downloadMarkdown()
@@ -283,6 +283,11 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     document.querySelectorAll(".hide-article-box").forEach((box) => {
       box.remove()
     })
+  }
+
+  function editMarkdown() {
+    const dom = document.querySelector(".blog-content-box")
+    setContent(dom)
   }
 
   function downloadMarkdown() {

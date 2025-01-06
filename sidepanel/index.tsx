@@ -3,11 +3,10 @@ import { ThemeProvider } from "~theme"
 import "~index.css"
 
 import { DownloadOutlined, PushpinOutlined } from "@ant-design/icons"
+import qrcodeUrl from "raw:~/public/wx/qrcode_wx.jpg"
 
 import { sendToContentScript } from "@plasmohq/messaging"
 import { useStorage } from "@plasmohq/storage/dist/hook"
-
-import ValidateContent from "~component/contents/validateContent"
 
 import styles from "./index.module.scss"
 
@@ -32,7 +31,7 @@ function IndexSidePanel() {
       <div className={`${styles.sidepanel}`}>
         <div className="wechat">
           <h1>微信公众号</h1>
-          <ValidateContent></ValidateContent>
+          <img style={{ margin: "auto" }} src={qrcodeUrl} alt="微信公众号" />
         </div>
         <div className="content">
           {summary.content ? (

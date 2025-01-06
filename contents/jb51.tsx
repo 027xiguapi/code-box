@@ -39,7 +39,7 @@ export default function jb51() {
       res.send({ isShow: true })
     }
     if (req.name == "jb51-editMarkdown") {
-      setContent("#article")
+      editMarkdown()
     }
     if (req.name == "jb51-downloadMarkdown") {
       downloadMarkdown()
@@ -204,6 +204,11 @@ export default function jb51() {
     #rbbd {
       display:none !important;
     }`)
+  }
+
+  function editMarkdown() {
+    const dom = document.querySelector("#article")
+    setContent(dom)
   }
 
   function downloadMarkdown() {

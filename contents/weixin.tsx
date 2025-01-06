@@ -65,7 +65,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
       res.send({ isShow: true })
     }
     if (req.name == "weixin-editMarkdown") {
-      setContent("#img-content")
+      editMarkdown()
     }
     if (req.name == "weixin-downloadMarkdown") {
       downloadMarkdown()
@@ -138,6 +138,11 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
 
     const content = await zip.generateAsync({ type: "blob" })
     saveAs(content, `${title}-images.zip`)
+  }
+
+  function editMarkdown() {
+    const dom = document.querySelector("#img-content")
+    setContent(dom)
   }
 
   function downloadMarkdown() {

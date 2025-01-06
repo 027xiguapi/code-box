@@ -75,7 +75,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
       res.send({ isShow: true })
     }
     if (req.name == "51cto-editMarkdown") {
-      setContent("article")
+      handleEdit()
     }
     if (req.name == "51cto-downloadMarkdown") {
       downloadMarkdown()
@@ -248,7 +248,8 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   }
 
   function handleEdit() {
-    setContent("article")
+    const dom = document.querySelector("article")
+    setContent(dom)
   }
 
   function handleDownload() {

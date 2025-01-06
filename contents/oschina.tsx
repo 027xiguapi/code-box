@@ -26,7 +26,7 @@ export default function Oschina() {
       res.send({ isShow: true })
     }
     if (req.name == "oschina-editMarkdown") {
-      setContent(".article-box")
+      editMarkdown()
     }
     if (req.name == "oschina-downloadMarkdown") {
       downloadMarkdown()
@@ -39,6 +39,11 @@ export default function Oschina() {
       savePdf(article, articleTitle)
     }
   })
+
+  function editMarkdown() {
+    const dom = document.querySelector(".article-box")
+    setContent(dom)
+  }
 
   function downloadMarkdown() {
     const html = document.querySelector(".article-box")

@@ -90,7 +90,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
       res.send({ isShow: true })
     }
     if (req.name == "php-editMarkdown") {
-      setContent(".phpscMain .php-article")
+      editMarkdown()
     }
     if (req.name == "php-downloadMarkdown") {
       downloadMarkdown()
@@ -143,6 +143,11 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
       display:none !important;
     }`
     addCss(css)
+  }
+
+  function editMarkdown() {
+    const dom = document.querySelector(".phpscMain .php-article")
+    setContent(dom)
   }
 
   function downloadMarkdown() {

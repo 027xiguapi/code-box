@@ -38,7 +38,7 @@ export default function cnblogs() {
       res.send({ isShow: true })
     }
     if (req.name == "cnblogs-editMarkdown") {
-      setContent("article.article")
+      editMarkdown()
     }
     if (req.name == "cnblogs-downloadMarkdown") {
       downloadMarkdown()
@@ -124,6 +124,11 @@ export default function cnblogs() {
         e.preventDefault()
       })
     })
+  }
+
+  function editMarkdown() {
+    const dom = document.querySelector("#post_detail")
+    setContent(dom)
   }
 
   function downloadMarkdown() {

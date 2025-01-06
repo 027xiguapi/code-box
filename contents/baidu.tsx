@@ -32,7 +32,7 @@ export default function Custom() {
       res.send({ isShow: true })
     }
     if (req.name == "baidu-editMarkdown") {
-      setContent(".wd-ai-index-pc")
+      editMarkdown()
     }
     if (req.name == "baidu-downloadMarkdown") {
       downloadMarkdown()
@@ -50,10 +50,8 @@ export default function Custom() {
   }
 
   function editMarkdown() {
-    const html = document.querySelector("article.article")
-    const markdown = turndownService.turndown(html)
-    setContent(markdown)
-    window.open("https://md.randbox.top", "_blank")
+    const dom = document.querySelector(".wd-ai-index-pc")
+    setContent(dom)
   }
 
   function downloadMarkdown() {

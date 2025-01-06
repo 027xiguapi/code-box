@@ -26,7 +26,7 @@ export default function Segmentfault() {
       res.send({ isShow: true })
     }
     if (req.name == "segmentfault-editMarkdown") {
-      setContent("article.article")
+      editMarkdown()
     }
     if (req.name == "segmentfault-downloadMarkdown") {
       downloadMarkdown()
@@ -39,6 +39,11 @@ export default function Segmentfault() {
       savePdf(article, articleTitle)
     }
   })
+
+  function editMarkdown() {
+    const dom = document.querySelector("article.article")
+    setContent(dom)
+  }
 
   function downloadMarkdown() {
     const html = document.querySelector("article.article")

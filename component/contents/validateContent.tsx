@@ -15,9 +15,11 @@ export default function ValidateContent(props) {
   const inputRef = useRef(null)
 
   function handleSubmit() {
-    let code = inputRef.current.input.value
+    let code = inputRef.current?.input?.value
 
-    if (verifyTOTP(process.env.PLASMO_PUBLIC_CODEBOX_SECRET1, code)) {
+    if (isValid || Number(validTime) > dayjs().unix()) {
+      props.handleOk()
+    } else if (verifyTOTP(process.env.PLASMO_PUBLIC_CODEBOX_SECRET1, code)) {
       let time = dayjs().add(20, "day").unix()
       setValidTime(String(time))
       setIsValid(true)
@@ -61,9 +63,9 @@ export default function ValidateContent(props) {
         borderRadius: "5px",
         textAlign: "center"
       }}>
-      {isValid ? (
+      {isValid || Number(validTime) > dayjs().unix() ? (
         <p className="valid" style={{ fontSize: "16px", color: "red" }}>
-          验证成功, 以激活
+          已激活！确认下载？
         </p>
       ) : (
         <>
@@ -84,24 +86,19 @@ export default function ValidateContent(props) {
               prefix={<KeyOutlined />}
             />
           </div>
-          <div
-            style={{
-              marginTop: "10px",
-              display: "flex",
-              justifyContent: "space-between"
-            }}>
-            <Button
-              type="primary"
-              className="valid-submit"
-              onClick={handleSubmit}>
-              提交
-            </Button>
-            <Button type="primary" onClick={handleCancel}>
-              取消
-            </Button>
-          </div>
         </>
       )}
+      <div
+        style={{
+          margin: "10px 50px 0",
+          display: "flex",
+          justifyContent: "space-between"
+        }}>
+        <Button type="primary" className="valid-submit" onClick={handleSubmit}>
+          提交
+        </Button>
+        <Button onClick={handleCancel}>取消</Button>
+      </div>
     </div>
   )
 }

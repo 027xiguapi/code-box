@@ -13,9 +13,8 @@ export function useContent(option?) {
     })
   })
 
-  const handleSetContent = (selectors: string) => {
-    const html = document.querySelector(selectors)
-    const markdown = turndownService.turndown(html)
+  const handleSetContent = (selectorDom) => {
+    const markdown = turndownService.turndown(selectorDom)
     setContent(markdown)
     window.open("https://md.randbox.top", "_blank")
   }
