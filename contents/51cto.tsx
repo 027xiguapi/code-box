@@ -13,8 +13,8 @@ import { useStorage } from "@plasmohq/storage/hook"
 
 import { addCss, i18n, saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
-import { savePdf } from "~utils/downloadPdf"
 import { useContent } from "~utils/editMarkdownHook"
+import { Print } from "~utils/print"
 import Turndown from "~utils/turndown"
 
 export const config: PlasmoCSConfig = {
@@ -41,7 +41,7 @@ export const getStyle: PlasmoGetStyle = () => {
     cursor: pointer;
     align-items: center;
     color: #1e80ff;
-    width: 60px;
+    width: 90px;
     background: #fff;
     border-radius: 5px;
     justify-content: space-between;
@@ -54,7 +54,7 @@ export const getStyle: PlasmoGetStyle = () => {
 }
 
 const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
-  const [showTag, setShowTag] = useStorage<boolean>("51cto-showTag")
+  const [showTag, setShowTag] = useStorage<boolean>("51cto-showTag", true)
   const [cssCode, runCss] = useCssCodeHook("51cto")
   const [copyCode] = useStorage<boolean>("51cto-copyCode")
   const [closeLoginModal] = useStorage<boolean>("51cto-closeLoginModal")
@@ -75,7 +75,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
       res.send({ isShow: true })
     }
     if (req.name == "51cto-editMarkdown") {
-      handleEdit()
+      editMarkdown()
     }
     if (req.name == "51cto-downloadMarkdown") {
       downloadMarkdown()
@@ -84,8 +84,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
       downloadHtml()
     }
     if (req.name == "51cto-downloadPdf") {
-      var article = document.querySelector<HTMLElement>("article")
-      savePdf(article, articleTitle)
+      downloadPdf()
     }
   })
 
@@ -236,26 +235,41 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     addCss(css)
   }
 
+  function downloadPdf() {
+    var article = document.querySelector<HTMLElement>("article .article-detail")
+    if (article) {
+      Print.print(article, { title: articleTitle })
+        .then(() => console.log("Printing complete"))
+        .catch((error) => console.error("Printing failed:", error))
+    }
+  }
+
   function downloadMarkdown() {
-    const html = document.querySelector("article")
+    const html = document.querySelector<HTMLElement>("article .article-detail")
     const markdown = turndownService.turndown(html)
     saveMarkdown(markdown, articleTitle)
   }
 
   function downloadHtml() {
-    const dom = document.querySelector("article")
+    const dom = document.querySelector<HTMLElement>("article .article-detail")
     saveHtml(dom, articleTitle)
   }
 
-  function handleEdit() {
-    const dom = document.querySelector("article")
+  function editMarkdown() {
+    const dom = document.querySelector<HTMLElement>("article .article-detail")
     setContent(dom)
   }
 
+  function handleEdit() {
+    editMarkdown()
+  }
+
   function handleDownload() {
-    const html = document.querySelector("article")
-    const markdown = turndownService.turndown(html)
-    saveMarkdown(markdown, articleTitle)
+    downloadMarkdown()
+  }
+
+  function handlePrint() {
+    downloadPdf()
   }
 
   function closeTag() {
@@ -266,6 +280,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     <div className="codebox-tagBtn">
       <div onClick={handleEdit}>{i18n("edit")}</div>
       <div onClick={handleDownload}>{i18n("download")}</div>
+      <div onClick={handlePrint}>{i18n("print")}</div>
     </div>
   ) : (
     <></>

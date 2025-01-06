@@ -14,8 +14,8 @@ import { useStorage } from "@plasmohq/storage/dist/hook"
 
 import { i18n, saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
-import { savePdf } from "~utils/downloadPdf"
 import { useContent } from "~utils/editMarkdownHook"
+import { Print } from "~utils/print"
 import Turndown from "~utils/turndown"
 
 export const config: PlasmoCSConfig = {
@@ -42,7 +42,7 @@ export const getStyle: PlasmoGetStyle = () => {
     cursor: pointer;
     align-items: center;
     color: #1e80ff;
-    width: 66px;
+    width: 90px;
     background: transparent;
     border-radius: 5px;
     justify-content: space-between;
@@ -55,7 +55,7 @@ export const getStyle: PlasmoGetStyle = () => {
 }
 
 const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
-  const [showTag, setShowTag] = useStorage<boolean>("weixin-showTag")
+  const [showTag, setShowTag] = useStorage<boolean>("weixin-showTag", true)
   const [cssCode, runCss] = useCssCodeHook("weixin")
   const [history, setHistory] = useStorage<any[]>("codebox-history")
   const [content, setContent] = useContent()
@@ -74,8 +74,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
       downloadHtml()
     }
     if (req.name == "weixin-downloadPdf") {
-      var article = document.querySelector<HTMLElement>("#img-content")
-      savePdf(article, articleTitle)
+      downloadPdf()
     }
     if (req.name == "weixin-downloadImages") {
       await downloadImages(req.body?.onProgress)
@@ -140,6 +139,15 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     saveAs(content, `${title}-images.zip`)
   }
 
+  function downloadPdf() {
+    var article = document.querySelector<HTMLElement>("#img-content")
+    if (article) {
+      Print.print(article, { title: articleTitle })
+        .then(() => console.log("Printing complete"))
+        .catch((error) => console.error("Printing failed:", error))
+    }
+  }
+
   function editMarkdown() {
     const dom = document.querySelector("#img-content")
     setContent(dom)
@@ -166,6 +174,10 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     saveMarkdown(markdown, articleTitle)
   }
 
+  function handlePrint() {
+    downloadPdf()
+  }
+
   function closeTag() {
     setShowTag(false)
   }
@@ -174,6 +186,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     <div className="codebox-tagBtn">
       <div onClick={handleEdit}>{i18n("edit")}</div>
       <div onClick={handleDownload}>{i18n("download")}</div>
+      <div onClick={handlePrint}>{i18n("print")}</div>
     </div>
   ) : (
     <></>

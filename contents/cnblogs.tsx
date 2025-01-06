@@ -1,14 +1,20 @@
-import type { PlasmoCSConfig } from "plasmo"
-import { useEffect, useRef } from "react"
+import type {
+  PlasmoCSConfig,
+  PlasmoCSUIProps,
+  PlasmoGetOverlayAnchor,
+  PlasmoGetShadowHostId,
+  PlasmoGetStyle
+} from "plasmo"
+import { useEffect, useRef, type FC } from "react"
 import { v4 as uuidv4 } from "uuid"
 
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
-import { saveHtml, saveMarkdown } from "~tools"
+import { i18n, saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
-import { savePdf } from "~utils/downloadPdf"
 import { useContent } from "~utils/editMarkdownHook"
+import { Print } from "~utils/print"
 import Turndown from "~utils/turndown"
 
 export const config: PlasmoCSConfig = {
@@ -21,7 +27,35 @@ const articleTitle = document
   .querySelector<HTMLElement>("head title")
   .innerText.trim()
 
-export default function cnblogs() {
+const HOST_ID = "codebox-cnblogs"
+export const getShadowHostId: PlasmoGetShadowHostId = () => HOST_ID
+
+export const getOverlayAnchor: PlasmoGetOverlayAnchor = async () =>
+  document.querySelector("#post_detail .postTitle")
+
+export const getStyle: PlasmoGetStyle = () => {
+  const style = document.createElement("style")
+  style.textContent = `
+  .codebox-tagBtn {
+    height: 28px;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    color: #1e80ff;
+    width: 90px;
+    background: #fff;
+    border-radius: 5px;
+    justify-content: space-between;
+    padding: 0 8px;
+    margin-top: -20px;
+    font-size: 14px;
+  }
+  `
+  return style
+}
+
+const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
+  const [showTag, setShowTag] = useStorage<boolean>("cnblogs-showTag", true)
   const [cssCode, runCss] = useCssCodeHook("cnblogs")
   const [copyCode] = useStorage<boolean>("cnblogs-copyCode")
   const [history, setHistory] = useStorage<any[]>("codebox-history")
@@ -47,8 +81,7 @@ export default function cnblogs() {
       downloadHtml()
     }
     if (req.name == "cnblogs-downloadPdf") {
-      var article = document.querySelector<HTMLElement>("article")
-      savePdf(article, articleTitle)
+      downloadPdf()
     }
   })
 
@@ -126,21 +159,56 @@ export default function cnblogs() {
     })
   }
 
+  function downloadPdf() {
+    var article = document.querySelector<HTMLElement>("#post_detail .post")
+    if (article) {
+      Print.print(article, { title: articleTitle })
+        .then(() => console.log("Printing complete"))
+        .catch((error) => console.error("Printing failed:", error))
+    }
+  }
+
   function editMarkdown() {
-    const dom = document.querySelector("#post_detail")
+    const dom = document.querySelector<HTMLElement>("#post_detail")
     setContent(dom)
   }
 
   function downloadMarkdown() {
-    const html = document.querySelector("#post_detail")
+    const html = document.querySelector<HTMLElement>("#post_detail")
     const markdown = turndownService.turndown(html)
     saveMarkdown(markdown, articleTitle)
   }
 
   function downloadHtml() {
-    const dom = document.querySelector("#post_detail")
+    const dom = document.querySelector("#post_detail .post")
     saveHtml(dom, articleTitle)
   }
 
-  return <div style={{ display: "none" }}></div>
+  function handleEdit() {
+    editMarkdown()
+  }
+
+  function handleDownload() {
+    downloadMarkdown()
+  }
+
+  function handlePrint() {
+    downloadPdf()
+  }
+
+  function closeTag() {
+    setShowTag(false)
+  }
+
+  return showTag ? (
+    <div className="codebox-tagBtn">
+      <div onClick={handleEdit}>{i18n("edit")}</div>
+      <div onClick={handleDownload}>{i18n("download")}</div>
+      <div onClick={handlePrint}>{i18n("print")}</div>
+    </div>
+  ) : (
+    <></>
+  )
 }
+
+export default PlasmoOverlay

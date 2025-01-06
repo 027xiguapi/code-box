@@ -137,6 +137,9 @@
   "download": {
     "message": "下载"
   },
+  "print": {
+    "message": "打印"
+  },
   "editMarkdown": {
     "message": "编辑 Markdown"
   },

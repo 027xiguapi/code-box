@@ -19,7 +19,6 @@ export default function CustomDomSelector() {
   const isSelect = useRef(false)
   const downloadType = useRef("")
   const [content, setContent] = useContent()
-  const [validTime] = useStorage("app-validTime", "1730390400")
 
   const selectorRef = useRef<HTMLElement | null>(null)
   const tooltipRef = useRef<HTMLElement | null>(null)
