@@ -1,18 +1,25 @@
-import type { PlasmoCSConfig } from "plasmo"
-import { useEffect, useRef } from "react"
+import type {
+  PlasmoCSConfig,
+  PlasmoCSUIProps,
+  PlasmoGetOverlayAnchor,
+  PlasmoGetShadowHostId,
+  PlasmoGetStyle
+} from "plasmo"
+import { useEffect, useRef, type FC } from "react"
 import { v4 as uuidv4 } from "uuid"
 
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
-import { addCss, saveHtml, saveMarkdown } from "~tools"
+import TagBtnStyle from "~component/tagBtn/style"
+import { addCss, i18n, saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
-import { savePdf } from "~utils/downloadPdf"
 import { useContent } from "~utils/editMarkdownHook"
+import { Print } from "~utils/print"
 import Turndown from "~utils/turndown"
 
 export const config: PlasmoCSConfig = {
-  matches: ["https://*.zhihu.com/*"]
+  matches: ["https://*.zhihu.com/p/*"]
 }
 
 const turndownService = Turndown()
@@ -20,7 +27,16 @@ const articleTitle = document
   .querySelector<HTMLElement>("head title")
   .innerText.trim()
 
-export default function zhihu() {
+const HOST_ID = "codebox-zhihu"
+export const getShadowHostId: PlasmoGetShadowHostId = () => HOST_ID
+
+export const getOverlayAnchor: PlasmoGetOverlayAnchor = async () =>
+  document.querySelector("article.Post-Main .Post-Title")
+
+export const getStyle: PlasmoGetStyle = () => TagBtnStyle()
+
+const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
+  const [showTag, setShowTag] = useStorage<boolean>("zhihu-showTag", true)
   const [cssCode, runCss] = useCssCodeHook("zhihu")
   const [closeLoginModal] = useStorage<boolean>("zhihu-closeLoginModal")
   const [copyCode] = useStorage<boolean>("zhihu-copyCode")
@@ -51,8 +67,7 @@ export default function zhihu() {
       downloadHtml()
     }
     if (req.name == "zhihu-downloadPdf") {
-      var article = document.querySelector<HTMLElement>("article.Post-Main")
-      savePdf(article, articleTitle)
+      downloadPdf()
     }
   })
 
@@ -176,6 +191,15 @@ export default function zhihu() {
     }
   }
 
+  function downloadPdf() {
+    const article = document.querySelector<HTMLElement>("article.Post-Main")
+    if (article) {
+      Print.print(article, { title: articleTitle })
+        .then(() => console.log("Printing complete"))
+        .catch((error) => console.error("Printing failed:", error))
+    }
+  }
+
   function editMarkdown() {
     const dom = document.querySelector("article.Post-Main")
     setContent(dom)
@@ -192,5 +216,31 @@ export default function zhihu() {
     saveHtml(dom, articleTitle)
   }
 
-  return <div style={{ display: "none" }}></div>
+  function handleEdit() {
+    editMarkdown()
+  }
+
+  function handleDownload() {
+    downloadMarkdown()
+  }
+
+  function handlePrint() {
+    downloadPdf()
+  }
+
+  function closeTag() {
+    setShowTag(false)
+  }
+
+  return showTag ? (
+    <div className="codebox-tagBtn">
+      <div onClick={handleEdit}>{i18n("edit")}</div>
+      <div onClick={handleDownload}>{i18n("download")}</div>
+      <div onClick={handlePrint}>{i18n("print")}</div>
+    </div>
+  ) : (
+    <></>
+  )
 }
+
+export default PlasmoOverlay

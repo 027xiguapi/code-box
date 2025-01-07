@@ -7,6 +7,7 @@ import DownloadHtml from "~component/items/downloadHtml"
 import DownloadMarkdown from "~component/items/downloadMarkdown"
 import DownloadPdf from "~component/items/downloadPdf"
 import EditMarkdown from "~component/items/editMarkdown"
+import ShowTag from "~component/items/showTag"
 import { i18n } from "~tools"
 
 export default function Jianshu({ forwardRef }) {
@@ -75,6 +76,7 @@ export default function Jianshu({ forwardRef }) {
           className="codebox-switch"
           htmlFor="jianshu-autoOpenCode"></label>
       </div>
+      <ShowTag name="jianshu"></ShowTag>
       <CssCode name="jianshu"></CssCode>
       <EditMarkdown name="jianshu"></EditMarkdown>
       <DownloadMarkdown name="jianshu"></DownloadMarkdown>

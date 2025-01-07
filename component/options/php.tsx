@@ -7,6 +7,7 @@ import DownloadHtml from "~component/items/downloadHtml"
 import DownloadMarkdown from "~component/items/downloadMarkdown"
 import DownloadPdf from "~component/items/downloadPdf"
 import EditMarkdown from "~component/items/editMarkdown"
+import ShowTag from "~component/items/showTag"
 import { i18n } from "~tools"
 
 export default function Php({ forwardRef }) {
@@ -54,11 +55,12 @@ export default function Php({ forwardRef }) {
         />
         <label htmlFor="php-closeLoginModal" className="codebox-switch"></label>
       </div>
-      <CssCode name="php"></CssCode>
-      <EditMarkdown name="php"></EditMarkdown>
-      <DownloadMarkdown name="php"></DownloadMarkdown>
-      <DownloadHtml name="php"></DownloadHtml>
-      <DownloadPdf name="php"></DownloadPdf>
+      <CssCode name="php" />
+      <ShowTag name="php" />
+      <EditMarkdown name="php" />
+      <DownloadMarkdown name="php" />
+      <DownloadHtml name="php" />
+      <DownloadPdf name="php" />
     </fieldset>
   )
 }

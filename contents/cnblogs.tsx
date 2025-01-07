@@ -11,6 +11,7 @@ import { v4 as uuidv4 } from "uuid"
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
+import TagBtnStyle from "~component/tagBtn/style"
 import { i18n, saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
 import { useContent } from "~utils/editMarkdownHook"
@@ -33,26 +34,7 @@ export const getShadowHostId: PlasmoGetShadowHostId = () => HOST_ID
 export const getOverlayAnchor: PlasmoGetOverlayAnchor = async () =>
   document.querySelector("#post_detail .postTitle")
 
-export const getStyle: PlasmoGetStyle = () => {
-  const style = document.createElement("style")
-  style.textContent = `
-  .codebox-tagBtn {
-    height: 28px;
-    display: flex;
-    cursor: pointer;
-    align-items: center;
-    color: #1e80ff;
-    width: 90px;
-    background: #fff;
-    border-radius: 5px;
-    justify-content: space-between;
-    padding: 0 8px;
-    margin-top: -20px;
-    font-size: 14px;
-  }
-  `
-  return style
-}
+export const getStyle: PlasmoGetStyle = () => TagBtnStyle()
 
 const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   const [showTag, setShowTag] = useStorage<boolean>("cnblogs-showTag", true)
@@ -160,7 +142,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   }
 
   function downloadPdf() {
-    var article = document.querySelector<HTMLElement>("#post_detail .post")
+    const article = document.querySelector<HTMLElement>("#post_detail .post")
     if (article) {
       Print.print(article, { title: articleTitle })
         .then(() => console.log("Printing complete"))

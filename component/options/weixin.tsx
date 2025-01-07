@@ -11,13 +11,13 @@ export default function Weixin() {
   return (
     <fieldset>
       <legend>{i18n("weixinConfig")}</legend>
-      <CssCode name="weixin"></CssCode>
-      <ShowTag name="weixin"></ShowTag>
-      <EditMarkdown name="weixin"></EditMarkdown>
-      <DownloadMarkdown name="weixin"></DownloadMarkdown>
-      <DownloadHtml name="weixin"></DownloadHtml>
-      <DownloadPdf name="weixin"></DownloadPdf>
-      <DownloadImages name="weixin"></DownloadImages>
+      <CssCode name="weixin" />
+      <ShowTag name="weixin" />
+      <EditMarkdown name="weixin" />
+      <DownloadMarkdown name="weixin" />
+      <DownloadHtml name="weixin" />
+      <DownloadPdf name="weixin" />
+      <DownloadImages name="weixin" />
     </fieldset>
   )
 }

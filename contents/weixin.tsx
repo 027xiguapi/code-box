@@ -12,6 +12,7 @@ import { useEffect, type FC } from "react"
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/dist/hook"
 
+import TagBtnStyle from "~component/tagBtn/style"
 import { i18n, saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
 import { useContent } from "~utils/editMarkdownHook"
@@ -33,26 +34,7 @@ export const getShadowHostId: PlasmoGetShadowHostId = () => HOST_ID
 export const getOverlayAnchor: PlasmoGetOverlayAnchor = async () =>
   document.querySelector("#img-content .rich_media_title")
 
-export const getStyle: PlasmoGetStyle = () => {
-  const style = document.createElement("style")
-  style.textContent = `
-  .codebox-tagBtn {
-    height: 28px;
-    display: flex;
-    cursor: pointer;
-    align-items: center;
-    color: #1e80ff;
-    width: 90px;
-    background: transparent;
-    border-radius: 5px;
-    justify-content: space-between;
-    padding: 0 8px;
-    margin-top: -20px;
-    font-size: 14px;
-  }
-  `
-  return style
-}
+export const getStyle: PlasmoGetStyle = () => TagBtnStyle()
 
 const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   const [showTag, setShowTag] = useStorage<boolean>("weixin-showTag", true)
@@ -140,7 +122,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   }
 
   function downloadPdf() {
-    var article = document.querySelector<HTMLElement>("#img-content")
+    const article = document.querySelector<HTMLElement>("#img-content")
     if (article) {
       Print.print(article, { title: articleTitle })
         .then(() => console.log("Printing complete"))
@@ -165,13 +147,11 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   }
 
   function handleEdit() {
-    setContent("#img-content")
+    editMarkdown()
   }
 
   function handleDownload() {
-    const html = document.querySelector("#img-content")
-    const markdown = turndownService.turndown(html)
-    saveMarkdown(markdown, articleTitle)
+    downloadMarkdown()
   }
 
   function handlePrint() {

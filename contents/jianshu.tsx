@@ -1,14 +1,22 @@
-import type { PlasmoCSConfig } from "plasmo"
-import { useEffect, useRef } from "react"
+import type {
+  PlasmoCSConfig,
+  PlasmoCSUIProps,
+  PlasmoGetOverlayAnchor,
+  PlasmoGetShadowHostId,
+  PlasmoGetStyle
+} from "plasmo"
+import { useEffect, useRef, type FC } from "react"
 import { v4 as uuidv4 } from "uuid"
 
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
-import { addCss, saveHtml, saveMarkdown } from "~tools"
+import TagBtnStyle from "~component/tagBtn/style"
+import { addCss, i18n, saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
 import { savePdf } from "~utils/downloadPdf"
 import { useContent } from "~utils/editMarkdownHook"
+import { Print } from "~utils/print"
 import Turndown from "~utils/turndown"
 
 export const config: PlasmoCSConfig = {
@@ -20,7 +28,16 @@ const articleTitle = document
   .querySelector<HTMLElement>("head title")
   .innerText.trim()
 
-export default function Jianshu() {
+const HOST_ID = "codebox-jianshu"
+export const getShadowHostId: PlasmoGetShadowHostId = () => HOST_ID
+
+export const getOverlayAnchor: PlasmoGetOverlayAnchor = async () =>
+  document.querySelector("section.ouvJEz h1")
+
+export const getStyle: PlasmoGetStyle = () => TagBtnStyle()
+
+const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
+  const [showTag, setShowTag] = useStorage<boolean>("jianshu-showTag", true)
   const [cssCode, runCss] = useCssCodeHook("jianshu")
   const [closeLoginModal] = useStorage<boolean>("jianshu-closeLoginModal")
   const [copyCode] = useStorage<boolean>("jianshu-copyCode")
@@ -51,8 +68,7 @@ export default function Jianshu() {
       downloadHtml()
     }
     if (req.name == "jianshu-downloadPdf") {
-      var article = document.querySelector<HTMLElement>("section.ouvJEz")
-      savePdf(article, articleTitle)
+      downloadPdf()
     }
   })
 
@@ -156,6 +172,15 @@ export default function Jianshu() {
     }
   }
 
+  function downloadPdf() {
+    const article = document.querySelector<HTMLElement>("section.ouvJEz")
+    if (article) {
+      Print.print(article, { title: articleTitle })
+        .then(() => console.log("Printing complete"))
+        .catch((error) => console.error("Printing failed:", error))
+    }
+  }
+
   function editMarkdown() {
     const dom = document.querySelector("section.ouvJEz")
     setContent(dom)
@@ -172,5 +197,31 @@ export default function Jianshu() {
     saveHtml(dom, articleTitle)
   }
 
-  return <div style={{ display: "none" }}></div>
+  function handleEdit() {
+    editMarkdown()
+  }
+
+  function handleDownload() {
+    downloadMarkdown()
+  }
+
+  function handlePrint() {
+    downloadPdf()
+  }
+
+  function closeTag() {
+    setShowTag(false)
+  }
+
+  return showTag ? (
+    <div className="codebox-tagBtn">
+      <div onClick={handleEdit}>{i18n("edit")}</div>
+      <div onClick={handleDownload}>{i18n("download")}</div>
+      <div onClick={handlePrint}>{i18n("print")}</div>
+    </div>
+  ) : (
+    <></>
+  )
 }
+
+export default PlasmoOverlay

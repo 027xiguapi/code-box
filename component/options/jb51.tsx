@@ -7,6 +7,7 @@ import DownloadHtml from "~component/items/downloadHtml"
 import DownloadMarkdown from "~component/items/downloadMarkdown"
 import DownloadPdf from "~component/items/downloadPdf"
 import EditMarkdown from "~component/items/editMarkdown"
+import ShowTag from "~component/items/showTag"
 import { i18n } from "~tools"
 
 export default function Jb51({ forwardRef }) {
@@ -53,6 +54,7 @@ export default function Jb51({ forwardRef }) {
         />
         <label className="codebox-switch" htmlFor="jb51-copyCode"></label>
       </div>
+      <ShowTag name="jb51"></ShowTag>
       <CssCode name="jb51"></CssCode>
       <EditMarkdown name="jb51"></EditMarkdown>
       <DownloadMarkdown name="jb51"></DownloadMarkdown>

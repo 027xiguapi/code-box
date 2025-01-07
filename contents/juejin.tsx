@@ -10,10 +10,11 @@ import { useEffect, useRef, type FC } from "react"
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/dist/hook"
 
+import TagBtnStyle from "~component/tagBtn/style"
 import { i18n, saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
-import { savePdf } from "~utils/downloadPdf"
 import { useContent } from "~utils/editMarkdownHook"
+import { Print } from "~utils/print"
 import Turndown from "~utils/turndown"
 
 export const config: PlasmoCSConfig = {
@@ -60,29 +61,10 @@ export const getShadowHostId: PlasmoGetShadowHostId = () => HOST_ID
 export const getOverlayAnchor: PlasmoGetOverlayAnchor = async () =>
   document.querySelector("article.article .article-title")
 
-export const getStyle: PlasmoGetStyle = () => {
-  const style = document.createElement("style")
-  style.textContent = `
-  .codebox-tagBtn {
-    height: 28px;
-    display: flex;
-    cursor: pointer;
-    align-items: center;
-    color: #1e80ff;
-    width: 60px;
-    background: #fff;
-    border-radius: 5px;
-    justify-content: space-between;
-    padding: 0 8px;
-    margin-top: -30px;
-    font-size: 14px;
-  }
-  `
-  return style
-}
+export const getStyle: PlasmoGetStyle = () => TagBtnStyle()
 
 const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
-  const [showTag, setShowTag] = useStorage<boolean>("juejin-showTag")
+  const [showTag, setShowTag] = useStorage<boolean>("juejin-showTag", true)
   const [cssCode, runCss] = useCssCodeHook("juejin")
   const [content, setContent] = useContent()
 
@@ -100,10 +82,18 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
       downloadHtml()
     }
     if (req.name == "juejin-downloadPdf") {
-      var article = document.querySelector<HTMLElement>("article.article")
-      savePdf(article, articleTitle)
+      downloadPdf()
     }
   })
+
+  function downloadPdf() {
+    const article = document.querySelector<HTMLElement>("article.article")
+    if (article) {
+      Print.print(article, { title: articleTitle })
+        .then(() => console.log("Printing complete"))
+        .catch((error) => console.error("Printing failed:", error))
+    }
+  }
 
   function editMarkdown() {
     const dom = document.querySelector("article.article")
@@ -122,13 +112,15 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   }
 
   function handleEdit() {
-    setContent("article.article")
+    editMarkdown()
   }
 
   function handleDownload() {
-    const html = document.querySelector("article.article")
-    const markdown = turndownService.turndown(html)
-    saveMarkdown(markdown, articleTitle)
+    downloadMarkdown()
+  }
+
+  function handlePrint() {
+    downloadPdf()
   }
 
   function closeTag() {
@@ -139,6 +131,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     <div className="codebox-tagBtn">
       <div onClick={handleEdit}>{i18n("edit")}</div>
       <div onClick={handleDownload}>{i18n("download")}</div>
+      <div onClick={handlePrint}>{i18n("print")}</div>
     </div>
   ) : (
     <></>

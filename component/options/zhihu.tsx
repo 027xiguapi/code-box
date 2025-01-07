@@ -7,6 +7,7 @@ import DownloadHtml from "~component/items/downloadHtml"
 import DownloadMarkdown from "~component/items/downloadMarkdown"
 import DownloadPdf from "~component/items/downloadPdf"
 import EditMarkdown from "~component/items/editMarkdown"
+import ShowTag from "~component/items/showTag"
 import { i18n } from "~tools"
 
 export default function Zhihu({ forwardRef }) {
@@ -73,11 +74,12 @@ export default function Zhihu({ forwardRef }) {
         />
         <label className="codebox-switch" htmlFor="zhihu-autoOpenCode"></label>
       </div>
-      <CssCode name="zhihu"></CssCode>
-      <EditMarkdown name="zhihu"></EditMarkdown>
-      <DownloadMarkdown name="zhihu"></DownloadMarkdown>
-      <DownloadHtml name="zhihu"></DownloadHtml>
-      <DownloadPdf name="zhihu"></DownloadPdf>
+      <CssCode name="zhihu" />
+      <ShowTag name="zhihu" />
+      <EditMarkdown name="zhihu" />
+      <DownloadMarkdown name="zhihu" />
+      <DownloadHtml name="zhihu" />
+      <DownloadPdf name="zhihu" />
     </fieldset>
   )
 }
