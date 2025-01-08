@@ -1,14 +1,11 @@
-import { Button } from "antd"
 import type {
   PlasmoCSConfig,
   PlasmoCSUIProps,
-  PlasmoGetInlineAnchorList,
   PlasmoGetOverlayAnchor,
   PlasmoGetShadowHostId,
   PlasmoGetStyle
 } from "plasmo"
 import { useEffect, useState, type FC } from "react"
-import { v4 as uuidv4 } from "uuid"
 
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
@@ -16,7 +13,6 @@ import { useStorage } from "@plasmohq/storage/hook"
 import TagBtnStyle from "~component/tagBtn/style"
 import { addCss, i18n, removeCss, saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
-import { savePdf } from "~utils/downloadPdf"
 import { useContent } from "~utils/editMarkdownHook"
 import { Print } from "~utils/print"
 import Turndown from "~utils/turndown"

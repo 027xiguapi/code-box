@@ -14,7 +14,6 @@ import { useStorage } from "@plasmohq/storage/hook"
 import TagBtnStyle from "~component/tagBtn/style"
 import { addCss, i18n, saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
-import { savePdf } from "~utils/downloadPdf"
 import { useContent } from "~utils/editMarkdownHook"
 import { Print } from "~utils/print"
 import Turndown from "~utils/turndown"
@@ -91,8 +90,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
       downloadHtml()
     }
     if (req.name == "csdn-downloadPdf") {
-      var article = document.querySelector<HTMLElement>(".blog-content-box")
-      savePdf(article, articleTitle)
+      downloadPdf()
     }
   })
 

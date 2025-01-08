@@ -18,7 +18,7 @@ import { Print } from "~utils/print"
 import Turndown from "~utils/turndown"
 
 export const config: PlasmoCSConfig = {
-  matches: ["https://*.juejin.cn/*"]
+  matches: ["https://*.juejin.cn/post/*"]
 }
 
 const turndownService = Turndown({

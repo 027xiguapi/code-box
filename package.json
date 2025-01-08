@@ -1,13 +1,13 @@
 {
   "name": "code-box",
   "displayName": "__MSG_extensionName__",
-  "version": "0.10.1",
+  "version": "0.10.2",
   "description": "__MSG_extensionDescription__",
   "author": "027xiguapi. <458813868@qq.com>",
   "scripts": {
     "dev": "plasmo dev",
     "build": "plasmo build --zip",
-    "build:firefox": "plasmo build --no-minify --no-hoist --zip --target=firefox-mv3",
+    "build:firefox": "plasmo build --zip --target=firefox-mv3",
     "package": "plasmo package",
     "clean": "rimraf build"
   },
@@ -34,7 +34,6 @@
     "file-save": "^0.2.0",
     "file-saver": "^2.0.5",
     "html2canvas": "^1.4.1",
-    "html2pdf.js": "^0.10.2",
     "jssha": "^3.3.1",
     "jszip": "^3.10.1",
     "plasmo": "0.89.4",

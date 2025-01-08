@@ -1,13 +1,15 @@
-import { KeyOutlined } from "@ant-design/icons"
-import { Button, Input, Space } from "antd"
+import { CheckOutlined, CloseOutlined, KeyOutlined } from "@ant-design/icons"
+import { Input } from "antd"
 import dayjs from "dayjs"
 import qrcodeUrl from "raw:~/public/wx/qrcode_wx.jpg"
-import { useRef, useState } from "react"
+import React, { useRef, useState } from "react"
 
 import { sendToBackground } from "@plasmohq/messaging"
 import { useStorage } from "@plasmohq/storage/dist/hook"
 
 import { verifyTOTP } from "~utils/2FA"
+
+import { validateContent } from "../styles/validateContent"
 
 export default function ValidateContent(props) {
   const [validTime, setValidTime] = useStorage("app-validTime", "1730390400")
@@ -94,10 +96,15 @@ export default function ValidateContent(props) {
           display: "flex",
           justifyContent: "space-between"
         }}>
-        <Button type="primary" className="valid-submit" onClick={handleSubmit}>
-          提交
-        </Button>
-        <Button onClick={handleCancel}>取消</Button>
+        <button
+          className="valid-submit"
+          style={validateContent.blueButton}
+          onClick={handleSubmit}>
+          <CheckOutlined /> 提交
+        </button>
+        <button style={validateContent.redButton} onClick={handleCancel}>
+          <CloseOutlined /> 取消
+        </button>
       </div>
     </div>
   )

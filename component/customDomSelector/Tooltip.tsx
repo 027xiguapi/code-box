@@ -6,8 +6,9 @@ import {
   RightSquareOutlined,
   UpSquareOutlined
 } from "@ant-design/icons"
-import { Button, Flex, message, Modal } from "antd"
-import React, { useCallback, useEffect, useRef, useState } from "react"
+import React from "react"
+
+import { tooltipStyles } from "../styles/domSelector"
 
 export default function Tooltip(props: any) {
   const handleConfirm = () => {
@@ -23,45 +24,33 @@ export default function Tooltip(props: any) {
   }
 
   return (
-    <Flex wrap gap="small">
-      <Button
-        type="primary"
-        size="small"
-        icon={<CheckOutlined />}
-        onClick={handleConfirm}>
-        确定
-      </Button>
-      <Button
-        size="small"
-        icon={<UpSquareOutlined />}
+    <div style={tooltipStyles.tooltip}>
+      <button style={tooltipStyles.blueButton} onClick={handleConfirm}>
+        <CheckOutlined /> 确定
+      </button>
+      <button
+        style={tooltipStyles.button}
         onClick={() => navigateElement("parent")}>
-        父节点
-      </Button>
-      <Button
-        size="small"
-        icon={<DownSquareOutlined />}
+        <UpSquareOutlined /> 父节点
+      </button>
+      <button
+        style={tooltipStyles.button}
         onClick={() => navigateElement("child")}>
-        子节点
-      </Button>
-      <Button
-        size="small"
-        icon={<LeftSquareOutlined />}
+        <DownSquareOutlined /> 子节点
+      </button>
+      <button
+        style={tooltipStyles.button}
         onClick={() => navigateElement("prev")}>
-        上一个
-      </Button>
-      <Button
-        size="small"
-        icon={<RightSquareOutlined />}
+        <LeftSquareOutlined /> 上一个
+      </button>
+      <button
+        style={tooltipStyles.button}
         onClick={() => navigateElement("next")}>
-        下一个
-      </Button>
-      <Button
-        danger
-        size="small"
-        icon={<CloseOutlined />}
-        onClick={handleCancel}>
-        取消
-      </Button>
-    </Flex>
+        <RightSquareOutlined /> 下一个
+      </button>
+      <button style={tooltipStyles.redButton} onClick={handleCancel}>
+        <CloseOutlined /> 取消
+      </button>
+    </div>
   )
 }
