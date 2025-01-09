@@ -18,8 +18,12 @@ export default function Markdown() {
 
   useEffect(() => {
     if (content) {
-      if (window.localStorage.getItem("__editor_content") != content) {
-        window.localStorage.setItem("__editor_content", content)
+      const posts = JSON.parse(window.localStorage.getItem("MD__posts")) || []
+      const post = posts[0]
+
+      if (post.content != content) {
+        post.content = content
+        window.localStorage.setItem("MD__posts", JSON.stringify(posts))
         location.reload()
       }
     }

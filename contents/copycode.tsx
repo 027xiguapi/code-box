@@ -19,7 +19,6 @@ export const config: PlasmoCSConfig = {
   matches: [
     "https://*.npmjs.com/*",
     "https://*.medium.com/*",
-    "https://mp.weixin.qq.com/*",
     "https://day.js.org/*",
     "https://stackoverflow.com/*",
     "https://dev.to/*",
