@@ -14,7 +14,7 @@ import { useStorage } from "@plasmohq/storage/hook"
 import TagBtnStyle from "~component/tagBtn/style"
 import { addCss, i18n, saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
-import { useContent } from "~utils/editMarkdownHook"
+import { useEditMarkdown } from "~utils/editMarkdownHook"
 import { Print } from "~utils/print"
 import Turndown from "~utils/turndown"
 
@@ -42,7 +42,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   const [copyCode] = useStorage<boolean>("jb51-copyCode")
   const [history, setHistory] = useStorage<any[]>("codebox-history")
   const [closeLog] = useStorage("config-closeLog", true)
-  const [content, setContent] = useContent()
+  const [content, setEditMarkdown] = useEditMarkdown()
 
   useEffect(() => {
     closeLog || console.log("jb51 status", { closeAds, copyCode })
@@ -232,7 +232,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
 
   function editMarkdown() {
     const dom = document.querySelector("#article")
-    setContent(dom)
+    setEditMarkdown(dom)
   }
 
   function downloadMarkdown() {

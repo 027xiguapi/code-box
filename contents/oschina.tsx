@@ -13,7 +13,7 @@ import { useStorage } from "@plasmohq/storage/dist/hook"
 import TagBtnStyle from "~component/tagBtn/style"
 import { i18n, saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
-import { useContent } from "~utils/editMarkdownHook"
+import { useEditMarkdown } from "~utils/editMarkdownHook"
 import { Print } from "~utils/print"
 import Turndown from "~utils/turndown"
 
@@ -37,7 +37,7 @@ export const getStyle: PlasmoGetStyle = () => TagBtnStyle()
 const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   const [showTag, setShowTag] = useStorage<boolean>("oschina-showTag", true)
   const [cssCode, runCss] = useCssCodeHook("oschina")
-  const [content, setContent] = useContent()
+  const [content, setContent] = useEditMarkdown()
 
   useMessage(async (req, res) => {
     if (req.name == "oschina-isShow") {

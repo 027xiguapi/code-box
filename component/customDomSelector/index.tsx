@@ -2,11 +2,11 @@ import React, { useEffect, useRef, useState } from "react"
 import { createRoot } from "react-dom/client"
 
 import { useMessage } from "@plasmohq/messaging/hook"
-import { useStorage } from "@plasmohq/storage/hook"
 
 import ValidateContent from "~component/contents/validateContent"
 import { addCss, saveHtml, saveMarkdown } from "~tools"
-import { useContent } from "~utils/editMarkdownHook"
+import { useEditMarkdown } from "~utils/editMarkdownHook"
+import { useParseMarkdown } from "~utils/parseMarkdownHook"
 import { Print } from "~utils/print"
 import Turndown from "~utils/turndown"
 
@@ -18,7 +18,8 @@ export default function CustomDomSelector() {
   const isReady = useRef(false)
   const isSelect = useRef(false)
   const downloadType = useRef("")
-  const [content, setContent] = useContent()
+  const [editContent, setEditContent] = useEditMarkdown()
+  const [parseContent, setParseContent] = useParseMarkdown()
 
   const selectorRef = useRef<HTMLElement | null>(null)
   const tooltipRef = useRef<HTMLElement | null>(null)
@@ -127,21 +128,8 @@ export default function CustomDomSelector() {
   }
 
   useMessage(async (req: any, res: any) => {
-    if (req.name == "custom-downloadHtml") {
-      setCustom("html")
-    }
-    if (req.name == "custom-downloadMarkdown") {
-      setCustom("downloadMarkdown")
-    }
-    if (req.name == "custom-editMarkdown") {
-      setCustom("editMarkdown")
-    }
-    if (req.name == "custom-downloadPdf") {
-      setCustom("pdf")
-    }
-    if (req.name == "custom-downloadImg") {
-      setCustom("img")
-    }
+    const name = req.name
+    setCustom(name.split("-")[1])
   })
 
   const setCustom = (type: string) => {
@@ -157,7 +145,7 @@ export default function CustomDomSelector() {
     current.classList.remove("codebox-current")
 
     switch (downloadType.current) {
-      case "html":
+      case "downloadHtml":
         saveHtml(selectorRef.current, articleTitle)
         break
       case "downloadMarkdown":
@@ -165,9 +153,12 @@ export default function CustomDomSelector() {
         saveMarkdown(markdown, articleTitle)
         break
       case "editMarkdown":
-        setContent(selectorRef.current)
+        setEditContent(selectorRef.current)
         break
-      case "pdf":
+      case "parseMarkdown":
+        setParseContent(selectorRef.current)
+        break
+      case "downloadPdf":
         const elementToPrint = selectorRef.current
         if (elementToPrint) {
           Print.print(elementToPrint, { title: articleTitle })

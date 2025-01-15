@@ -215,13 +215,3 @@ export class Print {
     })
   }
 }
-
-// Example usage
-const elementToPrint = document.getElementById("content-to-print")
-if (elementToPrint) {
-  Print.print(elementToPrint, { title: "Printed Page" })
-    .then(() => console.log("Printing complete"))
-    .catch((error) => console.error("Printing failed:", error))
-}
-
-console.log("TypeScript version of jQuery.print has been created.")

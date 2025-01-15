@@ -1,0 +1,20 @@
+{
+  "name": "wechat-sender",
+  "version": "1.0.0",
+  "description": "A Node.js module for creating and publishing WeChat articles",
+  "main": "WechatSender.js",
+  "type": "module",
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+  },
+  "keywords": ["wechat", "article", "publisher"],
+  "author": "Your Name",
+  "license": "ISC",
+  "dependencies": {
+    "node-fetch": "^3.2.0"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.16.11",
+    "jest": "^27.5.1"
+  }
+}

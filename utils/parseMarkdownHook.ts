@@ -3,20 +3,25 @@ import { useStorage } from "@plasmohq/storage/dist/hook"
 
 import Turndown from "~utils/turndown"
 
-export function useEditMarkdown(option?) {
+export function useParseMarkdown(option?) {
   const turndownService = Turndown(option)
 
   const [content, setContent] = useStorage({
-    key: "md-content",
+    // key: "chatgpt-content",sss
+    key: "kimi-content",
     instance: new Storage({
       area: "local"
     })
   })
 
   const handleSetContent = (selectorDom) => {
-    const markdown = turndownService.turndown(selectorDom)
+    let markdown = turndownService.turndown(selectorDom)
     setContent(markdown)
-    window.open("https://md.randbox.top", "_blank")
+    markdown = `${markdown}
+    将上面的文字,翻译成中文并生成markdown`
+    setContent(markdown)
+    // window.open("https://chatgpt.com", "_blank")
+    window.open("https://kimi.moonshot.cn/", "_blank")
   }
 
   return [content, handleSetContent]

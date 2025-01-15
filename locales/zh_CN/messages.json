@@ -146,6 +146,9 @@
   "downloadMarkdown": {
     "message": "下载 Markdown"
   },
+  "parseMarkdown": {
+    "message": "解析 Markdown"
+  },
   "downloadHtml": {
     "message": "下载 HTML"
   },

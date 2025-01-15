@@ -14,7 +14,7 @@ import { useStorage } from "@plasmohq/storage/hook"
 import TagBtnStyle from "~component/tagBtn/style"
 import { addCss, i18n, saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
-import { useContent } from "~utils/editMarkdownHook"
+import { useEditMarkdown } from "~utils/editMarkdownHook"
 import { Print } from "~utils/print"
 import Turndown from "~utils/turndown"
 
@@ -46,7 +46,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   const [closeRedirectModal] = useStorage<boolean>("csdn-closeLoginModal")
   const [history, setHistory] = useStorage<any[]>("codebox-history")
   const [closeLog] = useStorage("config-closeLog", true)
-  const [content, setContent] = useContent()
+  const [content, setContent] = useEditMarkdown()
 
   useEffect(() => {
     closeLog ||

@@ -143,6 +143,9 @@
   "downloadMarkdown": {
     "message": "Download Markdown"
   },
+  "parseMarkdown": {
+    "message": "Parse Markdown"
+  },
   "downloadHtml": {
     "message": "Download HTML"
   },

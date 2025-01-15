@@ -14,7 +14,7 @@ import { useStorage } from "@plasmohq/storage/hook"
 import TagBtnStyle from "~component/tagBtn/style"
 import { i18n, saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
-import { useContent } from "~utils/editMarkdownHook"
+import { useEditMarkdown } from "~utils/editMarkdownHook"
 import { Print } from "~utils/print"
 import Turndown from "~utils/turndown"
 
@@ -42,7 +42,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   const [copyCode] = useStorage<boolean>("cnblogs-copyCode")
   const [history, setHistory] = useStorage<any[]>("codebox-history")
   const [closeLog] = useStorage("config-closeLog", true)
-  const [content, setContent] = useContent()
+  const [content, setContent] = useEditMarkdown()
 
   useEffect(() => {
     closeLog || console.log("cnblogs copyCode", copyCode)

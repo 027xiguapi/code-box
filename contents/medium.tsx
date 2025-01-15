@@ -13,7 +13,8 @@ import { useStorage } from "@plasmohq/storage/dist/hook"
 import TagBtnStyle from "~component/tagBtn/style"
 import { i18n, saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
-import { useContent } from "~utils/editMarkdownHook"
+import { useEditMarkdown } from "~utils/editMarkdownHook"
+import { useParseMarkdown } from "~utils/parseMarkdownHook"
 import { Print } from "~utils/print"
 import Turndown from "~utils/turndown"
 
@@ -105,9 +106,10 @@ export const getOverlayAnchor: PlasmoGetOverlayAnchor = async () =>
 export const getStyle: PlasmoGetStyle = () => TagBtnStyle()
 
 const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
+  const [parseContent, setParseContent] = useParseMarkdown()
   const [showTag, setShowTag] = useStorage<boolean>("medium-showTag", true)
   const [cssCode, runCss] = useCssCodeHook("medium")
-  const [content, setContent] = useContent(turndownOption)
+  const [content, setContent] = useEditMarkdown(turndownOption)
 
   useMessage(async (req, res) => {
     if (req.name == "medium-isShow") {
@@ -164,6 +166,11 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     downloadPdf()
   }
 
+  function handleParse() {
+    const dom = document.querySelector("article")
+    setParseContent(dom)
+  }
+
   function closeTag() {
     setShowTag(false)
   }
@@ -173,6 +180,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
       <div onClick={handleEdit}>{i18n("edit")}</div>
       <div onClick={handleDownload}>{i18n("download")}</div>
       <div onClick={handlePrint}>{i18n("print")}</div>
+      <div onClick={handleParse}>解析</div>
     </div>
   ) : (
     <></>
