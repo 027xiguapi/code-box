@@ -1,14 +1,17 @@
 import type { PlasmoCSConfig } from "plasmo"
-import { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 
 import { Storage } from "@plasmohq/storage"
 import { useStorage } from "@plasmohq/storage/hook"
+
+import Modal from "~component/ui/modal"
 
 export const config: PlasmoCSConfig = {
   matches: ["https://chatgpt.com/*", "https://chatgpt.com/c/*"]
 }
 
 export default function Chatgpt() {
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const [content, setContent] = useStorage({
     key: "chatgpt-content",
     instance: new Storage({
@@ -17,41 +20,71 @@ export default function Chatgpt() {
   })
 
   useEffect(() => {
+    let timer = null
+    let index = 0
     if (content) {
-      init()
+      timer = setInterval(() => {
+        const editorElement = document.querySelector(
+          "._prosemirror-parent_cy42l_1 p"
+        )
+        index++
+        if (editorElement && index < 30) {
+          setIsModalOpen(true)
+          clearTimeout(timer)
+        } else if (index >= 30) {
+          clearTimeout(timer)
+        }
+      }, 1000)
+    }
+    return () => {
+      clearTimeout(timer)
     }
   }, [content])
 
-  function init() {
-    const targetNode = document.querySelector("#composer-background")
-    const observerOptions = { childList: true, subtree: true }
-
-    // 创建 MutationObserver 实例
-    const observer = new MutationObserver((mutationsList, observer) => {
-      for (const mutation of mutationsList) {
-        if (mutation.type === "childList" && mutation.addedNodes.length) {
-          // 这里可以判断你想要的元素是否被添加到页面
-          if (document.querySelector("._prosemirror-parent_cy42l_1 p")) {
-            console.log("DOM元素加载完成", content)
-            const post = document.querySelector(
-              "._prosemirror-parent_cy42l_1 p"
-            ) as HTMLElement
-
-            const button = document.querySelector(
-              "button[data-testid=send-button]"
-            ) as HTMLElement
-
-            post.innerText = content
-            button.click()
-            observer.disconnect() // 监听完成后可以断开
-          }
-        }
-      }
-    })
-
-    // 启动监听
-    observer.observe(targetNode, observerOptions)
+  const handleCancelModal = () => {
+    setContent("")
+    setIsModalOpen(false)
   }
 
-  return <div style={{ display: "none" }}></div>
+  function handleConfirmModal() {
+    handleSetContent()
+    setTimeout(() => {
+      setIsModalOpen(false)
+    }, 500)
+  }
+
+  function handleSetContent() {
+    const editorElement = document.querySelector(
+      "._prosemirror-parent_cy42l_1 p"
+    ) as HTMLElement
+
+    if (editorElement) {
+      editorElement.innerText = content
+
+      let index = 0
+      const timer = setInterval(() => {
+        const buttonElement = document.querySelector(
+          "button[data-testid=send-button]"
+        ) as HTMLElement
+        index++
+        console.log(buttonElement, index)
+        if (buttonElement && index < 30) {
+          buttonElement.click()
+          setContent("")
+          clearTimeout(timer)
+        } else if (index >= 30) {
+          clearTimeout(timer)
+        }
+      }, 1000)
+    }
+  }
+
+  return (
+    <Modal
+      isOpen={isModalOpen}
+      onClose={handleCancelModal}
+      onConfirm={handleConfirmModal}
+      message="你确定要解析吗？"
+    />
+  )
 }

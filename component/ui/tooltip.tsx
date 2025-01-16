@@ -8,7 +8,41 @@ import {
 } from "@ant-design/icons"
 import React from "react"
 
-import { tooltipStyles } from "../styles/domSelector"
+const tooltipStyles = {
+  tooltip: {
+    backgroundColor: "#fff",
+    position: "absolute",
+    zIndex: "2147483641",
+    border: "1px solid #eee",
+    borderRadius: "5px",
+    padding: "8px",
+    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)"
+  },
+  button: {
+    backgroundColor: "#fff",
+    border: "1px solid #eee",
+    color: "#000",
+    borderRadius: "4px",
+    padding: "2px 7px",
+    fontSize: "14px"
+  },
+  blueButton: {
+    backgroundColor: "#1677FF",
+    border: "1px solid #1677FF",
+    color: "#fff",
+    borderRadius: "4px",
+    padding: "2px 7px",
+    fontSize: "14px"
+  },
+  redButton: {
+    backgroundColor: "#d9363e",
+    border: "1px solid #d9363e",
+    color: "#fff",
+    borderRadius: "4px",
+    padding: "2px 7px",
+    fontSize: "14px"
+  }
+}
 
 export default function Tooltip(props: any) {
   const handleConfirm = () => {
@@ -24,7 +58,7 @@ export default function Tooltip(props: any) {
   }
 
   return (
-    <div style={tooltipStyles.tooltip}>
+    <div style={tooltipStyles.tooltip as React.CSSProperties}>
       <button style={tooltipStyles.blueButton} onClick={handleConfirm}>
         <CheckOutlined /> 确定
       </button>

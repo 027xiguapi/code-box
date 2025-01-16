@@ -21,13 +21,17 @@ export default function Kimi() {
 
   useEffect(() => {
     let timer = null
+    let index = 0
     if (content) {
       timer = setInterval(() => {
         const editorElement = document.querySelector(
           "div[data-lexical-editor=true]"
         )
-        if (editorElement) {
+        index++
+        if (editorElement && index < 30) {
           setIsModalOpen(true)
+          clearTimeout(timer)
+        } else if (index >= 30) {
           clearTimeout(timer)
         }
       }, 1000)
@@ -69,6 +73,7 @@ export default function Kimi() {
       })
 
       editorElement.dispatchEvent(event)
+      setContent("")
 
       setTimeout(() => {
         buttonElement.click()
@@ -81,7 +86,7 @@ export default function Kimi() {
       isOpen={isModalOpen}
       onClose={handleCancelModal}
       onConfirm={handleConfirmModal}
-      message="你确定要继续吗？"
+      message="你确定要解析吗？"
     />
   )
 }

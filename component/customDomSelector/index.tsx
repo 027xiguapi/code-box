@@ -10,7 +10,7 @@ import { useParseMarkdown } from "~utils/parseMarkdownHook"
 import { Print } from "~utils/print"
 import Turndown from "~utils/turndown"
 
-import Tooltip from "./Tooltip"
+import Tooltip from "../ui/tooltip"
 
 const turndownService = Turndown()
 
@@ -42,13 +42,7 @@ export default function CustomDomSelector() {
   const createTooltip = () => {
     const tooltip = document.createElement("div")
     tooltip.classList.add("codebox-tooltip")
-    tooltip.style.position = "absolute"
-    tooltip.style.zIndex = "2147483641"
-    tooltip.style.backgroundColor = "#fff"
-    tooltip.style.border = "1px solid #eee"
-    tooltip.style.borderRadius = "5px"
-    tooltip.style.padding = "8px"
-    tooltip.style.boxShadow = "0 2px 8px rgba(0, 0, 0, 0.15)"
+
     document.body.appendChild(tooltip)
     const root = createRoot(tooltip)
     root.render(

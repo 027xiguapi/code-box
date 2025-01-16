@@ -11,6 +11,7 @@ import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/dist/hook"
 
 import TagBtnStyle from "~component/tagBtn/style"
+import Tags from "~component/ui/tags"
 import { i18n, saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
 import { useEditMarkdown } from "~utils/editMarkdownHook"
@@ -97,7 +98,7 @@ const articleTitle = document
   .querySelector<HTMLElement>("head title")
   .innerText.trim()
 
-const HOST_ID = "codebox-medium"
+const HOST_ID = "codebox-medium1"
 export const getShadowHostId: PlasmoGetShadowHostId = () => HOST_ID
 
 export const getOverlayAnchor: PlasmoGetOverlayAnchor = async () =>
@@ -112,20 +113,22 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   const [content, setContent] = useEditMarkdown(turndownOption)
 
   useMessage(async (req, res) => {
-    if (req.name == "medium-isShow") {
-      res.send({ isShow: true })
-    }
-    if (req.name == "medium-editMarkdown") {
-      editMarkdown()
-    }
-    if (req.name == "medium-downloadMarkdown") {
-      downloadMarkdown()
-    }
-    if (req.name == "medium-downloadHtml") {
-      downloadHtml()
-    }
-    if (req.name == "medium-downloadPdf") {
-      downloadPdf()
+    switch (req.name) {
+      case "medium-isShow":
+        res.send({ isShow: true })
+        break
+      case "medium-editMarkdown":
+        editMarkdown()
+        break
+      case "medium-downloadMarkdown":
+        downloadMarkdown()
+        break
+      case "medium-downloadHtml":
+        downloadHtml()
+        break
+      case "medium-downloadPdf":
+        downloadPdf()
+        break
     }
   })
 
@@ -154,34 +157,20 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     saveHtml(dom, articleTitle)
   }
 
-  function handleEdit() {
-    editMarkdown()
-  }
-
-  function handleDownload() {
-    downloadMarkdown()
-  }
-
-  function handlePrint() {
-    downloadPdf()
-  }
-
-  function handleParse() {
+  function parseMarkdown() {
     const dom = document.querySelector("article")
     setParseContent(dom)
   }
 
-  function closeTag() {
-    setShowTag(false)
-  }
-
   return showTag ? (
-    <div className="codebox-tagBtn">
-      <div onClick={handleEdit}>{i18n("edit")}</div>
-      <div onClick={handleDownload}>{i18n("download")}</div>
-      <div onClick={handlePrint}>{i18n("print")}</div>
-      <div onClick={handleParse}>解析</div>
-    </div>
+    <Tags
+      onEdit={editMarkdown}
+      onDownload={downloadMarkdown}
+      onPrint={downloadPdf}
+      onParse={parseMarkdown}
+      isShowTag={showTag}
+      setIsShowTag={setShowTag}
+    />
   ) : (
     <></>
   )

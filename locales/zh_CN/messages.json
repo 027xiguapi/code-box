@@ -131,6 +131,9 @@
   "zhihuAutoOpenCode": {
     "message": "自动展开全文"
   },
+  "parse": {
+    "message": "解析"
+  },
   "edit": {
     "message": "编辑"
   },

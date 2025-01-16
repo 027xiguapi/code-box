@@ -164,6 +164,9 @@
   "copyCode": {
     "message": "Copy Code"
   },
+  "parse": {
+    "message": "parse"
+  },
   "copy": {
     "message": "copy"
   },

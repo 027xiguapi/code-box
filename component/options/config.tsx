@@ -5,8 +5,8 @@ import { sendToBackground, sendToContentScript } from "@plasmohq/messaging"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import DownloadImages from "~component/items/downloadImages"
+import SetAiType from "~component/items/setAiType"
 import { i18n } from "~tools"
-import { getSummary } from "~utils/coze"
 
 export default function Config({ forwardRef }) {
   const [copyCode, setCopyCode] = useStorage("config-copyCode", (v) =>
@@ -46,6 +46,7 @@ export default function Config({ forwardRef }) {
   return (
     <fieldset>
       <legend>{i18n("AppConfig")}</legend>
+      <SetAiType />
       <div className="item">
         <span>{i18n("copyCode")}</span>
         <input
