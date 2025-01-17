@@ -1,5 +1,7 @@
 import React from "react"
 
+import ValidateContent from "~component/contents/validateContent"
+
 const Modal = ({ isOpen, onClose, onConfirm, message }) => {
   if (!isOpen) return null
 
@@ -53,15 +55,11 @@ const Modal = ({ isOpen, onClose, onConfirm, message }) => {
   return (
     <div style={modalOverlayStyle as React.CSSProperties}>
       <div style={modalStyle as React.CSSProperties}>
-        <p>{message}</p>
-        <div style={modalButtonsStyle}>
-          <button style={cancelBtnStyle} onClick={onClose}>
-            取消
-          </button>
-          <button style={confirmBtnStyle} onClick={onConfirm}>
-            确认
-          </button>
-        </div>
+        <ValidateContent
+          type="parseMarkdown"
+          handleOk={onConfirm}
+          handleCancel={onClose}
+        />
       </div>
     </div>
   )

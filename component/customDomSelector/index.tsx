@@ -1,7 +1,8 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef } from "react"
 import { createRoot } from "react-dom/client"
 
 import { useMessage } from "@plasmohq/messaging/hook"
+import { useStorage } from "@plasmohq/storage/dist/hook"
 
 import ValidateContent from "~component/contents/validateContent"
 import { addCss, saveHtml, saveMarkdown } from "~tools"
@@ -15,6 +16,7 @@ import Tooltip from "../ui/tooltip"
 const turndownService = Turndown()
 
 export default function CustomDomSelector() {
+  const [aiType, setAiType] = useStorage("app-aiType")
   const isReady = useRef(false)
   const isSelect = useRef(false)
   const downloadType = useRef("")
@@ -30,18 +32,27 @@ export default function CustomDomSelector() {
     ?.innerText.trim()
 
   useEffect(() => {
-    addEventListeners()
-    addCss(`.codebox-current { outline: 2px solid #42b88350 !important; }`)
+    if (aiType) {
+      addEventListeners()
+      addCss(`.codebox-current { outline: 2px solid #42b88350 !important; }`)
+    }
     return () => {
       removeEventListeners()
       removeTooltip()
       removeHighlight()
     }
-  }, [])
+  }, [aiType])
 
   const createTooltip = () => {
     const tooltip = document.createElement("div")
     tooltip.classList.add("codebox-tooltip")
+    tooltip.style.position = "absolute"
+    tooltip.style.zIndex = "2147483641"
+    tooltip.style.backgroundColor = "#fff"
+    tooltip.style.border = "1px solid #eee"
+    tooltip.style.borderRadius = "5px"
+    tooltip.style.padding = "8px"
+    tooltip.style.boxShadow = "0 2px 8px rgba(0, 0, 0, 0.15)"
 
     document.body.appendChild(tooltip)
     const root = createRoot(tooltip)
@@ -150,7 +161,7 @@ export default function CustomDomSelector() {
         setEditContent(selectorRef.current)
         break
       case "parseMarkdown":
-        setParseContent(selectorRef.current)
+        setParseContent(selectorRef.current, aiType)
         break
       case "downloadPdf":
         const elementToPrint = selectorRef.current
@@ -183,6 +194,7 @@ export default function CustomDomSelector() {
     const root = createRoot(modal)
     root.render(
       <ValidateContent
+        type={downloadType.current}
         handleOk={handleOkModal}
         handleCancel={handleCancelModal}
       />

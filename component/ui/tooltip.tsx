@@ -10,13 +10,7 @@ import React from "react"
 
 const tooltipStyles = {
   tooltip: {
-    backgroundColor: "#fff",
-    position: "absolute",
-    zIndex: "2147483641",
-    border: "1px solid #eee",
-    borderRadius: "5px",
-    padding: "8px",
-    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)"
+    backgroundColor: "#fff"
   },
   button: {
     backgroundColor: "#fff",

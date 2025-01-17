@@ -5,6 +5,7 @@ import Turndown from "~utils/turndown"
 
 export function useParseMarkdown(option?) {
   const turndownService = Turndown(option)
+  // let aiType = null
 
   const [kimiContent, setKimiContent] = useStorage({
     key: "kimi-content",
@@ -22,12 +23,13 @@ export function useParseMarkdown(option?) {
 
   const [aiType, setAiType] = useStorage("app-aiType")
 
-  const handleSetContent = (selectorDom) => {
+  const handleSetContent = (selectorDom, type?) => {
     let markdown = turndownService.turndown(selectorDom)
     markdown = `${markdown}
     将上面的文字,翻译成中文并生成markdown`
-    console.log(aiType)
-    if (aiType == "kimi") {
+
+    type = type || aiType
+    if (type == "kimi") {
       setKimiContent(markdown)
       window.open("https://kimi.moonshot.cn/", "_blank")
     } else {

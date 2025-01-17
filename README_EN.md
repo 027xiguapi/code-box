@@ -179,3 +179,5 @@ Directly download and install:
 ## Support
 
 ![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/wx/qrcode_wx.jpg)
+
+![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/wx/u_wx.jpg)
