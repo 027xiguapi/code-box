@@ -168,8 +168,6 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
       onDownload={downloadMarkdown}
       onPrint={downloadPdf}
       onParse={parseMarkdown}
-      isShowTag={showTag}
-      setIsShowTag={setShowTag}
     />
   ) : (
     <></>

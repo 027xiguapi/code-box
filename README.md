@@ -1,4 +1,6 @@
-## codebox-一键复制代码/下载文章
+# codebox-一键复制代码/下载文章
+
+[中文](README.md) | [English](README_EN.md)
 
 ## 代码
 

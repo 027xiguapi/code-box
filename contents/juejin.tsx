@@ -11,9 +11,11 @@ import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/dist/hook"
 
 import TagBtnStyle from "~component/tagBtn/style"
+import Tags from "~component/ui/tags"
 import { i18n, saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
 import { useEditMarkdown } from "~utils/editMarkdownHook"
+import { useParseMarkdown } from "~utils/parseMarkdownHook"
 import { Print } from "~utils/print"
 import Turndown from "~utils/turndown"
 
@@ -64,6 +66,7 @@ export const getOverlayAnchor: PlasmoGetOverlayAnchor = async () =>
 export const getStyle: PlasmoGetStyle = () => TagBtnStyle()
 
 const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
+  const [parseContent, setParseContent] = useParseMarkdown()
   const [showTag, setShowTag] = useStorage<boolean>("juejin-showTag", true)
   const [cssCode, runCss] = useCssCodeHook("juejin")
   const [content, setContent] = useEditMarkdown()
@@ -111,28 +114,18 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     saveHtml(dom, articleTitle)
   }
 
-  function handleEdit() {
-    editMarkdown()
-  }
-
-  function handleDownload() {
-    downloadMarkdown()
-  }
-
-  function handlePrint() {
-    downloadPdf()
-  }
-
-  function closeTag() {
-    setShowTag(false)
+  function parseMarkdown() {
+    const dom = document.querySelector("article.article")
+    setParseContent(dom)
   }
 
   return showTag ? (
-    <div className="codebox-tagBtn">
-      <div onClick={handleEdit}>{i18n("edit")}</div>
-      <div onClick={handleDownload}>{i18n("download")}</div>
-      <div onClick={handlePrint}>{i18n("print")}</div>
-    </div>
+    <Tags
+      onEdit={editMarkdown}
+      onDownload={downloadMarkdown}
+      onPrint={downloadPdf}
+      onParse={parseMarkdown}
+    />
   ) : (
     <></>
   )

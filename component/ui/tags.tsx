@@ -11,7 +11,7 @@ const tagsStyles = {
     alignItems: "center",
     color: "#1e80ff",
     width: "160px",
-    background: "#fff",
+    backgroundColor: "rgb(255, 255, 255, .3)",
     borderRadius: "5px",
     justifyContent: "space-between",
     padding: "0 8px",
@@ -21,6 +21,7 @@ const tagsStyles = {
 }
 
 export default function Tags(props: any) {
+  const [isShowTag, setIsShowTag] = useState(true)
   const handleEdit = () => {
     props.onEdit()
   }
@@ -38,10 +39,10 @@ export default function Tags(props: any) {
   }
 
   const handleClose = () => {
-    props.setIsShowTag(false)
+    setIsShowTag(false)
   }
 
-  return (
+  return isShowTag ? (
     <div className="codebox-tagBtn" style={tagsStyles.tags}>
       <div onClick={handleEdit} className="btn">
         {i18n("edit")}
@@ -59,5 +60,7 @@ export default function Tags(props: any) {
         <CloseOutlined />
       </div>
     </div>
+  ) : (
+    <></>
   )
 }
