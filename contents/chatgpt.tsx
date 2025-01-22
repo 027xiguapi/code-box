@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react"
 import { Storage } from "@plasmohq/storage"
 import { useStorage } from "@plasmohq/storage/hook"
 
-import Modal from "~component/ui/modal"
+import QRCodeModal from "~component/ui/QRCodeModal"
 
 export const config: PlasmoCSConfig = {
   matches: ["https://chatgpt.com/*", "https://chatgpt.com/c/*"]
@@ -80,11 +80,13 @@ export default function Chatgpt() {
   }
 
   return (
-    <Modal
-      isOpen={isModalOpen}
-      onClose={handleCancelModal}
-      onConfirm={handleConfirmModal}
-      message="你确定要解析吗？"
-    />
+    <>
+      {isModalOpen && (
+        <QRCodeModal
+          onClose={handleCancelModal}
+          onConfirm={handleConfirmModal}
+        />
+      )}
+    </>
   )
 }

@@ -1,5 +1,4 @@
-import { CheckOutlined, CloseOutlined, KeyOutlined } from "@ant-design/icons"
-import { Input } from "antd"
+import { CheckOutlined, CloseOutlined } from "@ant-design/icons"
 import dayjs from "dayjs"
 import qrcodeUrl from "raw:~/public/wx/qrcode_wx.jpg"
 import React, { useRef, useState } from "react"
@@ -58,6 +57,11 @@ export default function ValidateContent(props) {
     } else if (process.env.PLASMO_PUBLIC_CODEBOX_SECRET3 == activationCode) {
       let time = dayjs().add(7, "day").unix()
       setValidTime(String(time))
+      setIsValid(true)
+      props.handleOk()
+    } else if (
+      verifyTOTP(process.env.PLASMO_PUBLIC_CODEBOX_SECRET4, activationCode)
+    ) {
       setIsValid(true)
       props.handleOk()
     } else {
@@ -128,7 +132,7 @@ export default function ValidateContent(props) {
             <label
               htmlFor="activationCodeInput"
               style={{ display: "block", marginRight: "7px" }}>
-              激活码:
+              验证码:
             </label>
             <input
               type="text"
@@ -142,12 +146,12 @@ export default function ValidateContent(props) {
                 width: "200px",
                 fontSize: "14px"
               }}
-              placeholder="请输入激活码"
+              placeholder="请输入验证码"
             />
           </div>
           {!isValid ? (
             <div style={{ color: "red", fontSize: "14px", marginTop: "5px" }}>
-              激活码错误
+              验证码错误
             </div>
           ) : (
             <></>

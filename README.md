@@ -16,10 +16,10 @@ https://github.com/027xiguapi/code-box
 
 直接下载安装：
 1. 进入应用商店
-   - [Chrome网上应用商店](https://chrome.google.com/webstore/category/extensions?hl=zh-CN)
-   - [Edge网上应用商店](https://microsoftedge.microsoft.com/addons/Microsoft-Edge-Extensions-Home?hl=zh-CN)
+   - [Chrome应用商店](https://chrome.google.com/webstore/category/extensions?hl=zh-CN)
+   - [Edge应用商店](https://microsoftedge.microsoft.com/addons/Microsoft-Edge-Extensions-Home?hl=zh-CN)
    - [360浏览器应用商店](https://ext.se.360.cn/#/extension-detail?id=acnnhjllgegbndgknlliobjlekgilbdf)
-   - [Firefox网上应用商店](https://addons.mozilla.org/zh-CN/firefox/)
+   - [Firefox应用商店](https://addons.mozilla.org/zh-CN/firefox/)
    
 2. 搜索：`codebox`
 

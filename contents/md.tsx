@@ -17,15 +17,22 @@ export default function Markdown() {
   })
 
   useEffect(() => {
+    let timer = null
+    let index = 0
     if (content) {
-      const posts = JSON.parse(window.localStorage.getItem("MD__posts")) || []
-      const post = posts[0]
-
-      if (post.content != content) {
-        post.content = content
-        window.localStorage.setItem("MD__posts", JSON.stringify(posts))
-        location.reload()
-      }
+      timer = setInterval(() => {
+        const setValue = (window as any).setValue
+        index++
+        if (setValue && index < 30) {
+          setValue(content)
+          clearTimeout(timer)
+        } else if (index >= 30) {
+          clearTimeout(timer)
+        }
+      }, 1000)
+    }
+    return () => {
+      clearTimeout(timer)
     }
   }, [content])
 
