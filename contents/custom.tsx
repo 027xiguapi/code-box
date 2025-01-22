@@ -1,5 +1,3 @@
-import { StyleProvider } from "@ant-design/cssinjs"
-import antdResetCssText from "data-text:antd/dist/reset.css"
 import type {
   PlasmoCSConfig,
   PlasmoGetShadowHostId,
@@ -11,8 +9,7 @@ import { sendToBackground } from "@plasmohq/messaging"
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
-import CustomDomSelector from "~component/customDomSelector"
-import { ThemeProvider } from "~theme"
+import CustomDomSelector from "~component/ui/customDomSelector"
 import { setIcon } from "~tools"
 import { getSummary } from "~utils/coze"
 import DrawImages from "~utils/drawImages"
@@ -20,13 +17,6 @@ import DrawImages from "~utils/drawImages"
 const HOST_ID = "codebox-csui"
 
 export const getShadowHostId: PlasmoGetShadowHostId = () => HOST_ID
-
-export const getStyle: PlasmoGetStyle = () => {
-  const style = document.createElement("style")
-
-  style.textContent = antdResetCssText
-  return style
-}
 
 const articleTitle = document
   .querySelector<HTMLElement>("head title")
@@ -101,11 +91,5 @@ export default function CustomOverlay() {
     }
   }
 
-  return (
-    <ThemeProvider>
-      <StyleProvider container={document.getElementById(HOST_ID).shadowRoot}>
-        <CustomDomSelector />
-      </StyleProvider>
-    </ThemeProvider>
-  )
+  return <CustomDomSelector />
 }

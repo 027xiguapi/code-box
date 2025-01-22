@@ -8,7 +8,6 @@ interface QRCodeModalProps {
   onClose: () => void
 }
 
-// 新增样式
 const styles = {
   overlay: {
     position: "fixed" as const,
@@ -70,10 +69,6 @@ const styles = {
     letterSpacing: "2px",
     color: "#333"
   },
-  countdown: {
-    color: "#666",
-    fontSize: "0.9rem"
-  },
   inputGroup: {
     display: "flex",
     gap: "0.5rem"
@@ -130,7 +125,6 @@ export default function QRCodeModal({ onClose, onConfirm }: QRCodeModalProps) {
   return (
     <div style={styles.overlay}>
       <div style={styles.content}>
-        {/* 原有关闭按钮和二维码内容... */}
         <button style={styles.closeButton} onClick={onClose} aria-label="Close">
           ×
         </button>

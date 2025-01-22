@@ -10,7 +10,16 @@ import React from "react"
 
 const tooltipStyles = {
   tooltip: {
-    backgroundColor: "#fff"
+    position: "absolute" as const,
+    zIndex: "2147483641",
+    backgroundColor: "#fff",
+    border: "1px solid #eee",
+    borderRadius: "5px",
+    padding: "8px",
+    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
+    width: "450px",
+    display: "flex",
+    justifyContent: "space-between"
   },
   button: {
     backgroundColor: "#fff",
@@ -18,7 +27,8 @@ const tooltipStyles = {
     color: "#000",
     borderRadius: "4px",
     padding: "2px 7px",
-    fontSize: "14px"
+    fontSize: "14px",
+    cursor: "pointer"
   },
   blueButton: {
     backgroundColor: "#1677FF",
@@ -51,8 +61,12 @@ export default function Tooltip(props: any) {
     props.onCancel()
   }
 
+  const setTooltipStyle = () => {
+    return { ...tooltipStyles.tooltip, left: props.left, top: props.top }
+  }
+
   return (
-    <div style={tooltipStyles.tooltip as React.CSSProperties}>
+    <div style={setTooltipStyle()} className="codebox-tooltip">
       <button style={tooltipStyles.blueButton} onClick={handleConfirm}>
         <CheckOutlined /> 确定
       </button>
