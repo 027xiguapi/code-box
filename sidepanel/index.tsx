@@ -6,6 +6,7 @@ import { DownloadOutlined, PushpinOutlined } from "@ant-design/icons"
 import qrcodeUrl from "raw:~/public/wx/qrcode_wx.jpg"
 
 import { sendToContentScript } from "@plasmohq/messaging"
+import { useMessage } from "@plasmohq/messaging/dist/hook"
 import { useStorage } from "@plasmohq/storage/dist/hook"
 
 import styles from "./index.module.scss"
@@ -16,6 +17,15 @@ function IndexSidePanel() {
     title: "",
     score: "",
     content: ""
+  })
+
+  useMessage((req: any, res: any) => {
+    if (req.name === "isSidePanelOpen") {
+      return true
+    }
+    if (req.name == "sidepanel") {
+      req.body.active || window.close()
+    }
   })
 
   function pinCode(index) {

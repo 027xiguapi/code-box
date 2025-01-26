@@ -15,6 +15,7 @@
     width: 190px;
     margin: 0 auto;
     padding: 5px 8px;
+    max-height: 590px;
 }
 
 .App-header .title {
@@ -28,9 +29,16 @@
 }
 
 .App-link {
-    margin-top: 10px;
-    margin-left: 5px;
+    margin-top: 5px;
     font-size: 14px;
+}
+
+.App-link .item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    font-size: 12px;
 }
 
 .popup .App-body {

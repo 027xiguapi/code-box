@@ -4,14 +4,22 @@ import { i18n } from "~tools"
 
 import "~index.css"
 
+import { useEffect, useState } from "react"
+
 import { sendToBackground } from "@plasmohq/messaging"
 
 export default function IndexPopup() {
-  function hanleOpenSidePanel() {
+  const [sidePanel, setSidePanel] = useState(false)
+
+  useEffect(() => {
+    hanleOpenSidePanel(sidePanel)
+  }, [sidePanel])
+
+  function hanleOpenSidePanel(active) {
     sendToBackground({
       name: "sidepanel",
       body: {
-        active: true
+        active: active
       }
     })
   }
@@ -28,9 +36,16 @@ export default function IndexPopup() {
         </div>
         <div className="App-link">
           <div className="item">
-            <a className="btn" href="#" onClick={hanleOpenSidePanel}>
-              {i18n("sidePanel")}😀
-            </a>
+            <span>{i18n("sidePanel")}</span>
+            <input
+              type="checkbox"
+              id="sidePanel"
+              name="sidePanel"
+              className="codebox-offscreen"
+              checked={sidePanel}
+              onChange={(e) => setSidePanel(e.target.checked)}
+            />
+            <label htmlFor="sidePanel" className="codebox-switch"></label>
           </div>
           <div className="item">
             <a
