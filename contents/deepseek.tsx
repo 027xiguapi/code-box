@@ -8,10 +8,10 @@ import { useStorage } from "@plasmohq/storage/hook"
 import QRCodeModal from "~component/ui/QRCodeModal"
 
 export const config: PlasmoCSConfig = {
-  matches: ["https://kimi.moonshot.cn/*", "https://kimi.moonshot.cn/chat/*"]
+  matches: ["https://chat.deepseek.com/*"]
 }
 
-export default function Kimi() {
+export default function Deepseek() {
   const [validTime, setValidTime] = useStorage("ai-validTime", "1737872293")
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [content, setContent] = useStorage({
@@ -28,8 +28,8 @@ export default function Kimi() {
       if (Number(validTime) < dayjs().unix()) {
         timer = setInterval(() => {
           const editorElement = document.querySelector(
-            "div[data-lexical-editor=true]"
-          )
+            "#chat-input"
+          ) as HTMLElement
           index++
           if (editorElement && index < 30) {
             setIsModalOpen(true)
@@ -64,24 +64,22 @@ export default function Kimi() {
 
   function handleSetContent() {
     const editorElement = document.querySelector(
-      "div[data-lexical-editor=true]"
-    ) as HTMLElement
+      "#chat-input"
+    ) as HTMLInputElement
 
-    const buttonElement = document.querySelector(
-      ".chat-editor-action .send-button"
-    ) as HTMLElement
+    const buttonElement = document.querySelector(".f6d670") as HTMLElement
 
     if (editorElement) {
+      editorElement.value = content
+      editorElement.dispatchEvent(new Event("input", { bubbles: true }))
+      editorElement.dispatchEvent(new Event("change", { bubbles: true }))
       editorElement.focus()
+      editorElement.setSelectionRange(
+        editorElement.value.length,
+        editorElement.value.length
+      )
+      document.execCommand("InsertText", false, content)
 
-      const event = new InputEvent("input", {
-        bubbles: true,
-        cancelable: true,
-        data: content,
-        inputType: "insertText"
-      })
-
-      editorElement.dispatchEvent(event)
       setContent("")
 
       setTimeout(() => {

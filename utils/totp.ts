@@ -102,18 +102,3 @@ export class TOTP {
     return currentTOTP === inputCode
   }
 }
-
-// 示例用法
-const secretKey = "JBSWY3DPEHPK3PXP"
-const userInputCode = "123456"
-
-if (TOTP.isValidSecret(secretKey)) {
-  const isValid = TOTP.verifyTOTP(secretKey, userInputCode)
-  if (isValid) {
-    console.log("验证码正确")
-  } else {
-    console.log("验证码错误")
-  }
-} else {
-  console.log("密钥格式无效")
-}

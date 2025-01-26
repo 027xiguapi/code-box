@@ -21,6 +21,7 @@ export default function SetAiType(props) {
         id="custom-aiType"
         value={aiType}
         onChange={(e) => setAiType(e.target.value)}>
+        <option value="deepseek">deepseek</option>
         <option value="chatgpt">chatGPT</option>
         <option value="kimi">kimi</option>
       </select>

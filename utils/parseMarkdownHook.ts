@@ -5,17 +5,9 @@ import Turndown from "~utils/turndown"
 
 export function useParseMarkdown(option?) {
   const turndownService = Turndown(option)
-  // let aiType = null
 
-  const [kimiContent, setKimiContent] = useStorage({
-    key: "kimi-content",
-    instance: new Storage({
-      area: "local"
-    })
-  })
-
-  const [chatgptContent, setChatgptContent] = useStorage({
-    key: "chatgpt-content",
+  const [aiContent, setAiContent] = useStorage({
+    key: "ai-content",
     instance: new Storage({
       area: "local"
     })
@@ -28,15 +20,21 @@ export function useParseMarkdown(option?) {
     markdown = `${markdown}
     将上面的文字,翻译成中文并生成markdown`
 
+    setAiContent(markdown)
     type = type || aiType
-    if (type == "kimi") {
-      setKimiContent(markdown)
-      window.open("https://kimi.moonshot.cn/", "_blank")
-    } else {
-      setChatgptContent(markdown)
-      window.open("https://chatgpt.com", "_blank")
+
+    switch (type) {
+      case "kimi":
+        window.open("https://kimi.moonshot.cn/", "_blank")
+        break
+      case "chatgpt":
+        window.open("https://chatgpt.com", "_blank")
+        break
+      case "deepseek":
+        window.open("https://chat.deepseek.com/", "_blank")
+        break
     }
   }
 
-  return [aiType == "kimi" ? kimiContent : chatgptContent, handleSetContent]
+  return [aiContent, handleSetContent]
 }

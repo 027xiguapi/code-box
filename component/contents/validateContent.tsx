@@ -39,6 +39,8 @@ export default function ValidateContent(props) {
     if (Number(validTime) > dayjs().unix()) {
       props.handleOk()
     } else if (process.env.PLASMO_PUBLIC_CODEBOX_SECRET3 == activationCode) {
+      let time = dayjs().add(7, "day").unix()
+      setValidTime(String(time))
       setIsValid(true)
       props.handleOk()
     } else {

@@ -1,3 +1,4 @@
+import dayjs from "dayjs"
 import type { PlasmoCSConfig } from "plasmo"
 import React, { useEffect, useState } from "react"
 
@@ -11,9 +12,10 @@ export const config: PlasmoCSConfig = {
 }
 
 export default function Chatgpt() {
+  const [validTime, setValidTime] = useStorage("ai-validTime", "1737872293")
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [content, setContent] = useStorage({
-    key: "chatgpt-content",
+    key: "ai-content",
     instance: new Storage({
       area: "local"
     })
@@ -23,18 +25,22 @@ export default function Chatgpt() {
     let timer = null
     let index = 0
     if (content) {
-      timer = setInterval(() => {
-        const editorElement = document.querySelector(
-          "._prosemirror-parent_cy42l_1 p"
-        )
-        index++
-        if (editorElement && index < 30) {
-          setIsModalOpen(true)
-          clearTimeout(timer)
-        } else if (index >= 30) {
-          clearTimeout(timer)
-        }
-      }, 1000)
+      if (Number(validTime) < dayjs().unix()) {
+        timer = setInterval(() => {
+          const editorElement = document.querySelector(
+            "._prosemirror-parent_cy42l_1 p"
+          )
+          index++
+          if (editorElement && index < 30) {
+            setIsModalOpen(true)
+            clearTimeout(timer)
+          } else if (index >= 30) {
+            clearTimeout(timer)
+          }
+        }, 1000)
+      } else {
+        handleSetContent()
+      }
     }
     return () => {
       clearTimeout(timer)
@@ -47,6 +53,9 @@ export default function Chatgpt() {
   }
 
   function handleConfirmModal() {
+    let time = dayjs().add(1, "day").unix()
+
+    setValidTime(String(time))
     handleSetContent()
     setTimeout(() => {
       setIsModalOpen(false)
@@ -67,7 +76,6 @@ export default function Chatgpt() {
           "button[data-testid=send-button]"
         ) as HTMLElement
         index++
-        console.log(buttonElement, index)
         if (buttonElement && index < 30) {
           buttonElement.click()
           setContent("")

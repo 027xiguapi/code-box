@@ -106,7 +106,6 @@ export default function QRCodeModal({ onClose, onConfirm }: QRCodeModalProps) {
   const [inputCode, setInputCode] = useState<string>("")
   const [isValid, setIsValid] = useState<boolean | null>(null)
 
-  // 验证输入
   const handleVerify = () => {
     const formattedInput = inputCode.replace(/\s/g, "")
     const secretKey = process.env.PLASMO_PUBLIC_CODEBOX_SECRET4
@@ -115,6 +114,9 @@ export default function QRCodeModal({ onClose, onConfirm }: QRCodeModalProps) {
       formattedInput.length == 6 &&
       TOTP.verifyTOTP(secretKey, formattedInput)
     ) {
+      setIsValid(true)
+      onConfirm()
+    } else if (process.env.PLASMO_PUBLIC_CODEBOX_SECRET3 == formattedInput) {
       setIsValid(true)
       onConfirm()
     } else {
