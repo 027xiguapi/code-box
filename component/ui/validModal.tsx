@@ -1,11 +1,9 @@
 import dayjs from "dayjs"
 import qrcodeUrl from "raw:~/public/wx/qrcode_wx.jpg"
-import React, { useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 
 import { sendToBackground } from "@plasmohq/messaging"
 import { useStorage } from "@plasmohq/storage/dist/hook"
-
-import { verifyTOTP } from "~utils/2FA"
 
 const styles = {
   overlay: {
@@ -120,33 +118,22 @@ export default function ValidModal(props) {
   const [inputCode, setInputCode] = useState<string>("")
   const [isValid, setIsValid] = useState(true)
 
+  useEffect(() => {
+    if (Number(validTime) > dayjs().unix()) {
+      setTimeout(() => {
+        handleSubmit()
+      }, 1000)
+    }
+  }, [validTime])
+
   function handleSubmit() {
     if (Number(validTime) > dayjs().unix()) {
-      props.handleOk()
-    } else if (
-      verifyTOTP(process.env.PLASMO_PUBLIC_CODEBOX_SECRET1, inputCode)
-    ) {
-      let time = dayjs().add(20, "day").unix()
-      setValidTime(String(time))
-      setIsValid(true)
-      props.handleOk()
-    } else if (
-      verifyTOTP(process.env.PLASMO_PUBLIC_CODEBOX_SECRET2, inputCode)
-    ) {
-      let time = dayjs().add(65, "day").unix()
-      setValidTime(String(time))
-      setIsValid(true)
-      props.handleOk()
+      props.onConfirm()
     } else if (process.env.PLASMO_PUBLIC_CODEBOX_SECRET3 == inputCode) {
       let time = dayjs().add(7, "day").unix()
       setValidTime(String(time))
       setIsValid(true)
-      props.handleOk()
-    } else if (
-      verifyTOTP(process.env.PLASMO_PUBLIC_CODEBOX_SECRET4, inputCode)
-    ) {
-      setIsValid(true)
-      props.handleOk()
+      props.onConfirm()
     } else {
       setIsValid(false)
     }
@@ -183,9 +170,11 @@ export default function ValidModal(props) {
           ×
         </button>
         {Number(validTime) > dayjs().unix() ? (
-          <p style={styles.activatedText}>
-            已激活！确认{typeMap[props.type]}？
-          </p>
+          <>
+            <p style={styles.activatedText}>
+              已激活！正在{typeMap[props.type]}...
+            </p>
+          </>
         ) : (
           <>
             <div style={styles.noticeText}>

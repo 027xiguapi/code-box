@@ -1,7 +1,7 @@
-import imageSrc from "raw:~/public/wx/qrcode_wx.jpg"
+import imageSrc from "raw:~/public/wx/xcx.jpg"
 import React, { useEffect, useState } from "react"
 
-import { verifyTOTP } from "~utils/2FA"
+import { TOTP } from "~utils/totp"
 
 interface QRCodeModalProps {
   onConfirm: () => void
@@ -109,10 +109,11 @@ export default function QRCodeModal({ onClose, onConfirm }: QRCodeModalProps) {
   // 验证输入
   const handleVerify = () => {
     const formattedInput = inputCode.replace(/\s/g, "")
+    const secretKey = process.env.PLASMO_PUBLIC_CODEBOX_SECRET4
 
     if (
       formattedInput.length == 6 &&
-      verifyTOTP(process.env.PLASMO_PUBLIC_CODEBOX_SECRET4, formattedInput)
+      TOTP.verifyTOTP(secretKey, formattedInput)
     ) {
       setIsValid(true)
       onConfirm()

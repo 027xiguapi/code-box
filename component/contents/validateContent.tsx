@@ -6,8 +6,6 @@ import React, { useRef, useState } from "react"
 import { sendToBackground } from "@plasmohq/messaging"
 import { useStorage } from "@plasmohq/storage/dist/hook"
 
-import { verifyTOTP } from "~utils/2FA"
-
 const validateContent = {
   blueButton: {
     backgroundColor: "#1677FF",
@@ -40,28 +38,7 @@ export default function ValidateContent(props) {
   function handleSubmit() {
     if (Number(validTime) > dayjs().unix()) {
       props.handleOk()
-    } else if (
-      verifyTOTP(process.env.PLASMO_PUBLIC_CODEBOX_SECRET1, activationCode)
-    ) {
-      let time = dayjs().add(20, "day").unix()
-      setValidTime(String(time))
-      setIsValid(true)
-      props.handleOk()
-    } else if (
-      verifyTOTP(process.env.PLASMO_PUBLIC_CODEBOX_SECRET2, activationCode)
-    ) {
-      let time = dayjs().add(65, "day").unix()
-      setValidTime(String(time))
-      setIsValid(true)
-      props.handleOk()
     } else if (process.env.PLASMO_PUBLIC_CODEBOX_SECRET3 == activationCode) {
-      let time = dayjs().add(7, "day").unix()
-      setValidTime(String(time))
-      setIsValid(true)
-      props.handleOk()
-    } else if (
-      verifyTOTP(process.env.PLASMO_PUBLIC_CODEBOX_SECRET4, activationCode)
-    ) {
       setIsValid(true)
       props.handleOk()
     } else {

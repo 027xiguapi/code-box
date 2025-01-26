@@ -1,9 +1,10 @@
 # Codebox - One-click Code Copying/Downloading Articles
 
 [中文](README.md) | [English](README_EN.md)
-## Code
 
-https://github.com/027xiguapi/code-box
+## official website
+
+https://www.code-box.fun/
 
 ## Introduction
 

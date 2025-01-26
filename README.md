@@ -2,9 +2,9 @@
 
 [中文](README.md) | [English](README_EN.md)
 
-## 代码
+## 官网
 
-https://github.com/027xiguapi/code-box
+https://www.code-box.fun/
 
 ## 介绍
 

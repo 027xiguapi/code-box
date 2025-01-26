@@ -197,7 +197,11 @@ export default function CustomDomSelector() {
         />
       )}
       {isModalOpen && (
-        <ValidModal onClose={handleCancelModal} onConfirm={handleOkModal} />
+        <ValidModal
+          onClose={handleCancelModal}
+          onConfirm={handleOkModal}
+          type={downloadType.current}
+        />
       )}
     </>
   )

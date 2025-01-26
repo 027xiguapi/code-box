@@ -19,6 +19,8 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+pnpm-lock.yaml
+
 # local env files
 .env*.local
 
@@ -35,7 +37,7 @@ dist/
 
 .idea
 .vscode
-pnpm-lock.yaml
+
 .env
 
 server
