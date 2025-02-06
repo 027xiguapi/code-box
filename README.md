@@ -183,4 +183,4 @@ https://www.code-box.fun/
 
 ![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/wx/qrcode_wx.jpg)
 
-![u_wx](https://raw.githubusercontent.com/027xiguapi/code-box/blob/main/public/wx/u_wx.jpg)
+![u_wx](https://github.com/027xiguapi/code-box/blob/main/public/wx/u_wx.jpg)

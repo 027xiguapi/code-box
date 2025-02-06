@@ -193,5 +193,8 @@
   },
   "fullPageScreenshot": {
     "message": "Full Page Screenshot"
+  },
+  "getThumbMedia": {
+    "message": "get Thumb Media"
   }
 }

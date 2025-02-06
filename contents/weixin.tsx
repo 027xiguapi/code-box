@@ -64,6 +64,12 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     if (req.name == "weixin-downloadImages") {
       await downloadImages(req.body?.onProgress)
     }
+    if (req.name == "weixin-getThumbMedia") {
+      const thumbMediaUrl = document.querySelector<HTMLMetaElement>(
+        'meta[property="og:image"]'
+      ).content
+      thumbMediaUrl && window.open(thumbMediaUrl)
+    }
   })
 
   async function downloadImages(

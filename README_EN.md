@@ -181,4 +181,4 @@ Directly download and install:
 
 ![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/wx/qrcode_wx.jpg)
 
-![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/wx/u_wx.jpg)
+![img](https://github.com/027xiguapi/code-box/blob/main/public/wx/u_wx.jpg)

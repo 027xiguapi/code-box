@@ -196,5 +196,8 @@
   },
   "fullPageScreenshot": {
     "message": "全页面截图"
+  },
+  "getThumbMedia": {
+    "message": "获取封面"
   }
 }
