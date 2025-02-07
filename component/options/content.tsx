@@ -10,6 +10,7 @@ import Jb51 from "~component/options/jb51"
 import Jianshu from "~component/options/jianshu"
 import Juejin from "~component/options/juejin"
 import Medium from "~component/options/medium"
+import Mp from "~component/options/mp"
 import Oschina from "~component/options/oschina"
 import Php from "~component/options/php"
 import Segmentfault from "~component/options/segmentfault"
@@ -30,6 +31,7 @@ export default function Content() {
   const [segmentfaultIsShow, setSegmentfaultIsShow] = useState<boolean>(false)
   const [weixinIsShow, setWeixinIsShow] = useState<boolean>(false)
   const [mediumIsShow, setMediumIsShow] = useState<boolean>(false)
+  const [mpIsShow, setMpIsShow] = useState<boolean>(false)
 
   const csdnRef = useRef<any>()
   const zhihuRef = useRef<any>()
@@ -51,8 +53,9 @@ export default function Content() {
       const currentTab = tabs[0]
       if (currentTab) {
         const url = new URL(currentTab.url)
-        const hostname = url.hostname
+        const { hostname, pathname } = url
 
+        console.log(hostname, pathname, url)
         hostname.includes("csdn") && setCsdnIsShow(true)
         hostname.includes("zhihu") && setZhihuIsShow(true)
         hostname.includes("baidu") && setBaiduIsShow(true)
@@ -64,8 +67,14 @@ export default function Content() {
         hostname.includes("php") && setPhpIsShow(true)
         hostname.includes("oschina") && setOschinaIsShow(true)
         hostname.includes("segmentfault") && setSegmentfaultIsShow(true)
-        hostname.includes("weixin") && setWeixinIsShow(true)
         hostname.includes("medium") && setMediumIsShow(true)
+        if (hostname.includes("weixin")) {
+          if (pathname.includes("cgi-bin")) {
+            setMpIsShow(true)
+          } else {
+            setWeixinIsShow(true)
+          }
+        }
       }
     })
   }, [])
@@ -85,6 +94,7 @@ export default function Content() {
       {segmentfaultIsShow ? <Segmentfault /> : <></>}
       {weixinIsShow ? <Weixin /> : <></>}
       {mediumIsShow ? <Medium /> : <></>}
+      {mpIsShow ? <Mp /> : <></>}
       <Custom />
       <Config forwardRef={customRef} />
     </div>

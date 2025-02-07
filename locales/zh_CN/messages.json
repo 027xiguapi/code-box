@@ -199,5 +199,11 @@
   },
   "getThumbMedia": {
     "message": "获取封面"
+  },
+  "getMediaResources": {
+    "message": "复制资源"
+  },
+  "copyURL": {
+    "message": "复制URL"
   }
 }

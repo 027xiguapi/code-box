@@ -68,7 +68,7 @@ export default function IndexPopup() {
           <div>
             <a
               className="btn"
-              href="/tabs/feed.html"
+              href="https://mp.weixin.qq.com/s/UrnGRks6R-JJ4oZTdt0Xrw"
               target="_blank"
               rel="noreferrer">
               {i18n("support")}👍
