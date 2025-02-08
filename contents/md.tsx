@@ -5,36 +5,32 @@ import { Storage } from "@plasmohq/storage"
 import { useStorage } from "@plasmohq/storage/dist/hook"
 
 export const config: PlasmoCSConfig = {
-  matches: ["https://md.randbox.top/*"]
+  matches: ["https://md.randbox.top/*", "https://md.code-box.fun/*"]
 }
 
 export default function Markdown() {
-  const [content] = useStorage({
-    key: "md-content",
+  const [post] = useStorage({
+    key: "md-post",
     instance: new Storage({
       area: "local"
     })
   })
 
   useEffect(() => {
-    let timer = null
-    let index = 0
-    if (content) {
-      timer = setInterval(() => {
-        const setValue = (window as any).setValue
-        index++
-        if (setValue && index < 30) {
-          setValue(content)
-          clearTimeout(timer)
-        } else if (index >= 30) {
-          clearTimeout(timer)
-        }
-      }, 1000)
+    if (post) {
+      const posts = JSON.parse(window.localStorage.getItem("MD__posts")) || []
+      const _post = JSON.parse(post)
+
+      if (posts[0] && _post.content != posts[0].content) {
+        posts.unshift({
+          content: _post.content,
+          title: _post.title || "文章1"
+        })
+        window.localStorage.setItem("MD__posts", JSON.stringify(posts))
+        location.reload()
+      }
     }
-    return () => {
-      clearTimeout(timer)
-    }
-  }, [content])
+  }, [post])
 
   return <div style={{ display: "none" }}></div>
 }

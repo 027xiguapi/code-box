@@ -11,7 +11,6 @@ export async function downloadAllImagesAsZip(filename?: string) {
   images.forEach((img, index) => {
     fetchPromises.push(
       new Promise((resolve) => {
-        console.log(img.src)
         fetch(img.src)
           .then((response) => response.blob())
           .then((blob) => {

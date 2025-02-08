@@ -280,7 +280,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
 
   function editMarkdown() {
     const dom = document.querySelector(".blog-content-box")
-    setContent(dom)
+    setContent(dom, articleTitle)
   }
 
   function downloadMarkdown() {

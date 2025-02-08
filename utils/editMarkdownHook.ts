@@ -6,18 +6,22 @@ import Turndown from "~utils/turndown"
 export function useEditMarkdown(option?) {
   const turndownService = Turndown(option)
 
-  const [content, setContent] = useStorage({
-    key: "md-content",
+  const [post, setPost] = useStorage({
+    key: "md-post",
     instance: new Storage({
       area: "local"
     })
   })
 
-  const handleSetContent = (selectorDom) => {
-    const markdown = turndownService.turndown(selectorDom)
-    setContent(markdown)
-    window.open("https://md.randbox.top", "_blank")
+  const handleSetPost = (selectorDom, articleTitle) => {
+    const content = turndownService.turndown(selectorDom)
+    const post = {
+      content: content,
+      title: articleTitle
+    }
+    setPost(JSON.stringify(post))
+    window.open("https://md.code-box.fun", "_blank")
   }
 
-  return [content, handleSetContent]
+  return [post, handleSetPost]
 }

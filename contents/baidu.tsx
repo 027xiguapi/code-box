@@ -51,7 +51,7 @@ export default function Custom() {
 
   function editMarkdown() {
     const dom = document.querySelector(".wd-ai-index-pc")
-    setContent(dom)
+    setContent(dom, articleTitle)
   }
 
   function downloadMarkdown() {

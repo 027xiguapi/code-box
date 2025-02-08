@@ -155,7 +155,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
 
   function editMarkdown() {
     const dom = document.querySelector<HTMLElement>("#post_detail")
-    setContent(dom)
+    setContent(dom, articleTitle)
   }
 
   function downloadMarkdown() {

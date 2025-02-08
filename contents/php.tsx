@@ -122,7 +122,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
 
   function editMarkdown() {
     const dom = document.querySelector(".phpscMain .php-article")
-    setContent(dom)
+    setContent(dom, articleTitle)
   }
 
   function downloadMarkdown() {
