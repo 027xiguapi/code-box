@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .text-gradient {
+      font-size: 48px;
+      margin: auto;
+      text-align: center;
+      /* 设置字体透明 */
+      color: transparent;
+      /* 设置线性渐变，从红色渐变到蓝色 */
+      background-image: linear-gradient(45deg, blue, red);
+      /* 使用 -webkit-background-clip 属性将背景剪裁至文本形状 */
+      -webkit-background-clip: text;
+      /* 非Webkit内核浏览器需要使用标准前缀 */
+      background-clip: text;
+      /* 把当前元素设置为行内块，以便能够应用背景 */
+    }
+
+    .text {
+      text-anchor: middle;
+      dominant-baseline: middle;
+      fill: url(#gradient);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- <svg>
+    <defs>
+      <linearGradient id="gradient">
+        <stop offset="0%" stop-color="#FFCF02" />
+        <stop offset="100%" stop-color="#FF7352" />
+      </linearGradient>
+    </defs>
+    <text class="text" x="50%" y="50%">为你定制 发现精彩</text>
+  </svg> -->
+  <!-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-code">
+    <path d="M10 9.5 8 12l2 2.5" />
+    <path d="m14 9.5 2 2.5-2 2.5" />
+    <rect width="18" height="18" x="3" y="3" rx="2" />
+  </svg>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-badge">
+    <linearGradient id="gradient">
+      <stop offset="0%" stop-color="#FFCF02" />
+      <stop offset="100%" stop-color="#FF7352" />
+    </linearGradient>
+    <path class="text"
+      d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
+    <path d="M10 9.5 8 12l2 2.5" />
+    <path d="m14 9.5 2 2.5-2 2.5" />
+  </svg> -->
+  <svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-badge">
+    <linearGradient id="gradient">
+      <stop offset="0%" stop-color="#FFCF02" />
+      <stop offset="100%" stop-color="#FF7352" />
+    </linearGradient>
+    <path class="text"
+      d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
+    <path d="M10 9.5 8 12l2 2.5" />
+    <path d="m14 9.5 2 2.5-2 2.5" />
+  </svg>
+
+  <svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 124 124" fill="none">
+    <rect width="124" height="124" rx="24" fill="#F97316" />
+    <path
+      d="M19.375 36.7818V100.625C19.375 102.834 21.1659 104.625 23.375 104.625H87.2181C90.7818 104.625 92.5664 100.316 90.0466 97.7966L26.2034 33.9534C23.6836 31.4336 19.375 33.2182 19.375 36.7818Z"
+      fill="white" />
+    <circle cx="63.2109" cy="37.5391" r="18.1641" fill="black" />
+    <rect opacity="0.4" x="81.1328" y="80.7198" width="17.5687" height="17.3876" rx="4"
+      transform="rotate(-45 81.1328 80.7198)" fill="#FDBA74" />
+  </svg>
+
+  <svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke-width="0" fill="#F97316"
+    d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
+    <path d="M10 9.5 8 12l2 2.5" stroke="white"/>
+    <path d="m14 9.5 2 2.5-2 2.5" stroke="white"/>
+  </svg>
+
+  <div id="editableDiv" contenteditable="true">这是可编辑的内容。</div>
+<button onclick="modifyContent()">修改内容</button>
+<script>
+  function modifyContent() {
+    var editableDiv = document.getElementById('editableDiv');
+    editableDiv.innerHTML = '这是修改后的内容！'; // 修改为新的内容
+  }
+</script>
+
+</body>
+
+</html>

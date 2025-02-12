@@ -38,6 +38,82 @@ export const getOverlayAnchor: PlasmoGetOverlayAnchor = async () =>
 
 export const getStyle: PlasmoGetStyle = () => TagBtnStyle()
 
+const formatLimit = 5
+const formatList = new WeakMap()
+const urlReg =
+  /\b((?:https?:\/\/)?(?![\d-]+\.[\d-]+)([\w-]+(\.[\w-]+)+[\S^\"\'\[\]\{\}\>\<]*))/gi
+const ignoreTags = [
+  "SCRIPT",
+  "STYLE",
+  "A",
+  "TEXTAREA",
+  "NOSCRIPT",
+  "CODE",
+  "TITLE"
+]
+const formatLinks = (target: Node, nodes: NodeList) => {
+  if (
+    !(target instanceof HTMLElement) ||
+    ignoreTags.includes(target.nodeName) ||
+    target.translate === false
+  )
+    return
+
+  const formatTimes = formatList.get(target) || 0
+  if (formatTimes > formatLimit) return
+
+  let modified = false
+  nodes.forEach((node: any) => {
+    if (node.nodeType === Node.TEXT_NODE && node.textContent.match(urlReg)) {
+      const newContent = node.textContent.replace(
+        urlReg,
+        (match) =>
+          `<a href="${match.startsWith("http") ? match : "http://" + match}" 
+             target="_blank" 
+             style="color: #576b95; text-decoration: none;">
+            ${match}
+          </a>`
+      )
+      const wrapper = document.createElement("span")
+      wrapper.innerHTML = newContent
+      node.replaceWith(wrapper)
+      modified = true
+    }
+  })
+
+  if (modified) {
+    formatList.set(target, formatTimes + 1)
+  }
+}
+
+const queryChildElements = (element: Node) => {
+  if (element instanceof Element) {
+    ;[...element.querySelectorAll("*")].forEach((child) =>
+      formatLinks(child, child.childNodes)
+    )
+  }
+}
+
+const createLinkObserver = () => {
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      formatLinks(mutation.target, mutation.addedNodes)
+      mutation.addedNodes.forEach((node) => queryChildElements(node))
+    })
+  })
+
+  return observer
+}
+
+const observer = createLinkObserver()
+observer.observe(document, {
+  subtree: true,
+  childList: true,
+  characterData: true
+})
+
+queryChildElements(document.documentElement)
+
 const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   const [parseContent, setParseContent] = useParseMarkdown()
   const [showTag, setShowTag] = useStorage<boolean>("weixin-showTag", true)
