@@ -7,7 +7,8 @@ import type {
   PlasmoGetShadowHostId,
   PlasmoGetStyle
 } from "plasmo"
-import { useEffect, type FC } from "react"
+import qrcodeUrl from "raw:~/public/wx/qrcode_wx.jpg"
+import React, { useEffect, useState, type FC } from "react"
 
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/dist/hook"
@@ -34,9 +35,7 @@ const HOST_ID = "codebox-weixin"
 export const getShadowHostId: PlasmoGetShadowHostId = () => HOST_ID
 
 export const getOverlayAnchor: PlasmoGetOverlayAnchor = async () =>
-  document.querySelector("#img-content .rich_media_title")
-
-export const getStyle: PlasmoGetStyle = () => TagBtnStyle()
+  document.querySelector("#activity-detail")
 
 const formatLimit = 5
 const formatList = new WeakMap()
@@ -114,12 +113,41 @@ observer.observe(document, {
 
 queryChildElements(document.documentElement)
 
+const style = {
+  box: {
+    position: "fixed" as const,
+    border: "1px solid #D9DADC",
+    left: "25px",
+    top: "25px",
+    width: "140px",
+    padding: "16px",
+    cursor: "pointer"
+  },
+  close: {
+    position: "absolute" as const,
+    top: "-5px",
+    right: "0px",
+    background: "none",
+    border: "none",
+    fontSize: "1.5rem",
+    cursor: "pointer",
+    padding: "0.5rem"
+  },
+  img: {
+    width: "100%"
+  },
+  item: {
+    color: "#000000"
+  }
+}
+
 const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   const [parseContent, setParseContent] = useParseMarkdown()
   const [showTag, setShowTag] = useStorage<boolean>("weixin-showTag", true)
   const [cssCode, runCss] = useCssCodeHook("weixin")
   const [history, setHistory] = useStorage<any[]>("codebox-history")
   const [content, setContent] = useEditMarkdown()
+  const [isShow, setIsShow] = useState(true)
 
   useMessage(async (req: any, res: any) => {
     if (req.name == "weixin-isShow") {
@@ -141,12 +169,23 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
       await downloadImages(req.body?.onProgress)
     }
     if (req.name == "weixin-getThumbMedia") {
-      const thumbMediaUrl = document.querySelector<HTMLMetaElement>(
-        'meta[property="og:image"]'
-      ).content
-      thumbMediaUrl && window.open(thumbMediaUrl)
+      getThumbMedia()
     }
   })
+
+  function getThumbMedia() {
+    const thumbMediaUrl = document.querySelector<HTMLMetaElement>(
+      'meta[property="og:image"]'
+    ).content
+    thumbMediaUrl && window.open(thumbMediaUrl)
+  }
+
+  function getDescription() {
+    const summary = document.querySelector<HTMLMetaElement>(
+      'meta[name="description"]'
+    ).content
+    summary && prompt("文章摘要：", summary)
+  }
 
   async function downloadImages(
     onProgress?: (current: number, total: number) => void
@@ -236,13 +275,58 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     setParseContent(dom)
   }
 
-  return showTag ? (
-    <Tags
-      onEdit={editMarkdown}
-      onDownload={downloadMarkdown}
-      onPrint={downloadPdf}
-      onParse={parseMarkdown}
-    />
+  function onClose() {
+    setIsShow(false)
+  }
+
+  return showTag && isShow ? (
+    <div id="ws_cmbm" className="ws_cmbmc" style={style.box}>
+      <button style={style.close} onClick={onClose} aria-label="Close">
+        ×
+      </button>
+      <img src={qrcodeUrl} alt="qrcodeUrl" style={style.img} />
+      <div style={style.item}>
+        <a onClick={getThumbMedia}>文章封面</a>
+      </div>
+      <div style={style.item}>
+        <a onClick={getDescription}>文章摘要</a>
+      </div>
+      <div style={style.item}>
+        <a
+          style={{ color: "#000" }}
+          href="javascript:(function(){const rules={'mp.weixin.qq.com':{testReg:/^http(?:s)?:\/\/mp\.weixin\.qq\.com\/s\?.*$/i,query:['__biz','idx','mid','sn','src','timestamp','ver','signature']},other:{testReg:/^(http(?:s)?:\/\/[^?#]*)[?#].*$/i,query:['id','tid','uid','q','wd','query','keyword','keywords']}};const pureUrl=function(url=window.location.href){const hash=url.replace(/^[^#]*(#.*)?$/,'$1'),base=url.replace(/(\?|#).*$/,'');let pureUrl=url;const getQueryString=function(key){let ret=url.match(new RegExp('(?:\\?|&amp;)('+key+'=[^?#&amp;]*)','i'));return null===ret?'':ret[1]},methods={decodeUrl:function(url){return decodeURIComponent(url)}};for(let i in rules){let rule=rules[i],reg=rule.testReg,replace=rule.replace;if(reg.test(url)){let newQuerys='';void 0!==rule.query&amp;&amp;rule.query.length>0&amp;&amp;rule.query.map(query=>{const ret=getQueryString(query);''!==ret&amp;&amp;(newQuerys+=(newQuerys.length?'&amp;':'?')+ret)}),newQuerys+=void 0!==rule.hash&amp;&amp;rule.hash?hash:'',pureUrl=(void 0===replace?base:url.replace(reg,replace))+newQuerys,void 0!==rule.methods&amp;&amp;rule.methods.length>0&amp;&amp;rule.methods.map(methodName=>{pureUrl=methods[methodName](pureUrl)});break}}return pureUrl}();let newnode=document.createElement('input');newnode.id='pure-url-for-copy',newnode.value=pureUrl,document.body.appendChild(newnode);let copyinput=document.getElementById('pure-url-for-copy');copyinput.select();try{document.execCommand('copy');window.location.href===pureUrl?window.location.reload():window.location.href=pureUrl}catch(err){null!=prompt('%E5%87%80%E5%8C%96%E5%90%8E%E7%9A%84%E7%BD%91%E5%9D%80%E6%98%AF%EF%BC%9A',pureUrl)&amp;&amp;(window.location.href=pureUrl)}document.body.removeChild(copyinput)})();">
+          净化链接
+        </a>
+      </div>
+      <div style={style.item}>
+        <a
+          style={{ color: "#000" }}
+          href="javascript:(function(){prompt( '原始链接：', 'https://mp.weixin.qq.com/s?__biz='+biz+'&amp;idx=1&amp;mid='+mid+'&amp;sn='+sn)})();">
+          原始链接
+        </a>
+      </div>
+      <div style={style.item}>
+        <a onClick={editMarkdown}>编辑markdown</a>
+      </div>
+      <div style={style.item}>
+        <a onClick={downloadMarkdown}>下载markdown</a>
+      </div>
+      <div style={style.item}>
+        <a onClick={downloadPdf}>下载PDF</a>
+      </div>
+      <div style={style.item}>
+        <a onClick={parseMarkdown}>解析markdown</a>
+      </div>
+      <div style={style.item}>
+        <a onClick={() => downloadImages()}>下载所有图片</a>
+      </div>
+      <a
+        style={{ color: "#000" }}
+        href="https://www.code-box.fun"
+        target="_blank">
+        帮助
+      </a>
+    </div>
   ) : (
     <></>
   )
