@@ -13,8 +13,6 @@ import React, { useEffect, useState, type FC } from "react"
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/dist/hook"
 
-import TagBtnStyle from "~component/tagBtn/style"
-import Tags from "~component/ui/tags"
 import { i18n, saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
 import { useEditMarkdown } from "~utils/editMarkdownHook"
@@ -23,13 +21,13 @@ import { Print } from "~utils/print"
 import Turndown from "~utils/turndown"
 
 export const config: PlasmoCSConfig = {
-  matches: ["https://mp.weixin.qq.com/s/*"]
+  matches: ["https://mp.weixin.qq.com/s/*", "https://mp.weixin.qq.com/s?src=*"]
 }
 
 const turndownService = Turndown()
 const articleTitle = document
-  .querySelector<HTMLElement>("head title")
-  .innerText.trim()
+  .querySelector<HTMLMetaElement>('meta[property="og:title"]')
+  .content.trim()
 
 const HOST_ID = "codebox-weixin"
 export const getShadowHostId: PlasmoGetShadowHostId = () => HOST_ID
@@ -140,6 +138,8 @@ const style = {
     color: "#000000"
   }
 }
+
+console.log(8878878)
 
 const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   const [parseContent, setParseContent] = useParseMarkdown()
