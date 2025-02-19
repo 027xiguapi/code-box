@@ -13,9 +13,10 @@ import React, { useEffect, useState, type FC } from "react"
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/dist/hook"
 
-import { i18n, saveHtml, saveMarkdown } from "~tools"
+import { saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
 import { useEditMarkdown } from "~utils/editMarkdownHook"
+import makerQRPost from "~utils/makerQRPost"
 import { useParseMarkdown } from "~utils/parseMarkdownHook"
 import { Print } from "~utils/print"
 import Turndown from "~utils/turndown"
@@ -138,8 +139,6 @@ const style = {
     color: "#000000"
   }
 }
-
-console.log(8878878)
 
 const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   const [parseContent, setParseContent] = useParseMarkdown()
@@ -320,10 +319,10 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
       <div style={style.item}>
         <a onClick={() => downloadImages()}>下载所有图片</a>
       </div>
-      <a
-        style={{ color: "#000" }}
-        href="https://www.code-box.fun"
-        target="_blank">
+      <div style={style.item}>
+        <a onClick={() => makerQRPost()}>生成海报</a>
+      </div>
+      <a style={style.item} href="https://www.code-box.fun" target="_blank">
         帮助
       </a>
     </div>

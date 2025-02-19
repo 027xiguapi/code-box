@@ -1,7 +1,7 @@
 {
   "name": "code-box",
   "displayName": "__MSG_extensionName__",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "__MSG_extensionDescription__",
   "author": "027xiguapi. <458813868@qq.com>",
   "scripts": {
@@ -32,12 +32,12 @@
     "antd": "^5.21.1",
     "crypto-js": "^4.2.0",
     "dayjs": "^1.11.12",
-    "file-save": "^0.2.0",
     "file-saver": "^2.0.5",
     "html2canvas": "^1.4.1",
     "jssha": "^3.3.1",
     "jszip": "^3.10.1",
     "plasmo": "0.89.4",
+    "qrcode": "^1.5.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "uuid": "^10.0.0"
