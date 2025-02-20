@@ -202,5 +202,8 @@
   },
   "copyURL": {
     "message": "copy URL"
+  },
+  "makerQRPost": {
+    "message": "maker Post Image"
   }
 }

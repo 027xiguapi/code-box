@@ -162,6 +162,17 @@ export default function makerQRCodeImg() {
       { x: cardWidth / 2, y: descEnd.y + margin + 256 },
       ctx
     )
+    textWriter(
+      ["codebox-一键复制代码/下载文章"],
+      descStyle,
+      "center",
+      "rgba(0, 0, 0, 0.6)",
+      "rgba(255, 255, 255, 0.6)",
+      16,
+      lineHeight,
+      { x: cardWidth / 2, y: descEnd.y + margin + 280 },
+      ctx
+    )
 
     saveAs(canvas.toDataURL("image/png"), title + ".png")
     qrcodepostmaker.parentNode?.removeChild(qrcodepostmaker)

@@ -205,5 +205,8 @@
   },
   "copyURL": {
     "message": "复制URL"
+  },
+  "makerQRPost": {
+    "message": "生成海报"
   }
 }

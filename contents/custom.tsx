@@ -13,6 +13,7 @@ import CustomDomSelector from "~component/ui/customDomSelector"
 import { setIcon } from "~tools"
 import { getSummary } from "~utils/coze"
 import DrawImages from "~utils/drawImages"
+import makerQRPost from "~utils/makerQRPost"
 
 const HOST_ID = "codebox-csui"
 
@@ -40,6 +41,9 @@ export default function CustomOverlay() {
         const result = JSON.parse(res.data)
         setSummary(result)
       }
+    }
+    if (req.name == "app-makerQRPost") {
+      makerQRPost()
     }
     if (req.name == "app-full-page-screenshot") {
       if (confirm("确认截图？")) {

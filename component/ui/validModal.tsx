@@ -1,5 +1,5 @@
 import dayjs from "dayjs"
-import qrcodeUrl from "raw:~/public/wx/qrcode_wx.jpg"
+import qrcodeUrl from "raw:~/public/wx/gzh.jpg"
 import React, { useEffect, useRef, useState } from "react"
 
 import { sendToBackground } from "@plasmohq/messaging"

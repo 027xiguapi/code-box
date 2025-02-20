@@ -2,7 +2,7 @@ import chromeUrl from "raw:~/public/webstore/1723513894421.jpg"
 import githubUrl from "raw:~/public/webstore/1724640034462.jpg"
 import edgeUrl from "raw:~/public/webstore/1724640161752.jpg"
 import firefoxUrl from "raw:~/public/webstore/img.png"
-import qrcodeUrl from "raw:~/public/wx/qrcode_wx.jpg"
+import qrcodeUrl from "raw:~/public/wx/gzh.jpg"
 
 import styles from "./feed.module.scss"
 

@@ -3,7 +3,7 @@ import { ThemeProvider } from "~theme"
 import "~index.css"
 
 import { DownloadOutlined, PushpinOutlined } from "@ant-design/icons"
-import qrcodeUrl from "raw:~/public/wx/qrcode_wx.jpg"
+import qrcodeUrl from "raw:~/public/wx/gzh.jpg"
 
 import { sendToContentScript } from "@plasmohq/messaging"
 import { useMessage } from "@plasmohq/messaging/dist/hook"

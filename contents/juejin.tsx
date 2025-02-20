@@ -5,7 +5,7 @@ import type {
   PlasmoGetShadowHostId,
   PlasmoGetStyle
 } from "plasmo"
-import qrcodeUrl from "raw:~/public/wx/qrcode_wx.jpg"
+import qrcodeUrl from "raw:~/public/wx/gzh.jpg"
 import React, { useEffect, useRef, useState, type FC } from "react"
 
 import { useMessage } from "@plasmohq/messaging/hook"
