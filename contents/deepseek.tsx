@@ -90,7 +90,7 @@ export default function Deepseek() {
 
   return (
     <>
-      {isModalOpen && (
+      {isModalOpen && content && (
         <QRCodeModal
           onClose={handleCancelModal}
           onConfirm={handleConfirmModal}

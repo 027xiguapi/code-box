@@ -92,7 +92,7 @@ export default function Kimi() {
 
   return (
     <>
-      {isModalOpen && (
+      {isModalOpen && content && (
         <QRCodeModal
           onClose={handleCancelModal}
           onConfirm={handleConfirmModal}

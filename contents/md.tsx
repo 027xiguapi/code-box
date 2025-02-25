@@ -9,7 +9,7 @@ export const config: PlasmoCSConfig = {
 }
 
 export default function Markdown() {
-  const [post] = useStorage({
+  const [post, setPost] = useStorage({
     key: "md-post",
     instance: new Storage({
       area: "local"
@@ -27,6 +27,7 @@ export default function Markdown() {
           title: _post.title || "文章1"
         })
         window.localStorage.setItem("MD__posts", JSON.stringify(posts))
+        setPost("")
         location.reload()
       }
     }
