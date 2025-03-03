@@ -130,7 +130,7 @@ export default function ValidModal(props) {
     if (Number(validTime) > dayjs().unix()) {
       props.onConfirm()
     } else if (process.env.PLASMO_PUBLIC_CODEBOX_SECRET3 == inputCode) {
-      let time = dayjs().add(7, "day").unix()
+      let time = dayjs().add(3, "day").unix()
       setValidTime(String(time))
       setIsValid(true)
       props.onConfirm()

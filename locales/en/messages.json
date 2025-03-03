@@ -131,6 +131,9 @@
   "zhihuAutoOpenCode": {
     "message": "Auto Open Code"
   },
+  "getDescription": {
+    "message": "Get Description"
+  },
   "edit": {
     "message": "Edit"
   },

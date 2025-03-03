@@ -5,7 +5,7 @@ import type {
   PlasmoGetShadowHostId,
   PlasmoGetStyle
 } from "plasmo"
-import { useEffect, useRef, type FC } from "react"
+import React, { useEffect, useRef, type FC } from "react"
 import { v4 as uuidv4 } from "uuid"
 
 import { useMessage } from "@plasmohq/messaging/hook"
@@ -13,6 +13,7 @@ import { useStorage } from "@plasmohq/storage/hook"
 
 import TagBtnStyle from "~component/tagBtn/style"
 import Tags from "~component/ui/tags"
+import ToolBox from "~component/ui/toolBox"
 import { addCss, i18n, saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
 import { useEditMarkdown } from "~utils/editMarkdownHook"
@@ -33,7 +34,7 @@ const HOST_ID = "codebox-jianshu"
 export const getShadowHostId: PlasmoGetShadowHostId = () => HOST_ID
 
 export const getOverlayAnchor: PlasmoGetOverlayAnchor = async () =>
-  document.querySelector("section.ouvJEz h1")
+  document.querySelector("section.ouvJEz")
 
 export const getStyle: PlasmoGetStyle = () => TagBtnStyle()
 
@@ -174,6 +175,13 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     }
   }
 
+  function getDescription() {
+    const summary = document.querySelector<HTMLMetaElement>(
+      'meta[name="description"]'
+    ).content
+    summary && prompt("文章摘要：", summary)
+  }
+
   function downloadPdf() {
     const article = document.querySelector<HTMLElement>("section.ouvJEz")
     if (article) {
@@ -205,11 +213,12 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   }
 
   return showTag ? (
-    <Tags
-      onEdit={editMarkdown}
-      onDownload={downloadMarkdown}
+    <ToolBox
+      onGetDescription={getDescription}
+      onEditMarkdown={editMarkdown}
+      onDownloadMarkdown={downloadMarkdown}
       onPrint={downloadPdf}
-      onParse={parseMarkdown}
+      onParseMarkdown={parseMarkdown}
     />
   ) : (
     <></>

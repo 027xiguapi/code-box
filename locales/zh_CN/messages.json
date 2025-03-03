@@ -143,6 +143,9 @@
   "print": {
     "message": "打印"
   },
+  "getDescription": {
+    "message": "文章摘要"
+  },
   "editMarkdown": {
     "message": "编辑 Markdown"
   },

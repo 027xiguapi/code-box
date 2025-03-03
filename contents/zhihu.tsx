@@ -11,6 +11,7 @@ import { v4 as uuidv4 } from "uuid"
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
+import ToolBox from "~component/ui/toolBox"
 import { addCss, saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
 import { useEditMarkdown } from "~utils/editMarkdownHook"
@@ -213,6 +214,13 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     }
   }
 
+  function getDescription() {
+    const summary = document.querySelector<HTMLMetaElement>(
+      'meta[name="description"]'
+    ).content
+    summary && prompt("文章摘要：", summary)
+  }
+
   function removeRichContentCollapsed() {
     const isCollapseds = document.querySelectorAll(".RichContent.is-collapsed")
     if (isCollapseds.length > 0) {
@@ -257,30 +265,13 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   }
 
   return showTag && isShow ? (
-    <div id="ws_cmbm" className="ws_cmbmc" style={style.box}>
-      <button style={style.close} onClick={onClose} aria-label="Close">
-        ×
-      </button>
-      <img src={qrcodeUrl} alt="qrcodeUrl" style={style.img} />
-      <div style={style.item}>
-        <a onClick={editMarkdown}>编辑markdown</a>
-      </div>
-      <div style={style.item}>
-        <a onClick={downloadMarkdown}>下载markdown</a>
-      </div>
-      <div style={style.item}>
-        <a onClick={downloadPdf}>下载PDF</a>
-      </div>
-      <div style={style.item}>
-        <a onClick={parseMarkdown}>解析markdown</a>
-      </div>
-      <div style={style.item}>
-        <a onClick={() => makerQRPost()}>生成海报</a>
-      </div>
-      <a style={style.item} href="https://www.code-box.fun" target="_blank">
-        帮助
-      </a>
-    </div>
+    <ToolBox
+      onGetDescription={getDescription}
+      onEditMarkdown={editMarkdown}
+      onDownloadMarkdown={downloadMarkdown}
+      onPrint={downloadPdf}
+      onParseMarkdown={parseMarkdown}
+    />
   ) : (
     <></>
   )

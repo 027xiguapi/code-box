@@ -5,13 +5,14 @@ import type {
   PlasmoGetShadowHostId,
   PlasmoGetStyle
 } from "plasmo"
-import { useEffect, useState, type FC } from "react"
+import React, { useEffect, useState, type FC } from "react"
 
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import TagBtnStyle from "~component/tagBtn/style"
 import Tags from "~component/ui/tags"
+import ToolBox from "~component/ui/toolBox"
 import { addCss, i18n, removeCss, saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
 import { useEditMarkdown } from "~utils/editMarkdownHook"
@@ -120,6 +121,13 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     addCss(css)
   }
 
+  function getDescription() {
+    const summary = document.querySelector<HTMLMetaElement>(
+      'meta[name="description"]'
+    ).content
+    summary && prompt("文章摘要：", summary)
+  }
+
   function editMarkdown() {
     const dom = document.querySelector(".phpscMain .php-article")
     setContent(dom, articleTitle)
@@ -142,11 +150,12 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   }
 
   return showTag ? (
-    <Tags
-      onEdit={editMarkdown}
-      onDownload={downloadMarkdown}
+    <ToolBox
+      onGetDescription={getDescription}
+      onEditMarkdown={editMarkdown}
+      onDownloadMarkdown={downloadMarkdown}
       onPrint={downloadPdf}
-      onParse={parseMarkdown}
+      onParseMarkdown={parseMarkdown}
     />
   ) : (
     <></>

@@ -11,7 +11,7 @@ import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/dist/hook"
 
 import TagBtnStyle from "~component/tagBtn/style"
-import Tags from "~component/ui/tags"
+import ToolBox from "~component/ui/toolBox"
 import { i18n, saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
 import { useEditMarkdown } from "~utils/editMarkdownHook"
@@ -132,6 +132,13 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     }
   })
 
+  function getDescription() {
+    const summary = document.querySelector<HTMLMetaElement>(
+      'meta[name="description"]'
+    ).content
+    summary && prompt("文章摘要：", summary)
+  }
+
   function downloadPdf() {
     const article = document.querySelector<HTMLElement>("article")
     if (article) {
@@ -163,11 +170,12 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   }
 
   return showTag ? (
-    <Tags
-      onEdit={editMarkdown}
-      onDownload={downloadMarkdown}
+    <ToolBox
+      onGetDescription={getDescription}
+      onEditMarkdown={editMarkdown}
+      onDownloadMarkdown={downloadMarkdown}
       onPrint={downloadPdf}
-      onParse={parseMarkdown}
+      onParseMarkdown={parseMarkdown}
     />
   ) : (
     <></>

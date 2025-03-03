@@ -5,16 +5,15 @@ import type {
   PlasmoGetShadowHostId,
   PlasmoGetStyle
 } from "plasmo"
-import qrcodeUrl from "raw:~/public/wx/gzh.jpg"
 import React, { useEffect, useRef, useState, type FC } from "react"
 
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/dist/hook"
 
+import ToolBox from "~component/ui/toolBox"
 import { i18n, saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
 import { useEditMarkdown } from "~utils/editMarkdownHook"
-import makerQRPost from "~utils/makerQRPost"
 import { useParseMarkdown } from "~utils/parseMarkdownHook"
 import { Print } from "~utils/print"
 import Turndown from "~utils/turndown"
@@ -63,42 +62,11 @@ export const getShadowHostId: PlasmoGetShadowHostId = () => HOST_ID
 export const getOverlayAnchor: PlasmoGetOverlayAnchor = async () =>
   document.querySelector("#juejin")
 
-const style = {
-  box: {
-    position: "fixed" as const,
-    border: "1px solid #D9DADC",
-    left: "25px",
-    top: "85px",
-    width: "140px",
-    padding: "16px",
-    cursor: "pointer"
-  },
-  close: {
-    position: "absolute" as const,
-    top: "-5px",
-    right: "0px",
-    background: "none",
-    border: "none",
-    fontSize: "1.5rem",
-    cursor: "pointer",
-    padding: "0.5rem"
-  },
-  img: {
-    width: "100%"
-  },
-  item: {
-    color: "#000000",
-    fontSize: "1.2rem",
-    marginBottom: "3px"
-  }
-}
-
 const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   const [parseContent, setParseContent] = useParseMarkdown()
   const [showTag, setShowTag] = useStorage<boolean>("juejin-showTag", true)
   const [cssCode, runCss] = useCssCodeHook("juejin")
   const [content, setContent] = useEditMarkdown()
-  const [isShow, setIsShow] = useState(true)
 
   useMessage(async (req, res) => {
     if (req.name == "juejin-isShow") {
@@ -155,38 +123,14 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     setParseContent(dom)
   }
 
-  function onClose() {
-    setIsShow(false)
-  }
-
-  return showTag && isShow ? (
-    <div id="ws_cmbm" className="ws_cmbmc" style={style.box}>
-      <button style={style.close} onClick={onClose} aria-label="Close">
-        ×
-      </button>
-      <img src={qrcodeUrl} alt="qrcodeUrl" style={style.img} />
-      <div style={style.item}>
-        <a onClick={getDescription}>文章摘要</a>
-      </div>
-      <div style={style.item}>
-        <a onClick={editMarkdown}>编辑markdown</a>
-      </div>
-      <div style={style.item}>
-        <a onClick={downloadMarkdown}>下载markdown</a>
-      </div>
-      <div style={style.item}>
-        <a onClick={downloadPdf}>下载PDF</a>
-      </div>
-      <div style={style.item}>
-        <a onClick={parseMarkdown}>解析markdown</a>
-      </div>
-      <div style={style.item}>
-        <a onClick={() => makerQRPost()}>生成海报</a>
-      </div>
-      <a style={style.item} href="https://www.code-box.fun" target="_blank">
-        帮助
-      </a>
-    </div>
+  return showTag ? (
+    <ToolBox
+      onGetDescription={getDescription}
+      onEditMarkdown={editMarkdown}
+      onDownloadMarkdown={downloadMarkdown}
+      onPrint={downloadPdf}
+      onParseMarkdown={parseMarkdown}
+    />
   ) : (
     <></>
   )
