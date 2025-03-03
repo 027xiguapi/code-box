@@ -11,10 +11,8 @@ import { v4 as uuidv4 } from "uuid"
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
-import TagBtnStyle from "~component/tagBtn/style"
-import Tags from "~component/ui/tags"
 import ToolBox from "~component/ui/toolBox"
-import { addCss, i18n, saveHtml, saveMarkdown } from "~tools"
+import { addCss, saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
 import { useEditMarkdown } from "~utils/editMarkdownHook"
 import { useParseMarkdown } from "~utils/parseMarkdownHook"
@@ -35,8 +33,6 @@ export const getShadowHostId: PlasmoGetShadowHostId = () => HOST_ID
 
 export const getOverlayAnchor: PlasmoGetOverlayAnchor = async () =>
   document.querySelector("#article .title")
-
-export const getStyle: PlasmoGetStyle = () => TagBtnStyle()
 
 const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   const [parseContent, setParseContent] = useParseMarkdown()

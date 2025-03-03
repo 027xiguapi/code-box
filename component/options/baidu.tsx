@@ -5,7 +5,9 @@ import { useStorage } from "@plasmohq/storage/hook"
 import CssCode from "~component/items/cssCode"
 import DownloadHtml from "~component/items/downloadHtml"
 import DownloadMarkdown from "~component/items/downloadMarkdown"
+import DownloadPdf from "~component/items/downloadPdf"
 import EditMarkdown from "~component/items/editMarkdown"
+import ShowTag from "~component/items/showTag"
 import { i18n } from "~tools"
 
 export default function Baidu({ forwardRef }) {
@@ -37,9 +39,11 @@ export default function Baidu({ forwardRef }) {
         <label className="codebox-switch" htmlFor="baidu-closeAIBox"></label>
       </div>
       <CssCode name="baidu"></CssCode>
+      <ShowTag name="baidu"></ShowTag>
       <EditMarkdown name="baidu"></EditMarkdown>
       <DownloadMarkdown name="baidu"></DownloadMarkdown>
       <DownloadHtml name="baidu"></DownloadHtml>
+      <DownloadPdf name="baidu"></DownloadPdf>
     </fieldset>
   )
 }

@@ -1,22 +1,36 @@
-import type { PlasmoCSConfig } from "plasmo"
-import { useEffect } from "react"
+import type {
+  PlasmoCSConfig,
+  PlasmoCSUIProps,
+  PlasmoGetShadowHostId
+} from "plasmo"
+import { useEffect, useState, type FC } from "react"
 
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
+import ToolBox from "~component/ui/toolBox"
 import { addCss, saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
 import { useEditMarkdown } from "~utils/editMarkdownHook"
+import { useParseMarkdown } from "~utils/parseMarkdownHook"
+import { Print } from "~utils/print"
 import Turndown from "~utils/turndown"
 
 export const config: PlasmoCSConfig = {
-  matches: ["https://*.baidu.com/*"]
+  matches: ["https://baijiahao.baidu.com/*", "https://www.baidu.com/*"]
 }
 
 const turndownService = Turndown()
-const articleTitle = document.querySelector<HTMLElement>("head title").innerText
+const articleTitle = document
+  .querySelector<HTMLElement>("head title")
+  .innerText.trim()
 
-export default function Custom() {
+export const getShadowHostId: PlasmoGetShadowHostId = () => "codebox-baidu"
+
+const PlasmoOverlay: FC<PlasmoCSUIProps> = () => {
+  const [parseContent, setParseContent] = useParseMarkdown()
+  const [showTag, setShowTag] = useStorage<boolean>("baidu-showTag", true)
+  const [isBaijiahao, setIsBaijiahao] = useState<boolean>(true)
   const [cssCode, runCss] = useCssCodeHook("baidu")
   const [closeAIBox] = useStorage<boolean>("baidu-closeAIBox")
   const [closeLog] = useStorage("config-closeLog", true)
@@ -25,6 +39,9 @@ export default function Custom() {
   useEffect(() => {
     closeLog || console.log("baidu", { closeAIBox })
     closeAIBox && closeAIBoxFunc()
+    if (location.hostname.includes("www")) {
+      setIsBaijiahao(false)
+    }
   }, [closeAIBox])
 
   useMessage(async (req, res) => {
@@ -49,21 +66,64 @@ export default function Custom() {
     }`)
   }
 
+  function getDescription() {
+    const summary = document.querySelector<HTMLMetaElement>(
+      'meta[name="description"]'
+    ).content
+    summary && prompt("文章摘要：", summary)
+  }
+
+  function downloadPdf() {
+    const article = document.querySelector<HTMLElement>(
+      isBaijiahao ? "#ssr-content .EaCvy" : ".wd-ai-index-pc"
+    )
+    if (article) {
+      Print.print(article, { title: articleTitle })
+        .then(() => console.log("Printing complete"))
+        .catch((error) => console.error("Printing failed:", error))
+    }
+  }
+
   function editMarkdown() {
-    const dom = document.querySelector(".wd-ai-index-pc")
+    const dom = document.querySelector(
+      isBaijiahao ? "#ssr-content .EaCvy" : ".wd-ai-index-pc"
+    )
     setContent(dom, articleTitle)
   }
 
   function downloadMarkdown() {
-    const html = document.querySelector(".wd-ai-index-pc")
+    const html = document.querySelector(
+      isBaijiahao ? "#ssr-content .EaCvy" : ".wd-ai-index-pc"
+    )
     const markdown = turndownService.turndown(html)
     saveMarkdown(markdown, articleTitle)
   }
 
   function downloadHtml() {
-    const dom = document.querySelector(".wd-ai-index-pc")
+    const dom = document.querySelector(
+      isBaijiahao ? "#ssr-content .EaCvy" : ".wd-ai-index-pc"
+    )
     saveHtml(dom, articleTitle)
   }
 
-  return <div style={{ display: "none" }}></div>
+  function parseMarkdown() {
+    const dom = document.querySelector<HTMLElement>(
+      isBaijiahao ? "#ssr-content .EaCvy" : ".wd-ai-index-pc"
+    )
+    setParseContent(dom)
+  }
+
+  return showTag && isBaijiahao ? (
+    <ToolBox
+      onGetDescription={getDescription}
+      onEditMarkdown={editMarkdown}
+      onDownloadMarkdown={downloadMarkdown}
+      onPrint={downloadPdf}
+      onParseMarkdown={parseMarkdown}
+    />
+  ) : (
+    <></>
+  )
 }
+
+export default PlasmoOverlay
