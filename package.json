@@ -1,7 +1,7 @@
 {
   "name": "code-box",
   "displayName": "__MSG_extensionName__",
-  "version": "1.2.3",
+  "version": "1.3.0",
   "description": "__MSG_extensionDescription__",
   "author": "027xiguapi. <458813868@qq.com>",
   "scripts": {
@@ -57,7 +57,7 @@
   },
   "manifest": {
     "name": "__MSG_extensionName__",
-    "default_locale": "zh_CN",
+    "default_locale": "en",
     "browser_specific_settings": {
       "gecko": {
         "id": "$PLASMO_PUBLIC_FIREFOX_EXT_ID"

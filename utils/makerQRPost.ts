@@ -6,6 +6,51 @@ interface Position {
   y: number
 }
 
+export function editQRCodeImg() {
+  const title = document.title
+  const desc = document.head.querySelector('meta[name="author"]')
+    ? document.head.querySelector<HTMLMetaElement>('meta[name="description"]')!
+        .content
+    : ""
+  const href = location.href
+  const authorDom = (document.querySelector(".author-name") ||
+    document.querySelector(".article-box__meta .item")) as HTMLElement
+  const hostname = location.hostname
+
+  const author = authorDom ? authorDom.innerText : ""
+  const encodedContent = encodeURIComponent(title)
+  const encodedAuthor = encodeURIComponent(author)
+  const encodedDesc = encodeURIComponent(desc)
+  let encodedBook = null
+  const encodedUrl = encodeURIComponent(href)
+
+  hostname.includes("csdn") && (encodedBook = encodeURIComponent("《CSDN》"))
+  hostname.includes("zhihu") && (encodedBook = encodeURIComponent("《知乎》"))
+  hostname.includes("baidu") && (encodedBook = encodeURIComponent("《百度》"))
+  hostname.includes("jianshu") && (encodedBook = encodeURIComponent("《简书》"))
+  hostname.includes("jb51") &&
+    (encodedBook = encodeURIComponent("《脚本之家》"))
+  hostname.includes("cnblogs") &&
+    (encodedBook = encodeURIComponent("《博客园》"))
+  hostname.includes("51cto") && (encodedBook = encodeURIComponent("《51CTO》"))
+  hostname.includes("juejin") && (encodedBook = encodeURIComponent("《掘金》"))
+  hostname.includes("php") &&
+    (encodedBook = encodeURIComponent("《php中文网》"))
+  hostname.includes("oschina") &&
+    (encodedBook = encodeURIComponent("《开源中国》"))
+  hostname.includes("segmentfault") &&
+    (encodedBook = encodeURIComponent("《思否》"))
+  hostname.includes("weixin") && (encodedBook = encodeURIComponent("《微信》"))
+  hostname.includes("medium") &&
+    (encodedBook = encodeURIComponent("《medium》"))
+
+  // 基础链接地址，这里假设为 example.com
+  // const baseUrl = "https://code-box.fun/editor-quote?"
+  const baseUrl = "http://localhost:3000/edit-quote?"
+  const finalUrl = `${baseUrl}content=${encodedContent}&author=${encodedAuthor}&book=${encodedBook}&url=${encodedUrl}`
+  window.open(finalUrl)
+}
+
 export default function makerQRCodeImg() {
   const qrcodepostmaker = document.createElement("canvas")
   qrcodepostmaker.id = "qrcodepostmaker"

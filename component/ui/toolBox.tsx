@@ -2,7 +2,7 @@ import qrcodeUrl from "raw:~/public/wx/gzh.jpg"
 import React, { useState } from "react"
 
 import { i18n } from "~tools"
-import makerQRPost from "~utils/makerQRPost"
+import { editQRCodeImg } from "~utils/makerQRPost"
 
 const boxStyles = {
   box: {
@@ -82,7 +82,7 @@ export default function ToolBox(props: any) {
         <a onClick={handlePrint}>{i18n("downloadPdf")}</a>
       </div>
       <div style={boxStyles.item}>
-        <a onClick={() => makerQRPost()}>{i18n("makerQRPost")}</a>
+        <a onClick={() => editQRCodeImg()}>{i18n("makerQRPost")}</a>
       </div>
       <a style={boxStyles.item} href="https://www.code-box.fun" target="_blank">
         帮助

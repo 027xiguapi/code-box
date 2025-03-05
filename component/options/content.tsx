@@ -55,7 +55,6 @@ export default function Content() {
         const url = new URL(currentTab.url)
         const { hostname, pathname } = url
 
-        console.log(hostname, pathname, url)
         hostname.includes("csdn") && setCsdnIsShow(true)
         hostname.includes("zhihu") && setZhihuIsShow(true)
         hostname.includes("baidu") && setBaiduIsShow(true)
