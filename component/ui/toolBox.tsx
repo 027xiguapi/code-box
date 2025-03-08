@@ -20,16 +20,16 @@ const boxStyles = {
     right: "0px",
     background: "none",
     border: "none",
-    fontSize: "1.5rem",
+    fontSize: "20px",
     cursor: "pointer",
-    padding: "0.5rem"
+    padding: "10px"
   },
   img: {
     width: "100%"
   },
   item: {
     color: "#000000",
-    fontSize: "1.2rem",
+    fontSize: "16px",
     marginBottom: "3px"
   }
 }
@@ -54,6 +54,11 @@ export default function ToolBox(props: any) {
 
   const handlePrint = () => {
     props.onPrint()
+  }
+
+  const getArticle = () => {
+    const href = encodeURIComponent(location.href)
+    window.open(`https://paywallbuster.com/articles/?article=${href}`)
   }
 
   const handleClose = () => {
@@ -83,6 +88,9 @@ export default function ToolBox(props: any) {
       </div>
       <div style={boxStyles.item}>
         <a onClick={() => editQRCodeImg()}>{i18n("makerQRPost")}</a>
+      </div>
+      <div style={boxStyles.item}>
+        <a onClick={() => getArticle()}>{i18n("getArticle")}</a>
       </div>
       <a style={boxStyles.item} href="https://www.code-box.fun" target="_blank">
         帮助

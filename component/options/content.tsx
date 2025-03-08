@@ -12,6 +12,7 @@ import Juejin from "~component/options/juejin"
 import Medium from "~component/options/medium"
 import Mp from "~component/options/mp"
 import Oschina from "~component/options/oschina"
+import Paywallbuster from "~component/options/paywallbuster"
 import Php from "~component/options/php"
 import Segmentfault from "~component/options/segmentfault"
 import Weixin from "~component/options/weixin"
@@ -32,6 +33,7 @@ export default function Content() {
   const [weixinIsShow, setWeixinIsShow] = useState<boolean>(false)
   const [mediumIsShow, setMediumIsShow] = useState<boolean>(false)
   const [mpIsShow, setMpIsShow] = useState<boolean>(false)
+  const [paywallbusterIsShow, setPaywallbusterIsShow] = useState<boolean>(false)
 
   const csdnRef = useRef<any>()
   const zhihuRef = useRef<any>()
@@ -67,6 +69,7 @@ export default function Content() {
         hostname.includes("oschina") && setOschinaIsShow(true)
         hostname.includes("segmentfault") && setSegmentfaultIsShow(true)
         hostname.includes("medium") && setMediumIsShow(true)
+        hostname.includes("paywallbuster") && setPaywallbusterIsShow(true)
         if (hostname.includes("weixin")) {
           if (pathname.includes("cgi-bin")) {
             setMpIsShow(true)
@@ -94,6 +97,7 @@ export default function Content() {
       {weixinIsShow ? <Weixin /> : <></>}
       {mediumIsShow ? <Medium /> : <></>}
       {mpIsShow ? <Mp /> : <></>}
+      {paywallbusterIsShow ? <Paywallbuster /> : <></>}
       <Custom />
       <Config forwardRef={customRef} />
     </div>

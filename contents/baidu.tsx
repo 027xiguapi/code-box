@@ -26,11 +26,10 @@ const articleTitle = document
   .innerText.trim()
 
 export const getShadowHostId: PlasmoGetShadowHostId = () => "codebox-baidu"
-
+const isBaijiahao = location.hostname.includes("baijiahao")
 const PlasmoOverlay: FC<PlasmoCSUIProps> = () => {
   const [parseContent, setParseContent] = useParseMarkdown()
   const [showTag, setShowTag] = useStorage<boolean>("baidu-showTag", true)
-  const [isBaijiahao, setIsBaijiahao] = useState<boolean>(false)
   const [cssCode, runCss] = useCssCodeHook("baidu")
   const [closeAIBox] = useStorage<boolean>("baidu-closeAIBox")
   const [closeLog] = useStorage("config-closeLog", true)
@@ -39,9 +38,6 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = () => {
   useEffect(() => {
     closeLog || console.log("baidu", { closeAIBox })
     closeAIBox && closeAIBoxFunc()
-    if (location.hostname.includes("baijiahao")) {
-      setIsBaijiahao(true)
-    }
   }, [closeAIBox])
 
   useMessage(async (req, res) => {

@@ -100,7 +100,12 @@ export default function CustomDomSelector() {
 
   useMessage(async (req: any, res: any) => {
     const name = req.name
-    setCustom(name.split("-")[1])
+    const isApp = name.split("-")[0] == "app"
+    console.log(isApp)
+    if (name && !isApp) {
+      const type = name.split("-")[1]
+      setCustom(type)
+    }
   })
 
   const setCustom = (type: string) => {
