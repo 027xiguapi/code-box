@@ -161,6 +161,9 @@
   "downloadAllImg": {
     "message": "Download All Image"
   },
+  "getArticle": {
+    "message": "Get All Article"
+  },
   "downloading": {
     "message": "Downloading"
   },
@@ -193,6 +196,9 @@
   },
   "weixinConfig": {
     "message": "Wechat Config"
+  },
+  "paywallbusterConfig": {
+    "message": "Paywallbuster Config"
   },
   "fullPageScreenshot": {
     "message": "Full Page Screenshot"

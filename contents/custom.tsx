@@ -45,6 +45,10 @@ export default function CustomOverlay() {
     if (req.name == "app-makerQRPost") {
       makerQRPost()
     }
+    if (req.name == "app-getArticle") {
+      const href = encodeURIComponent(location.href)
+      window.open(`https://paywallbuster.com/articles/?article=${href}`)
+    }
     if (req.name == "app-full-page-screenshot") {
       if (confirm("确认截图？")) {
         const { scrollHeight, clientHeight } = document.documentElement

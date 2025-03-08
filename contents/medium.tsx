@@ -1,16 +1,13 @@
 import type {
   PlasmoCSConfig,
   PlasmoCSUIProps,
-  PlasmoGetOverlayAnchor,
-  PlasmoGetShadowHostId,
-  PlasmoGetStyle
+  PlasmoGetShadowHostId
 } from "plasmo"
 import { useEffect, useRef, type FC } from "react"
 
 import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/dist/hook"
 
-import TagBtnStyle from "~component/tagBtn/style"
 import ToolBox from "~component/ui/toolBox"
 import { i18n, saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
@@ -98,15 +95,9 @@ const articleTitle = document
   .querySelector<HTMLElement>("head title")
   .innerText.trim()
 
-const HOST_ID = "codebox-medium1"
-export const getShadowHostId: PlasmoGetShadowHostId = () => HOST_ID
+export const getShadowHostId: PlasmoGetShadowHostId = () => "codebox-medium"
 
-export const getOverlayAnchor: PlasmoGetOverlayAnchor = async () =>
-  document.querySelector("article .pw-post-title")
-
-export const getStyle: PlasmoGetStyle = () => TagBtnStyle()
-
-const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
+const PlasmoOverlay: FC<PlasmoCSUIProps> = () => {
   const [parseContent, setParseContent] = useParseMarkdown()
   const [showTag, setShowTag] = useStorage<boolean>("medium-showTag", true)
   const [cssCode, runCss] = useCssCodeHook("medium")

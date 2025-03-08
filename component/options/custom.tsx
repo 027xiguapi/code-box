@@ -16,6 +16,11 @@ export default function Custom() {
       name: "app-makerQRPost"
     })
   }
+  function getArticle() {
+    sendToContentScript({
+      name: "app-getArticle"
+    })
+  }
   return (
     <fieldset>
       <legend>{i18n("customConfig")}</legend>
@@ -29,6 +34,13 @@ export default function Custom() {
         <span>
           <StarTwoTone twoToneColor="#eb2f96" style={{ marginRight: "5px" }} />
           {i18n("makerQRPost")}
+        </span>
+        <DownloadOutlined style={{ color: "#52c41a", fontSize: "16px" }} />
+      </div>
+      <div className="item download" onClick={getArticle}>
+        <span>
+          <StarTwoTone twoToneColor="#eb2f96" style={{ marginRight: "5px" }} />
+          {i18n("getArticle")}
         </span>
         <DownloadOutlined style={{ color: "#52c41a", fontSize: "16px" }} />
       </div>

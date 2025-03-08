@@ -36,7 +36,7 @@ const styles = {
     right: "10px",
     background: "none",
     border: "none",
-    fontSize: "1.5rem",
+    fontSize: "18px",
     cursor: "pointer",
     padding: "0.5rem"
   },
@@ -76,7 +76,7 @@ const styles = {
     marginBottom: "1rem"
   },
   captchaText: {
-    fontSize: "1.2rem",
+    fontSize: "16px",
     letterSpacing: "2px",
     color: "#333"
   },
@@ -89,7 +89,7 @@ const styles = {
     padding: "0.8rem",
     border: "1px solid #ddd",
     borderRadius: "4px",
-    fontSize: "1rem",
+    fontSize: "16px",
     outline: "none",
     "&:focus": {
       borderColor: "#007bff"
@@ -108,7 +108,7 @@ const styles = {
   },
   errorText: {
     color: "#ff4444",
-    fontSize: "0.9rem",
+    fontSize: "16px",
     marginTop: "0.5rem"
   }
 }

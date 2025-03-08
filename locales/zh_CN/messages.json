@@ -167,6 +167,9 @@
   "downloadAllImg": {
     "message": "下载所有图片"
   },
+  "getArticle": {
+    "message": "获取全文"
+  },
   "downloading": {
     "message": "正在下载"
   },
@@ -196,6 +199,9 @@
   },
   "weixinConfig": {
     "message": "微信设置"
+  },
+  "paywallbusterConfig": {
+    "message": "paywallbuster设置"
   },
   "fullPageScreenshot": {
     "message": "全页面截图"
