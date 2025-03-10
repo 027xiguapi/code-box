@@ -20,7 +20,7 @@ import { Print } from "~utils/print"
 import Turndown from "~utils/turndown"
 
 export const config: PlasmoCSConfig = {
-  matches: ["https://*.zhihu.com/p/*"]
+  matches: ["https://*.zhihu.com/*"]
 }
 
 const turndownService = Turndown()
