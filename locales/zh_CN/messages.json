@@ -203,6 +203,9 @@
   "paywallbusterConfig": {
     "message": "paywallbuster设置"
   },
+  "360docConfig": {
+    "message": "360doc设置"
+  },
   "fullPageScreenshot": {
     "message": "全页面截图"
   },

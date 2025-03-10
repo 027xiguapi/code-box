@@ -200,6 +200,9 @@
   "paywallbusterConfig": {
     "message": "Paywallbuster Config"
   },
+  "360docConfig": {
+    "message": "360doc Config"
+  },
   "fullPageScreenshot": {
     "message": "Full Page Screenshot"
   },
