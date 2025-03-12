@@ -206,6 +206,12 @@
   "360docConfig": {
     "message": "360doc设置"
   },
+  "pianshenConfig": {
+    "message": "pianshen设置"
+  },
+  "luoguConfig": {
+    "message": "洛谷设置"
+  },
   "fullPageScreenshot": {
     "message": "全页面截图"
   },

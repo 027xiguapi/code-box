@@ -45,8 +45,7 @@ export function editQRCodeImg() {
     (encodedBook = encodeURIComponent("《medium》"))
 
   // 基础链接地址，这里假设为 example.com
-  // const baseUrl = "https://code-box.fun/editor-quote?"
-  const baseUrl = "http://localhost:3000/edit-quote?"
+  const baseUrl = "https://code-box.fun/editor-quote?"
   const finalUrl = `${baseUrl}content=${encodedContent}&author=${encodedAuthor}&book=${encodedBook}&url=${encodedUrl}`
   window.open(finalUrl)
 }

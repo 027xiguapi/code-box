@@ -203,6 +203,12 @@
   "360docConfig": {
     "message": "360doc Config"
   },
+  "pianshenConfig": {
+    "message": "PianShen Config"
+  },
+  "luoguConfig": {
+    "message": "LuoGu Config"
+  },
   "fullPageScreenshot": {
     "message": "Full Page Screenshot"
   },

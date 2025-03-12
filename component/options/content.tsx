@@ -10,11 +10,13 @@ import Custom from "~component/options/custom"
 import Jb51 from "~component/options/jb51"
 import Jianshu from "~component/options/jianshu"
 import Juejin from "~component/options/juejin"
+import Lougu from "~component/options/lougu"
 import Medium from "~component/options/medium"
 import Mp from "~component/options/mp"
 import Oschina from "~component/options/oschina"
 import Paywallbuster from "~component/options/paywallbuster"
 import Php from "~component/options/php"
+import Pianshen from "~component/options/pianshen"
 import Segmentfault from "~component/options/segmentfault"
 import Weixin from "~component/options/weixin"
 import Zhihu from "~component/options/zhihu"
@@ -35,6 +37,8 @@ let paywallbusterIsShow = false
 let doc360IsShow = false
 let mpIsShow = false
 let weixinIsShow = false
+let pianshenIsShow = false
+let louguIsShow = false
 
 chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
   const currentTab = tabs[0]
@@ -55,7 +59,8 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     mediumIsShow = hostname.includes("medium")
     paywallbusterIsShow = hostname.includes("paywallbuster")
     doc360IsShow = hostname.includes("360doc")
-    csdnIsShow = hostname.includes("cgi-bin")
+    pianshenIsShow = hostname.includes("pianshen")
+    louguIsShow = hostname.includes("lougu")
 
     if (hostname.includes("weixin")) {
       if (pathname.includes("cgi-bin")) {
@@ -101,6 +106,8 @@ export default function Content() {
       {mpIsShow ? <Mp /> : <></>}
       {paywallbusterIsShow ? <Paywallbuster /> : <></>}
       {doc360IsShow ? <Doc360 /> : <></>}
+      {pianshenIsShow ? <Pianshen /> : <></>}
+      {louguIsShow ? <Lougu /> : <></>}
       <Custom />
       <Config forwardRef={customRef} />
     </div>

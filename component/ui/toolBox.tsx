@@ -66,7 +66,10 @@ export default function ToolBox(props: any) {
   }
 
   return isShowTag ? (
-    <div id="ws_cmbm" className="ws_cmbmc" style={boxStyles.box}>
+    <div
+      id="ws_cmbm"
+      className="ws_cmbmc"
+      style={{ ...boxStyles.box, ...props.style }}>
       <button style={boxStyles.close} onClick={handleClose} aria-label="Close">
         ×
       </button>
