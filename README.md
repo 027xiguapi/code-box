@@ -2,9 +2,11 @@
 
 [中文](README.md) | [English](README_EN.md)
 
-## 官网
-
+## 网站
+1. 官网
 https://www.code-box.fun/
+2. 文档
+https://code-box.fun/docs
 
 ## 介绍
 
@@ -38,7 +40,7 @@ https://www.code-box.fun/
 ### 安装方式三：公众号下载
 1. 关注公众号
 
-![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/wx/qrcode_wx.jpg)
+![img](https://github.com/027xiguapi/code-box/blob/main/public/wx/gzh.jpg)
 
 2. 点击 `软件下载`
 
@@ -181,6 +183,6 @@ https://www.code-box.fun/
 
 ## 联系
 
-![img](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/wx/qrcode_wx.jpg)
+![img](https://github.com/027xiguapi/code-box/blob/main/public/wx/gzh.jpg)
 
 ![u_wx](https://github.com/027xiguapi/code-box/blob/main/public/wx/u_wx.jpg)
