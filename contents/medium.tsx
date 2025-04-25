@@ -99,6 +99,7 @@ export const getShadowHostId: PlasmoGetShadowHostId = () => "codebox-medium"
 
 const PlasmoOverlay: FC<PlasmoCSUIProps> = () => {
   const [parseContent, setParseContent] = useParseMarkdown()
+  const [allShowTag, setAllShowTag] = useStorage("config-allShowTag", true)
   const [showTag, setShowTag] = useStorage<boolean>("medium-showTag", true)
   const [cssCode, runCss] = useCssCodeHook("medium")
   const [content, setContent] = useEditMarkdown(turndownOption)
@@ -160,7 +161,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = () => {
     setParseContent(dom)
   }
 
-  return showTag ? (
+  return showTag && allShowTag ? (
     <ToolBox
       onGetDescription={getDescription}
       onEditMarkdown={editMarkdown}

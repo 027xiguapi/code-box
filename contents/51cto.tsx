@@ -40,6 +40,7 @@ export const getStyle: PlasmoGetStyle = () => TagBtnStyle()
 const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   const [parseContent, setParseContent] = useParseMarkdown()
   const [showTag, setShowTag] = useStorage<boolean>("51cto-showTag", true)
+  const [allShowTag, setAllShowTag] = useStorage("config-allShowTag", true)
   const [cssCode, runCss] = useCssCodeHook("51cto")
   const [copyCode] = useStorage<boolean>("51cto-copyCode")
   const [closeLoginModal] = useStorage<boolean>("51cto-closeLoginModal")
@@ -250,7 +251,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     setParseContent(dom)
   }
 
-  return showTag ? (
+  return showTag && allShowTag ? (
     <Tags
       onEdit={editMarkdown}
       onDownload={downloadMarkdown}

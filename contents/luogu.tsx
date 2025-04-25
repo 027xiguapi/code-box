@@ -29,6 +29,7 @@ export const getShadowHostId: PlasmoGetShadowHostId = () => "codebox-luogu"
 
 const PlasmoOverlay: FC<PlasmoCSUIProps> = () => {
   const [parseContent, setParseContent] = useParseMarkdown()
+  const [allShowTag, setAllShowTag] = useStorage("config-allShowTag", true)
   const [showTag, setShowTag] = useStorage<boolean>("luogu-showTag", true)
   const [cssCode, runCss] = useCssCodeHook("luogu")
   const [content, setContent] = useEditMarkdown()
@@ -88,7 +89,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = () => {
     setParseContent(dom)
   }
 
-  return showTag ? (
+  return showTag && allShowTag ? (
     <ToolBox
       style={{
         left: "75px"

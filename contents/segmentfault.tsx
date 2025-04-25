@@ -39,6 +39,7 @@ export const getStyle: PlasmoGetStyle = () => TagBtnStyle()
 
 const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   const [parseContent, setParseContent] = useParseMarkdown()
+  const [allShowTag, setAllShowTag] = useStorage("config-allShowTag", true)
   const [showTag, setShowTag] = useStorage<boolean>(
     "segmentfault-showTag",
     true
@@ -101,7 +102,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     setParseContent(dom)
   }
 
-  return showTag ? (
+  return showTag && allShowTag ? (
     <ToolBox
       onGetDescription={getDescription}
       onEditMarkdown={editMarkdown}

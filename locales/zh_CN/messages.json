@@ -185,6 +185,9 @@
   "showTag": {
     "message": "显示标签"
   },
+  "allShowTag": {
+    "message": "所有标签"
+  },
   "code": {
     "message": "代码"
   },

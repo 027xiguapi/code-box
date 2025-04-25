@@ -15,6 +15,9 @@ export default function Config({ forwardRef }) {
   const [closeLog, setCloseLog] = useStorage("config-closeLog", (v) =>
     v === undefined ? true : v
   )
+  const [allShowTag, setAllShowTag] = useStorage("config-allShowTag", (v) =>
+    v === undefined ? true : v
+  )
 
   function downloadFullImg() {
     sendToContentScript({
@@ -58,6 +61,18 @@ export default function Config({ forwardRef }) {
           onChange={(e) => setCopyCode(e.target.checked)}
         />
         <label className="codebox-switch" htmlFor="config-copyCode"></label>
+      </div>
+      <div className="item">
+        <span>{i18n("allShowTag")}</span>
+        <input
+          type="checkbox"
+          id="allShowTag"
+          name="allShowTag"
+          className="codebox-offscreen"
+          checked={allShowTag}
+          onChange={(e) => setAllShowTag(e.target.checked)}
+        />
+        <label htmlFor="allShowTag" className="codebox-switch"></label>
       </div>
       <div className="item">
         <span>{i18n("configCloseLog")}</span>

@@ -39,6 +39,7 @@ export const getStyle: PlasmoGetStyle = () => TagBtnStyle()
 
 const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   const [parseContent, setParseContent] = useParseMarkdown()
+  const [allShowTag, setAllShowTag] = useStorage("config-allShowTag", true)
   const [showTag, setShowTag] = useStorage<boolean>("oschina-showTag", true)
   const [cssCode, runCss] = useCssCodeHook("oschina")
   const [content, setContent] = useEditMarkdown()
@@ -98,7 +99,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     setParseContent(dom)
   }
 
-  return showTag ? (
+  return showTag && allShowTag ? (
     <ToolBox
       onGetDescription={getDescription}
       onEditMarkdown={editMarkdown}

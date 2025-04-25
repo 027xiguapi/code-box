@@ -182,6 +182,9 @@
   "showTag": {
     "message": "Show Tag"
   },
+  "allShowTag": {
+    "message": "All Tag"
+  },
   "code": {
     "message": "Code"
   },

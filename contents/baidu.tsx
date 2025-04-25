@@ -29,6 +29,7 @@ export const getShadowHostId: PlasmoGetShadowHostId = () => "codebox-baidu"
 const isBaijiahao = location.hostname.includes("baijiahao")
 const PlasmoOverlay: FC<PlasmoCSUIProps> = () => {
   const [parseContent, setParseContent] = useParseMarkdown()
+  const [allShowTag, setAllShowTag] = useStorage("config-allShowTag", true)
   const [showTag, setShowTag] = useStorage<boolean>("baidu-showTag", true)
   const [cssCode, runCss] = useCssCodeHook("baidu")
   const [closeAIBox] = useStorage<boolean>("baidu-closeAIBox")
@@ -109,7 +110,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = () => {
     setParseContent(dom)
   }
 
-  return showTag && isBaijiahao ? (
+  return showTag && allShowTag && isBaijiahao ? (
     <ToolBox
       onGetDescription={getDescription}
       onEditMarkdown={editMarkdown}

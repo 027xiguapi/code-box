@@ -32,6 +32,7 @@ export const getShadowHostId: PlasmoGetShadowHostId = () => "codebox-pianshen"
 
 const PlasmoOverlay: FC<PlasmoCSUIProps> = () => {
   const [parseContent, setParseContent] = useParseMarkdown()
+  const [allShowTag, setAllShowTag] = useStorage("config-allShowTag", true)
   const [showTag, setShowTag] = useStorage<boolean>("pianshen-showTag", true)
   const [cssCode, runCss] = useCssCodeHook("pianshen")
   const [content, setContent] = useEditMarkdown()
@@ -91,7 +92,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = () => {
     setParseContent(dom)
   }
 
-  return showTag ? (
+  return showTag && allShowTag ? (
     <ToolBox
       onGetDescription={getDescription}
       onEditMarkdown={editMarkdown}

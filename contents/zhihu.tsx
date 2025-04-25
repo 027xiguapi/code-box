@@ -66,6 +66,7 @@ const style = {
 
 const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   const [parseContent, setParseContent] = useParseMarkdown()
+  const [allShowTag, setAllShowTag] = useStorage("config-allShowTag", true)
   const [showTag, setShowTag] = useStorage<boolean>("zhihu-showTag", true)
   const [cssCode, runCss] = useCssCodeHook("zhihu")
   const [closeLoginModal] = useStorage<boolean>("zhihu-closeLoginModal")
@@ -263,7 +264,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     setIsShow(false)
   }
 
-  return showTag && isShow ? (
+  return showTag && isShow && allShowTag ? (
     <ToolBox
       onGetDescription={getDescription}
       onEditMarkdown={editMarkdown}

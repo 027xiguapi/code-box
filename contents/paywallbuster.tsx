@@ -48,6 +48,7 @@ const isPaywallbuster = location.hostname.includes("paywallbuster")
 
 const PlasmoOverlay: FC<PlasmoCSUIProps> = () => {
   const [parseContent, setParseContent] = useParseMarkdown()
+  const [allShowTag, setAllShowTag] = useStorage("config-allShowTag", true)
   const [showTag, setShowTag] = useStorage<boolean>(
     "paywallbuster-showTag",
     true

@@ -12,7 +12,6 @@ import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import TagBtnStyle from "~component/tagBtn/style"
-import Tags from "~component/ui/tags"
 import ToolBox from "~component/ui/toolBox"
 import { saveHtml, saveMarkdown } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
@@ -41,6 +40,7 @@ export const getStyle: PlasmoGetStyle = () => TagBtnStyle()
 
 const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   const [parseContent, setParseContent] = useParseMarkdown()
+  const [allShowTag, setAllShowTag] = useStorage("config-allShowTag", true)
   const [showTag, setShowTag] = useStorage<boolean>("cnblogs-showTag", true)
   const [cssCode, runCss] = useCssCodeHook("cnblogs")
   const [copyCode] = useStorage<boolean>("cnblogs-copyCode")
@@ -182,7 +182,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     setParseContent(dom)
   }
 
-  return showTag ? (
+  return showTag && allShowTag ? (
     <ToolBox
       onGetDescription={getDescription}
       onEditMarkdown={editMarkdown}

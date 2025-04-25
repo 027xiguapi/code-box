@@ -142,6 +142,7 @@ const style = {
 
 const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   const [parseContent, setParseContent] = useParseMarkdown()
+  const [allShowTag, setAllShowTag] = useStorage("config-allShowTag", true)
   const [showTag, setShowTag] = useStorage<boolean>("weixin-showTag", true)
   const [cssCode, runCss] = useCssCodeHook("weixin")
   const [history, setHistory] = useStorage<any[]>("codebox-history")
@@ -278,7 +279,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     setIsShow(false)
   }
 
-  return showTag && isShow ? (
+  return showTag && isShow && allShowTag ? (
     <div id="ws_cmbm" className="ws_cmbmc" style={style.box}>
       <button style={style.close} onClick={onClose} aria-label="Close">
         ×

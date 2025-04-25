@@ -36,6 +36,7 @@ export const getOverlayAnchor: PlasmoGetOverlayAnchor = async () =>
 
 const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   const [parseContent, setParseContent] = useParseMarkdown()
+  const [allShowTag, setAllShowTag] = useStorage("config-allShowTag", true)
   const [showTag, setShowTag] = useStorage<boolean>("jb51-showTag", true)
   const [cssCode, runCss] = useCssCodeHook("jb51")
   const [closeAds] = useStorage<boolean>("jb51-closeAds")
@@ -258,7 +259,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     setParseContent(dom)
   }
 
-  return showTag ? (
+  return showTag && allShowTag ? (
     <ToolBox
       onGetDescription={getDescription}
       onEditMarkdown={editMarkdown}
