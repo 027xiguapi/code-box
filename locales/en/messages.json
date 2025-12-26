@@ -226,5 +226,20 @@
   },
   "makerQRPost": {
     "message": "maker Post Image"
+  },
+  "contextMenuTranslate": {
+    "message": "Translate to Chinese"
+  },
+  "contextMenuExplainCode": {
+    "message": "Explain Code"
+  },
+  "contextMenuSummarize": {
+    "message": "Summarize Content"
+  },
+  "contextMenuCaptureAnalyze": {
+    "message": "Capture & Analyze"
+  },
+  "contextMenuSendImage": {
+    "message": "Send Image to Chat"
   }
 }
