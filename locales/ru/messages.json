@@ -1,0 +1,74 @@
+{
+  "extensionName": {
+    "message": "codebox-копирование кода одним кликом без входа"
+  },
+  "extensionDescription": {
+    "message": "Реализует копирование кода одним кликом без входа; Поддерживает выбор кода; Позволяет читать полные текстовые подсказки блогеров без подписки;"
+  },
+  "popupDescription": {
+    "message": "копирование кода одним кликом без входа"
+  },
+  "history": {
+    "message": "История"
+  },
+  "sidePanel": {
+    "message": "Боковая панель"
+  },
+  "more": {
+    "message": "Дополнительные настройки"
+  },
+  "support": {
+    "message": "Поддержать обновления автора"
+  },
+  "privacy": {
+    "message": "Политика конфиденциальности"
+  },
+  "version": {
+    "message": "версия"
+  },
+  "reset": {
+    "message": "сбросить"
+  },
+  "AppConfig": {
+    "message": "Конфигурация приложения"
+  },
+  "configCloseLog": {
+    "message": "Закрыть журнал"
+  },
+  "51ctoConfig": {
+    "message": "Конфигурация 51CTO"
+  },
+  "51ctoCopyCode": {
+    "message": "Копировать код"
+  },
+  "51ctoCloseLoginModal": {
+    "message": "Закрыть окно входа"
+  },
+  "baiduConfig": {
+    "message": "Конфигурация Baidu"
+  },
+  "baiduCloseAIBox": {
+    "message": "Закрыть окно ИИ"
+  },
+  "cnblogsConfig": {
+    "message": "Конфигурация cnblogs"
+  },
+  "cnblogsCopyCode": {
+    "message": "Копировать код"
+  },
+  "csdnConfig": {
+    "message": "Конфигурация CSDN"
+  },
+  "csdnCloseAds": {
+    "message": "Закрыть рекламу"
+  },
+  "csdnCopyCode": {
+    "message": "Копировать код"
+  },
+  "csdnCloseFollow": {
+    "message": "Закрыть подписку"
+  },
+  "csdnCloseVip": {
+    "message": "Закрыть VIP"
+  }
+}

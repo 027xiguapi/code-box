@@ -1,0 +1,74 @@
+{
+  "extensionName": {
+    "message": "codebox-लॉगिन के बिना एक क्लिक कोड कॉपी"
+  },
+  "extensionDescription": {
+    "message": "लॉगिन किए बिना एक क्लिक कोड कॉपी लागू करें; कोड चयन का समर्थन करें; गैर-अनुसरण ब्लॉगर्स को पूर्ण पाठ संकेत पढ़ने की अनुमति दें;"
+  },
+  "popupDescription": {
+    "message": "लॉगिन के बिना एक क्लिक कोड कॉपी"
+  },
+  "history": {
+    "message": "ऐतिहासिक रिकॉर्ड"
+  },
+  "sidePanel": {
+    "message": "साइड पैनल"
+  },
+  "more": {
+    "message": "अधिक सेटिंग्स"
+  },
+  "support": {
+    "message": "लेखक अपडेट का समर्थन करें"
+  },
+  "privacy": {
+    "message": "गोपनीयता नीति"
+  },
+  "version": {
+    "message": "संस्करण"
+  },
+  "reset": {
+    "message": "रीसेट"
+  },
+  "AppConfig": {
+    "message": "ऐप कॉन्फ़िगरेशन"
+  },
+  "configCloseLog": {
+    "message": "लॉग बंद करें"
+  },
+  "51ctoConfig": {
+    "message": "51CTO कॉन्फ़िगरेशन"
+  },
+  "51ctoCopyCode": {
+    "message": "कोड कॉपी करें"
+  },
+  "51ctoCloseLoginModal": {
+    "message": "लॉगिन मोडल बंद करें"
+  },
+  "baiduConfig": {
+    "message": "Baidu कॉन्फ़िगरेशन"
+  },
+  "baiduCloseAIBox": {
+    "message": "AI मोडल बंद करें"
+  },
+  "cnblogsConfig": {
+    "message": "cnblogs कॉन्फ़िगरेशन"
+  },
+  "cnblogsCopyCode": {
+    "message": "कोड कॉपी करें"
+  },
+  "csdnConfig": {
+    "message": "CSDN कॉन्फ़िगरेशन"
+  },
+  "csdnCloseAds": {
+    "message": "विज्ञापन बंद करें"
+  },
+  "csdnCopyCode": {
+    "message": "कोड कॉपी करें"
+  },
+  "csdnCloseFollow": {
+    "message": "फॉलो बंद करें"
+  },
+  "csdnCloseVip": {
+    "message": "VIP बंद करें"
+  }
+}

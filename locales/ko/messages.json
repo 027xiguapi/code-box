@@ -1,0 +1,230 @@
+{
+  "extensionName": {
+    "message": "codebox-로그인 없이 원클릭 코드 복사"
+  },
+  "extensionDescription": {
+    "message": "로그인 없이 원클릭으로 코드 복사 구현; 코드 선택 지원; 팔로우하지 않은 블로거의 전체 텍스트 프롬프트 읽기 허용;"
+  },
+  "popupDescription": {
+    "message": "로그인 없이 원클릭 코드 복사"
+  },
+  "history": {
+    "message": "기록"
+  },
+  "sidePanel": {
+    "message": "사이드 패널"
+  },
+  "more": {
+    "message": "추가 설정"
+  },
+  "support": {
+    "message": "작성자 업데이트 지원"
+  },
+  "privacy": {
+    "message": "개인정보 보호정책"
+  },
+  "version": {
+    "message": "버전"
+  },
+  "reset": {
+    "message": "초기화"
+  },
+  "AppConfig": {
+    "message": "앱 설정"
+  },
+  "configCloseLog": {
+    "message": "로그 닫기"
+  },
+  "51ctoConfig": {
+    "message": "51CTO 설정"
+  },
+  "51ctoCopyCode": {
+    "message": "코드 복사"
+  },
+  "51ctoCloseLoginModal": {
+    "message": "로그인 모달 닫기"
+  },
+  "baiduConfig": {
+    "message": "바이두 설정"
+  },
+  "baiduCloseAIBox": {
+    "message": "AI 모달 닫기"
+  },
+  "cnblogsConfig": {
+    "message": "cnblogs 설정"
+  },
+  "cnblogsCopyCode": {
+    "message": "코드 복사"
+  },
+  "csdnConfig": {
+    "message": "CSDN 설정"
+  },
+  "csdnCloseAds": {
+    "message": "광고 닫기"
+  },
+  "csdnCopyCode": {
+    "message": "코드 복사"
+  },
+  "csdnCloseFollow": {
+    "message": "팔로우 닫기"
+  },
+  "csdnCloseVip": {
+    "message": "VIP 닫기"
+  },
+  "csdnAutoOpenCode": {
+    "message": "코드 자동 열기"
+  },
+  "csdnCloseLoginModal": {
+    "message": "로그인 모달 닫기"
+  },
+  "csdnCloseRedirectModal": {
+    "message": "앱 리디렉션 모달 닫기"
+  },
+  "customConfig": {
+    "message": "사용자 정의 설정"
+  },
+  "customCssCode": {
+    "message": "사용자 정의 CSS 코드"
+  },
+  "jb51Config": {
+    "message": "Jb51 설정"
+  },
+  "jb51CloseAds": {
+    "message": "광고 닫기"
+  },
+  "jb51CopyCode": {
+    "message": "코드 복사"
+  },
+  "jianshuConfig": {
+    "message": "간서 설정"
+  },
+  "jianshuCopyCode": {
+    "message": "코드 복사"
+  },
+  "jianshuCloseLoginModal": {
+    "message": "로그인 모달 닫기"
+  },
+  "jianshuAutoOpenCode": {
+    "message": "코드 자동 열기"
+  },
+  "phpConfig": {
+    "message": "PHP 설정"
+  },
+  "phpCopyCode": {
+    "message": "코드 복사"
+  },
+  "phpCloseLoginModal": {
+    "message": "로그인 모달 닫기"
+  },
+  "zhihuConfig": {
+    "message": "지후 설정"
+  },
+  "mediumConfig": {
+    "message": "Medium 설정"
+  },
+  "zhihuCopyCode": {
+    "message": "코드 복사"
+  },
+  "zhihuCloseLoginModal": {
+    "message": "로그인 모달 닫기"
+  },
+  "zhihuAutoOpenCode": {
+    "message": "코드 자동 열기"
+  },
+  "getDescription": {
+    "message": "설명 가져오기"
+  },
+  "edit": {
+    "message": "편집"
+  },
+  "download": {
+    "message": "다운로드"
+  },
+  "editMarkdown": {
+    "message": "Markdown 편집"
+  },
+  "downloadMarkdown": {
+    "message": "Markdown 다운로드"
+  },
+  "parseMarkdown": {
+    "message": "Markdown 파싱"
+  },
+  "downloadHtml": {
+    "message": "HTML 다운로드"
+  },
+  "downloadPdf": {
+    "message": "PDF 다운로드"
+  },
+  "downloadImg": {
+    "message": "이미지 다운로드"
+  },
+  "downloadAllImg": {
+    "message": "모든 이미지 다운로드"
+  },
+  "getArticle": {
+    "message": "모든 기사 가져오기"
+  },
+  "downloading": {
+    "message": "다운로드 중"
+  },
+  "copyCode": {
+    "message": "코드 복사"
+  },
+  "parse": {
+    "message": "파싱"
+  },
+  "copy": {
+    "message": "복사"
+  },
+  "copied": {
+    "message": "복사됨"
+  },
+  "showTag": {
+    "message": "태그 표시"
+  },
+  "allShowTag": {
+    "message": "모든 태그"
+  },
+  "code": {
+    "message": "코드"
+  },
+  "juejinConfig": {
+    "message": "掘金 설정"
+  },
+  "oschinaConfig": {
+    "message": "开源中国 설정"
+  },
+  "segmentfaultConfig": {
+    "message": "SegmentFault 설정"
+  },
+  "weixinConfig": {
+    "message": "WeChat 설정"
+  },
+  "paywallbusterConfig": {
+    "message": "Paywallbuster 설정"
+  },
+  "360docConfig": {
+    "message": "360doc 설정"
+  },
+  "pianshenConfig": {
+    "message": "片神 설정"
+  },
+  "luoguConfig": {
+    "message": "洛谷 설정"
+  },
+  "fullPageScreenshot": {
+    "message": "전체 페이지 스크린샷"
+  },
+  "getThumbMedia": {
+    "message": "썸네일 미디어 가져오기"
+  },
+  "getMediaResources": {
+    "message": "미디어 리소스 가져오기"
+  },
+  "copyURL": {
+    "message": "URL 복사"
+  },
+  "makerQRPost": {
+    "message": "게시물 이미지 만들기"
+  }
+}

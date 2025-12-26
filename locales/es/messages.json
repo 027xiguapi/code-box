@@ -1,0 +1,230 @@
+{
+  "extensionName": {
+    "message": "codebox-copia de código con un clic sin iniciar sesión"
+  },
+  "extensionDescription": {
+    "message": "Implementa la copia de código con un clic sin iniciar sesión; Admite la selección de código; Permite leer indicaciones de texto completo de blogueros sin seguir;"
+  },
+  "popupDescription": {
+    "message": "copia de código con un clic sin iniciar sesión"
+  },
+  "history": {
+    "message": "Registros históricos"
+  },
+  "sidePanel": {
+    "message": "Panel lateral"
+  },
+  "more": {
+    "message": "Más configuraciones"
+  },
+  "support": {
+    "message": "Apoyar actualizaciones del autor"
+  },
+  "privacy": {
+    "message": "Política de privacidad"
+  },
+  "version": {
+    "message": "versión"
+  },
+  "reset": {
+    "message": "restablecer"
+  },
+  "AppConfig": {
+    "message": "Configuración de la aplicación"
+  },
+  "configCloseLog": {
+    "message": "Cerrar registro"
+  },
+  "51ctoConfig": {
+    "message": "Configuración de 51CTO"
+  },
+  "51ctoCopyCode": {
+    "message": "Copiar código"
+  },
+  "51ctoCloseLoginModal": {
+    "message": "Cerrar modal de inicio de sesión"
+  },
+  "baiduConfig": {
+    "message": "Configuración de Baidu"
+  },
+  "baiduCloseAIBox": {
+    "message": "Cerrar modal de IA"
+  },
+  "cnblogsConfig": {
+    "message": "Configuración de cnblogs"
+  },
+  "cnblogsCopyCode": {
+    "message": "Copiar código"
+  },
+  "csdnConfig": {
+    "message": "Configuración de CSDN"
+  },
+  "csdnCloseAds": {
+    "message": "Cerrar anuncios"
+  },
+  "csdnCopyCode": {
+    "message": "Copiar código"
+  },
+  "csdnCloseFollow": {
+    "message": "Cerrar seguir"
+  },
+  "csdnCloseVip": {
+    "message": "Cerrar VIP"
+  },
+  "csdnAutoOpenCode": {
+    "message": "Abrir código automáticamente"
+  },
+  "csdnCloseLoginModal": {
+    "message": "Cerrar modal de inicio de sesión"
+  },
+  "csdnCloseRedirectModal": {
+    "message": "Cerrar modal de redirección de aplicación"
+  },
+  "customConfig": {
+    "message": "Configuración personalizada"
+  },
+  "customCssCode": {
+    "message": "Código CSS personalizado"
+  },
+  "jb51Config": {
+    "message": "Configuración de Jb51"
+  },
+  "jb51CloseAds": {
+    "message": "Cerrar anuncios"
+  },
+  "jb51CopyCode": {
+    "message": "Copiar código"
+  },
+  "jianshuConfig": {
+    "message": "Configuración de Jianshu"
+  },
+  "jianshuCopyCode": {
+    "message": "Copiar código"
+  },
+  "jianshuCloseLoginModal": {
+    "message": "Cerrar modal de inicio de sesión"
+  },
+  "jianshuAutoOpenCode": {
+    "message": "Abrir código automáticamente"
+  },
+  "phpConfig": {
+    "message": "Configuración de PHP"
+  },
+  "phpCopyCode": {
+    "message": "Copiar código"
+  },
+  "phpCloseLoginModal": {
+    "message": "Cerrar modal de inicio de sesión"
+  },
+  "zhihuConfig": {
+    "message": "Configuración de Zhihu"
+  },
+  "mediumConfig": {
+    "message": "Configuración de Medium"
+  },
+  "zhihuCopyCode": {
+    "message": "Copiar código"
+  },
+  "zhihuCloseLoginModal": {
+    "message": "Cerrar modal de inicio de sesión"
+  },
+  "zhihuAutoOpenCode": {
+    "message": "Abrir código automáticamente"
+  },
+  "getDescription": {
+    "message": "Obtener descripción"
+  },
+  "edit": {
+    "message": "Editar"
+  },
+  "download": {
+    "message": "Descargar"
+  },
+  "editMarkdown": {
+    "message": "Editar Markdown"
+  },
+  "downloadMarkdown": {
+    "message": "Descargar Markdown"
+  },
+  "parseMarkdown": {
+    "message": "Analizar Markdown"
+  },
+  "downloadHtml": {
+    "message": "Descargar HTML"
+  },
+  "downloadPdf": {
+    "message": "Descargar PDF"
+  },
+  "downloadImg": {
+    "message": "Descargar imagen"
+  },
+  "downloadAllImg": {
+    "message": "Descargar todas las imágenes"
+  },
+  "getArticle": {
+    "message": "Obtener todos los artículos"
+  },
+  "downloading": {
+    "message": "Descargando"
+  },
+  "copyCode": {
+    "message": "Copiar código"
+  },
+  "parse": {
+    "message": "analizar"
+  },
+  "copy": {
+    "message": "copiar"
+  },
+  "copied": {
+    "message": "copiado"
+  },
+  "showTag": {
+    "message": "Mostrar etiqueta"
+  },
+  "allShowTag": {
+    "message": "Todas las etiquetas"
+  },
+  "code": {
+    "message": "Código"
+  },
+  "juejinConfig": {
+    "message": "Configuración de Juejin"
+  },
+  "oschinaConfig": {
+    "message": "Configuración de Oschina"
+  },
+  "segmentfaultConfig": {
+    "message": "Configuración de Segmentfault"
+  },
+  "weixinConfig": {
+    "message": "Configuración de WeChat"
+  },
+  "paywallbusterConfig": {
+    "message": "Configuración de Paywallbuster"
+  },
+  "360docConfig": {
+    "message": "Configuración de 360doc"
+  },
+  "pianshenConfig": {
+    "message": "Configuración de PianShen"
+  },
+  "luoguConfig": {
+    "message": "Configuración de LuoGu"
+  },
+  "fullPageScreenshot": {
+    "message": "Captura de pantalla de página completa"
+  },
+  "getThumbMedia": {
+    "message": "Obtener miniatura de medios"
+  },
+  "getMediaResources": {
+    "message": "Obtener recursos multimedia"
+  },
+  "copyURL": {
+    "message": "Copiar URL"
+  },
+  "makerQRPost": {
+    "message": "Crear imagen de publicación"
+  }
+}

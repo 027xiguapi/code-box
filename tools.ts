@@ -65,6 +65,66 @@ export function saveMarkdown(markdown: string, filename?: string) {
   }
 }
 
+export async function saveMarkdownWithLocalImages(markdown: string, filename?: string) {
+  if (!markdown) return
+
+  // 匹配 markdown 中的图片链接 ![alt](url)
+  const imageRegex = /!\[([^\]]*)\]\(([^)]+)\)/g
+  const images: { alt: string; url: string; index: number }[] = []
+  let match
+
+  while ((match = imageRegex.exec(markdown)) !== null) {
+    images.push({
+      alt: match[1],
+      url: match[2],
+      index: match.index
+    })
+  }
+
+  if (images.length === 0) {
+    // 没有图片，直接保存
+    saveMarkdown(markdown, filename)
+    return
+  }
+
+  // 下载所有图片并转换为 base64
+  const imagePromises = images.map(async (img) => {
+    try {
+      const response = await fetch(img.url)
+      const blob = await response.blob()
+      return new Promise<{ url: string; base64: string }>((resolve) => {
+        const reader = new FileReader()
+        reader.onloadend = () => {
+          resolve({
+            url: img.url,
+            base64: reader.result as string
+          })
+        }
+        reader.readAsDataURL(blob)
+      })
+    } catch (error) {
+      console.error(`Failed to download image: ${img.url}`, error)
+      return { url: img.url, base64: img.url } // 失败时保持原 URL
+    }
+  })
+
+  const downloadedImages = await Promise.all(imagePromises)
+
+  // 替换 markdown 中的图片 URL 为 base64
+  let updatedMarkdown = markdown
+  downloadedImages.forEach((img) => {
+    updatedMarkdown = updatedMarkdown.replace(
+      new RegExp(`\\(${img.url.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\)`, "g"),
+      `(${img.base64})`
+    )
+  })
+
+  // 保存更新后的 markdown
+  const blob = new Blob([updatedMarkdown], { type: "text/markdown;charset=utf-8" })
+  filename = filename || "CodeBox-page"
+  saveAs(blob, `${filename}-${dayjs().format("YYYY-MM-DD HH:mm:ss")}.md`)
+}
+
 export function i18n(key: string) {
   return chrome.i18n.getMessage(key)
 }

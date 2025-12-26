@@ -1,0 +1,74 @@
+{
+  "extensionName": {
+    "message": "codebox-نسخ الكود بنقرة واحدة بدون تسجيل الدخول"
+  },
+  "extensionDescription": {
+    "message": "تنفيذ نسخ الكود بنقرة واحدة بدون تسجيل الدخول؛ دعم تحديد الكود؛ السماح بقراءة مطالبات النص الكامل للمدونين غير المتابعين؛"
+  },
+  "popupDescription": {
+    "message": "نسخ الكود بنقرة واحدة بدون تسجيل الدخول"
+  },
+  "history": {
+    "message": "السجلات التاريخية"
+  },
+  "sidePanel": {
+    "message": "اللوحة الجانبية"
+  },
+  "more": {
+    "message": "المزيد من الإعدادات"
+  },
+  "support": {
+    "message": "دعم تحديثات المؤلف"
+  },
+  "privacy": {
+    "message": "سياسة الخصوصية"
+  },
+  "version": {
+    "message": "الإصدار"
+  },
+  "reset": {
+    "message": "إعادة تعيين"
+  },
+  "AppConfig": {
+    "message": "تكوين التطبيق"
+  },
+  "configCloseLog": {
+    "message": "إغلاق السجل"
+  },
+  "51ctoConfig": {
+    "message": "تكوين 51CTO"
+  },
+  "51ctoCopyCode": {
+    "message": "نسخ الكود"
+  },
+  "51ctoCloseLoginModal": {
+    "message": "إغلاق نافذة تسجيل الدخول"
+  },
+  "baiduConfig": {
+    "message": "تكوين Baidu"
+  },
+  "baiduCloseAIBox": {
+    "message": "إغلاق نافذة الذكاء الاصطناعي"
+  },
+  "cnblogsConfig": {
+    "message": "تكوين cnblogs"
+  },
+  "cnblogsCopyCode": {
+    "message": "نسخ الكود"
+  },
+  "csdnConfig": {
+    "message": "تكوين CSDN"
+  },
+  "csdnCloseAds": {
+    "message": "إغلاق الإعلانات"
+  },
+  "csdnCopyCode": {
+    "message": "نسخ الكود"
+  },
+  "csdnCloseFollow": {
+    "message": "إغلاق المتابعة"
+  },
+  "csdnCloseVip": {
+    "message": "إغلاق VIP"
+  }
+}

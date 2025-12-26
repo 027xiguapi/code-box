@@ -1,0 +1,74 @@
+{
+  "extensionName": {
+    "message": "codebox-cópia de código com um clique sem login"
+  },
+  "extensionDescription": {
+    "message": "Implementa cópia de código com um clique sem login; Suporta seleção de código; Permite ler prompts de texto completo de blogueiros sem seguir;"
+  },
+  "popupDescription": {
+    "message": "cópia de código com um clique sem login"
+  },
+  "history": {
+    "message": "Histórico"
+  },
+  "sidePanel": {
+    "message": "Painel lateral"
+  },
+  "more": {
+    "message": "Mais configurações"
+  },
+  "support": {
+    "message": "Apoiar atualizações do autor"
+  },
+  "privacy": {
+    "message": "Política de privacidade"
+  },
+  "version": {
+    "message": "versão"
+  },
+  "reset": {
+    "message": "redefinir"
+  },
+  "AppConfig": {
+    "message": "Configuração do aplicativo"
+  },
+  "configCloseLog": {
+    "message": "Fechar registro"
+  },
+  "51ctoConfig": {
+    "message": "Configuração 51CTO"
+  },
+  "51ctoCopyCode": {
+    "message": "Copiar código"
+  },
+  "51ctoCloseLoginModal": {
+    "message": "Fechar janela de login"
+  },
+  "baiduConfig": {
+    "message": "Configuração Baidu"
+  },
+  "baiduCloseAIBox": {
+    "message": "Fechar janela de IA"
+  },
+  "cnblogsConfig": {
+    "message": "Configuração cnblogs"
+  },
+  "cnblogsCopyCode": {
+    "message": "Copiar código"
+  },
+  "csdnConfig": {
+    "message": "Configuração CSDN"
+  },
+  "csdnCloseAds": {
+    "message": "Fechar anúncios"
+  },
+  "csdnCopyCode": {
+    "message": "Copiar código"
+  },
+  "csdnCloseFollow": {
+    "message": "Fechar seguir"
+  },
+  "csdnCloseVip": {
+    "message": "Fechar VIP"
+  }
+}

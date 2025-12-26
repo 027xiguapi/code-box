@@ -1,0 +1,230 @@
+{
+  "extensionName": {
+    "message": "codebox-ログイン不要でワンクリックコードコピー"
+  },
+  "extensionDescription": {
+    "message": "ログインせずにワンクリックでコードをコピー；コード選択をサポート；フォローしていないブロガーの全文プロンプトを読むことができます；"
+  },
+  "popupDescription": {
+    "message": "ログイン不要でワンクリックコードコピー"
+  },
+  "history": {
+    "message": "履歴記録"
+  },
+  "sidePanel": {
+    "message": "サイドパネル"
+  },
+  "more": {
+    "message": "詳細設定"
+  },
+  "support": {
+    "message": "作者の更新をサポート"
+  },
+  "privacy": {
+    "message": "プライバシーポリシー"
+  },
+  "version": {
+    "message": "バージョン"
+  },
+  "reset": {
+    "message": "リセット"
+  },
+  "AppConfig": {
+    "message": "アプリ設定"
+  },
+  "configCloseLog": {
+    "message": "ログを閉じる"
+  },
+  "51ctoConfig": {
+    "message": "51CTO設定"
+  },
+  "51ctoCopyCode": {
+    "message": "コードをコピー"
+  },
+  "51ctoCloseLoginModal": {
+    "message": "ログインモーダルを閉じる"
+  },
+  "baiduConfig": {
+    "message": "百度設定"
+  },
+  "baiduCloseAIBox": {
+    "message": "AIモーダルを閉じる"
+  },
+  "cnblogsConfig": {
+    "message": "cnblogs設定"
+  },
+  "cnblogsCopyCode": {
+    "message": "コードをコピー"
+  },
+  "csdnConfig": {
+    "message": "CSDN設定"
+  },
+  "csdnCloseAds": {
+    "message": "広告を閉じる"
+  },
+  "csdnCopyCode": {
+    "message": "コードをコピー"
+  },
+  "csdnCloseFollow": {
+    "message": "フォローを閉じる"
+  },
+  "csdnCloseVip": {
+    "message": "VIPを閉じる"
+  },
+  "csdnAutoOpenCode": {
+    "message": "コードを自動展開"
+  },
+  "csdnCloseLoginModal": {
+    "message": "ログインモーダルを閉じる"
+  },
+  "csdnCloseRedirectModal": {
+    "message": "アプリリダイレクトモーダルを閉じる"
+  },
+  "customConfig": {
+    "message": "カスタム設定"
+  },
+  "customCssCode": {
+    "message": "カスタムCSSコード"
+  },
+  "jb51Config": {
+    "message": "Jb51設定"
+  },
+  "jb51CloseAds": {
+    "message": "広告を閉じる"
+  },
+  "jb51CopyCode": {
+    "message": "コードをコピー"
+  },
+  "jianshuConfig": {
+    "message": "簡書設定"
+  },
+  "jianshuCopyCode": {
+    "message": "コードをコピー"
+  },
+  "jianshuCloseLoginModal": {
+    "message": "ログインモーダルを閉じる"
+  },
+  "jianshuAutoOpenCode": {
+    "message": "コードを自動展開"
+  },
+  "phpConfig": {
+    "message": "PHP設定"
+  },
+  "phpCopyCode": {
+    "message": "コードをコピー"
+  },
+  "phpCloseLoginModal": {
+    "message": "ログインモーダルを閉じる"
+  },
+  "zhihuConfig": {
+    "message": "知乎設定"
+  },
+  "mediumConfig": {
+    "message": "Medium設定"
+  },
+  "zhihuCopyCode": {
+    "message": "コードをコピー"
+  },
+  "zhihuCloseLoginModal": {
+    "message": "ログインモーダルを閉じる"
+  },
+  "zhihuAutoOpenCode": {
+    "message": "コードを自動展開"
+  },
+  "getDescription": {
+    "message": "説明を取得"
+  },
+  "edit": {
+    "message": "編集"
+  },
+  "download": {
+    "message": "ダウンロード"
+  },
+  "editMarkdown": {
+    "message": "Markdownを編集"
+  },
+  "downloadMarkdown": {
+    "message": "Markdownをダウンロード"
+  },
+  "parseMarkdown": {
+    "message": "Markdownを解析"
+  },
+  "downloadHtml": {
+    "message": "HTMLをダウンロード"
+  },
+  "downloadPdf": {
+    "message": "PDFをダウンロード"
+  },
+  "downloadImg": {
+    "message": "画像をダウンロード"
+  },
+  "downloadAllImg": {
+    "message": "すべての画像をダウンロード"
+  },
+  "getArticle": {
+    "message": "すべての記事を取得"
+  },
+  "downloading": {
+    "message": "ダウンロード中"
+  },
+  "copyCode": {
+    "message": "コードをコピー"
+  },
+  "parse": {
+    "message": "解析"
+  },
+  "copy": {
+    "message": "コピー"
+  },
+  "copied": {
+    "message": "コピー済み"
+  },
+  "showTag": {
+    "message": "タグを表示"
+  },
+  "allShowTag": {
+    "message": "すべてのタグ"
+  },
+  "code": {
+    "message": "コード"
+  },
+  "juejinConfig": {
+    "message": "掘金設定"
+  },
+  "oschinaConfig": {
+    "message": "開源中国設定"
+  },
+  "segmentfaultConfig": {
+    "message": "SegmentFault設定"
+  },
+  "weixinConfig": {
+    "message": "WeChat設定"
+  },
+  "paywallbusterConfig": {
+    "message": "Paywallbuster設定"
+  },
+  "360docConfig": {
+    "message": "360doc設定"
+  },
+  "pianshenConfig": {
+    "message": "片神設定"
+  },
+  "luoguConfig": {
+    "message": "洛谷設定"
+  },
+  "fullPageScreenshot": {
+    "message": "フルページスクリーンショット"
+  },
+  "getThumbMedia": {
+    "message": "サムネイルメディアを取得"
+  },
+  "getMediaResources": {
+    "message": "メディアリソースを取得"
+  },
+  "copyURL": {
+    "message": "URLをコピー"
+  },
+  "makerQRPost": {
+    "message": "投稿画像を作成"
+  }
+}
