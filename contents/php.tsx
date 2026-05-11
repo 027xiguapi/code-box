@@ -13,7 +13,7 @@ import { useStorage } from "@plasmohq/storage/hook"
 import TagBtnStyle from "~component/tagBtn/style"
 import Tags from "~component/ui/tags"
 import ToolBox from "~component/ui/toolBox"
-import { addCss, i18n, removeCss, saveHtml, saveMarkdown } from "~tools"
+import { addCss, i18n, removeCss, saveHtml, saveMarkdown, saveWord } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
 import { useEditMarkdown } from "~utils/editMarkdownHook"
 import { useParseMarkdown } from "~utils/parseMarkdownHook"
@@ -83,6 +83,11 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     }
   }
 
+  function downloadWord() {
+    const dom = document.querySelector(".phpscMain .php-article")
+    saveWord(dom, articleTitle)
+  }
+
   /* 未登录复制代码 */
   function copyCodeCssFunc(copyCode) {
     copyCode
@@ -126,7 +131,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     const summary = document.querySelector<HTMLMetaElement>(
       'meta[name="description"]'
     ).content
-    summary && prompt("文章摘要：", summary)
+    summary && prompt(i18n("getDescription"), summary)
   }
 
   function editMarkdown() {
@@ -157,6 +162,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
       onDownloadMarkdown={downloadMarkdown}
       onPrint={downloadPdf}
       onParseMarkdown={parseMarkdown}
+      onDownloadWord={downloadWord}
     />
   ) : (
     <></>

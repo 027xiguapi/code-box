@@ -181,8 +181,8 @@ https://code-box.fun/docs
 
 [网页](https://027xiguapi.github.io/code-box/privacy-policy.html)
 
-## 联系
+## 友链
 
-![img](https://github.com/027xiguapi/code-box/blob/main/public/wx/gzh.jpg)
-
-![u_wx](https://github.com/027xiguapi/code-box/blob/main/public/wx/u_wx.jpg)
+- https://www.metrolinehub.com/zh
+- https://routerpark.com/zh
+- http://aitubestats.com/zh

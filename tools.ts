@@ -125,6 +125,38 @@ export async function saveMarkdownWithLocalImages(markdown: string, filename?: s
   saveAs(blob, `${filename}-${dayjs().format("YYYY-MM-DD HH:mm:ss")}.md`)
 }
 
+export function saveWord(dom: Element, filename?: string) {
+  if (dom) {
+    const content = dom.innerHTML
+    const fullHtml = `<!DOCTYPE html>
+<html xmlns:o='urn:schemas-microsoft-com:office:office'
+      xmlns:w='urn:schemas-microsoft-com:office:word'
+      xmlns='http://www.w3.org/TR/REC-html40'>
+<head>
+<meta charset="utf-8">
+<title>${filename || "CodeBox-page"}</title>
+<style>
+  body { font-family: '宋体', SimSun, serif; font-size: 14pt; line-height: 1.8; padding: 20px; }
+  img { max-width: 100%; height: auto; }
+  h1, h2, h3, h4 { font-family: '黑体', SimHei, sans-serif; }
+  pre, code { font-family: 'Courier New', monospace; font-size: 12pt; }
+  table { border-collapse: collapse; width: 100%; }
+  td, th { border: 1px solid #ccc; padding: 6px; }
+  a { color: #576b95; }
+</style>
+</head>
+<body>
+${content}
+</body>
+</html>`
+    const blob = new Blob([fullHtml], {
+      type: "application/msword;charset=utf-8"
+    })
+    filename = filename || "CodeBox-page"
+    saveAs(blob, `${filename}-${dayjs().format("YYYY-MM-DD HH:mm:ss")}.doc`)
+  }
+}
+
 export function i18n(key: string) {
   return chrome.i18n.getMessage(key)
 }

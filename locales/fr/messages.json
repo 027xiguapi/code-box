@@ -226,5 +226,53 @@
   },
   "makerQRPost": {
     "message": "Créer une image de publication"
+  },
+  "downloadWord": {
+    "message": "Download Word"
+  },
+  "pureLink": {
+    "message": "Clean Link"
+  },
+  "originalLink": {
+    "message": "Original Link"
+  },
+  "help": {
+    "message": "Help"
+  },
+  "downloadMDImages": {
+    "message": "Download MD+Images"
+  },
+  "downloadAllImages": {
+    "message": "Download All Images"
+  },
+  "openSourceLink": {
+    "message": "Open Source Link"
+  },
+  "urlCopied": {
+    "message": "URL copied to clipboard"
+  },
+  "copyFailed": {
+    "message": "Copy failed"
+  },
+  "confirmScreenshot": {
+    "message": "Confirm screenshot?"
+  },
+  "downloadFailed": {
+    "message": "Download failed"
+  },
+  "contextMenuTranslate": {
+    "message": "Translate to Chinese"
+  },
+  "contextMenuExplainCode": {
+    "message": "Explain Code"
+  },
+  "contextMenuSummarize": {
+    "message": "Summarize Content"
+  },
+  "contextMenuCaptureAnalyze": {
+    "message": "Capture & Analyze"
+  },
+  "contextMenuSendImage": {
+    "message": "Send Image to Chat"
   }
 }

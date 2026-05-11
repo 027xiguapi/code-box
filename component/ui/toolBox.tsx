@@ -56,6 +56,10 @@ export default function ToolBox(props: any) {
     props.onPrint()
   }
 
+  const handleDownloadWord = () => {
+    props.onDownloadWord?.()
+  }
+
   const getArticle = () => {
     const href = encodeURIComponent(location.href)
     window.open(`https://paywallbuster.com/articles/?article=${href}`)
@@ -88,6 +92,9 @@ export default function ToolBox(props: any) {
       </div>
       <div style={boxStyles.item}>
         <a onClick={handlePrint}>{i18n("downloadPdf")}</a>
+      </div>
+      <div style={boxStyles.item}>
+        <a onClick={handleDownloadWord}>{i18n("downloadWord")}</a>
       </div>
       <div style={boxStyles.item}>
         <a onClick={() => editQRCodeImg()}>{i18n("makerQRPost")}</a>

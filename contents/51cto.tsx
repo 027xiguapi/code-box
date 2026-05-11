@@ -101,7 +101,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
 
     if (buttons.length > 0) {
       buttons.forEach((btn) => {
-        btn.innerText = "复制"
+        btn.innerText = i18n("copy")
         btn.setAttribute("onclick", "")
         const elClone = btn.cloneNode(true)
 
@@ -141,9 +141,9 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
                   }
                 ]
           )
-          target.innerText = "复制成功"
+          target.innerText = i18n("copied")
           setTimeout(() => {
-            target.innerText = "复制"
+            target.innerText = i18n("copy")
           }, 1000)
           e.stopPropagation()
           e.preventDefault()
@@ -158,11 +158,11 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
         const codeBlock = code.closest("div")
         const button = document.createElement("button")
 
-        button.innerText = "复制"
+        button.innerText = i18n("copy")
         button.style.position = "absolute"
         button.style.top = "0"
         button.style.right = "0"
-        button.title = "一键复制代码"
+        button.title = i18n("copyCode")
         button.classList.add("Button")
         button.classList.add("VoteButton")
         codeBlock.appendChild(button)
@@ -201,9 +201,9 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
                   }
                 ]
           )
-          target.innerText = "复制成功"
+          target.innerText = i18n("copied")
           setTimeout(() => {
-            target.innerText = "复制"
+            target.innerText = i18n("copy")
           }, 1000)
           e.stopPropagation()
           e.preventDefault()

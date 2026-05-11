@@ -24,7 +24,7 @@ export default function Markdown() {
       if (posts[0] && _post.content != posts[0].content) {
         posts.unshift({
           content: _post.content,
-          title: _post.title || "文章1"
+          title: _post.title || "Untitled"
         })
         window.localStorage.setItem("MD__posts", JSON.stringify(posts))
         setPost("")

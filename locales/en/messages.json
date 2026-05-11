@@ -1,6 +1,6 @@
 {
   "extensionName": {
-    "message": "codebox-one click code copying without login"
+    "message": "codebox-AI Download Article"
   },
   "extensionDescription": {
     "message": "Implement one click code copying without logging in; Support selecting code; Allow non following bloggers to read full text prompts;"
@@ -88,9 +88,6 @@
   },
   "jb51Config": {
     "message": "Jb51 Config"
-  },
-  "jb51CloseAds": {
-    "message": "Close Ads"
   },
   "jb51CopyCode": {
     "message": "Copy Code"
@@ -225,7 +222,40 @@
     "message": "copy URL"
   },
   "makerQRPost": {
-    "message": "maker Post Image"
+    "message": "Maker Post Image"
+  },
+  "downloadWord": {
+    "message": "Download Word"
+  },
+  "pureLink": {
+    "message": "Clean Link"
+  },
+  "originalLink": {
+    "message": "Original Link"
+  },
+  "help": {
+    "message": "Help"
+  },
+  "downloadMDImages": {
+    "message": "Download MD+Images"
+  },
+  "downloadAllImages": {
+    "message": "Download All Images"
+  },
+  "openSourceLink": {
+    "message": "Open Source Link"
+  },
+  "urlCopied": {
+    "message": "URL copied to clipboard"
+  },
+  "copyFailed": {
+    "message": "Copy failed"
+  },
+  "confirmScreenshot": {
+    "message": "Confirm screenshot?"
+  },
+  "downloadFailed": {
+    "message": "Download failed"
   },
   "contextMenuTranslate": {
     "message": "Translate to Chinese"

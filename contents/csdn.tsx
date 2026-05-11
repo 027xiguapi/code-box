@@ -123,8 +123,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     const buttons = document.querySelectorAll<HTMLElement>(".hljs-button")
 
     buttons.forEach((btn) => {
-      // 更改标题
-      btn.dataset.title = "复制"
+      btn.dataset.title = i18n("copyCode")
 
       // 移除点击事件
       btn.setAttribute("onclick", "")
@@ -170,9 +169,9 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
               ]
         )
 
-        target.dataset.title = "复制成功"
+        target.dataset.title = i18n("copied")
         setTimeout(() => {
-          target.dataset.title = "复制"
+          target.dataset.title = i18n("copy")
         }, 1000)
         e.stopPropagation()
         e.preventDefault()

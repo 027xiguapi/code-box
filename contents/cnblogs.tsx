@@ -13,7 +13,7 @@ import { useStorage } from "@plasmohq/storage/hook"
 
 import TagBtnStyle from "~component/tagBtn/style"
 import ToolBox from "~component/ui/toolBox"
-import { saveHtml, saveMarkdown } from "~tools"
+import { i18n, saveHtml, saveMarkdown, saveWord } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
 import { useEditMarkdown } from "~utils/editMarkdownHook"
 import { useParseMarkdown } from "~utils/parseMarkdownHook"
@@ -79,9 +79,9 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
 
     toolbars.forEach((toolbar) => {
       const button = document.createElement("button")
-      button.innerText = "复制"
+      button.innerText = i18n("copy")
       button.style.float = "right"
-      button.title = "一键复制代码"
+      button.title = i18n("copyCode")
       button.classList.add("copy-btn")
 
       toolbar.appendChild(button)
@@ -135,9 +135,9 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
                 }
               ]
         )
-        target.innerText = "复制成功"
+        target.innerText = i18n("copied")
         setTimeout(() => {
-          target.innerText = "复制"
+          target.innerText = i18n("copy")
         }, 1000)
         e.stopPropagation()
         e.preventDefault()
@@ -149,7 +149,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     const summary = document.querySelector<HTMLMetaElement>(
       'meta[name="description"]'
     ).content
-    summary && prompt("文章摘要：", summary)
+    summary && prompt(i18n("getDescription"), summary)
   }
 
   function downloadPdf() {
@@ -159,6 +159,11 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
         .then(() => console.log("Printing complete"))
         .catch((error) => console.error("Printing failed:", error))
     }
+  }
+
+  function downloadWord() {
+    const dom = document.querySelector("#post_detail .post")
+    saveWord(dom, articleTitle)
   }
 
   function editMarkdown() {
@@ -189,6 +194,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
       onDownloadMarkdown={downloadMarkdown}
       onPrint={downloadPdf}
       onParseMarkdown={parseMarkdown}
+      onDownloadWord={downloadWord}
     />
   ) : (
     <></>

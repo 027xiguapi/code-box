@@ -12,7 +12,7 @@ import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import ToolBox from "~component/ui/toolBox"
-import { addCss, saveHtml, saveMarkdown } from "~tools"
+import { addCss, i18n, saveHtml, saveMarkdown, saveWord } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
 import { useEditMarkdown } from "~utils/editMarkdownHook"
 import { useParseMarkdown } from "~utils/parseMarkdownHook"
@@ -111,11 +111,11 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
 
     codes.forEach((code) => {
       const button = document.createElement("button")
-      button.innerText = "复制"
+      button.innerText = i18n("copy")
       button.style.position = "absolute"
       button.style.top = "0"
       button.style.right = "0"
-      button.title = "一键复制代码"
+      button.title = i18n("copyCode")
       button.classList.add("Button")
       button.classList.add("VoteButton")
 
@@ -156,9 +156,9 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
               ]
         )
 
-        target.innerText = "复制成功"
+        target.innerText = i18n("copied")
         setTimeout(() => {
-          target.innerText = "复制"
+          target.innerText = i18n("copy")
         }, 1000)
         e.stopPropagation()
         e.preventDefault()
@@ -218,7 +218,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     const summary = document.querySelector<HTMLMetaElement>(
       'meta[name="description"]'
     ).content
-    summary && prompt("文章摘要：", summary)
+    summary && prompt(i18n("getDescription"), summary)
   }
 
   function removeRichContentCollapsed() {
@@ -237,6 +237,11 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
         .then(() => console.log("Printing complete"))
         .catch((error) => console.error("Printing failed:", error))
     }
+  }
+
+  function downloadWord() {
+    const dom = document.querySelector("article.Post-Main")
+    saveWord(dom, articleTitle)
   }
 
   function editMarkdown() {
@@ -271,6 +276,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
       onDownloadMarkdown={downloadMarkdown}
       onPrint={downloadPdf}
       onParseMarkdown={parseMarkdown}
+      onDownloadWord={downloadWord}
     />
   ) : (
     <></>

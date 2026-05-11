@@ -70,5 +70,209 @@
   },
   "csdnCloseVip": {
     "message": "إغلاق VIP"
+  },
+  "csdnAutoOpenCode": {
+    "message": "Auto Open Code"
+  },
+  "csdnCloseLoginModal": {
+    "message": "Close Login Modal"
+  },
+  "csdnCloseRedirectModal": {
+    "message": "Close Redirect App Modal"
+  },
+  "customConfig": {
+    "message": "Custom Config"
+  },
+  "customCssCode": {
+    "message": "Custom Css Code"
+  },
+  "jb51Config": {
+    "message": "Jb51 Config"
+  },
+  "jb51CloseAds": {
+    "message": "Close Ads"
+  },
+  "jb51CopyCode": {
+    "message": "Copy Code"
+  },
+  "jianshuConfig": {
+    "message": "Jianshu Config"
+  },
+  "jianshuCopyCode": {
+    "message": "Copy Code"
+  },
+  "jianshuCloseLoginModal": {
+    "message": "Close Login Modal"
+  },
+  "jianshuAutoOpenCode": {
+    "message": "Auto Open Code"
+  },
+  "phpConfig": {
+    "message": "Php Config"
+  },
+  "phpCopyCode": {
+    "message": "Copy Code"
+  },
+  "phpCloseLoginModal": {
+    "message": "Close Login Modal"
+  },
+  "zhihuConfig": {
+    "message": "Zhihu Config"
+  },
+  "mediumConfig": {
+    "message": "medium Config"
+  },
+  "zhihuCopyCode": {
+    "message": "Copy Code"
+  },
+  "zhihuCloseLoginModal": {
+    "message": "Close Login Modal"
+  },
+  "zhihuAutoOpenCode": {
+    "message": "Auto Open Code"
+  },
+  "getDescription": {
+    "message": "Get Description"
+  },
+  "edit": {
+    "message": "Edit"
+  },
+  "download": {
+    "message": "Download"
+  },
+  "editMarkdown": {
+    "message": "Edit Markdown"
+  },
+  "downloadMarkdown": {
+    "message": "Download Markdown"
+  },
+  "parseMarkdown": {
+    "message": "Parse Markdown"
+  },
+  "downloadHtml": {
+    "message": "Download HTML"
+  },
+  "downloadPdf": {
+    "message": "Download PDF"
+  },
+  "downloadImg": {
+    "message": "Download Image"
+  },
+  "downloadAllImg": {
+    "message": "Download All Image"
+  },
+  "getArticle": {
+    "message": "Get All Article"
+  },
+  "downloading": {
+    "message": "Downloading"
+  },
+  "copyCode": {
+    "message": "Copy Code"
+  },
+  "parse": {
+    "message": "parse"
+  },
+  "copy": {
+    "message": "copy"
+  },
+  "copied": {
+    "message": "copied"
+  },
+  "showTag": {
+    "message": "Show Tag"
+  },
+  "allShowTag": {
+    "message": "All Tag"
+  },
+  "code": {
+    "message": "Code"
+  },
+  "juejinConfig": {
+    "message": "Juejin Config"
+  },
+  "oschinaConfig": {
+    "message": "Oschina Config"
+  },
+  "segmentfaultConfig": {
+    "message": "Segmentfault Config"
+  },
+  "weixinConfig": {
+    "message": "Wechat Config"
+  },
+  "paywallbusterConfig": {
+    "message": "Paywallbuster Config"
+  },
+  "360docConfig": {
+    "message": "360doc Config"
+  },
+  "pianshenConfig": {
+    "message": "PianShen Config"
+  },
+  "luoguConfig": {
+    "message": "LuoGu Config"
+  },
+  "fullPageScreenshot": {
+    "message": "Full Page Screenshot"
+  },
+  "getThumbMedia": {
+    "message": "get Thumb Media"
+  },
+  "getMediaResources": {
+    "message": "get Media Resources"
+  },
+  "copyURL": {
+    "message": "copy URL"
+  },
+  "makerQRPost": {
+    "message": "Maker Post Image"
+  },
+  "downloadWord": {
+    "message": "Download Word"
+  },
+  "pureLink": {
+    "message": "Clean Link"
+  },
+  "originalLink": {
+    "message": "Original Link"
+  },
+  "help": {
+    "message": "Help"
+  },
+  "downloadMDImages": {
+    "message": "Download MD+Images"
+  },
+  "downloadAllImages": {
+    "message": "Download All Images"
+  },
+  "openSourceLink": {
+    "message": "Open Source Link"
+  },
+  "urlCopied": {
+    "message": "URL copied to clipboard"
+  },
+  "copyFailed": {
+    "message": "Copy failed"
+  },
+  "confirmScreenshot": {
+    "message": "Confirm screenshot?"
+  },
+  "downloadFailed": {
+    "message": "Download failed"
+  },
+  "contextMenuTranslate": {
+    "message": "Translate to Chinese"
+  },
+  "contextMenuExplainCode": {
+    "message": "Explain Code"
+  },
+  "contextMenuSummarize": {
+    "message": "Summarize Content"
+  },
+  "contextMenuCaptureAnalyze": {
+    "message": "Capture & Analyze"
+  },
+  "contextMenuSendImage": {
+    "message": "Send Image to Chat"
   }
 }

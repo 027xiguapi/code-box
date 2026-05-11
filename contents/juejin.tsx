@@ -11,7 +11,7 @@ import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/dist/hook"
 
 import ToolBox from "~component/ui/toolBox"
-import { i18n, saveHtml, saveMarkdown } from "~tools"
+import { i18n, saveHtml, saveMarkdown, saveWord } from "~tools"
 import useCssCodeHook from "~utils/cssCodeHook"
 import { useEditMarkdown } from "~utils/editMarkdownHook"
 import { useParseMarkdown } from "~utils/parseMarkdownHook"
@@ -97,7 +97,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     const summary = document.querySelector<HTMLMetaElement>(
       'meta[name="description"]'
     ).content
-    summary && prompt("文章摘要：", summary)
+    summary && prompt(i18n("getDescription"), summary)
   }
 
   function downloadPdf() {
@@ -107,6 +107,11 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
         .then(() => console.log("Printing complete"))
         .catch((error) => console.error("Printing failed:", error))
     }
+  }
+
+  function downloadWord() {
+    const dom = document.querySelector("article.article")
+    saveWord(dom, articleTitle)
   }
 
   function editMarkdown() {
@@ -137,6 +142,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
       onDownloadMarkdown={downloadMarkdown}
       onPrint={downloadPdf}
       onParseMarkdown={parseMarkdown}
+      onDownloadWord={downloadWord}
     />
   ) : (
     <></>

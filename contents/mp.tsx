@@ -33,11 +33,11 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
         const imageUrl = imageUrlMatch[1]
 
         navigator.clipboard.writeText(imageUrl)
-        alert("URL 已复制到剪贴板")
+        alert(i18n("urlCopied"))
       }
     } catch (error) {
       console.error("复制失败:", error)
-      alert("复制失败")
+      alert(i18n("copyFailed"))
     }
   }
 

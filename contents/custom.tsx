@@ -6,7 +6,7 @@ import { useMessage } from "@plasmohq/messaging/hook"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import CustomDomSelector from "~component/ui/customDomSelector"
-import { setIcon } from "~tools"
+import { i18n, setIcon } from "~tools"
 import { getSummary } from "~utils/coze"
 import DrawImages from "~utils/drawImages"
 import makerQRPost from "~utils/makerQRPost"
@@ -46,7 +46,7 @@ export default function CustomOverlay() {
       window.open(`https://paywallbuster.com/articles/?article=${href}`)
     }
     if (req.name == "app-full-page-screenshot") {
-      if (confirm("确认截图？")) {
+      if (confirm(i18n("confirmScreenshot"))) {
         const { scrollHeight, clientHeight } = document.documentElement
         const devicePixelRatio = window.devicePixelRatio || 1
 
@@ -88,7 +88,7 @@ export default function CustomOverlay() {
         }
       })
       if (res.code == 0) {
-        alert("下载失败")
+        alert(i18n("downloadFailed"))
       }
     } catch (error) {
       console.error(`Failed to download images:`, error)
