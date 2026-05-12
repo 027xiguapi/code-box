@@ -123,18 +123,63 @@ function createContextMenus() {
 //   }
 // })
 
+// ====== 聊天标签页管理 ======
+let routerParkTabId: number | null = null
+
 // 监听来自 content script 的消息
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === "captureVisibleTab") {
     chrome.tabs.captureVisibleTab(null, { format: "png" }, (dataUrl) => {
       sendResponse(dataUrl)
     })
-    return true // 保持消息通道开放
+    return true
   }
 
   if (request.action === "chatResponse") {
-    console.log("[Background] 收到聊天响应:", request.data)
-    // 可以在这里处理 AI 的响应，比如显示通知
+    console.log("[Background] 收到聊天响应:", request.data?.content?.slice(0, 80))
+  }
+
+  // RouterPark 聊天标签注册
+  if (request.action === "registerChatTab") {
+    if (sender.tab?.id) {
+      routerParkTabId = sender.tab.id
+      console.log("[Background] 注册聊天标签页:", routerParkTabId, request.url)
+    }
+    sendResponse({ success: true })
+    return true
+  }
+
+  // 获取当前聊天标签页 ID
+  if (request.action === "getChatTabId") {
+    sendResponse({ tabId: routerParkTabId })
+    return true
+  }
+
+  // 检查聊天标签页是否存活
+  if (request.action === "pingChatTab") {
+    if (routerParkTabId) {
+      chrome.tabs.sendMessage(routerParkTabId, { action: "pingChatTab" }, (resp) => {
+        sendResponse(resp || null)
+      })
+      return true // 异步
+    }
+    sendResponse(null)
+    return true
+  }
+
+  // 手动清除聊天标签页注册
+  if (request.action === "unregisterChatTab") {
+    routerParkTabId = null
+    sendResponse({ success: true })
+    return true
+  }
+})
+
+// 标签页关闭时自动清除注册
+chrome.tabs.onRemoved.addListener((tabId) => {
+  if (tabId === routerParkTabId) {
+    console.log("[Background] 聊天标签页已关闭，清除注册")
+    routerParkTabId = null
   }
 })
 

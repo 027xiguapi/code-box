@@ -5,140 +5,244 @@ export const config: PlasmoCSConfig = {
   run_at: "document_end"
 }
 
-// 消息类型定义
-interface ExtensionMessage {
-  type: "CHAT_INPUT" | "CHAT_SEND" | "CHAT_INSERT_IMAGE"
-  payload: {
-    text?: string
-    images?: string[]
-    autoSend?: boolean
-  }
+// ====== Types ======
+interface ChatPayload {
+  text?: string
+  images?: string[]
+  autoSend?: boolean
 }
 
-interface ChatResponse {
-  type: "CHAT_RESPONSE"
-  payload: {
+interface RouterParkMessage {
+  type: "CHAT_INPUT" | "CHAT_SEND" | "CHAT_INSERT_IMAGE"
+  payload: ChatPayload
+}
+
+interface RouterParkResponse {
+  type: "CHAT_RESPONSE" | "CHAT_READY"
+  payload?: {
     content: string
     timestamp: number
   }
 }
 
-// 监听来自 background 的消息
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  console.log("[Chat Integration] 收到消息:", request)
+// ====== Constants ======
+const ROUTERPARK_ORIGIN = "https://routerpark.com"
+const isRouterParkChat =
+  typeof location !== "undefined" &&
+  location.origin === ROUTERPARK_ORIGIN &&
+  location.pathname.startsWith("/zh/chat")
 
-  if (request.action === "sendToChat") {
-    sendMessageToChat({
-      type: request.autoSend ? "CHAT_SEND" : "CHAT_INPUT",
-      payload: {
-        text: request.text,
-        autoSend: request.autoSend || false
-      }
-    })
-    sendResponse({ success: true })
+// ====== RouterPark postMessage Integration ======
+let routerParkReady = false
+let pendingMessages: RouterParkMessage[] = []
+
+function postToRouterPark(msg: RouterParkMessage) {
+  window.postMessage(msg, ROUTERPARK_ORIGIN)
+}
+
+function flushPending() {
+  if (!routerParkReady) return
+  for (const msg of pendingMessages.splice(0)) {
+    postToRouterPark(msg)
+  }
+}
+
+async function ensureRouterParkReady(): Promise<boolean> {
+  if (routerParkReady) return true
+  // Wait up to 15s for CHAT_READY
+  for (let i = 0; i < 30; i++) {
+    await new Promise((r) => setTimeout(r, 500))
+    if (routerParkReady) return true
+  }
+  return false
+}
+
+// ====== Message Handlers (runs on ALL pages) ======
+
+// Listen for messages from background/other content scripts via chrome.runtime
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  console.log("[Chat Integration] 收到消息:", request?.action || request?.type)
+
+  // Handle background-forwarded messages (only on routerpark tab)
+  if (request.action === "sendToChat" || request.action === "forwardToChat") {
+    if (isRouterParkChat) {
+      handleRouterParkSend(request, sendResponse)
+    } else {
+      // Legacy: try iframe on current page
+      sendMessageToChatViaIframe({
+        type: request.autoSend ? "CHAT_SEND" : "CHAT_INPUT",
+        payload: { text: request.text, autoSend: request.autoSend || false }
+      })
+      sendResponse({ success: true })
+    }
     return true
   }
 
   if (request.action === "sendImageToChat") {
-    sendMessageToChat({
-      type: "CHAT_INSERT_IMAGE",
-      payload: {
-        images: request.images
-      }
-    })
-    sendResponse({ success: true })
+    if (isRouterParkChat) {
+      handleRouterParkImage(request, sendResponse)
+    } else {
+      sendMessageToChatViaIframe({
+        type: "CHAT_INSERT_IMAGE",
+        payload: { images: request.images }
+      })
+      sendResponse({ success: true })
+    }
     return true
   }
 
   if (request.action === "captureAndSend") {
-    // 截图并发送到聊天
-    captureAndSendToChat(request.prompt)
+    handleCaptureAndSend(request.prompt)
     sendResponse({ success: true })
+    return true
+  }
+
+  // RouterPark registration acknowledgment
+  if (request.action === "pingChatTab") {
+    sendResponse({ ready: routerParkReady, isRouterParkChat })
     return true
   }
 })
 
-// 发送消息到聊天应用
-function sendMessageToChat(message: ExtensionMessage) {
-  // 尝试查找聊天应用的 iframe 或窗口
-  const chatWindow = findChatWindow()
+// Listen for postMessage from the page (CHAT_READY, CHAT_RESPONSE)
+window.addEventListener("message", (event) => {
+  // Only accept messages from our page
+  if (event.origin !== ROUTERPARK_ORIGIN && event.origin !== window.location.origin) {
+    return
+  }
 
+  const msg = event.data as RouterParkResponse
+  if (!msg?.type) return
+
+  switch (msg.type) {
+    case "CHAT_READY":
+      console.log("[Chat Integration] RouterPark 聊天页已就绪")
+      routerParkReady = true
+      flushPending()
+      break
+
+    case "CHAT_RESPONSE":
+      console.log("[Chat Integration] 收到 AI 回复:", msg.payload?.content?.slice(0, 80))
+      if (msg.payload) {
+        // Forward to background
+        chrome.runtime.sendMessage({
+          action: "chatResponse",
+          data: msg.payload
+        })
+      }
+      break
+  }
+})
+
+// ====== RouterPark API ======
+
+async function handleRouterParkSend(
+  request: any,
+  sendResponse: (resp: any) => void
+) {
+  const msg: RouterParkMessage = {
+    type: request.autoSend ? "CHAT_SEND" : "CHAT_INPUT",
+    payload: {
+      text: request.text,
+      autoSend: request.autoSend || false
+    }
+  }
+
+  if (!routerParkReady) {
+    pendingMessages.push(msg)
+    const ok = await ensureRouterParkReady()
+    if (!ok) {
+      console.warn("[Chat Integration] RouterPark 聊天页未就绪，消息未发送")
+      sendResponse({ success: false, error: "Chat not ready" })
+      return
+    }
+  }
+
+  postToRouterPark(msg)
+  sendResponse({ success: true })
+}
+
+async function handleRouterParkImage(
+  request: any,
+  sendResponse: (resp: any) => void
+) {
+  const msg: RouterParkMessage = {
+    type: "CHAT_INSERT_IMAGE",
+    payload: { images: request.images }
+  }
+
+  if (!routerParkReady) {
+    pendingMessages.push(msg)
+    const ok = await ensureRouterParkReady()
+    if (!ok) {
+      sendResponse({ success: false, error: "Chat not ready" })
+      return
+    }
+  }
+
+  postToRouterPark(msg)
+  sendResponse({ success: true })
+}
+
+// ====== Legacy iframe fallback ======
+
+function sendMessageToChatViaIframe(message: RouterParkMessage) {
+  const chatWindow = findChatWindow()
   if (chatWindow) {
-    console.log("[Chat Integration] 发送消息到聊天应用:", message)
     chatWindow.postMessage(message, "*")
   } else {
-    console.warn("[Chat Integration] 未找到聊天应用窗口")
-    // 如果没有找到 iframe，直接在当前窗口发送
     window.postMessage(message, "*")
   }
 }
 
-// 查找聊天应用窗口
 function findChatWindow(): Window | null {
-  // 检查是否有特定的 iframe
   const chatIframe = document.querySelector(
     'iframe[src*="chat"], iframe[name="chat"]'
   ) as HTMLIFrameElement
+  if (chatIframe?.contentWindow) return chatIframe.contentWindow
 
-  if (chatIframe && chatIframe.contentWindow) {
-    return chatIframe.contentWindow
+  for (const iframe of document.querySelectorAll("iframe")) {
+    if (iframe.contentWindow) return iframe.contentWindow
   }
 
-  // 检查所有 iframe
-  const iframes = document.querySelectorAll("iframe")
-  for (const iframe of iframes) {
-    if (iframe.contentWindow) {
-      return iframe.contentWindow
-    }
-  }
-
-  // 如果没有 iframe，返回当前窗口
-  return window
+  return null
 }
 
-// 监听来自聊天应用的响应
-window.addEventListener("message", (event) => {
-  if (event.data.type === "CHAT_RESPONSE") {
-    console.log("[Chat Integration] 收到 AI 回复:", event.data.payload.content)
+// ====== Capture ======
 
-    // 将响应发送回 background
-    chrome.runtime.sendMessage({
-      action: "chatResponse",
-      data: event.data.payload
-    })
-  }
-
-  if (event.data.type === "CHAT_READY") {
-    console.log("[Chat Integration] 聊天应用已就绪")
-  }
-})
-
-// 截图并发送到聊天
-async function captureAndSendToChat(prompt?: string) {
+async function handleCaptureAndSend(prompt?: string) {
   try {
-    // 使用 Chrome API 截图
-    const dataUrl = await chrome.runtime.sendMessage({
-      action: "captureVisibleTab"
-    })
+    const dataUrl = await chrome.runtime.sendMessage({ action: "captureVisibleTab" })
+    if (!dataUrl) return
 
-    if (dataUrl) {
-      // 发送图片到聊天
-      sendMessageToChat({
+    if (isRouterParkChat) {
+      const msg: RouterParkMessage = {
         type: "CHAT_INSERT_IMAGE",
-        payload: {
-          images: [dataUrl]
-        }
-      })
+        payload: { images: [dataUrl] }
+      }
+      if (!routerParkReady) pendingMessages.push(msg)
+      else postToRouterPark(msg)
 
-      // 如果有提示文本，也发送
+      if (prompt) {
+        const textMsg: RouterParkMessage = {
+          type: "CHAT_INPUT",
+          payload: { text: prompt, autoSend: false }
+        }
+        setTimeout(() => {
+          if (!routerParkReady) pendingMessages.push(textMsg)
+          else postToRouterPark(textMsg)
+        }, 300)
+      }
+    } else {
+      sendMessageToChatViaIframe({
+        type: "CHAT_INSERT_IMAGE",
+        payload: { images: [dataUrl] }
+      })
       if (prompt) {
         setTimeout(() => {
-          sendMessageToChat({
+          sendMessageToChatViaIframe({
             type: "CHAT_INPUT",
-            payload: {
-              text: prompt,
-              autoSend: false
-            }
+            payload: { text: prompt, autoSend: false }
           })
         }, 100)
       }
@@ -148,24 +252,56 @@ async function captureAndSendToChat(prompt?: string) {
   }
 }
 
-// 导出工具函数供其他 content scripts 使用
+// ====== Exported helpers (for other content scripts) ======
+
 export function sendTextToChat(text: string, autoSend = false) {
-  sendMessageToChat({
-    type: autoSend ? "CHAT_SEND" : "CHAT_INPUT",
-    payload: {
-      text,
-      autoSend
+  if (isRouterParkChat) {
+    const msg: RouterParkMessage = {
+      type: autoSend ? "CHAT_SEND" : "CHAT_INPUT",
+      payload: { text, autoSend }
     }
-  })
+    if (!routerParkReady) pendingMessages.push(msg)
+    else postToRouterPark(msg)
+  } else {
+    sendMessageToChatViaIframe({
+      type: autoSend ? "CHAT_SEND" : "CHAT_INPUT",
+      payload: { text, autoSend }
+    })
+  }
 }
 
 export function sendImageToChat(images: string[]) {
-  sendMessageToChat({
-    type: "CHAT_INSERT_IMAGE",
-    payload: {
-      images
+  if (isRouterParkChat) {
+    const msg: RouterParkMessage = {
+      type: "CHAT_INSERT_IMAGE",
+      payload: { images }
     }
-  })
+    if (!routerParkReady) pendingMessages.push(msg)
+    else postToRouterPark(msg)
+  } else {
+    sendMessageToChatViaIframe({
+      type: "CHAT_INSERT_IMAGE",
+      payload: { images }
+    })
+  }
 }
 
-console.log("[Chat Integration] Content script 已加载")
+// ====== Init ======
+
+// Register as chat tab with background (for cross-tab forwarding)
+if (isRouterParkChat) {
+  // Notify background this tab can be used for chat
+  chrome.runtime.sendMessage({
+    action: "registerChatTab",
+    url: location.href
+  })
+
+  // If page is already ready (SPA navigation), mark ready
+  if (document.querySelector('[class*="chat"], [class*="message"], [class*="input"]')) {
+    routerParkReady = true
+  }
+
+  console.log("[Chat Integration] RouterPark 模式已激活")
+} else {
+  console.log("[Chat Integration] Content script 已加载")
+}
