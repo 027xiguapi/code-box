@@ -1,4 +1,4 @@
-{
+﻿{
   "extensionName": {
     "message": "codebox-लॉगिन के बिना एक क्लिक कोड कॉपी"
   },
@@ -7,6 +7,9 @@
   },
   "popupDescription": {
     "message": "लॉगिन के बिना एक क्लिक कोड कॉपी"
+  },
+  "syncArticle": {
+    "message": "लेख सिंक करें"
   },
   "history": {
     "message": "ऐतिहासिक रिकॉर्ड"

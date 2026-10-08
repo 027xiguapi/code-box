@@ -1,4 +1,4 @@
-{
+﻿{
   "extensionName": {
     "message": "codebox-копирование кода одним кликом без входа"
   },
@@ -7,6 +7,9 @@
   },
   "popupDescription": {
     "message": "копирование кода одним кликом без входа"
+  },
+  "syncArticle": {
+    "message": "Синхронизация статей"
   },
   "history": {
     "message": "История"

@@ -20,7 +20,7 @@ export function useEditMarkdown(option?) {
       title: articleTitle
     }
     setPost(JSON.stringify(post))
-    window.open("https://md.code-box.fun", "_blank")
+    window.open("https://md.randbox.top", "_blank")
   }
 
   return [post, handleSetPost]

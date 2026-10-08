@@ -10,7 +10,9 @@ https://code-box.fun/docs
 
 ## 介绍
 
-本浏览器插件可以用于CSDN/知乎/脚本之家/博客园/博客园/51CTO博客/php中文网/掘金/微信等网站,一键下载文章成html或markdown文件;实现无需登录一键复制代码;支持选中代码;或者代码右上角按钮的一键复制;解除关注博主即可阅读全文提示;去除登录弹窗;去除跳转APP弹窗.
+本浏览器插件可以用于CSDN/知乎/脚本之家/博客园/博客园/51CTO博客/php中文网/掘金/微信等网站,一键下载文章成html或markdown文件;实现无需登录一键复制代码;支持选中代码;或者代码右上角按钮的一键复制;解除关注博主即可阅读全文提示;去除登录弹窗;去除跳转APP弹窗。
+
+同时支持**文章同步**：一键把当前文章同步到微信公众号、知乎、微博、小红书、掘金、CSDN、头条号等 29+ 主流平台（默认保存为草稿），支持 WordPress、Typecho 等自建站。
 
 ## 安装
 
@@ -67,6 +69,94 @@ https://code-box.fun/docs
 ## 功能
 
 ![img-1](https://raw.githubusercontent.com/027xiguapi/code-box/main/public/config.jpg)
+
+### 文章同步（29+ 主流平台）🆕
+
+参考 [Wechatsync 文章同步助手](https://github.com/wechatsync/Wechatsync) 的适配器体系实现，一键把当前页面文章**同步到 29+ 主流平台**，默认保存为草稿，确认无误后再发布。
+
+#### 特点
+
+- **用自己的登录态**：直接使用浏览器中已登录的 Cookie，无需额外授权，无需输入密码
+- **调用平台官方接口**：与你在网页编辑器里手动发布完全等价
+- **数据不离开浏览器**：所有请求从你的浏览器直接发往各平台，没有中间服务器
+- **草稿优先**：默认只保存草稿，不会自动发布
+- **图片自动转存**：正文图片自动上传到目标平台
+- **按平台适配内容**：不同平台对 HTML 结构要求不同（是否保留链接、标签是否压缩、代码块格式等），同步前会为每个平台分别预处理
+- **自建站支持**：WordPress、Typecho、MetaWeblog
+
+#### 使用方式
+
+1. 打开任意文章页面（微信公众号文章、知乎、掘金、CSDN、博客园等都可以）
+2. 三个入口任选其一：
+   - 点击扩展图标 → `文章同步`
+   - 文章页左侧悬浮面板 → `文章同步`
+   - 微信公众号文章页左侧面板 → `文章同步`
+3. 在同步面板中确认提取到的文章 → 勾选目标平台（面板会显示各平台登录状态）→ `开始同步`
+4. 同步完成后可在面板中查看每个平台的状态、草稿链接和同步历史
+
+#### 支持平台
+
+| 平台 | ID | 类型 | 同步方式 |
+|-----|-----|-----|-----|
+| 微信公众号 | weixin | 主流自媒体 | 接口（草稿） |
+| 知乎 | zhihu | 主流自媒体 | 接口（草稿） |
+| 微博 | weibo | 主流自媒体 | 接口（草稿） |
+| 小红书 | xiaohongshu | 主流自媒体 | 编辑器辅助（实验） |
+| 掘金 | juejin | 技术社区 | 接口（草稿） |
+| CSDN | csdn | 技术社区 | 接口（草稿） |
+| 简书 | jianshu | 通用 | 接口（草稿） |
+| 头条号 | toutiao | 通用 | 接口（草稿） |
+| 抖音图文 | douyin | 主流自媒体 | 编辑器辅助（实验） |
+| B站专栏 | bilibili | 通用 | 接口（草稿） |
+| 百家号 | baijiahao | 通用 | 接口（草稿） |
+| 语雀 | yuque | 技术社区 | 接口（草稿） |
+| 豆瓣 | douban | 通用 | 接口（草稿） |
+| 搜狐号 | sohu | 通用 | 接口（草稿） |
+| 雪球 | xueqiu | 财经 | 接口（草稿） |
+| 人人都是产品经理 | woshipm | 产品 | 接口（草稿） |
+| 大鱼号 | dayu | 通用 | 接口（草稿） |
+| 一点号 | yidian | 通用 | 接口（草稿） |
+| 51CTO | 51cto | 技术社区 | 接口（草稿） |
+| 慕课网 | imooc | 技术社区 | 接口（草稿） |
+| 开源中国 | oschina | 技术社区 | 接口（草稿） |
+| SegmentFault | segmentfault | 技术社区 | 接口（草稿） |
+| 博客园 | cnblogs | 技术社区 | 接口（草稿） |
+| 搜狐焦点 | sohufocus | 房产 | 接口（草稿） |
+| X (Twitter) | x | 海外 | 编辑器辅助（实验） |
+| 东方财富 | eastmoney | 财经 | 接口（草稿） |
+| 什么值得买 | smzdm | 通用 | 编辑器辅助（实验） |
+| 网易号 | netease | 通用 | 编辑器辅助（实验） |
+| WordPress | wordpress | 建站/CMS | 接口（草稿） |
+| Typecho | typecho | 建站/CMS | 接口（草稿） |
+| Hexo | zip-download | 建站/CMS | 通过 Markdown 打包下载 |
+| Hugo | zip-download | 建站/CMS | 通过 Markdown 打包下载 |
+
+> 说明：「编辑器辅助」表示该平台未公开草稿接口（或接口需要浏览器端签名 / 风控校验），扩展会打开该平台的官方编辑器并自动填充标题与正文，你确认后保存草稿或发布即可。
+
+#### 自建站（WordPress / Typecho / MetaWeblog）
+
+在同步面板的「自建站账号」中填写站点地址、用户名和密码（密码仅保存在本地浏览器中），添加后即可作为同步目标。WordPress 建议使用「应用密码」。
+
+#### 代码结构（开发者）
+
+```
+sync/
+├── types.ts                  # 公共类型（Article / SyncResult / PlatformMeta）
+├── lib/                      # HTML→Markdown、图片解析、CSS 内联、AWS4 签名、日志
+├── runtime/                  # 运行时抽象 + Chrome 扩展实现（fetch / cookies / headerRules）
+├── adapters/
+│   ├── code-adapter.ts       # 适配器基类（请求、图片上传、Header 规则、HTML 清理）
+│   ├── editor-assist.ts      # 编辑器辅助基类（半自动同步）
+│   ├── registry.ts           # 适配器注册中心
+│   ├── platforms/            # 29 个平台适配器
+│   └── cms/                  # WordPress / MetaWeblog(Typecho)
+└── extension/                # 文章提取器、平台内容预处理、同步引擎
+contents/sync.ts              # 内容脚本：文章提取 + 按平台预处理
+tabs/sync.tsx                 # 文章同步面板界面
+```
+
+新增平台：在 `sync/adapters/platforms/` 下实现 `CodeAdapter` 子类（需要浏览器操作的平台继承 `EditorAssistAdapter`），然后在 `sync/adapters/platforms/index.ts` 的 `ALL_ADAPTERS` 中注册即可。
+
 
 ### 自定义
 
@@ -176,6 +266,7 @@ https://code-box.fun/docs
 4. [开箱即用的web打印和下载](https://juejin.cn/post/7412672713376497727)
 5. [导出微信公众号文章为PDF](https://greasyfork.org/en/scripts/510683-%E5%AF%BC%E5%87%BA%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E6%96%87%E7%AB%A0%E4%B8%BApdf/code)
 6. [微信公众号推文图片一键下载](https://greasyfork.org/zh-CN/scripts/40583-%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E6%8E%A8%E6%96%87%E5%9B%BE%E7%89%87%E4%B8%80%E9%94%AE%E4%B8%8B%E8%BD%BD/code)
+7. [Wechatsync 文章同步助手](https://github.com/wechatsync/Wechatsync)（文章同步适配器体系参考）
 
 ## 隐私政策
 

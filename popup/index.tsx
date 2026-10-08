@@ -1,3 +1,6 @@
+import { CloudUploadOutlined } from "@ant-design/icons"
+import { Button } from "antd"
+
 import Content from "~component/options/content"
 import BatchDownload from "~component/items/batchDownload"
 import { ThemeProvider } from "~theme"
@@ -25,6 +28,18 @@ export default function IndexPopup() {
     })
   }
 
+  // 打开文章同步页面，并带上当前标签页 ID
+  async function openSyncPage() {
+    try {
+      const [tab] = await chrome.tabs.query({ active: true, currentWindow: true })
+      const query = tab?.id ? `?tabId=${tab.id}` : ""
+      chrome.tabs.create({ url: chrome.runtime.getURL(`tabs/sync.html${query}`) })
+      window.close()
+    } catch (error) {
+      console.error("打开文章同步页面失败", error)
+    }
+  }
+
   return (
     <ThemeProvider>
       <div className="App popup">
@@ -33,6 +48,14 @@ export default function IndexPopup() {
           <p className="desc">{i18n("popupDescription")}</p>
         </div>
         <div className="App-body">
+          <Button
+            type="primary"
+            block
+            icon={<CloudUploadOutlined />}
+            style={{ marginBottom: 8 }}
+            onClick={openSyncPage}>
+            {i18n("syncArticle") || "文章同步"}
+          </Button>
           <BatchDownload />
           <Content />
         </div>

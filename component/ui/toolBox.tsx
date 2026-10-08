@@ -3,6 +3,7 @@ import React, { useState } from "react"
 
 import { i18n } from "~tools"
 import { editQRCodeImg } from "~utils/makerQRPost"
+import { openSyncPage } from "~utils/syncArticle"
 
 const boxStyles = {
   box: {
@@ -101,6 +102,9 @@ export default function ToolBox(props: any) {
       </div>
       <div style={boxStyles.item}>
         <a onClick={() => getArticle()}>{i18n("getArticle")}</a>
+      </div>
+      <div style={boxStyles.item}>
+        <a onClick={() => openSyncPage()}>{i18n("syncArticle") || "文章同步"}</a>
       </div>
       <a style={boxStyles.item} href="https://www.code-box.fun" target="_blank">
         帮助

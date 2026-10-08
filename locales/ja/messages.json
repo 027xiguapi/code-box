@@ -1,4 +1,4 @@
-{
+﻿{
   "extensionName": {
     "message": "codebox-ログイン不要でワンクリックコードコピー"
   },
@@ -7,6 +7,9 @@
   },
   "popupDescription": {
     "message": "ログイン不要でワンクリックコードコピー"
+  },
+  "syncArticle": {
+    "message": "記事を同期"
   },
   "history": {
     "message": "履歴記録"

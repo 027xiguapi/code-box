@@ -1,7 +1,9 @@
 {
   "extends": "plasmo/templates/tsconfig.base",
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "Wechatsync",
+    "wechat-article-detection"
   ],
   "include": [
     ".plasmo/index.d.ts",

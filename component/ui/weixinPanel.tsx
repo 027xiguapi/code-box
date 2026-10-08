@@ -1,6 +1,7 @@
 import React from "react"
 
 import { i18n } from "~tools"
+import { openSyncPage } from "~utils/syncArticle"
 
 import qrcodeUrl from "raw:~/public/wx/gzh.jpg"
 
@@ -133,6 +134,9 @@ export default function WeixinPanel(props: {
         ×
       </button>
       <img src={qrcodeUrl} alt="qrcodeUrl" style={styles.img} />
+      <div style={styles.item}>
+        <a onClick={() => openSyncPage()}>{i18n("syncArticle") || "文章同步"}</a>
+      </div>
       <div style={styles.item}>
         <a onClick={onGetThumbMedia}>{i18n("getThumbMedia")}</a>
       </div>

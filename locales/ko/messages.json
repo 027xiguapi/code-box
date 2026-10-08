@@ -1,4 +1,4 @@
-{
+﻿{
   "extensionName": {
     "message": "codebox-로그인 없이 원클릭 코드 복사"
   },
@@ -7,6 +7,9 @@
   },
   "popupDescription": {
     "message": "로그인 없이 원클릭 코드 복사"
+  },
+  "syncArticle": {
+    "message": "글 동기화"
   },
   "history": {
     "message": "기록"

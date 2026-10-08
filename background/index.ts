@@ -139,6 +139,15 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     console.log("[Background] 收到聊天响应:", request.data?.content?.slice(0, 80))
   }
 
+  // 打开文章同步页面（带上来源标签页 ID，便于自动提取文章）
+  if (request.action === "openSyncPage") {
+    const tabId = sender.tab?.id
+    const query = tabId ? `?tabId=${tabId}` : ""
+    chrome.tabs.create({ url: chrome.runtime.getURL(`tabs/sync.html${query}`) })
+    sendResponse({ success: true })
+    return true
+  }
+
   // RouterPark 聊天标签注册
   if (request.action === "registerChatTab") {
     if (sender.tab?.id) {

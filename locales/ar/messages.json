@@ -1,4 +1,4 @@
-{
+﻿{
   "extensionName": {
     "message": "codebox-نسخ الكود بنقرة واحدة بدون تسجيل الدخول"
   },
@@ -7,6 +7,9 @@
   },
   "popupDescription": {
     "message": "نسخ الكود بنقرة واحدة بدون تسجيل الدخول"
+  },
+  "syncArticle": {
+    "message": "مزامنة المقالات"
   },
   "history": {
     "message": "السجلات التاريخية"

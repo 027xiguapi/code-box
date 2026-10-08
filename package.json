@@ -1,7 +1,7 @@
 {
   "name": "code-box",
   "displayName": "__MSG_extensionName__",
-  "version": "2.0.2",
+  "version": "2.1.0",
   "description": "__MSG_extensionDescription__",
   "author": "027xiguapi. <458813868@qq.com>",
   "scripts": {
@@ -31,12 +31,17 @@
     "dayjs": "^1.11.12",
     "file-saver": "^2.0.5",
     "html2canvas": "^1.4.1",
+    "js-md5": "^0.8.3",
     "jssha": "^3.3.1",
     "jszip": "^3.10.1",
+    "markdown-draft-js": "^2.4.0",
+    "marked": "^17.0.6",
     "plasmo": "0.90.5",
     "qrcode": "^1.5.4",
     "react": "19.2.3",
     "react-dom": "19.2.3",
+    "remarkable": "^2.0.1",
+    "turndown": "^7.2.4",
     "uuid": "^10.0.0"
   },
   "devDependencies": {
@@ -50,6 +55,7 @@
     "prettier": "3.2.4",
     "sass": "^1.99.0",
     "sharp": "^0.33.5",
+    "stream-browserify": "^3.0.0",
     "typescript": "5.3.3"
   },
   "manifest": {
@@ -63,9 +69,17 @@
     "permissions": [
       "activeTab",
       "downloads",
-      "contextMenus"
+      "contextMenus",
+      "storage",
+      "unlimitedStorage",
+      "cookies",
+      "scripting",
+      "tabs",
+      "declarativeNetRequest",
+      "declarativeNetRequestWithHostAccess"
     ],
     "host_permissions": [
+      "http://*/*",
       "https://*/*"
     ],
     "omnibox": {

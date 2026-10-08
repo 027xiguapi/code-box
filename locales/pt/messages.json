@@ -1,4 +1,4 @@
-{
+﻿{
   "extensionName": {
     "message": "codebox-cópia de código com um clique sem login"
   },
@@ -7,6 +7,9 @@
   },
   "popupDescription": {
     "message": "cópia de código com um clique sem login"
+  },
+  "syncArticle": {
+    "message": "Sincronizar artigos"
   },
   "history": {
     "message": "Histórico"

@@ -1,4 +1,4 @@
-{
+﻿{
   "extensionName": {
     "message": "codebox-copie de code en un clic sans connexion"
   },
@@ -7,6 +7,9 @@
   },
   "popupDescription": {
     "message": "copie de code en un clic sans connexion"
+  },
+  "syncArticle": {
+    "message": "Synchroniser les articles"
   },
   "history": {
     "message": "Historique"
