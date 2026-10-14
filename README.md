@@ -173,6 +173,7 @@ tabs/sync.tsx                 # 文章同步面板界面
 - 一键下载文章markdown
 - 一键下载文章pdf
 - 一键下载所有图片
+- 一键下载图片消息(图文)：原图打包、Markdown+图片打包，支持 `mp.weixin.qq.com/s/xxx` 与 `mp.weixin.qq.com/s?__biz=...` 两种链接形态
 
 ### 掘金
 - 插入自定义样式(css代码)

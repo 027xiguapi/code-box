@@ -21,19 +21,116 @@ import { Print } from "~utils/print"
 import Turndown from "~utils/turndown"
 
 export const config: PlasmoCSConfig = {
-  matches: ["https://mp.weixin.qq.com/s/*", "https://mp.weixin.qq.com/s?src=*"]
+  matches: [
+    "https://mp.weixin.qq.com/s/*",
+    "https://mp.weixin.qq.com/s?*"
+  ]
 }
 
 const turndownService = Turndown()
-const articleTitle = document
-  .querySelector<HTMLMetaElement>('meta[property="og:title"]')
-  .content.trim()
+
+function getArticleTitle() {
+  return (
+    document
+      .querySelector<HTMLMetaElement>('meta[property="og:title"]')
+      ?.content?.trim() ||
+    document
+      .querySelector("#js_image_content .rich_media_title, #activity-name")
+      ?.textContent?.trim() ||
+    document.title.trim()
+  )
+}
+
+// 图片消息（新版图文/分享页，根容器为 #js_article.share_content_page）
+function isImageArticle() {
+  return !!document.querySelector(
+    "#js_image_content, #img_list, .share_content_page"
+  )
+}
+
+function normalizeArticleImageUrl(url: string) {
+  let result = url.trim()
+  if (result.startsWith("//")) result = "https:" + result
+  // tp=webp 是压缩预览图，去掉后尽量取原图
+  return result.replace(/([?&])tp=webp(?=&|$)/, "$1")
+}
+
+// 图片消息的图片列表：优先 swiper 的 data-src（原图），否则回退到 img.src
+function getImageArticleImages() {
+  const urls: string[] = []
+  const seen = new Set<string>()
+  const push = (raw?: string | null) => {
+    if (!raw) return
+    const url = normalizeArticleImageUrl(raw)
+    if (url && !seen.has(url)) {
+      seen.add(url)
+      urls.push(url)
+    }
+  }
+
+  // 占位区 #img_list 只有首图，真实列表由 Vue 渲染在 #page_top_area
+  document
+    .querySelectorAll<HTMLElement>(".swiper_item[data-src]")
+    .forEach((item) => push(item.getAttribute("data-src")))
+
+  if (urls.length === 0) {
+    document
+      .querySelectorAll<HTMLImageElement>(".swiper_item_img img")
+      .forEach((img) => push(img.currentSrc || img.src))
+  }
+
+  return urls
+}
+
+// 图片消息没有 #img-content，拼一个等价的内容节点供 markdown/html/word/pdf 导出
+function getImageArticleDom() {
+  const container = document.createElement("div")
+  container.id = "codebox-weixin-image-article"
+
+  const title = getArticleTitle()
+  if (title) {
+    const h1 = document.createElement("h1")
+    h1.textContent = title
+    container.appendChild(h1)
+  }
+
+  const desc = document.querySelector("#js_image_desc")
+  if (desc) {
+    // <br><br> 作段落分隔，单个 <br> 保留为行内换行
+    desc.innerHTML
+      .split(/(?:<br\s*\/?>\s*){2,}/i)
+      .forEach((html) => {
+        const p = document.createElement("p")
+        p.innerHTML = html
+        container.appendChild(p)
+      })
+  }
+
+  getImageArticleImages().forEach((url) => {
+    const p = document.createElement("p")
+    const img = document.createElement("img")
+    img.setAttribute("src", url)
+    p.appendChild(img)
+    container.appendChild(p)
+  })
+
+  return container
+}
+
+function getArticleDom(): HTMLElement | null {
+  return (
+    document.querySelector<HTMLElement>("#img-content") ||
+    (isImageArticle() ? getImageArticleDom() : null)
+  )
+}
 
 const HOST_ID = "codebox-weixin"
 export const getShadowHostId: PlasmoGetShadowHostId = () => HOST_ID
 
 export const getOverlayAnchor: PlasmoGetOverlayAnchor = async () =>
-  document.querySelector("#activity-detail")
+  document.querySelector("#activity-detail") ||
+  document.querySelector("#js_image_content") ||
+  document.querySelector("#js_content")
 
 const formatLimit = 5
 const formatList = new WeakMap()
@@ -129,15 +226,16 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     }
     if (req.name == "weixin-downloadMarkdown") {
       if (req.body?.action === "getMarkdown") {
-        const html = document.querySelector("#img-content")
-        const markdown = turndownService.turndown(html)
-        res.send({ markdown, title: articleTitle })
+        const html = getArticleDom()
+        const markdown = html ? turndownService.turndown(html) : ""
+        res.send({ markdown, title: getArticleTitle() })
       } else {
         downloadMarkdown()
       }
     }
     if (req.name == "weixin-downloadMarkdownWithImages") {
       await downloadMarkdownWithImages(req.body?.onProgress)
+      res.send({ ok: true })
     }
     if (req.name == "weixin-downloadHtml") {
       downloadHtml()
@@ -150,6 +248,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     }
     if (req.name == "weixin-downloadImages") {
       await downloadImages(req.body?.onProgress)
+      res.send({ ok: true })
     }
     if (req.name == "weixin-getThumbMedia") {
       getThumbMedia()
@@ -157,38 +256,45 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   })
 
   function getThumbMedia() {
-    const thumbMediaUrl = document.querySelector<HTMLMetaElement>(
+    const ogImage = document.querySelector<HTMLMetaElement>(
       'meta[property="og:image"]'
-    ).content
+    )?.content
+    const thumbMediaUrl = ogImage || getImageArticleImages()[0]
     thumbMediaUrl && window.open(thumbMediaUrl)
   }
 
   function getDescription() {
-    const summary = document.querySelector<HTMLMetaElement>(
-      'meta[name="description"]'
-    ).content
+    const summary =
+      document.querySelector<HTMLMetaElement>('meta[name="description"]')
+        ?.content || document.querySelector("#js_image_desc")?.textContent
     summary && prompt(i18n("getDescription"), summary)
   }
 
   async function downloadImages(
     onProgress?: (current: number, total: number) => void
   ) {
-    const article = document.querySelector("#js_content")
-    if (!article) return
+    let imageUrls: string[] = []
 
-    const images = Array.from(article.getElementsByTagName("img"))
-    const imageUrls = images
-      .map((img) => img.dataset.src || img.src)
-      .filter((url) => url)
-      .map((url) =>
-        url.replace(
-          "//res.wx.qq.com/mmbizwap",
-          "https://res.wx.qq.com/mmbizwap"
+    if (isImageArticle()) {
+      imageUrls = getImageArticleImages()
+    } else {
+      const article = document.querySelector("#js_content")
+      if (!article) return
+
+      const images = Array.from(article.getElementsByTagName("img"))
+      imageUrls = images
+        .map((img) => img.dataset.src || img.src)
+        .filter((url) => url)
+        .map((url) =>
+          url.replace(
+            "//res.wx.qq.com/mmbizwap",
+            "https://res.wx.qq.com/mmbizwap"
+          )
         )
-      )
+    }
 
     const zip = new JSZip()
-    const title = document.title.trim()
+    const title = getArticleTitle()
     const total = imageUrls.length
 
     for (let i = 0; i < imageUrls.length; i++) {
@@ -229,9 +335,9 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   }
 
   function downloadPdf() {
-    const article = document.querySelector<HTMLElement>("#img-content")
+    const article = getArticleDom()
     if (article) {
-      Print.print(article, { title: articleTitle })
+      Print.print(article, { title: getArticleTitle() })
         .then(() => console.log("Printing complete"))
         .catch((error) => console.error("Printing failed:", error))
     }
@@ -239,13 +345,13 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
 
   async function downloadWord() {
     await scrollToLoadImages()
-    const dom = document.querySelector("#img-content")
-    saveWord(dom, articleTitle)
+    const dom = getArticleDom()
+    saveWord(dom, getArticleTitle())
   }
 
   function editMarkdown() {
-    const dom = document.querySelector("#img-content")
-    setContent(dom, articleTitle)
+    const dom = getArticleDom()
+    setContent(dom, getArticleTitle())
   }
 
   async function scrollToLoadImages() {
@@ -278,9 +384,10 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   async function downloadMarkdown() {
     await scrollToLoadImages()
 
-    const html = document.querySelector("#img-content")
+    const html = getArticleDom()
+    if (!html) return
     const markdown = turndownService.turndown(html)
-    await saveMarkdown(markdown, articleTitle)
+    await saveMarkdown(markdown, getArticleTitle())
   }
 
   async function downloadMarkdownWithImages(
@@ -288,7 +395,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   ) {
     await scrollToLoadImages()
 
-    const html = document.querySelector("#img-content")
+    const html = getArticleDom()
     if (!html) return
 
     let markdown = turndownService.turndown(html)
@@ -303,7 +410,7 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
     }
 
     const zip = new JSZip()
-    const title = articleTitle || document.title.trim()
+    const title = getArticleTitle()
     const total = imageEntries.length + 1
 
     const getExt = (url: string) => {
@@ -348,14 +455,15 @@ const PlasmoOverlay: FC<PlasmoCSUIProps> = ({ anchor }) => {
   }
 
   function downloadHtml() {
-    const dom = document.querySelector("#img-content")
-    saveHtml(dom, articleTitle)
+    const dom = getArticleDom()
+    saveHtml(dom, getArticleTitle())
   }
 
   async function parseMarkdown() {
-    const html = document.querySelector("#img-content")
+    const html = getArticleDom()
+    if (!html) return
     const markdown = turndownService.turndown(html)
-    await saveMarkdownWithLocalImages(markdown, articleTitle)
+    await saveMarkdownWithLocalImages(markdown, getArticleTitle())
   }
 
   function onClose() {

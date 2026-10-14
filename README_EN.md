@@ -169,6 +169,7 @@ To add a platform: implement a `CodeAdapter` subclass in `sync/adapters/platform
 - One-click download of article Markdown
 - One-click download of article PDF
 - One-click download of all images
+- One-click download of image posts (图文): original images as zip, Markdown + images as zip; supports both `mp.weixin.qq.com/s/xxx` and `mp.weixin.qq.com/s?__biz=...` link forms
 
 ### Nuggets
 

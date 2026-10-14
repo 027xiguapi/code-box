@@ -40,6 +40,8 @@ dist/
 
 .env
 
+.e2e
+
 server
 Wechatsync
 wechat-article-detection
