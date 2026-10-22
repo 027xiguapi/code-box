@@ -171,6 +171,12 @@ To add a platform: implement a `CodeAdapter` subclass in `sync/adapters/platform
 - One-click download of all images
 - One-click download of image posts (图文): original images as zip, Markdown + images as zip; supports both `mp.weixin.qq.com/s/xxx` and `mp.weixin.qq.com/s?__biz=...` link forms
 
+### Xiaohongshu
+
+- "Download note" button at the bottom right of a note detail page
+- Download note images plus title/body as a zip (Markdown + images)
+- De-duplicates carousel (swiper) slides and numbers images in their original order
+
 ### Nuggets
 
 - Insert custom styles (CSS code)

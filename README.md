@@ -175,6 +175,11 @@ tabs/sync.tsx                 # 文章同步面板界面
 - 一键下载所有图片
 - 一键下载图片消息(图文)：原图打包、Markdown+图片打包，支持 `mp.weixin.qq.com/s/xxx` 与 `mp.weixin.qq.com/s?__biz=...` 两种链接形态
 
+### 小红书
+- 笔记详情页右下角「下载图文」按钮
+- 一键下载笔记图片与标题/正文，打包为 zip（Markdown + 图片）
+- 自动去除轮播(swiper)的重复 slide，按原顺序编号
+
 ### 掘金
 - 插入自定义样式(css代码)
 - 一键下载文章html
