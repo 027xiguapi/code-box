@@ -177,6 +177,12 @@ To add a platform: implement a `CodeAdapter` subclass in `sync/adapters/platform
 - Download note images plus title/body as a zip (Markdown + images)
 - De-duplicates carousel (swiper) slides and numbers images in their original order
 
+### ChatGPT
+
+- "Download Markdown" and "Save images" buttons at the bottom right of a conversation page
+- Markdown export scrolls through the whole conversation (handles virtualized lists) and keeps user/assistant messages, code blocks, tables and image links
+- Saves every image in the conversation into a `chatgpt/<conversation title>/` folder
+
 ### Nuggets
 
 - Insert custom styles (CSS code)
