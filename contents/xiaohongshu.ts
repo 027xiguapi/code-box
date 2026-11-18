@@ -2,12 +2,19 @@ import { saveAs } from "file-saver"
 import JSZip from "jszip"
 import type { PlasmoCSConfig } from "plasmo"
 
+import { sendToBackground } from "@plasmohq/messaging"
+
+import type { SyncXhsResult } from "~sync/xhs/client"
+import { collectNoteLinks, extractNoteFromPage } from "~sync/xhs/dom"
+import { getXhsNaichaConfig, isXhsNaichaConfigReady } from "~sync/xhs/storage"
+
 export const config: PlasmoCSConfig = {
   matches: ["https://www.xiaohongshu.com/*"],
   run_at: "document_idle"
 }
 
 const BUTTON_ID = "codebox-xhs-download"
+const SYNC_BUTTON_ID = "codebox-xhs-sync"
 
 const BUTTON_STYLE: Partial<CSSStyleDeclaration> = {
   position: "fixed",
@@ -25,6 +32,12 @@ const BUTTON_STYLE: Partial<CSSStyleDeclaration> = {
   cursor: "pointer",
   boxShadow: "0 4px 14px rgba(0, 0, 0, 0.22)",
   transition: "transform 0.15s ease, opacity 0.15s ease"
+}
+
+const SYNC_BUTTON_STYLE: Partial<CSSStyleDeclaration> = {
+  ...BUTTON_STYLE,
+  bottom: "156px",
+  background: "#16a34a"
 }
 
 function getNoteRoot() {
@@ -207,17 +220,19 @@ async function downloadNote(btn: HTMLButtonElement) {
   }
 }
 
-function ensureButton() {
-  if (!document.body) return
-  let btn = document.getElementById(BUTTON_ID) as HTMLButtonElement | null
-  if (btn) return btn
-
-  btn = document.createElement("button")
-  btn.id = BUTTON_ID
+function createActionButton(params: {
+  id: string
+  text: string
+  title: string
+  style: Partial<CSSStyleDeclaration>
+  onClick: (btn: HTMLButtonElement) => void
+}) {
+  const btn = document.createElement("button")
+  btn.id = params.id
   btn.type = "button"
-  btn.textContent = "下载图文"
-  btn.title = "下载当前笔记的图片与文字"
-  Object.assign(btn.style, BUTTON_STYLE)
+  btn.textContent = params.text
+  btn.title = params.title
+  Object.assign(btn.style, params.style)
   btn.addEventListener("mouseenter", () => {
     if (!btn.disabled) {
       btn.style.transform = "translateY(-1px)"
@@ -228,8 +243,127 @@ function ensureButton() {
     btn.style.transform = ""
     btn.style.opacity = ""
   })
-  btn.addEventListener("click", () => downloadNote(btn))
+  btn.addEventListener("click", () => params.onClick(btn))
   document.body.appendChild(btn)
+  return btn
+}
+
+function ensureButton() {
+  if (!document.body) return
+  let btn = document.getElementById(BUTTON_ID) as HTMLButtonElement | null
+  if (btn) return btn
+
+  btn = createActionButton({
+    id: BUTTON_ID,
+    text: "下载图文",
+    title: "下载当前笔记的图片与文字",
+    style: BUTTON_STYLE,
+    onClick: (target) => downloadNote(target)
+  })
+  return btn
+}
+
+function formatSyncedAt(value?: string) {
+  if (!value) return ""
+  const date = new Date(value)
+  return Number.isNaN(date.getTime()) ? value : date.toLocaleString()
+}
+
+async function syncToNaicha(btn: HTMLButtonElement) {
+  if (btn.disabled) return
+
+  const originalText = "同步奶茶圈"
+  let locked = false
+
+  try {
+    const config = await getXhsNaichaConfig()
+    if (!isXhsNaichaConfigReady(config)) {
+      if (
+        confirm(
+          "还没有配置奶茶圈接口（站点地址 / BOT_API_SECRET / 机器人账号 / 板块）。\n\n是否现在打开「小红书同步」页面配置？"
+        )
+      ) {
+        sendToBackground({ name: "xhsSync", body: { action: "openPage" } }).catch(
+          () => {}
+        )
+      }
+      return
+    }
+
+    const note = extractNoteFromPage(document, window.location.href)
+    if (!note) {
+      alert("未能读取当前笔记内容，请等页面加载完成后再试")
+      return
+    }
+
+    locked = true
+    btn.disabled = true
+    btn.style.cursor = "default"
+    btn.style.opacity = "0.75"
+    btn.textContent = "同步中..."
+
+    let result = await sendToBackground<any, SyncXhsResult>({
+      name: "xhsSync",
+      body: { action: "syncOne", url: window.location.href, note }
+    })
+
+    if (result?.duplicate) {
+      const when = formatSyncedAt(result.syncedAt)
+      const confirmed = confirm(
+        `《${result.title || note.title || "这篇笔记"}》${when ? `已于 ${when} ` : "已经"}同步过。\n\n是否重新同步？`
+      )
+      if (confirmed) {
+        btn.textContent = "同步中..."
+        result = await sendToBackground<any, SyncXhsResult>({
+          name: "xhsSync",
+          body: {
+            action: "syncOne",
+            url: window.location.href,
+            note,
+            force: true
+          }
+        })
+      } else {
+        btn.textContent = originalText
+        return
+      }
+    }
+
+    if (!result?.ok) {
+      throw new Error(result?.error || "同步失败")
+    }
+
+    btn.textContent = result.pending ? "已提交审核 ✓" : "已同步 ✓"
+    window.setTimeout(() => {
+      btn.textContent = originalText
+    }, 2500)
+  } catch (error) {
+    console.error("[CodeBox] 同步到奶茶圈失败", error)
+    alert(
+      `同步到奶茶圈失败：${(error as Error).message}\n\n如果扩展刚更新过，请刷新页面后重试。`
+    )
+    btn.textContent = originalText
+  } finally {
+    if (locked) {
+      btn.disabled = false
+      btn.style.cursor = "pointer"
+      btn.style.opacity = ""
+    }
+  }
+}
+
+function ensureSyncButton() {
+  if (!document.body) return
+  let btn = document.getElementById(SYNC_BUTTON_ID) as HTMLButtonElement | null
+  if (btn) return btn
+
+  btn = createActionButton({
+    id: SYNC_BUTTON_ID,
+    text: "同步奶茶圈",
+    title: "把当前笔记的正文和图片发布到奶茶圈",
+    style: SYNC_BUTTON_STYLE,
+    onClick: (target) => syncToNaicha(target)
+  })
   return btn
 }
 
@@ -238,13 +372,84 @@ let visibilityTimer: number | undefined
 function updateVisibility() {
   window.clearTimeout(visibilityTimer)
   visibilityTimer = window.setTimeout(() => {
-    const btn = ensureButton()
-    if (btn) btn.style.display = getNoteRoot() ? "block" : "none"
+    const visible = Boolean(getNoteRoot())
+    const downloadBtn = ensureButton()
+    if (downloadBtn) downloadBtn.style.display = visible ? "block" : "none"
+    const syncBtn = ensureSyncButton()
+    if (syncBtn) syncBtn.style.display = visible ? "block" : "none"
   }, 100)
 }
 
+function delay(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
+
+/** 收集当前页面上的笔记链接，可选自动滚动加载更多 */
+async function collectLinksWithScroll(scroll: boolean) {
+  const byId = new Map<string, ReturnType<typeof collectNoteLinks>[number]>()
+
+  const harvest = () => {
+    for (const link of collectNoteLinks(document, window.location.href)) {
+      if (!byId.has(link.noteId)) byId.set(link.noteId, link)
+    }
+  }
+
+  harvest()
+
+  if (scroll) {
+    let stable = 0
+    let lastHeight = document.documentElement.scrollHeight
+    // 个人主页/搜索页是无限滚动，最多滚动 30 次
+    for (let i = 0; i < 30 && stable < 3; i++) {
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: "instant" as ScrollBehavior
+      })
+      await delay(800)
+      harvest()
+      const height = document.documentElement.scrollHeight
+      if (height === lastHeight) {
+        stable += 1
+      } else {
+        stable = 0
+      }
+      lastHeight = height
+    }
+  }
+
+  return [...byId.values()]
+}
+
+chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
+  if (!message || typeof message !== "object") return
+
+  if (message.type === "CODEBOX_XHS_GET_NOTE") {
+    try {
+      sendResponse({
+        note: extractNoteFromPage(document, window.location.href)
+      })
+    } catch (error) {
+      sendResponse({ note: null, error: (error as Error).message })
+    }
+    return true
+  }
+
+  if (message.type === "CODEBOX_XHS_COLLECT_LINKS") {
+    collectLinksWithScroll(Boolean(message.scroll))
+      .then((links) => sendResponse({ links }))
+      .catch((error) => sendResponse({ links: [], error: (error as Error).message }))
+    return true
+  }
+
+  if (message.type === "CODEBOX_XHS_PING") {
+    sendResponse({ ok: true, url: window.location.href })
+    return true
+  }
+})
+
 function start() {
   ensureButton()
+  ensureSyncButton()
   updateVisibility()
   const observer = new MutationObserver(updateVisibility)
   observer.observe(document.body, { childList: true, subtree: true })

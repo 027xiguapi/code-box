@@ -1,4 +1,4 @@
-import { CloudUploadOutlined } from "@ant-design/icons"
+import { CloudUploadOutlined, SyncOutlined } from "@ant-design/icons"
 import { Button } from "antd"
 
 import Content from "~component/options/content"
@@ -28,6 +28,16 @@ export default function IndexPopup() {
     })
   }
 
+  // 打开小红书推文同步页面
+  async function openXhsSyncPage() {
+    try {
+      chrome.tabs.create({ url: chrome.runtime.getURL("tabs/xhs-sync.html") })
+      window.close()
+    } catch (error) {
+      console.error("打开小红书同步页面失败", error)
+    }
+  }
+
   // 打开文章同步页面，并带上当前标签页 ID
   async function openSyncPage() {
     try {
@@ -55,6 +65,13 @@ export default function IndexPopup() {
             style={{ marginBottom: 8 }}
             onClick={openSyncPage}>
             {i18n("syncArticle") || "文章同步"}
+          </Button>
+          <Button
+            block
+            icon={<SyncOutlined />}
+            style={{ marginBottom: 8 }}
+            onClick={openXhsSyncPage}>
+            小红书同步
           </Button>
           <BatchDownload />
           <Content />
