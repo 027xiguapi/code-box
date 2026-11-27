@@ -1,6 +1,6 @@
 # codebox-一键复制代码/下载文章
 
-[中文](README.md) | [English](README_EN.md)
+[中文](README.md) | [English](README_EN.md) | [日本語](README_JA.md)
 
 ## 网站
 1. 官网
